@@ -190,16 +190,13 @@
      escalonada por --i. Reemplaza a la cortinilla, que barría el
      bloque entero de golpe y entraba demasiado brusca. */
   .rv--cascada{opacity:1;transition:none}
-  .rv--cascada > figure,
-  .rv--cascada > button{
+  .rv--cascada > figure{
     opacity:0;transform:translateY(30px) scale(.985);
     transition:opacity .8s var(--calma),transform 1s var(--calma);
     transition-delay:calc(var(--i,0) * 70ms);
   }
-  .rv--cascada.por-arriba > figure,
-  .rv--cascada.por-arriba > button{transform:translateY(-30px) scale(.985)}
-  .rv--cascada.in > figure,
-  .rv--cascada.in > button{opacity:1;transform:none}
+  .rv--cascada.por-arriba > figure{transform:translateY(-30px) scale(.985)}
+  .rv--cascada.in > figure{opacity:1;transform:none}
 
   /* Cada foto de un muro se revela sola. Los muros son mas altos que la
      pantalla: animados como un bloque unico, las fotos de abajo
@@ -219,7 +216,10 @@
   /* Las tiras se desplazan en horizontal (overflow-x:auto): un empujon
      vertical les crearia barra de scroll propia. Ahi la entrada es solo
      escala y desvanecido, que no se salen de la caja. */
-  .tira.rv--cascada > figure{transform:scale(.92)}
+  .tira.rv--cascada > figure{
+    transform:scale(.92);
+    transition-delay:calc(var(--i,0) * 70ms);
+  }
   .tira.rv--cascada.in > figure{transform:none}
 
   /* ───────── reproductor propio ───────── */
@@ -446,7 +446,7 @@
     html{scroll-behavior:auto}
     *,*::before,*::after{animation:none!important;transition:none!important}
     .rv{opacity:1;transform:none;clip-path:none}
-    .rv--cascada > figure,.rv--cascada > button{opacity:1;transform:none;transition:none}
+    .rv--cascada > figure{opacity:1;transform:none;transition:none}
     .rv--pieza{opacity:1;transform:none;transition:none}
     .rv--zoom img{opacity:1;transform:none}
     .rv--suave{transform:none}
@@ -457,7 +457,16 @@
   }
 
   /* ───────── detalles sutiles: bordes vivos en imágenes ───────── */
-  .muro button,.tira figure{border:1px solid rgba(242,239,233,.06);transition:border-color .7s var(--ease)}
+  /* OJO: esta regla va despues del bloque de reveal y apunta a los mismos
+     elementos con especificidad igual o mayor. La forma corta transition
+     no anade, sustituye: al declarar solo border-color borraba las
+     transiciones de opacity y transform del reveal y ponia el retardo en
+     cero. Las fotos aparecian de golpe y sin escalonado, mientras que los
+     textos, que esta regla no toca, si animaban. Van las tres juntas. */
+  .muro button,.tira figure{
+    border:1px solid rgba(242,239,233,.06);
+    transition:border-color .7s var(--ease),opacity .8s var(--calma),transform 1s var(--calma);
+  }
   .muro button:hover,.tira figure:hover{border-color:rgba(214,138,46,.42)}
   .marco,.lienzo,.dir .foto,.vp{transition:border-color .7s var(--ease)}
   .marco:hover,.lienzo:hover,.dir .foto:hover,.vp:hover{border-color:rgba(214,138,46,.34)}
