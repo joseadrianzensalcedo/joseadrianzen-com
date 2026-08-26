@@ -81,11 +81,15 @@
       if (y !== yAnt) { bajando = y > yAnt; yAnt = y; }
 
       var vh = alto();
-      /* La banda se corre segun el sentido: el borde por donde llega la
-         pieza se adelanta fuera de pantalla y el borde por donde se va
-         se mete hacia dentro, para que la salida quede a la vista. */
-      var bordeArriba = bajando ? vh * 0.08 : -vh * 0.14;
-      var bordeAbajo  = bajando ? vh * 1.14 : vh * 0.92;
+      /* La banda se corre segun el sentido. El borde de llegada va justo
+         en el filo de la pantalla, no antes: adelantarlo un 14% parecia
+         mas suave, pero a velocidad de lectura ese tramo se recorre en
+         medio segundo y las animaciones, que duran cerca de uno,
+         terminaban fuera de cuadro. La pieza entraba ya formada y el
+         destello se apagaba sin que nadie lo viera.
+         El borde de salida si se mete hacia dentro, para que irse se vea. */
+      var bordeArriba = bajando ? vh * 0.12 : -vh * 0.02;
+      var bordeAbajo  = bajando ? vh * 1.02 : vh * 0.88;
 
       // Primero se mide todo y despues se escribe: mezclarlo obliga al
       // navegador a recalcular el layout en cada vuelta.
