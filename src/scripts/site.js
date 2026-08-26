@@ -49,21 +49,34 @@
   if (reduce || !('IntersectionObserver' in window)) {
     rvAll.forEach(function(el){ el.classList.add('in'); });
   } else {
-    /* Dos observadores en vez de uno: entrar y salir no comparten la misma
-       linea. El elemento se enciende cuando ya entro un poco en pantalla y
-       solo se apaga cuando quedo bien afuera. Ese margen evita que un
-       temblor del scroll justo en el borde lo haga parpadear. */
+    /* Deja marcado por donde se fue el elemento. Al volver entra por el
+       mismo lado, asi el movimiento siempre acompana al scroll en vez de
+       ir en contra. Solo se calcula al salir: si se tocara al entrar, el
+       elemento saltaria de un extremo al otro antes de animarse. */
+    function rumbo(el, r){
+      var vh = window.innerHeight || document.documentElement.clientHeight;
+      var centro = r.top + r.height / 2;
+      el.classList.toggle('por-arriba', centro < vh / 2);
+    }
+
+    /* Dos observadores con margenes distintos. El de entrada pide que el
+       elemento este bien dentro del cuadro; el de salida lo apaga cuando
+       todavia se ve, cerca del borde, para que la salida se vea. El hueco
+       entre ambos limites evita que parpadee si el scroll se detiene justo
+       encima de la linea. */
     var entra = new IntersectionObserver(function(es){
       es.forEach(function(e){
         if (e.isIntersecting) e.target.classList.add('in');
       });
-    }, { rootMargin: '0px 0px -8% 0px' });
+    }, { rootMargin: '-18% 0px -14% 0px' });
 
     var sale = new IntersectionObserver(function(es){
       es.forEach(function(e){
-        if (!e.isIntersecting) e.target.classList.remove('in');
+        if (e.isIntersecting) return;
+        rumbo(e.target, e.boundingClientRect);
+        e.target.classList.remove('in');
       });
-    }, { rootMargin: '20% 0px 20% 0px' });
+    }, { rootMargin: '-3% 0px -3% 0px' });
 
     rvAll.forEach(function(el){ entra.observe(el); sale.observe(el); });
   }

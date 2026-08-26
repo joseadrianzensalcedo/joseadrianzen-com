@@ -157,38 +157,55 @@
      efecto con el que entraron, en los dos sentidos del scroll. */
   .rv{opacity:0;transition:opacity .9s var(--calma)}
   .rv.in{opacity:1}
+
+  /* Los elementos guardan por donde se fueron: si salieron por arriba
+     quedan desplazados hacia arriba, y si por abajo, hacia abajo. Asi
+     salen y vuelven siempre en el sentido del scroll, no en contra.
+     Las reglas .in van al final a proposito: tienen la misma
+     especificidad que las de .por-arriba y ganan por orden. */
+
   /* destello: títulos y epígrafes, como la portada */
   .rv--flash.in{animation:flicker 1s steps(1,end) forwards}
+
   /* subida suave: cuerpos de texto */
-  .rv--up{transform:translateY(24px);transition:opacity .85s var(--calma),transform .85s var(--calma)}
+  .rv--up{transform:translateY(28px);transition:opacity .85s var(--calma),transform .85s var(--calma)}
+  .rv--up.por-arriba{transform:translateY(-28px)}
   .rv--up.in{transform:none}
+
+  /* entrada lateral: fichas y listas */
+  .rv--left{transform:translateX(-24px);transition:opacity .8s var(--calma),transform .8s var(--calma)}
+  .rv--left.por-arriba{transform:translateX(24px)}
+  .rv--left.in{transform:none}
+
+  /* entrada suave y larga: el reproductor */
+  .rv--suave{transform:scale(.988);transition:opacity 1.5s var(--calma),transform 1.5s var(--calma)}
+  .rv--suave.in{transform:none}
+
+  /* zoom lento: afiche y planos grandes */
+  .rv--zoom{opacity:1;overflow:hidden}
+  .rv--zoom img{transform:scale(1.08);transition:transform 1.8s var(--calma),opacity .8s var(--calma);opacity:0}
+  .rv--zoom.in img{transform:none;opacity:1}
+
   /* cascada: cada foto de una tira o un muro entra por su cuenta,
      escalonada por --i. Reemplaza a la cortinilla, que barría el
      bloque entero de golpe y entraba demasiado brusca. */
   .rv--cascada{opacity:1;transition:none}
   .rv--cascada > figure,
   .rv--cascada > button{
-    opacity:0;transform:translateY(26px) scale(.985);
-    transition:opacity .85s var(--calma),transform 1.05s var(--calma);
+    opacity:0;transform:translateY(30px) scale(.985);
+    transition:opacity .8s var(--calma),transform 1s var(--calma);
     transition-delay:calc(var(--i,0) * 70ms);
   }
+  .rv--cascada.por-arriba > figure,
+  .rv--cascada.por-arriba > button{transform:translateY(-30px) scale(.985)}
   .rv--cascada.in > figure,
   .rv--cascada.in > button{opacity:1;transform:none}
+
   /* Las tiras se desplazan en horizontal (overflow-x:auto): un empujon
      vertical les crearia barra de scroll propia. Ahi la entrada es solo
      escala y desvanecido, que no se salen de la caja. */
-  .tira.rv--cascada > figure{transform:scale(.94)}
+  .tira.rv--cascada > figure{transform:scale(.92)}
   .tira.rv--cascada.in > figure{transform:none}
-  /* zoom lento: afiche y planos grandes */
-  .rv--zoom{opacity:1;overflow:hidden}
-  .rv--zoom img{transform:scale(1.08);transition:transform 1.8s var(--calma),opacity .8s var(--calma);opacity:0}
-  .rv--zoom.in img{transform:none;opacity:1}
-  /* entrada suave y larga: el reproductor */
-  .rv--suave{transform:scale(.988);transition:opacity 1.5s var(--calma),transform 1.5s var(--calma)}
-  .rv--suave.in{transform:none}
-  /* entrada lateral: fichas y listas */
-  .rv--left{transform:translateX(-20px);transition:opacity .8s var(--calma),transform .8s var(--calma)}
-  .rv--left.in{transform:none}
 
   /* ───────── reproductor propio ───────── */
   .vp{position:relative;width:100%;aspect-ratio:16/9;background:#000;overflow:hidden;border:1px solid var(--linea)}
