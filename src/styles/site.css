@@ -4,7 +4,7 @@
   :root{
     --negro:#050505; --negro-2:#0c0b0a; --blanco:#f2efe9;
     --polvo:#d68a2e; --oro:#c9a55c; --humo:#8a837a; --linea:#232019;
-    --display:'Anton','Arial Narrow',Impact,sans-serif;
+    --display:'Anton',Impact,'Arial Narrow',sans-serif;
     --cuerpo:'Archivo','Helvetica Neue',Arial,sans-serif;
     --maquina:'Special Elite','Courier New',monospace;
     --ease:cubic-bezier(.16,.84,.28,1);

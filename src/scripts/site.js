@@ -44,41 +44,82 @@
   window.addEventListener('scroll', onScroll, {passive:true});
   onScroll();
 
-  /* ── reveal al hacer scroll: entra y sale, en los dos sentidos ── */
+  /* ── reveal al hacer scroll: entra y sale, en los dos sentidos ──
+
+     Con umbrales fijos siempre habia un lado brusco. Un elemento solo
+     puede encenderse en un punto y apagarse en otro, y para que no
+     parpadee el de apagado tiene que quedar por fuera del de encendido.
+     Eso obliga a elegir: o enciende tarde (aparece de golpe a media
+     pantalla) o se apaga tan afuera que la salida no se ve.
+
+     La salida es mirar el sentido del scroll. Entrada y salida dejan de
+     competir porque ocurren en bordes distintos: bajando se entra por
+     abajo y se sale por arriba, subiendo al reves. Asi la pieza empieza
+     a aparecer ANTES de asomar, y se apaga cuando todavia se la ve.
+
+     Un observador mantiene la lista de piezas cercanas y el calculo fino
+     se hace por geometria en cada cuadro, solo sobre esas. Al no depender
+     de cruces de umbral, cambiar de sentido a media animacion no rompe
+     nada: el estado se recalcula desde la posicion real. */
   var rvAll = Array.prototype.slice.call(document.querySelectorAll('.rv'));
   if (reduce || !('IntersectionObserver' in window)) {
     rvAll.forEach(function(el){ el.classList.add('in'); });
   } else {
-    /* Deja marcado por donde se fue el elemento. Al volver entra por el
-       mismo lado, asi el movimiento siempre acompana al scroll en vez de
-       ir en contra. Solo se calcula al salir: si se tocara al entrar, el
-       elemento saltaria de un extremo al otro antes de animarse. */
-    function rumbo(el, r){
-      var vh = window.innerHeight || document.documentElement.clientHeight;
-      var centro = r.top + r.height / 2;
-      el.classList.toggle('por-arriba', centro < vh / 2);
+    var cerca = [], yAnt = window.pageYOffset || 0, bajando = true, pedido = false;
+
+    function alto(){ return window.innerHeight || document.documentElement.clientHeight; }
+
+    function apaga(el, r, vh){
+      // Guarda por que lado se fue, para volver a entrar por ahi mismo.
+      el.classList.toggle('por-arriba', (r.top + r.height / 2) < vh / 2);
+      el.classList.remove('in');
     }
 
-    /* Dos observadores con margenes distintos. El de entrada pide que el
-       elemento este bien dentro del cuadro; el de salida lo apaga cuando
-       todavia se ve, cerca del borde, para que la salida se vea. El hueco
-       entre ambos limites evita que parpadee si el scroll se detiene justo
-       encima de la linea. */
-    var entra = new IntersectionObserver(function(es){
-      es.forEach(function(e){
-        if (e.isIntersecting) e.target.classList.add('in');
-      });
-    }, { rootMargin: '-14% 0px -10% 0px' });
+    function pasada(){
+      pedido = false;
+      var y = window.pageYOffset || document.documentElement.scrollTop || 0;
+      if (y !== yAnt) { bajando = y > yAnt; yAnt = y; }
 
-    var sale = new IntersectionObserver(function(es){
-      es.forEach(function(e){
-        if (e.isIntersecting) return;
-        rumbo(e.target, e.boundingClientRect);
-        e.target.classList.remove('in');
-      });
-    }, { rootMargin: '-4% 0px -2% 0px' });
+      var vh = alto();
+      /* La banda se corre segun el sentido: el borde por donde llega la
+         pieza se adelanta fuera de pantalla y el borde por donde se va
+         se mete hacia dentro, para que la salida quede a la vista. */
+      var bordeArriba = bajando ? vh * 0.08 : -vh * 0.14;
+      var bordeAbajo  = bajando ? vh * 1.14 : vh * 0.92;
 
-    rvAll.forEach(function(el){ entra.observe(el); sale.observe(el); });
+      // Primero se mide todo y despues se escribe: mezclarlo obliga al
+      // navegador a recalcular el layout en cada vuelta.
+      var i, medidas = [];
+      for (i = 0; i < cerca.length; i++) medidas.push(cerca[i].getBoundingClientRect());
+      for (i = 0; i < cerca.length; i++) {
+        var r = medidas[i];
+        if (r.bottom > bordeArriba && r.top < bordeAbajo) cerca[i].classList.add('in');
+        else apaga(cerca[i], r, vh);
+      }
+    }
+
+    function pide(){
+      if (!pedido) { pedido = true; requestAnimationFrame(pasada); }
+    }
+
+    var vigia = new IntersectionObserver(function(es){
+      es.forEach(function(e){
+        var pos = cerca.indexOf(e.target);
+        if (e.isIntersecting) {
+          if (pos === -1) cerca.push(e.target);
+        } else if (pos !== -1) {
+          cerca.splice(pos, 1);
+          apaga(e.target, e.boundingClientRect, alto());
+        }
+      });
+      pide();
+    }, { rootMargin: '45% 0px 45% 0px' });
+
+    rvAll.forEach(function(el){ vigia.observe(el); });
+    window.addEventListener('scroll', pide, {passive:true});
+    window.addEventListener('resize', pide, {passive:true});
+    window.addEventListener('load', pide);
+    pide();
   }
 
   /* ── lightbox ── */

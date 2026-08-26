@@ -41,9 +41,9 @@ const favicon = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' vi
 <meta name="twitter:title" content={title}>
 <meta name="twitter:description" content={ogDescription}>
 <meta name="twitter:image" content={og}>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@300;400;500&family=Special+Elite&display=swap">
+<link rel="preload" as="font" type="font/woff2" href={ruta('assets/fonts/anton-400-latin.woff2')} crossorigin>
+<link rel="preload" as="font" type="font/woff2" href={ruta('assets/fonts/archivo-400-latin.woff2')} crossorigin>
+<link rel="stylesheet" href={ruta('assets/fuentes.css')}>
 <link rel="icon" href={favicon}>
 <link rel="canonical" href={canonical}>
 {jsonLd && <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}
