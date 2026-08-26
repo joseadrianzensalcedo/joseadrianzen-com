@@ -8,6 +8,8 @@
     --cuerpo:'Archivo','Helvetica Neue',Arial,sans-serif;
     --maquina:'Special Elite','Courier New',monospace;
     --ease:cubic-bezier(.16,.84,.28,1);
+    /* curva mas blanda para las entradas y salidas al hacer scroll */
+    --calma:cubic-bezier(.33,1,.68,1);
   }
   *{margin:0;padding:0;box-sizing:border-box}
   html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
@@ -150,26 +152,42 @@
   }
   .cabecera{margin-bottom:2.4rem}
 
-  /* ───────── reveal: cada elemento entra a su manera ───────── */
-  .rv{opacity:0}
+  /* ───────── reveal: cada elemento entra a su manera ─────────
+     Van y vienen: al salir de pantalla se deshacen con el mismo
+     efecto con el que entraron, en los dos sentidos del scroll. */
+  .rv{opacity:0;transition:opacity .9s var(--calma)}
   .rv.in{opacity:1}
   /* destello: títulos y epígrafes, como la portada */
   .rv--flash.in{animation:flicker 1s steps(1,end) forwards}
   /* subida suave: cuerpos de texto */
-  .rv--up{transform:translateY(24px);transition:opacity .85s var(--ease),transform .85s var(--ease)}
+  .rv--up{transform:translateY(24px);transition:opacity .85s var(--calma),transform .85s var(--calma)}
   .rv--up.in{transform:none}
-  /* cortinilla: imágenes y tiras */
-  .rv--wipe{opacity:1;clip-path:inset(0 0 100% 0);transition:clip-path 1.1s var(--ease)}
-  .rv--wipe.in{clip-path:inset(0 0 0 0)}
+  /* cascada: cada foto de una tira o un muro entra por su cuenta,
+     escalonada por --i. Reemplaza a la cortinilla, que barría el
+     bloque entero de golpe y entraba demasiado brusca. */
+  .rv--cascada{opacity:1;transition:none}
+  .rv--cascada > figure,
+  .rv--cascada > button{
+    opacity:0;transform:translateY(26px) scale(.985);
+    transition:opacity .85s var(--calma),transform 1.05s var(--calma);
+    transition-delay:calc(var(--i,0) * 70ms);
+  }
+  .rv--cascada.in > figure,
+  .rv--cascada.in > button{opacity:1;transform:none}
+  /* Las tiras se desplazan en horizontal (overflow-x:auto): un empujon
+     vertical les crearia barra de scroll propia. Ahi la entrada es solo
+     escala y desvanecido, que no se salen de la caja. */
+  .tira.rv--cascada > figure{transform:scale(.94)}
+  .tira.rv--cascada.in > figure{transform:none}
   /* zoom lento: afiche y planos grandes */
   .rv--zoom{opacity:1;overflow:hidden}
-  .rv--zoom img{transform:scale(1.08);transition:transform 1.8s var(--ease),opacity .8s var(--ease);opacity:0}
+  .rv--zoom img{transform:scale(1.08);transition:transform 1.8s var(--calma),opacity .8s var(--calma);opacity:0}
   .rv--zoom.in img{transform:none;opacity:1}
   /* entrada suave y larga: el reproductor */
-  .rv--suave{transform:scale(.988);transition:opacity 1.5s var(--ease),transform 1.5s var(--ease)}
+  .rv--suave{transform:scale(.988);transition:opacity 1.5s var(--calma),transform 1.5s var(--calma)}
   .rv--suave.in{transform:none}
   /* entrada lateral: fichas y listas */
-  .rv--left{transform:translateX(-20px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
+  .rv--left{transform:translateX(-20px);transition:opacity .8s var(--calma),transform .8s var(--calma)}
   .rv--left.in{transform:none}
 
   /* ───────── reproductor propio ───────── */
@@ -396,6 +414,7 @@
     html{scroll-behavior:auto}
     *,*::before,*::after{animation:none!important;transition:none!important}
     .rv{opacity:1;transform:none;clip-path:none}
+    .rv--cascada > figure,.rv--cascada > button{opacity:1;transform:none;transition:none}
     .rv--zoom img{opacity:1;transform:none}
     .rv--suave{transform:none}
     #intro{display:none}

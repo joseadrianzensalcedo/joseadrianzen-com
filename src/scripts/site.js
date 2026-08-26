@@ -44,33 +44,28 @@
   window.addEventListener('scroll', onScroll, {passive:true});
   onScroll();
 
-  /* ── reveal al hacer scroll ── */
+  /* ── reveal al hacer scroll: entra y sale, en los dos sentidos ── */
   var rvAll = Array.prototype.slice.call(document.querySelectorAll('.rv'));
-  if (reduce) {
+  if (reduce || !('IntersectionObserver' in window)) {
     rvAll.forEach(function(el){ el.classList.add('in'); });
   } else {
-    var pend = rvAll.slice();
-    rvAll.forEach(function(el, i){
-      if (!el.classList.contains('rv--flash')) el.style.transitionDelay = ((i % 3) * 80) + 'ms';
-    });
-    function reveal(){
-      var vh = window.innerHeight || document.documentElement.clientHeight;
-      var fin = (window.scrollY + vh) >= (document.documentElement.scrollHeight - 4);
-      for (var i = pend.length - 1; i >= 0; i--) {
-        var r = pend[i].getBoundingClientRect();
-        if (fin || r.top < vh * 0.96) { pend[i].classList.add('in'); pend.splice(i, 1); }
-      }
-      if (!pend.length) {
-        window.removeEventListener('scroll', reveal);
-        window.removeEventListener('resize', reveal);
-      }
-    }
-    window.addEventListener('scroll', reveal, {passive:true});
-    window.addEventListener('resize', reveal, {passive:true});
-    reveal();
-    setTimeout(reveal, 300);
-    setTimeout(reveal, 1200);
-    window.addEventListener('load', reveal);
+    /* Dos observadores en vez de uno: entrar y salir no comparten la misma
+       linea. El elemento se enciende cuando ya entro un poco en pantalla y
+       solo se apaga cuando quedo bien afuera. Ese margen evita que un
+       temblor del scroll justo en el borde lo haga parpadear. */
+    var entra = new IntersectionObserver(function(es){
+      es.forEach(function(e){
+        if (e.isIntersecting) e.target.classList.add('in');
+      });
+    }, { rootMargin: '0px 0px -8% 0px' });
+
+    var sale = new IntersectionObserver(function(es){
+      es.forEach(function(e){
+        if (!e.isIntersecting) e.target.classList.remove('in');
+      });
+    }, { rootMargin: '20% 0px 20% 0px' });
+
+    rvAll.forEach(function(el){ entra.observe(el); sale.observe(el); });
   }
 
   /* ── lightbox ── */

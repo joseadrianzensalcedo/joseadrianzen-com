@@ -4,9 +4,9 @@ import { img } from '../utils.js';
 const { items, etiqueta, alta = false, titulo } = Astro.props;
 ---
 {titulo && <h3 class="tira-titulo rv rv--flash">{titulo}</h3>}
-<div class={alta ? 'tira alta rv rv--wipe' : 'tira rv rv--wipe'} aria-label={etiqueta}>
-  {items.map(([nombre, alt, personaje, actor]) => (
-    <figure>
+<div class={alta ? 'tira alta rv rv--cascada' : 'tira rv rv--cascada'} aria-label={etiqueta}>
+  {items.map(([nombre, alt, personaje, actor], i) => (
+    <figure style={`--i:${i}`}>
       <img src={img(nombre)} alt={alt} loading="lazy" decoding="async">
       {personaje && <figcaption><b>{personaje}</b>{actor}</figcaption>}
     </figure>
