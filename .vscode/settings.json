@@ -1,0 +1,24 @@
+{
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.tabSize": 2,
+  "files.trimTrailingWhitespace": true,
+  "files.insertFinalNewline": true,
+  "files.eol": "\n",
+
+  "liveServer.settings.root": "/",
+  "liveServer.settings.donotShowInfoMsg": true,
+
+  "cSpell.language": "es,en",
+  "cSpell.words": [
+    "adrianzen",
+    "joseadrianzen",
+    "webp",
+    "sitemap",
+    "htaccess"
+  ],
+
+  "search.exclude": {
+    "**/.git": true
+  }
+}
