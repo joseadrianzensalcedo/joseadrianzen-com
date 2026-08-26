@@ -68,7 +68,7 @@
       es.forEach(function(e){
         if (e.isIntersecting) e.target.classList.add('in');
       });
-    }, { rootMargin: '-18% 0px -14% 0px' });
+    }, { rootMargin: '-14% 0px -10% 0px' });
 
     var sale = new IntersectionObserver(function(es){
       es.forEach(function(e){
@@ -76,7 +76,7 @@
         rumbo(e.target, e.boundingClientRect);
         e.target.classList.remove('in');
       });
-    }, { rootMargin: '-3% 0px -3% 0px' });
+    }, { rootMargin: '-4% 0px -2% 0px' });
 
     rvAll.forEach(function(el){ entra.observe(el); sale.observe(el); });
   }

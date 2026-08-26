@@ -201,6 +201,21 @@
   .rv--cascada.in > figure,
   .rv--cascada.in > button{opacity:1;transform:none}
 
+  /* Cada foto de un muro se revela sola. Los muros son mas altos que la
+     pantalla: animados como un bloque unico, las fotos de abajo
+     terminaban su entrada mucho antes de que llegaras a verlas (aparecian
+     de golpe) y el contenedor nunca dejaba de tocar la banda, asi que
+     tampoco llegaba a salir nunca. */
+  .rv--pieza{
+    opacity:0;transform:translateY(var(--dy,32px)) scale(.985);
+    transition:opacity .8s var(--calma),transform 1s var(--calma);
+  }
+  .rv--pieza.por-arriba{transform:translateY(calc(var(--dy,32px) * -1)) scale(.985)}
+  .rv--pieza.in{opacity:1;transform:none}
+  /* dentro de listas a dos columnas el empujon va corto, para que la
+     pieza no se desborde por debajo de su columna mientras se anima */
+  .selecciones .rv--pieza,.premios .rv--pieza{--dy:14px}
+
   /* Las tiras se desplazan en horizontal (overflow-x:auto): un empujon
      vertical les crearia barra de scroll propia. Ahi la entrada es solo
      escala y desvanecido, que no se salen de la caja. */
@@ -432,6 +447,7 @@
     *,*::before,*::after{animation:none!important;transition:none!important}
     .rv{opacity:1;transform:none;clip-path:none}
     .rv--cascada > figure,.rv--cascada > button{opacity:1;transform:none;transition:none}
+    .rv--pieza{opacity:1;transform:none;transition:none}
     .rv--zoom img{opacity:1;transform:none}
     .rv--suave{transform:none}
     #intro{display:none}

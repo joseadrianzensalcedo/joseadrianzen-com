@@ -41,17 +41,21 @@ import { premios, selecciones, fichaDocumental, fotogramasDoc, btsDoc } from '..
     <div class="marco rv rv--zoom">
       <img src={img('afiche')} alt="Afiche de Entre polvo y sueños: una minera parte piedra en la ladera de un cerro" width="880" height="1244" loading="lazy" decoding="async">
     </div>
-    <div class="rv rv--up">
-      <h3 class="tira-titulo" style="margin-top:0">Premios</h3>
+    <div>
+      {/* Cada premio y cada seleccion se revelan por su cuenta: juntos
+          forman un bloque mas alto que la pantalla, y como bloque unico
+          los de abajo terminaban de animarse antes de que llegaras a
+          verlos, ademas de no llegar a salir nunca de cuadro. */}
+      <h3 class="tira-titulo rv rv--pieza" style="margin-top:0">Premios</h3>
       <div class="premios" style="margin-top:1.2rem">
         {premios.map(p => (
-          <div class="premio"><span class="k">{p.k}</span><span class="v">{p.v}<small>{p.d}</small></span></div>
+          <div class="premio rv rv--pieza"><span class="k">{p.k}</span><span class="v">{p.v}<small>{p.d}</small></span></div>
         ))}
       </div>
 
-      <h3 class="tira-titulo">Selecciones oficiales</h3>
+      <h3 class="tira-titulo rv rv--pieza">Selecciones oficiales</h3>
       <ul class="selecciones">
-        {selecciones.map(s => (<li><b>{s.n}</b><span>{s.d}</span></li>))}
+        {selecciones.map(s => (<li class="rv rv--pieza"><b>{s.n}</b><span>{s.d}</span></li>))}
       </ul>
     </div>
   </div>
