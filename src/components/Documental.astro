@@ -1,0 +1,61 @@
+---
+import { img } from '../utils.js';
+import Tira from './Tira.astro';
+import Ficha from './Ficha.astro';
+import { premios, selecciones, fichaDocumental, fotogramasDoc, btsDoc } from '../data/sitio.js';
+---
+<section id="documental" aria-labelledby="t-doc">
+  <div class="cabecera rv rv--flash">
+    <span class="marca">Documental &middot; <span class="anio">2025</span></span>
+    <h2 class="titulo-seccion" id="t-doc">Entre polvo<br>y sueños</h2>
+  </div>
+
+  <div class="vp rv rv--suave" id="vp" data-vimeo="1056105326" data-vimeo-doc="" style="margin-top:1.6rem">
+    <div class="mount" id="vmount"></div>
+    <button class="escudo" id="vescudo" type="button" aria-label="Pausar o reproducir"></button>
+    <button class="poster" id="vplay" type="button" style={`background-image:url('${img('doc-mineras-b')}')`} aria-label="Reproducir el documental">
+      <span class="lbl">&#9654;&nbsp; Ver el documental</span>
+    </button>
+    <div class="ui">
+      <button id="vtoggle" type="button" aria-label="Pausar o reproducir">&#10074;&#10074;</button>
+      <span class="t" id="vcur">0:00</span>
+      <div class="track" id="vtrack" role="slider" aria-label="Avance del video" tabindex="0" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="fill" id="vfill"></div></div>
+      <span class="t" id="vdur">0:00</span>
+      <button id="vmute" type="button" aria-label="Silenciar">SONIDO</button>
+      <button id="vfs" type="button" aria-label="Pantalla completa">EXPANDIR</button>
+    </div>
+    <p class="aviso">No se pudo cargar el video en este navegador. Escríbeme y te envío el enlace directo.</p>
+  </div>
+
+  <div class="obra-cuerpo">
+    <div class="rv rv--up">
+      <p class="golpe">Ellas no solo buscan <em>mineral</em>.</p>
+      <p>Tres años de rodaje en los socavones y las pampas del Perú, acompañando a un grupo de mujeres mineras. No son mineras informales sin más: buscan formalizarse, que las reconozcan y una vida mejor para los suyos.</p>
+      <p>La película es un puente entre ellas y el mundo: una historia de lucha filmada a pie de mina, para que su voz llegue lejos.</p>
+      <p class="ficha">Perú &middot; Documental &middot; Digital 2K &middot; Español<br>Subtítulos en francés, inglés y turco</p>
+    </div>
+    <Ficha titulo="Ficha" filas={fichaDocumental} />
+  </div>
+
+  <div class="afiche-fila">
+    <div class="marco rv rv--zoom">
+      <img src={img('afiche')} alt="Afiche de Entre polvo y sueños: una minera parte piedra en la ladera de un cerro" width="880" height="1244" loading="lazy" decoding="async">
+    </div>
+    <div class="rv rv--up">
+      <h3 class="tira-titulo" style="margin-top:0">Premios</h3>
+      <div class="premios" style="margin-top:1.2rem">
+        {premios.map(p => (
+          <div class="premio"><span class="k">{p.k}</span><span class="v">{p.v}<small>{p.d}</small></span></div>
+        ))}
+      </div>
+
+      <h3 class="tira-titulo">Selecciones oficiales</h3>
+      <ul class="selecciones">
+        {selecciones.map(s => (<li><b>{s.n}</b><span>{s.d}</span></li>))}
+      </ul>
+    </div>
+  </div>
+
+  <Tira titulo="Fotogramas" items={fotogramasDoc} etiqueta="Fotogramas del documental" />
+  <Tira titulo="Detrás de cámara" items={btsDoc} etiqueta="Detrás de cámara del documental" alta />
+</section>

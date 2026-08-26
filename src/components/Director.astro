@@ -1,0 +1,37 @@
+---
+import { img } from '../utils.js';
+import Muro from './Muro.astro';
+import { muroDirector } from '../data/sitio.js';
+---
+<section id="director" aria-labelledby="t-dir">
+  <div class="cabecera rv rv--flash">
+    <span class="marca">Sobre el director</span>
+    <h2 class="titulo-seccion" id="t-dir">Jose Adrianzen</h2>
+  </div>
+
+  <div class="dir">
+    <div class="foto rv rv--zoom">
+      <img src={img('jose-escenario')} alt="Jose Adrianzen habla con micrófono durante una presentación" width="938" height="626" loading="lazy" decoding="async">
+    </div>
+    <div class="dir-texto rv rv--up">
+      <p>Desde pequeño, el cine y la política fueron mis dos grandes pasiones. Al inicio quería ser presidente, así que estudié derecho para entender a fondo las leyes y el funcionamiento del Estado. La vida me llevó por otro camino: en el cine encontré una forma más poderosa de generar impacto y de contar las historias que merecen ser escuchadas.</p>
+      <p>La curiosidad me ha llevado a recorrer casi todo el Perú, buena parte de Sudamérica y distintos rincones del mundo. Esos viajes me enseñaron a mirar realidades muy distintas a la mía y me confirmaron algo: <strong>el cine es una herramienta de transformación social</strong>. Con esa convicción decidí dedicarme por completo a la creación audiovisual.</p>
+      <p>Tengo <strong>estudios en cine y en actuación</strong>. Quería aportar a la industria del cine también desde la gestión: producción, financiamiento y distribución. Por eso decidí estudiar <strong>ingeniería empresarial</strong>.</p>
+      <p>En los últimos años he trabajado con varias ONGs, contando historias que suelen quedar en el olvido. Terminé de rodar el cortometraje <strong>ECO</strong>, hoy en circuito de festivales. Pero el proyecto que ha marcado mi trayectoria es <strong>Entre polvo y sueños</strong>: tres años de mi vida para dar voz a las mujeres mineras del Perú y reivindicar su lucha.</p>
+      <div class="datos">
+        <span>Base<b>Lima, Perú</b></span>
+        <span>Formación<b>Cine y actuación</b></span>
+        <span>Gestión<b>Ingeniería empresarial</b></span>
+        <span>Antes<b>TV, publicidad y ONGs</b></span>
+      </div>
+    </div>
+  </div>
+
+  <blockquote class="cita rv rv--left">
+    <p>&ldquo;Siempre he creído que las personas valen mucho y que, si es necesario, hay que llegar hasta el último rincón para visibilizarlas.&rdquo;</p>
+    <cite>Jose Adrianzen</cite>
+  </blockquote>
+
+  <h3 class="tira-titulo rv rv--flash">En cámara y fuera de ella</h3>
+  <Muro items={muroDirector} id="muro-dir" estilo="margin-top:1.2rem" />
+</section>

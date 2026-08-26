@@ -1,0 +1,50 @@
+---
+import Base from '../../layouts/Base.astro';
+import Nav from '../../components/Nav.astro';
+import Footer from '../../components/Footer.astro';
+import '../../styles/blog.css';
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Blog',
+  '@id': 'https://joseadrianzen.com/blog/#blog',
+  name: 'Blog de Jose Adrianzen',
+  url: 'https://joseadrianzen.com/blog/',
+  inLanguage: 'es',
+  description: 'Notas semanales sobre cine peruano y latinoamericano, industria, actuación, arte e inteligencia artificial como herramienta para el arte.',
+  author: { '@type': 'Person', name: 'Jose Adrianzen', url: 'https://joseadrianzen.com/' },
+};
+---
+<Base
+  title="Blog | Jose Adrianzen"
+  description="Notas de Jose Adrianzen sobre cine peruano y latinoamericano, actuación, industria e inteligencia artificial como herramienta para el arte."
+  ogDescription="Notas semanales de un director de cine peruano: cine, industria, actuación, arte e inteligencia artificial como herramienta."
+  canonical="https://joseadrianzen.com/blog/"
+  jsonLd={jsonLd}
+>
+  <div class="grano" aria-hidden="true"></div>
+  <div class="cur" id="cur" aria-hidden="true"></div>
+
+  <Nav prefijo="raiz" />
+
+  <header class="hero" style="min-height:56svh">
+    <p class="ojo">Notas desde el set</p>
+    <h1 style="font-size:clamp(3rem,11vw,9rem)">Blog</h1>
+    <p class="sub"><b>Cine, industria y herramientas</b><span class="dot"> &nbsp;&middot;&nbsp; </span><span class="pais">Un artículo por semana</span></p>
+  </header>
+
+  <hr class="regla">
+
+  <section aria-label="Artículos">
+    <div class="vacio rv rv--flash in">
+      <span class="sello-v">En rodaje</span>
+      <p>El primer artículo está en edición. Aquí va a haber una nota nueva cada semana sobre cine peruano y latinoamericano, actuación, industria y el uso de la inteligencia artificial como herramienta para el arte.</p>
+    </div>
+  </section>
+
+  <Footer simple />
+
+  <script>
+    import '../../scripts/cursor.js';
+  </script>
+</Base>

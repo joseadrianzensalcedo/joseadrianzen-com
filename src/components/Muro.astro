@@ -1,0 +1,9 @@
+---
+import { img } from '../utils.js';
+const { items, id, estilo } = Astro.props;
+---
+<div class="muro rv rv--wipe" id={id} style={estilo}>
+  {items.map(([nombre, alt]) => (
+    <button type="button"><img src={img(nombre)} alt={alt} loading="lazy" decoding="async"></button>
+  ))}
+</div>

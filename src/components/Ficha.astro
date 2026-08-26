@@ -1,0 +1,9 @@
+---
+const { titulo, filas } = Astro.props;
+---
+<div class="creditos rv rv--left">
+  <h3>{titulo}</h3>
+  <dl>
+    {filas.map(([k, v]) => (<><dt>{k}</dt><dd>{v}</dd></>))}
+  </dl>
+</div>

@@ -1,0 +1,15 @@
+---
+import { ruta } from '../utils.js';
+import { navegacion } from '../data/sitio.js';
+const { prefijo = '' } = Astro.props;
+---
+<nav aria-label="Navegación principal">
+  <a class="logo" href={prefijo ? ruta('') : '#inicio'}>JOSE ADRIANZ<span>E</span>N</a>
+  <ul>
+    {navegacion.map(i => (
+      <li><a href={prefijo ? ruta('') + i.href : i.href}>{i.txt}</a></li>
+    ))}
+    <li><a href={ruta('blog')} target="_blank" rel="noopener">Blog</a></li>
+    <li><a href="https://mail.hostinger.com" target="_blank" rel="noopener">Correo</a></li>
+  </ul>
+</nav>

@@ -3,25 +3,43 @@
 Sitio personal de **Jose Adrianzen**, director de cine: Lima, Perú.
 En producción: https://joseadrianzen.com (Hostinger, plan Business).
 
-## Qué hay aquí
+## Que hay aqui
 
-Sitio estático en español, sin framework y sin proceso de build. Se decidió así
-a propósito: para un sitio de una página con 54 imágenes y un reproductor,
-HTML + CSS + JS planos cargan más rápido que cualquier framework, se pueden
-editar desde el administrador de archivos del hosting y no dependen de nada
-que se pueda romper en dos años. (Se evaluaron Astro, Next y Flutter Web:
-todos agregan peso o toolchain sin aportar nada a una página como esta.)
+Sitio en español construido con **Astro** en modo estatico: el build genera
+HTML plano, sin JavaScript de framework en el navegador. Se sube a Hostinger
+igual que antes, pero ahora el contenido repetido (premios, selecciones,
+fichas, tiras de fotos) vive en un solo archivo de datos y las secciones son
+componentes reutilizables.
 
 ```
-index.html        estructura y contenido (una sola página)
-assets/site.css   hoja de estilos: tokens → base → efectos → secciones → responsive
-assets/site.js    comportamiento: intro, cursor, reveal, visor, reproductor, parpadeo
-assets/*.webp     54 imágenes optimizadas (~2 MB en total)
-blog/index.html   portada del blog (artículos semanales)
-.htaccess         seguridad (CSP, HSTS, nosniff) + compresión + caché
-robots.txt        indexación
-sitemap.xml       mapa del sitio
+astro.config.mjs      configuracion; base distinta para staging y produccion
+src/data/sitio.js     premios, selecciones, fichas, tiras: editar AQUI
+src/layouts/Base.astro  head, meta, OG, JSON-LD, noindex de staging
+src/components/       Nav, Hero, Documental, Eco, Fotografia, Director,
+                      Contacto, Footer + reutilizables (Tira, Muro, Ficha)
+src/pages/index.astro portada
+src/pages/blog/       portada del blog
+src/styles/site.css   hoja de estilos: tokens -> base -> efectos -> secciones
+src/scripts/site.js   comportamiento: intro, cursor, reveal, visor, reproductor
+public/assets/        59 imagenes optimizadas (~2 MB)
+public/.htaccess      seguridad (CSP, HSTS, nosniff) + compresion + cache
+dist/                 lo que se sube al hosting (generado, no se versiona)
 ```
+
+## Comandos
+
+```
+npm run dev      servidor local en http://localhost:4321 con recarga automatica
+npm run build    genera dist/ para produccion
+npm run preview  sirve dist/ tal como quedara publicado
+```
+
+## Ramas y staging
+
+- `staging`: donde se trabaja. Cada push publica una vista previa en GitHub
+  Pages (workflow `.github/workflows/staging.yml`), con `noindex` para que
+  Google no la indexe.
+- `main`: produccion. Solo se fusiona lo aprobado en staging.
 
 ## Decisiones que hay que respetar
 
@@ -50,9 +68,11 @@ HSTS, `nosniff`, `X-Frame-Options`, `Permissions-Policy` y `-Indexes`.
 
 ## Publicar
 
-Copiar los archivos a `public_html/` en Hostinger. Antes de reemplazar
-`index.html`, renombrar el actual a `index-vN.html.bak` (hay v1–v8) para
-conservar el historial. El `.htaccess` del hosting se versiona igual
+1. `npm run build`
+2. Copiar el contenido de `dist/` a `public_html/` en Hostinger.
+
+Antes de reemplazar `index.html`, renombrar el actual a `index-vN.html.bak`
+(hay v1-v8) para conservar el historial. El `.htaccess` se versiona igual
 (`htaccess-vN.bak`).
 
 ## Pendientes

@@ -1,0 +1,32 @@
+---
+import { img } from '../utils.js';
+import Tira from './Tira.astro';
+import Ficha from './Ficha.astro';
+import { equipoEco, repartoEco, btsEco } from '../data/sitio.js';
+---
+<section id="eco" aria-labelledby="t-eco">
+  <div class="cabecera rv rv--flash">
+    <span class="marca">Cortometraje &middot; Thriller psicológico &middot; <span class="anio">2023</span></span>
+    <h2 class="titulo-seccion" id="t-eco">ECO</h2>
+  </div>
+
+  <div class="lienzo rv rv--zoom">
+    <img src={img('eco-portada')} alt="Fotograma de ECO: una figura baja la escalera de una casa antigua en penumbra" loading="lazy" decoding="async">
+    <div class="sello">
+      <span class="tag">Aún sin estrenar</span>
+      <p>Está en circuito de festivales y todavía no se estrena, así que por ahora no se puede ver en línea. Pronto estará aquí.</p>
+    </div>
+  </div>
+
+  <div class="obra-cuerpo">
+    <div class="rv rv--up">
+      <p class="golpe">Una casa. <em>Un secreto.</em></p>
+      <p>César, un psiquiatra respetable, esconde una doble vida tras su consulta y su matrimonio. Cuando Victoria, su joven paciente y amante, reúne el valor para revelar la verdad, el frágil equilibrio de su mundo se rompe. Entre espejos, secretos y sospechas, la esposa a la que todos creen frágil resulta ser la más lúcida.</p>
+      <p class="ficha">Perú &middot; 2023 &middot; 13 min 12 s &middot; Digital 6K &middot; Español</p>
+    </div>
+    <Ficha titulo="Equipo" filas={equipoEco} />
+  </div>
+
+  <Tira titulo="Reparto" items={repartoEco} etiqueta="Reparto de ECO" />
+  <Tira titulo="Detrás de cámara" items={btsEco} etiqueta="Detrás de cámara de ECO" alta />
+</section>
