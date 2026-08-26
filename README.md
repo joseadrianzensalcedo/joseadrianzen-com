@@ -1,6 +1,6 @@
 # joseadrianzen.com
 
-Sitio personal de **Jose Adrianzen**, director de cine — Lima, Perú.
+Sitio personal de **Jose Adrianzen**, director de cine: Lima, Perú.
 En producción: https://joseadrianzen.com (Hostinger, plan Business).
 
 ## Qué hay aquí
@@ -14,8 +14,8 @@ todos agregan peso o toolchain sin aportar nada a una página como esta.)
 
 ```
 index.html        estructura y contenido (una sola página)
-assets/site.css   hoja de estilos — tokens → base → efectos → secciones → responsive
-assets/site.js    comportamiento — intro, cursor, reveal, visor, reproductor, parpadeo
+assets/site.css   hoja de estilos: tokens → base → efectos → secciones → responsive
+assets/site.js    comportamiento: intro, cursor, reveal, visor, reproductor, parpadeo
 assets/*.webp     54 imágenes optimizadas (~2 MB en total)
 blog/index.html   portada del blog (artículos semanales)
 .htaccess         seguridad (CSP, HSTS, nosniff) + compresión + caché
@@ -45,7 +45,7 @@ sitemap.xml       mapa del sitio
 CSP estricta con una lista corta de orígenes. Ojo con esto: el SDK de Vimeo
 hace un fetch a `https://vimeo.com/api/oembed.json` al crear el reproductor,
 así que `connect-src` **debe** incluir `https://vimeo.com` además de
-`player.vimeo.com` — sin eso el reproductor muere en silencio. También van
+`player.vimeo.com`: sin eso el reproductor muere en silencio. También van
 HSTS, `nosniff`, `X-Frame-Options`, `Permissions-Policy` y `-Indexes`.
 
 ## Publicar

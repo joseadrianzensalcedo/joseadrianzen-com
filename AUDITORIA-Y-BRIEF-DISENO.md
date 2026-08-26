@@ -1,4 +1,4 @@
-# joseadrianzen.com — auditoría y brief de diseño (v2)
+# joseadrianzen.com: auditoría y brief de diseño (v2)
 
 Documento de entrega para una segunda mirada de diseño (Claude Design).
 Sitio en producción: **https://joseadrianzen.com** · Repo: github.com/joseadrianzensalcedo/joseadrianzen-com
@@ -10,14 +10,14 @@ Fecha: 26 de agosto de 2026 · Fuente: los archivos de este mismo paquete.
 
 Sitio personal de **Jose Adrianzen**, director de cine peruano. Una sola página
 estática en español, más una portada de blog. Su trabajo: mostrar dos obras, la
-fotografía del director, quién es y cómo contactarlo — a programadores de
+fotografía del director, quién es y cómo contactarlo: a programadores de
 festivales, productores y prensa.
 
 Referencia estética pedida por el cliente: **gaspar-noe.com** (fondo negro,
 tipografía enorme, grano de película, efectos secos). Nadie llega aquí a
 "convertir": llega a ver el trabajo.
 
-## 2. Cómo está armado (v2 — reestructurado)
+## 2. Cómo está armado (v2: reestructurado)
 
 ```
 index.html        estructura y contenido (21 KB)
@@ -54,7 +54,7 @@ Tipografía: **Anton** (títulos), **Archivo** 300/400/500 (texto), **Special
 Elite** (máquina de escribir: epígrafes, fichas, controles). Contorno cromático
 permanente en portada y títulos (`text-shadow` naranja/azulado), más intenso en hover.
 
-Efectos, deliberadamente variados: `rv--flash` (destello — el favorito del
+Efectos, deliberadamente variados: `rv--flash` (destello: el favorito del
 cliente, portada y títulos), `rv--wipe` (cortinilla), `rv--zoom`, `rv--left`,
 `rv--suave` (solo el reproductor). Grano de película fijo, cursor propio
 (círculo; la flecha del sistema nunca se ve), parpadeo periódico de toda la
