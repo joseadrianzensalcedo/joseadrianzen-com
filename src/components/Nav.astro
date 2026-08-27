@@ -1,6 +1,6 @@
 ---
 import { ruta } from '../utils.js';
-import { navegacion } from '../data/sitio.js';
+import { navegacion, correoUrl } from '../data/sitio.js';
 const { prefijo = '' } = Astro.props;
 ---
 <nav aria-label="Navegación principal">
@@ -10,6 +10,6 @@ const { prefijo = '' } = Astro.props;
       <li><a href={prefijo ? ruta('') + i.href : i.href}>{i.txt}</a></li>
     ))}
     <li><a href={ruta('blog')} target="_blank" rel="noopener">Blog</a></li>
-    <li><a href="https://mail.hostinger.com" target="_blank" rel="noopener">Correo</a></li>
+    <li><a href={correoUrl}>Correo</a></li>
   </ul>
 </nav>

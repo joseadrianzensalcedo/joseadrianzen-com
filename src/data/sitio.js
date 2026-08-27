@@ -113,6 +113,13 @@ export const vias = [
   { t: 'LinkedIn',  v: '/in/joseadrianzens',     href: 'https://www.linkedin.com/in/joseadrianzens/', ext: true },
 ];
 
+// El correo ya no sale a Hostinger: vive en el propio dominio (Roundcube con
+// la piel del sitio, en /correo; ver correo/INSTALAR.md). La URL va absoluta a
+// proposito, porque en staging el sitio se sirve bajo /joseadrianzen-com/ en
+// GitHub Pages, donde no hay PHP ni buzon: alli el enlace tiene que salir
+// igualmente a produccion en vez de dar un 404.
+export const correoUrl = 'https://joseadrianzen.com/correo/';
+
 export const navegacion = [
   { href: '#documental',  txt: 'Documental' },
   { href: '#eco',         txt: 'ECO' },

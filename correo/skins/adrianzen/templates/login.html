@@ -1,0 +1,25 @@
+<roundcube:include file="includes/layout.html" />
+
+<h1 class="voice"><roundcube:object name="productname" /> <roundcube:label name="login" /></h1>
+
+<div id="layout-content" class="selected no-navbar" role="main">
+	<div id="acceso">
+		<a class="acceso-logo" href="https://joseadrianzen.com/">JOSE ADRIANZ<span>E</span>N</a>
+		<p class="acceso-marca">Acceso privado</p>
+
+		<roundcube:form id="login-form" name="login-form" method="post" class="propform">
+		<!-- sin size="40": ese atributo le da al campo un ancho minimo de unos 40
+	     caracteres (~350px) que en movil desbordaba el bloque. El ancho lo
+	     pone la hoja de estilos, no el HTML. -->
+		<roundcube:object name="loginform" form="login-form" size="20" submit=true class="form-control" />
+		</form>
+
+		<p class="acceso-pie"><a href="https://joseadrianzen.com/">Volver al sitio</a></p>
+	</div>
+</div>
+
+<noscript>
+	<p class="noscriptwarning"><roundcube:label name="noscriptwarning" /></p>
+</noscript>
+
+<roundcube:include file="includes/footer.html" />

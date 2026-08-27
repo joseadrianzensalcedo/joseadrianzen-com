@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 64" width="420" height="64" role="img" aria-label="Jose Adrianzen">
+  <!-- Un SVG en <img> no carga fuentes externas, asi que Anton no llega hasta
+       aqui: se usa la misma familia de reserva que el favicon del sitio. Donde
+       el logotipo se dibuja con HTML de verdad (la pantalla de acceso) si sale
+       en Anton. -->
+  <rect width="420" height="64" fill="none"/>
+  <text x="0" y="44" font-family="Anton, 'Arial Black', Impact, Arial, sans-serif"
+        font-size="38" letter-spacing="4" fill="#f2efe9">JOSE ADRIANZ<tspan fill="#d68a2e">E</tspan>N</text>
+</svg>

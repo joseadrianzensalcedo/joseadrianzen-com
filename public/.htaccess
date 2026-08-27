@@ -7,6 +7,11 @@ ServerSignature Off
   RewriteEngine On
   RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
   RewriteRule ^ https://%1%{REQUEST_URI} [R=301,L]
+
+  # El webmail vivio un tiempo en /Correo/ (con mayuscula) y el index.html
+  # anterior enlazaba asi. El sistema de ficheros distingue mayusculas, de
+  # modo que sin esto los marcadores viejos darian 404.
+  RewriteRule ^Correo/?(.*)$ /correo/$1 [R=301,L]
 </IfModule>
 
 <IfModule mod_headers.c>
@@ -17,6 +22,11 @@ ServerSignature Off
   Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains"
   Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' https://player.vimeo.com; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data: https://*.vimeocdn.com; frame-src https://player.vimeo.com; connect-src 'self' https://vimeo.com https://player.vimeo.com https://*.vimeocdn.com; base-uri 'self'; form-action 'self'; frame-ancestors 'self'; upgrade-insecure-requests"
 </IfModule>
+
+# El webmail de /correo NO usa esta CSP: es demasiado cerrada para el (no hay
+# forma de que un cliente de correo viva con frame-src limitado a Vimeo). Trae
+# la suya propia en su .htaccess, que reemplaza a esta hacia dentro de esa
+# carpeta. Ver correo/INSTALAR.md.
 
 <IfModule mod_deflate.c>
   AddOutputFilterByType DEFLATE text/html text/css application/javascript application/json image/svg+xml

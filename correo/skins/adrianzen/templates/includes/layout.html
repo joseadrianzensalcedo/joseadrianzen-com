@@ -1,0 +1,52 @@
+<roundcube:add_label name="back" />
+<roundcube:add_label name="errortitle" />
+<roundcube:add_label name="options" />
+<roundcube:add_label name="plaintoggle" />
+<roundcube:add_label name="htmltoggle" />
+<roundcube:add_label name="previous" />
+<roundcube:add_label name="next" />
+<roundcube:add_label name="select" />
+<roundcube:add_label name="close" />
+<roundcube:add_label name="browse" />
+<roundcube:add_label name="choosefile" />
+<roundcube:add_label name="choosefiles" />
+<roundcube:object name="doctype" value="html5" />
+<roundcube:if condition="!env:framed || env:extwin" />
+<html class="dark-mode">
+<roundcube:else />
+<html class="iframe dark-mode">
+<roundcube:endif />
+<head>
+	<roundcube:object name="meta" />
+	<roundcube:object name="links" />
+
+	<!-- Elastic primero: esta piel repinta encima, no reemplaza.
+
+	     Ojo con el ".min": aqui hay que pedir el nombre EXACTO del fichero que
+	     existe. Elastic escribe "/styles/styles.css" en su propia plantilla y le
+	     funciona, pero a nosotros no, y no es lo mismo: Roundcube resuelve en que
+	     piel esta el fichero (get_skin_file) ANTES de cambiar a la version
+	     minificada (file_mod), y ese cambio lo hace contra base_path, que en una
+	     piel que hereda somos nosotros. Como "styles.css" a secas no existe en
+	     ningun sitio (el paquete solo trae styles.min.css), la busqueda falla,
+	     cae en /skins/adrianzen/styles/styles.css y la hoja de 122 KB de Elastic
+	     no se carga nunca: la interfaz sale en carne viva.
+
+	     Si alguna version futura dejara de repartir los .min, esto habria que
+	     volverlo a "styles.css". Se nota enseguida: el enlace saldria sin "?s=". -->
+	<link rel="stylesheet" href="/deps/bootstrap.min.css">
+	<link rel="stylesheet" href="/styles/styles.min.css">
+	<roundcube:link rel="stylesheet" href="/styles/print.min.css" condition="env:action == 'print'" />
+
+	<!-- Las fuentes van DENTRO de adrianzen.css, servidas por la propia piel.
+	     Antes se enlazaba /assets/fuentes.css del sitio y daba 404. -->
+	<link rel="stylesheet" href="/styles/adrianzen.css">
+
+	<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23050505'/%3E%3Ctext y='74' x='50' text-anchor='middle' font-size='68' font-family='Arial Black,Arial' fill='%23d68a2e'%3EJ%3C/text%3E%3C/svg%3E">
+</head>
+<body class="task-<roundcube:exp expression="env:error_task ?: env:task ?: 'error'"> action-<roundcube:exp expression="asciiwords(env:action, true, '-') ?: 'none'">">
+	<roundcube:if condition="!env:framed || env:extwin" />
+		<div class="grano" aria-hidden="true"></div>
+		<div class="cur" id="cur" aria-hidden="true"></div>
+		<div id="<roundcube:exp expression="env:action == 'print' ? 'print-' : ''">layout">
+	<roundcube:endif />

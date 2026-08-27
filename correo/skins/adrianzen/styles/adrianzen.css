@@ -1,0 +1,574 @@
+/* Correo — la piel del sitio sobre Roundcube.
+   Orden: tokens → tipografía → grano y cursor → superficies → menú de tareas →
+   cabeceras → listados → mensaje → formularios → menús y avisos → acceso.
+
+   Cómo funciona esto: Elastic compila LESS a colores literales, no usa
+   variables CSS, así que no hay un sitio donde cambiar la paleta de golpe.
+   Lo que se hace es cargar Elastic primero (incluido su modo oscuro, que
+   forzamos siempre en layout.html con class="dark-mode") y repintar encima
+   selector por selector. Como esta hoja va DESPUÉS, a igualdad de peso gana
+   esta: por eso hay poquísimos !important, y los que hay están marcados.
+
+   Si Roundcube cambia de versión y algo se ve raro, casi siempre es un
+   selector nuevo de Elastic que aquí falta: se añade abajo, no se reescribe. */
+
+:root{
+  --negro:#050505;      /* fondo general */
+  --negro-2:#0c0b0a;    /* paneles y menús flotantes */
+  --carbon:#15130f;     /* superficies levantadas: fila activa, campo con foco */
+  --blanco:#f2efe9;
+  --polvo:#d68a2e;      /* el acento: sustituye al azul #37beff de Elastic */
+  --oro:#c9a55c;
+  --humo:#8a837a;       /* texto secundario */
+  --linea:#232019;
+  --display:'Anton',Impact,'Arial Narrow',sans-serif;
+  --cuerpo:'Archivo','Helvetica Neue',Arial,sans-serif;
+  --maquina:'Special Elite','Courier New',monospace;
+  --ease:cubic-bezier(.16,.84,.28,1);
+}
+
+/* ───────── fuentes propias ─────────
+   Las mismas tres del sitio, pero servidas por la piel y no por
+   /assets/fuentes.css del sitio. Al principio enlazaba alli y daba 404: lo
+   que hay desplegado en produccion es todavia la version anterior a Astro,
+   sin assets/fonts/. Con las fuentes aqui dentro, el correo se ve igual
+   pase lo que pase con el despliegue del sitio, hoy y dentro de un año.
+
+   Generado a partir de public/assets/fuentes.css; si alli cambian los pesos,
+   se vuelve a copiar cambiando "url('fonts/" por "url('../fonts/". */
+
+@font-face{
+  font-family:'Anton';
+  font-style:normal;
+  font-weight:400;
+  font-display:swap;
+  src:url('../fonts/anton-400-latin-ext.woff2') format('woff2');
+  unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face{
+  font-family:'Anton';
+  font-style:normal;
+  font-weight:400;
+  font-display:swap;
+  src:url('../fonts/anton-400-latin.woff2') format('woff2');
+  unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face{
+  font-family:'Archivo';
+  font-style:normal;
+  font-weight:300;
+  font-display:swap;
+  src:url('../fonts/archivo-300-latin-ext.woff2') format('woff2');
+  unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face{
+  font-family:'Archivo';
+  font-style:normal;
+  font-weight:300;
+  font-display:swap;
+  src:url('../fonts/archivo-300-latin.woff2') format('woff2');
+  unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face{
+  font-family:'Archivo';
+  font-style:normal;
+  font-weight:400;
+  font-display:swap;
+  src:url('../fonts/archivo-400-latin-ext.woff2') format('woff2');
+  unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face{
+  font-family:'Archivo';
+  font-style:normal;
+  font-weight:400;
+  font-display:swap;
+  src:url('../fonts/archivo-400-latin.woff2') format('woff2');
+  unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face{
+  font-family:'Archivo';
+  font-style:normal;
+  font-weight:500;
+  font-display:swap;
+  src:url('../fonts/archivo-500-latin-ext.woff2') format('woff2');
+  unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face{
+  font-family:'Archivo';
+  font-style:normal;
+  font-weight:500;
+  font-display:swap;
+  src:url('../fonts/archivo-500-latin.woff2') format('woff2');
+  unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face{
+  font-family:'Special Elite';
+  font-style:normal;
+  font-weight:400;
+  font-display:swap;
+  src:url('../fonts/special-elite-400-latin-ext.woff2') format('woff2');
+  unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face{
+  font-family:'Special Elite';
+  font-style:normal;
+  font-weight:400;
+  font-display:swap;
+  src:url('../fonts/special-elite-400-latin.woff2') format('woff2');
+  unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* ───────── tipografía ───────── */
+html.dark-mode body,
+html.dark-mode input,
+html.dark-mode select,
+html.dark-mode textarea,
+html.dark-mode button,
+html.dark-mode .btn{
+  font-family:var(--cuerpo);
+  font-weight:300;
+  color:var(--blanco);
+}
+html.dark-mode ::selection{background:var(--polvo);color:var(--negro)}
+
+/* Los rótulos cortos van en máquina de escribir, como los "ojos" del sitio. */
+html.dark-mode .header .header-title,
+html.dark-mode #taskmenu a .inner,
+html.dark-mode .listing li.header,
+html.dark-mode .boxtitle,
+html.dark-mode legend,
+html.dark-mode .formcontent legend{
+  font-family:var(--maquina);
+  font-size:.68rem;
+  letter-spacing:.2em;
+  text-transform:uppercase;
+  color:var(--oro);
+}
+
+/* ───────── grano y cursor ─────────
+   Los dos vienen del sitio para que la continuidad se note. Si el grano
+   molesta al leer correo largo, se baja la opacidad o se borra el bloque. */
+.grano{
+  position:fixed;inset:-50%;width:200%;height:200%;pointer-events:none;z-index:2000;opacity:.035;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='240' height='240' filter='url(%23n)'/%3E%3C/svg%3E");
+  animation:grano 1.1s steps(4) infinite;
+}
+@keyframes grano{0%{transform:translate(0,0)}25%{transform:translate(-2%,1%)}50%{transform:translate(1%,-2%)}75%{transform:translate(-1%,2%)}100%{transform:translate(2%,1%)}}
+
+.cur{
+  position:fixed;top:0;left:0;width:12px;height:12px;border:1px solid var(--blanco);
+  border-radius:50%;pointer-events:none;z-index:2001;mix-blend-mode:difference;
+  transform:translate(-120px,-120px);opacity:0;
+  transition:width .3s var(--ease),height .3s var(--ease),background .3s var(--ease),opacity .3s;
+}
+.cur.on{opacity:1}
+.cur.big{width:44px;height:44px;background:var(--blanco)}
+@media (hover:none){.cur{display:none}}
+
+/* Aquí SÍ se separa del sitio, a propósito. En la portada la flecha del
+   sistema no aparece nunca; en un cliente de correo eso haría imposible
+   escribir (sin cursor de texto no sabes dónde estás picando). Así que la
+   flecha se esconde en la interfaz, pero vuelve donde se escribe o se
+   selecciona. Para volver a la regla estricta del sitio, borrar el segundo
+   bloque; para recuperar la flecha en todo, borrar los dos. */
+@media (hover:hover) and (pointer:fine){
+  html.dark-mode,html.dark-mode *{cursor:none}
+  html.dark-mode input,
+  html.dark-mode textarea,
+  html.dark-mode select,
+  html.dark-mode iframe,
+  html.dark-mode [contenteditable],
+  html.dark-mode .mce-content-body,
+  html.dark-mode #messagebody,
+  html.dark-mode .ui-resizable-handle,
+  html.dark-mode .splitter{cursor:auto}
+}
+@media (prefers-reduced-motion:reduce){
+  .grano{animation:none}
+  .cur{display:none}
+  html.dark-mode,html.dark-mode *{cursor:auto}
+}
+
+/* ───────── superficies ─────────
+   Elastic pinta cada panel de #21292c en oscuro; aquí todo baja a negro y
+   la separación la hace la línea, no el cambio de tono. */
+html.dark-mode body,
+html.dark-mode #layout,
+html.dark-mode #layout-menu,
+html.dark-mode #layout-sidebar,
+html.dark-mode #layout-list,
+html.dark-mode #layout-content,
+html.dark-mode #layout-sidebar > .header,
+html.dark-mode #layout-list > .header,
+html.dark-mode #layout-content > .header,
+html.dark-mode .scroller,
+html.dark-mode .footer,
+html.dark-mode .formcontainer,
+html.dark-mode .content{
+  background-color:var(--negro);
+  border-color:var(--linea);
+}
+html.dark-mode #layout-sidebar,
+html.dark-mode #layout-list{border-right:1px solid var(--linea)}
+
+html.dark-mode{
+  scrollbar-color:var(--linea) var(--negro);
+}
+html.dark-mode:not(.touch) ::-webkit-scrollbar-track{background-color:var(--negro)}
+html.dark-mode:not(.touch) ::-webkit-scrollbar-thumb{background-color:var(--linea)}
+html.dark-mode:not(.touch) ::-webkit-scrollbar-thumb:hover{background-color:var(--polvo)}
+
+html.dark-mode a{color:var(--polvo)}
+html.dark-mode a:hover{color:var(--oro)}
+html.dark-mode a:focus-visible,
+html.dark-mode button:focus-visible,
+html.dark-mode input:focus-visible{outline:2px solid var(--polvo);outline-offset:2px}
+
+/* ───────── menú de tareas (la columna de iconos) ───────── */
+html.dark-mode #layout-menu,
+html.dark-mode #taskmenu{
+  background-color:var(--negro-2);
+  border-right:1px solid var(--linea);
+}
+html.dark-mode #taskmenu a{
+  color:var(--humo);
+  background:transparent;
+  transition:color .3s var(--ease);
+}
+html.dark-mode #taskmenu a .inner{letter-spacing:.12em;font-size:.6rem}
+html.dark-mode #taskmenu a:hover{color:var(--blanco);background:transparent}
+html.dark-mode #taskmenu a.selected,
+html.dark-mode #taskmenu a.selected:hover{
+  color:var(--polvo);
+  background:transparent;
+  box-shadow:inset 2px 0 0 var(--polvo);
+}
+html.dark-mode #taskmenu a.logout,
+html.dark-mode #taskmenu a.logout:hover{color:var(--humo)}
+html.dark-mode #taskmenu a.logout:hover{color:var(--blanco)}
+/* El logotipo de Roundcube no pinta nada aquí: el nombre lo pone la portada. */
+html.dark-mode #layout-menu #logo,
+html.dark-mode #taskmenu + #logo{display:none}
+
+/* ───────── cabeceras, barras y buscador ───────── */
+html.dark-mode .header,
+html.dark-mode .toolbar,
+html.dark-mode #messagetoolbar{
+  background-color:var(--negro);
+  border-bottom:1px solid var(--linea);
+}
+html.dark-mode .header a.button,
+html.dark-mode .toolbar a.button,
+html.dark-mode .header button,
+html.dark-mode .toolbar button{
+  color:var(--humo);
+  background:transparent;
+  border:0;
+  transition:color .3s var(--ease);
+}
+html.dark-mode .header a.button:hover,
+html.dark-mode .toolbar a.button:hover,
+html.dark-mode .header button:hover,
+html.dark-mode .toolbar button:hover{color:var(--polvo);background:transparent}
+html.dark-mode .header a.button.disabled,
+html.dark-mode .toolbar a.button.disabled{color:#4a453f}
+
+html.dark-mode .searchbar,
+html.dark-mode .searchbar input,
+html.dark-mode #searchmenulink{
+  background-color:var(--negro-2);
+  border-color:var(--linea);
+  color:var(--blanco);
+}
+html.dark-mode .searchbar input::placeholder{color:var(--humo)}
+html.dark-mode .searchbar:focus-within{border-color:var(--polvo)}
+
+/* ───────── listados: carpetas y mensajes ───────── */
+html.dark-mode .listing li,
+html.dark-mode table.listing td,
+html.dark-mode #messagelist tr{
+  border-color:var(--linea);
+  background-color:transparent;
+  color:var(--blanco);
+}
+html.dark-mode .listing li a,
+html.dark-mode #messagelist td{color:var(--blanco)}
+
+html.dark-mode .listing li:hover,
+html.dark-mode #messagelist tr:hover{background-color:#0e0c09}
+
+html.dark-mode .listing li.selected,
+html.dark-mode .listing li.selected:hover,
+html.dark-mode .listing li.selected > a,
+html.dark-mode #messagelist tr.selected,
+html.dark-mode #messagelist tr.selected:hover,
+html.dark-mode #messagelist tr.selected td{
+  background-color:var(--carbon);
+  color:var(--blanco);
+  box-shadow:inset 2px 0 0 var(--polvo);
+}
+
+/* Sin leer: el peso lo da el color, no la negrita gritona. */
+html.dark-mode #messagelist tr.unread td.subject,
+html.dark-mode #messagelist tr.unread span.subject{
+  font-weight:500;
+  color:var(--polvo);
+}
+html.dark-mode #messagelist tr.flagged td.subject{color:var(--oro)}
+html.dark-mode #messagelist tr.deleted td,
+html.dark-mode #messagelist tr.deleted span{color:#4a453f;text-decoration:line-through}
+
+html.dark-mode #messagelist span.date,
+html.dark-mode #messagelist span.fromto,
+html.dark-mode .listing li .brief,
+html.dark-mode span.hint,
+html.dark-mode .hint{
+  font-family:var(--maquina);
+  font-size:.66rem;
+  letter-spacing:.06em;
+  color:var(--humo);
+}
+
+/* Contadores de mensajes sin leer. */
+html.dark-mode .listing li .unreadcount,
+html.dark-mode .badge{
+  background-color:var(--polvo);
+  color:var(--negro);
+  font-family:var(--maquina);
+  font-size:.6rem;
+  letter-spacing:.06em;
+}
+
+/* ───────── el mensaje abierto ───────── */
+html.dark-mode #messageheader,
+html.dark-mode .message-partheaders,
+html.dark-mode #partheader{
+  background-color:var(--negro-2);
+  border-color:var(--linea);
+}
+html.dark-mode #messageheader .subject,
+html.dark-mode h2.subject{
+  font-family:var(--display);
+  font-weight:400;
+  text-transform:uppercase;
+  letter-spacing:.01em;
+  color:var(--blanco);
+}
+html.dark-mode #messageheader .header-links a,
+html.dark-mode .message-part a{color:var(--polvo)}
+html.dark-mode #messagebody,
+html.dark-mode .message-part,
+html.dark-mode .message-htmlpart{background-color:var(--negro);color:var(--blanco)}
+
+html.dark-mode .message-part blockquote{
+  border-left:2px solid var(--linea);
+  color:var(--humo);
+  background:transparent;
+}
+html.dark-mode #attachment-list li,
+html.dark-mode .attachmentslist li{
+  border-color:var(--linea);
+  background-color:var(--negro-2);
+}
+html.dark-mode #attachment-list li a{color:var(--blanco)}
+
+/* Aviso de imágenes remotas bloqueadas: que se lea como un sello, no como
+   una alerta de sistema operativo. */
+html.dark-mode .messagestack .message,
+html.dark-mode #remote-objects-message{
+  font-family:var(--maquina);
+  font-size:.7rem;
+  letter-spacing:.08em;
+  border:1px solid var(--linea);
+}
+
+/* ───────── formularios y botones ───────── */
+html.dark-mode input,
+html.dark-mode textarea,
+html.dark-mode select,
+html.dark-mode .form-control,
+html.dark-mode .input-group-text{
+  background-color:var(--negro-2);
+  border:1px solid var(--linea);
+  color:var(--blanco);
+  border-radius:0;              /* el sitio no redondea nada */
+}
+html.dark-mode input:focus,
+html.dark-mode textarea:focus,
+html.dark-mode select:focus,
+html.dark-mode .form-control:focus{
+  background-color:var(--carbon);
+  border-color:var(--polvo);
+  color:var(--blanco);
+  box-shadow:none;
+}
+html.dark-mode input::placeholder,
+html.dark-mode textarea::placeholder{color:var(--humo)}
+
+html.dark-mode .btn,
+html.dark-mode button.btn{
+  border-radius:0;
+  font-family:var(--maquina);
+  font-size:.7rem;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  transition:background .3s var(--ease),color .3s var(--ease);
+}
+html.dark-mode .btn-primary{
+  background-color:var(--polvo);
+  border-color:var(--polvo);
+  color:var(--negro);
+}
+html.dark-mode .btn-primary:hover,
+html.dark-mode .btn-primary:focus{
+  background-color:var(--oro);
+  border-color:var(--oro);
+  color:var(--negro);
+}
+html.dark-mode .btn-secondary{
+  background-color:transparent;
+  border:1px solid var(--linea);
+  color:var(--blanco);
+}
+html.dark-mode .btn-secondary:hover{border-color:var(--polvo);color:var(--polvo);background:transparent}
+html.dark-mode .btn-danger{background-color:#8a2f22;border-color:#8a2f22;color:var(--blanco)}
+
+html.dark-mode .propform td.title,
+html.dark-mode .formcontent label,
+html.dark-mode label{color:var(--humo)}
+
+/* Casillas y conmutadores de Elastic. */
+html.dark-mode .custom-switch .custom-control-label::before{background-color:var(--linea);border-color:var(--linea)}
+html.dark-mode .custom-control-input:checked ~ .custom-control-label::before{background-color:var(--polvo);border-color:var(--polvo)}
+html.dark-mode .custom-control-label::after{background-color:var(--blanco)}
+
+/* ───────── menús flotantes, diálogos y avisos ───────── */
+html.dark-mode .popover,
+html.dark-mode .popupmenu,
+html.dark-mode .ui-dialog,
+html.dark-mode .ui-dialog-content,
+html.dark-mode .ui-widget-content{
+  background-color:var(--negro-2);
+  border:1px solid var(--linea);
+  border-radius:0;
+  color:var(--blanco);
+  box-shadow:0 18px 50px rgba(0,0,0,.75);
+}
+html.dark-mode .popover .popover-header,
+html.dark-mode .ui-dialog-titlebar{
+  background-color:var(--negro-2);
+  border-bottom:1px solid var(--linea);
+  font-family:var(--maquina);
+  font-size:.68rem;
+  letter-spacing:.2em;
+  text-transform:uppercase;
+  color:var(--oro);
+}
+html.dark-mode .popupmenu li a,
+html.dark-mode .menu li a{color:var(--blanco)}
+html.dark-mode .popupmenu li a:hover,
+html.dark-mode .menu li a:hover{background-color:var(--polvo);color:var(--negro)}
+html.dark-mode .ui-widget-overlay{background:rgba(5,5,5,.82)}
+
+html.dark-mode #messagestack .message{border-radius:0}
+html.dark-mode #messagestack .message.error{background-color:#5a1f16;color:var(--blanco)}
+html.dark-mode #messagestack .message.confirmation{background-color:#1f3a1c;color:var(--blanco)}
+html.dark-mode #messagestack .message.warning{background-color:#4a3a12;color:var(--blanco)}
+html.dark-mode #messagestack .message.loading{background-color:var(--negro-2);color:var(--humo)}
+
+/* ───────── pantalla de acceso ───────── */
+/* Ojo con esto: "task-login" es una clase del <body>, no del <html>
+   (layout.html la escribe en <body class="task-...">). Un selector
+   html.task-login no engancha con nada. */
+html.dark-mode body.task-login,
+html.dark-mode body.task-login #layout-content{
+  background:radial-gradient(140vmax 90vmax at 50% -10%, #0b0a08 0%, var(--negro) 62%) fixed var(--negro);
+}
+/* El acceso se centra por su cuenta y no depende de como lo haga Elastic. */
+html.dark-mode body.task-login #layout-content{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  min-height:100svh;
+  overflow-y:auto;      /* si no cabe a lo alto, se desplaza */
+  border:0;
+}
+/* En flujo normal, centrado por #layout-content. Estuvo un rato con
+   position:fixed y se ha quitado: en una pantalla baja (movil en apaisado)
+   un bloque fijo no se puede desplazar y el boton queda inalcanzable. */
+#acceso{
+  width:100%;
+  max-width:340px;
+  margin:auto;
+  padding:2rem 0;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  text-align:center;
+  gap:.2rem;
+}
+#acceso > *{width:100%}
+#acceso .acceso-logo{
+  font-family:var(--display);
+  font-size:clamp(1.4rem,5vw,2rem);
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  text-decoration:none;
+  color:var(--blanco);
+  /* el mismo destello del nombre en la portada */
+  animation:acceso-flicker 2s steps(1,end) forwards;
+}
+#acceso .acceso-logo span{color:var(--polvo)}
+@keyframes acceso-flicker{
+  0%{opacity:0}6%{opacity:1}9%{opacity:.05}13%{opacity:1}18%{opacity:.2}
+  24%{opacity:1}30%{opacity:.5}37%{opacity:1}46%{opacity:.75}56%{opacity:1}100%{opacity:1}
+}
+#acceso .acceso-marca{
+  font-family:var(--maquina);
+  font-size:.66rem;
+  letter-spacing:.34em;
+  text-transform:uppercase;
+  color:var(--oro);
+  margin-bottom:2.2rem;
+}
+/* Elastic empuja el formulario con "top:20vh; position:relative" y lo limita
+   a 320px. Eso abria un hueco de casi 200px entre el nombre y los campos, y
+   dejaba el formulario mas estrecho que el logotipo. Aqui se anula: el bloque
+   entero se coloca solo, centrado, con el formulario pegado a la marca. */
+#acceso #login-form{
+  position:static;
+  top:auto;
+  width:100%;
+  max-width:340px;
+  margin:0;
+  text-align:left;
+}
+/* Red de seguridad: ni la tabla del formulario ni los grupos de Bootstrap
+   pueden crecer mas que el bloque. min-width:0 es la pieza clave: sin ella
+   un campo no baja de su ancho intrinseco y se sale por el lado. */
+#acceso #login-form table,
+#acceso #login-form tbody,
+#acceso #login-form tr,
+#acceso #login-form td,
+#acceso .input-group{width:100%;max-width:100%;min-width:0}
+#acceso .form-control,
+#acceso input{min-width:0;max-width:100%}
+#acceso .acceso-pie{margin-top:2.4rem}
+#acceso .acceso-pie a{
+  font-family:var(--maquina);
+  font-size:.62rem;
+  letter-spacing:.22em;
+  text-transform:uppercase;
+  color:var(--humo);
+  text-decoration:none;
+}
+#acceso .acceso-pie a:hover{color:var(--polvo)}
+
+/* Elastic dibuja un recuadro alrededor del formulario de acceso: fuera. */
+html.dark-mode body.task-login #layout-content .formcontent,
+html.dark-mode #login-form{background:transparent;border:0;box-shadow:none}
+html.dark-mode #login-footer{display:none}
+
+@media (max-width:480px){
+  #acceso .acceso-marca{margin-bottom:1.6rem}
+}

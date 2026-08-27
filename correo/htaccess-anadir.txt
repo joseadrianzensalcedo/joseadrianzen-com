@@ -1,0 +1,35 @@
+# ─────────────────────────────────────────────────────────────────────────
+# Correo — bloque para AÑADIR al final de <roundcube>/public_html/.htaccess
+#
+# AÑADIR, no reemplazar: el .htaccess que trae Roundcube ya hace cosas que
+# no queremos perder (compresion, cache, -Indexes, noindex). Esto se pega
+# debajo de lo que ya hay.
+#
+# Por que hace falta: el .htaccess de public_html/ del sitio manda una CSP
+# pensada para la portada (frame-src solo Vimeo, img-src casi cerrado) y esa
+# CSP se hereda hacia dentro de /correo. Con ella, Roundcube se queda a
+# medias sin decir por que. Aqui se sustituye por una equivalente pero con lo
+# que el correo necesita. "Header always set" reemplaza el valor heredado.
+# ─────────────────────────────────────────────────────────────────────────
+
+<IfModule mod_headers.c>
+  # data: y blob: son para las vistas previas de adjuntos y las descargas.
+  # https: en img-src es para las imagenes remotas de los correos: Roundcube
+  # las bloquea igualmente hasta que tu pulsas "mostrar imagenes", asi que la
+  # decision sigue siendo tuya; sin esto, ese boton no haria nada.
+  Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data: blob: https:; media-src 'self' data: blob:; frame-src 'self' blob:; connect-src 'self' blob:; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'; upgrade-insecure-requests"
+
+  Header always set X-Robots-Tag "noindex, nofollow"
+  Header always set Referrer-Policy "same-origin"
+</IfModule>
+
+# El sitio manda los 404 a la portada. Dentro del correo eso confunde:
+# aqui vuelve el 404 normal.
+ErrorDocument 404 default
+
+# Sobre el favicon: el icono que ves en la pestaña lo declara layout.html de
+# la piel (la J naranja del sitio, el mismo SVG que usa la portada), asi que
+# no hace falta tocar nada. La regla ^favicon\.ico$ que trae Roundcube en su
+# propio .htaccess solo se usa si alguien pide /correo/favicon.ico a pelo;
+# si te molesta que ahi salga el icono de Roundcube, borra esa linea de SU
+# .htaccess en vez de añadir otra aqui.
