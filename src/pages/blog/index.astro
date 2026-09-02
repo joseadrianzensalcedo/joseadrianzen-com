@@ -2,7 +2,18 @@
 import Base from '../../layouts/Base.astro';
 import Nav from '../../components/Nav.astro';
 import Footer from '../../components/Footer.astro';
+import { ruta } from '../../utils.js';
 import '../../styles/blog.css';
+
+const posts = [
+  {
+    slug: 'la-ia-no-sabe-donde-poner-la-camara',
+    fecha: '2026-09-02',
+    fechaLegible: '2 de septiembre de 2026',
+    titulo: 'La inteligencia artificial no sabe dónde poner la cámara',
+    resumen: 'Tres años filmando a las mujeres mineras del Perú me dejaron una certeza: la IA es una herramienta nueva para el problema de siempre, y ese problema no es técnico.',
+  },
+];
 
 const jsonLd = {
   '@context': 'https://schema.org',
@@ -36,9 +47,14 @@ const jsonLd = {
   <hr class="regla">
 
   <section aria-label="Artículos">
-    <div class="vacio rv rv--flash in">
-      <span class="sello-v">En rodaje</span>
-      <p>El primer artículo está en edición. Aquí va a haber una nota nueva cada semana sobre cine peruano y latinoamericano, actuación, industria y el uso de la inteligencia artificial como herramienta para el arte.</p>
+    <div class="lista-blog">
+      {posts.map(p => (
+        <a class="post-item rv rv--flash in" href={ruta('blog/' + p.slug)}>
+          <span class="fecha"><time datetime={p.fecha}>{p.fechaLegible}</time></span>
+          <h2>{p.titulo}</h2>
+          <p>{p.resumen}</p>
+        </a>
+      ))}
     </div>
   </section>
 

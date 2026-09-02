@@ -1,0 +1,78 @@
+---
+import Base from '../../layouts/Base.astro';
+import Nav from '../../components/Nav.astro';
+import Footer from '../../components/Footer.astro';
+import { img, ruta } from '../../utils.js';
+import '../../styles/blog.css';
+
+const titulo = 'La inteligencia artificial no sabe dónde poner la cámara';
+const descripcion = 'Tres años filmando a las mujeres mineras del Perú me dejaron una certeza: la inteligencia artificial es una herramienta nueva para el problema de siempre, y ese problema no es técnico.';
+const fechaISO = '2026-09-02';
+const fechaLegible = '2 de septiembre de 2026';
+const urlPost = 'https://joseadrianzen.com/blog/la-ia-no-sabe-donde-poner-la-camara/';
+const imagenPost = 'https://joseadrianzen.com' + img('bts-doc-1').replace(/^\/joseadrianzen-com/, '');
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BlogPosting',
+  '@id': urlPost + '#post',
+  headline: titulo,
+  description: descripcion,
+  image: imagenPost,
+  datePublished: fechaISO,
+  dateModified: fechaISO,
+  inLanguage: 'es',
+  mainEntityOfPage: { '@type': 'WebPage', '@id': urlPost },
+  author: { '@type': 'Person', name: 'Jose Adrianzen', url: 'https://joseadrianzen.com/' },
+  publisher: { '@type': 'Person', name: 'Jose Adrianzen', url: 'https://joseadrianzen.com/' },
+};
+---
+<Base
+  title={titulo + ' | Jose Adrianzen'}
+  description={descripcion}
+  ogDescription={descripcion}
+  ogType="article"
+  ogImageAlt="Jose Adrianzen ajusta la cámara sobre el trípode en la pampa"
+  canonical={urlPost}
+  jsonLd={jsonLd}
+>
+  <div class="grano" aria-hidden="true"></div>
+  <div class="cur" id="cur" aria-hidden="true"></div>
+
+  <Nav prefijo="raiz" />
+
+  <article class="post">
+    <header class="post-cab">
+      <p class="ojo"><a href={ruta('blog')}>&larr; Blog</a></p>
+      <h1>{titulo}</h1>
+      <p class="post-meta"><time datetime={fechaISO}>{fechaLegible}</time><span class="dot"> &nbsp;&middot;&nbsp; </span>Jose Adrianzen</p>
+    </header>
+
+    <figure class="post-figura">
+      <img src={img('bts-doc-1')} alt="Jose Adrianzen ajusta la cámara sobre el trípode en la pampa" width="1600" height="1067" loading="eager">
+      <figcaption>Ajustando la cámara sobre el trípode en la pampa</figcaption>
+    </figure>
+
+    <div class="post-cuerpo">
+      <p>Tres años trabajando para contar la vida de las mujeres mineras del Perú. En todo ese tiempo, una de las decisiones más importantes es dónde poner la cámara. Por eso, cuando escucho que la inteligencia artificial va a terminar con el cine o a salvarlo de una vez, me sale la misma respuesta, ni lo uno ni lo otro. Es una herramienta nueva para el problema de siempre. Y el problema de siempre no es técnico.</p>
+
+      <p>Cada vez que el cine cambió de técnica, alguien anunció su funeral. Pasó con el sonido, con el color, con el video, con el digital. Y cada vez ocurrió lo mismo, el oficio se abarató, entró más gente y se hicieron más películas, buenas y malas. George Lucas, que construyó su carrera empujando la técnica del cine, lo dijo hace poco en una entrevista con la revista A Rabbit's Foot, "La inteligencia artificial va a hacer mucho más fácil hacer películas, no hay nada que hacer al respecto, es el progreso". Se le puede discutir el entusiasmo, no la dirección. La pregunta ya no es si la IA entra al cine, porque ya entró. La pregunta es quién la maneja, para qué y cómo.</p>
+
+      <p>El caso que recuerdo lo dejó El brutalista (The Brutalist). En 2025 su montajista, Dávid Jancsó, contó que la producción usó Respeecher, un software de voz, para afinar la pronunciación del húngaro de Adrien Brody y Felicity Jones. La molestia duró semanas y amenazó su temporada de premios. Al final Brody ganó el Oscar de 2025 a mejor actor. El público no castigó la actuación, castigó la sensación de engaño. Esa es la línea que me importa como director. La herramienta se usa, se declara y se pone al servicio de un actor que sí estuvo ahí, delante de la cámara.</p>
+
+      <p>La Academia tuvo que moverse rápido. En abril de 2025 publicó una regla. Las herramientas de inteligencia artificial no ayudan ni perjudican las opciones de una película a la nominación. Un año después ajustó la tuerca para su próxima edición. Los guiones deben ser de autoría humana y solo cuentan las actuaciones hechas por personas. Su presidenta, Lynette Howell Taylor, lo resumió en una frase, "Los humanos tienen que estar en el centro del proceso creativo". Los actores ya habían marcado esa cancha en 2023, cuando el sindicato paró Hollywood hasta conseguir reglas de consentimiento y pago por las réplicas digitales. Y el mercado sumó su propia lección con Critterz, presentada como la primera gran película animada hecha con inteligencia artificial y anunciada para estrenarse en Cannes 2026. No llegó. Según Bloomberg, la producción terminó buscando un nuevo socio tecnológico después de que OpenAI apagara la herramienta de video con la que contaba. Levantar una película sobre una herramienta que otro puede apagar no es independencia. Es alquiler.</p>
+
+      <p>Para los que hacemos cine desde Latinoamérica, con presupuestos cortos, esta discusión no es teoría. Bien usada, la inteligencia artificial en el cine abarata la carpintería que rodea al plano. Ordenar presupuestos, probar un subtitulado antes de encargar el definitivo, limpiar un audio de referencia, previsualizar una secuencia para no quemar una jornada de rodaje. Cada centavo que se ahorra ahí es un centavo que vuelve a lo único que no se puede delegar, estar presente. Un modelo se entrena con lo que ya se filmó. La señora que baja de la pampa con el costal al hombro no existe en ningún archivo hasta que alguien sube con una cámara y la mira de frente. Ese sigue siendo el trabajo. La inteligencia artificial puede sostenerte la escalera. A qué ventana asomarse, eso lo decides tú.</p>
+
+      <p class="post-firma">Jose Adrianzen es director y productor del documental <em>Entre polvo y sueños</em>.</p>
+    </div>
+  </article>
+
+  <hr class="regla">
+
+  <Footer simple />
+
+  <script>
+    import '../../scripts/cursor.js';
+  </script>
+</Base>
