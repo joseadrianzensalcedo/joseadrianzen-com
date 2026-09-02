@@ -124,12 +124,21 @@ piel) esta en `correo/INSTALAR.md`.
 
 ## Publicar
 
+Automatico: cada push a `main` dispara `.github/workflows/deploy.yml`, que
+compila y sube `dist/` a `public_html/` en Hostinger por FTP. Requiere los
+secrets del repositorio `HOSTINGER_FTP_SERVER`, `HOSTINGER_FTP_USERNAME` y
+`HOSTINGER_FTP_PASSWORD` (Settings → Secrets and variables → Actions).
+
+Manual (si el workflow no esta configurado o hay que subir algo fuera de
+`main`):
+
 1. `npm run build`
 2. Copiar el contenido de `dist/` a `public_html/` en Hostinger.
 
 Antes de reemplazar `index.html`, renombrar el actual a `index-vN.html.bak`
 (hay v1-v8) para conservar el historial. El `.htaccess` se versiona igual
-(`htaccess-vN.bak`).
+(`htaccess-vN.bak`). El despliegue automatico no hace este renombrado: si se
+quiere conservar el historial de versiones, sigue siendo manual.
 
 ## Pendientes
 
