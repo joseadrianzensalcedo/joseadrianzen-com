@@ -1,0 +1,15 @@
+{
+  "n": 55,
+  "slug": "base-de-datos",
+  "nombre": "Base de datos",
+  "familia": "indice",
+  "concepto": "La obra de Jose como una base de datos abierta: cada párrafo, premio, festival, fotograma o vía de contacto es una fila con ID, fecha, tipo, campo y valor. Una consola filtra de verdad por sección, por tipo y por texto, escribe la consulta y dice cuántas filas devuelve y a qué hora.",
+  "paleta": ["#ffffff", "#f2f4fa", "#1b2a7a", "#5a66a0", "#dde1ee"],
+  "tipografias": ["Public Sans", "JetBrains Mono"],
+  "layout": "Barra azul con reloj de consulta, portada con el nombre sobre una retícula de celdas, consola pegajosa con filtros y búsqueda, y seis tablas de columnas fijas con filas alternas que en móvil pasan a fichas apiladas.",
+  "movimiento": "Un solo momento orquestado en la portada (la retícula se traza, el nombre entra por barrido y el rol se escribe), cascada corta de filas al entrar cada tabla y visor propio para todas las imágenes, todo apagado con prefers-reduced-motion.",
+  "peso": "ligera",
+  "librerias": [],
+  "estilos": ["filtros por categoría", "sección Works con cliente y fecha", "lista numerada de obras", "diseño minimalista", "tipografía como jerarquía"],
+  "referencias": ["Salomon Ligthelm", "Artefakt", "Partizan", "Eladio Dieste"]
+}

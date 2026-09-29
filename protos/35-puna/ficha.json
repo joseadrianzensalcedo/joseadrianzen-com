@@ -1,0 +1,15 @@
+{
+  "n": 35,
+  "slug": "puna",
+  "nombre": "Puna",
+  "familia": "Andino piedra y altura",
+  "concepto": "La puna a 4500 metros: un mar de ichu amarillo bajo un cielo enorme y pálido, con el horizonte muy bajo y el nombre apoyado sobre él al 70 % de la pantalla. Briznas de paja cruzan la portada con el viento, los títulos se estiran a lo ancho como el paisaje y ECO es la tormenta que cae sobre la pampa.",
+  "paleta": ["#cfdad9", "#eef0e6", "#d9b24c", "#a88532", "#efe0a8", "#f3ecd6", "#4a3b22", "#221d10", "#26231a"],
+  "tipografias": ["Anybody"],
+  "layout": "Bandas horizontales con horizonte bajo: cada sección abre con aire y el título apoyado sobre una línea gruesa de horizonte, contenido en rejilla ancha de 12 columnas, premios sobre un campo de ichu y fotos en filas a su proporción real.",
+  "movimiento": "Lenis da inercia al scroll; el nombre entra comprimido y fino y se estira hasta ocupar el ancho con peso 860 mientras cruzan briznas en CSS, y con scroll cada título se estira y gana peso (GSAP ScrollTrigger con scrub).",
+  "peso": "media",
+  "librerias": ["gsap", "ScrollTrigger", "lenis"],
+  "estilos": ["horizonte bajo", "tipografía estirada", "partículas CSS", "scroll con inercia", "paleta cálida de paisaje", "bandas horizontales"],
+  "referencias": ["Hervé Baillargeon (director)", "PERFECT DAYS official site (Wim Wenders)", "Xanvier Allison"]
+}

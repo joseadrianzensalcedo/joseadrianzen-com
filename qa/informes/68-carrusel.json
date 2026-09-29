@@ -1,0 +1,17 @@
+{
+ "slug": "68-carrusel",
+ "bytes_html": 42339,
+ "externos": [],
+ "libs": [],
+ "fuentes": [
+  "red-hat-display"
+ ],
+ "imagenes_referenciadas": 52,
+ "bytes_imagenes_locales": 1806642,
+ "titulo": "Jose Adrianzen | Director de cine peruano",
+ "alto_1440": 11278,
+ "imagenes_en_dom": 109,
+ "problemas": [],
+ "avisos": [],
+ "ok": true
+}

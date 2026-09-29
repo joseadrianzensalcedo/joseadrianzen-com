@@ -1,0 +1,21 @@
+{
+ "slug": "72-pared-3d",
+ "bytes_html": 65695,
+ "externos": [],
+ "libs": [
+  "three/three.module.min.js",
+  "three/addons/"
+ ],
+ "fuentes": [
+  "unbounded",
+  "geist"
+ ],
+ "imagenes_referenciadas": 53,
+ "bytes_imagenes_locales": 1823528,
+ "titulo": "Jose Adrianzen | Director de cine peruano",
+ "alto_1440": 18953,
+ "imagenes_en_dom": 70,
+ "problemas": [],
+ "avisos": [],
+ "ok": true
+}

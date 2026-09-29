@@ -1,0 +1,15 @@
+{
+  "n": 50,
+  "slug": "amanecer",
+  "nombre": "Amanecer",
+  "familia": "horizontal",
+  "concepto": "Bajar por la página es ver amanecer sobre el mar: arriba es noche con estrellas y el primer filo de sol en el horizonte, el documental y ECO transcurren en la hora azul, la fotografía es el momento en que el cielo se enciende de naranja y el director, el blog y el contacto ya están en la luz blanca de la mañana. Todo respira lento.",
+  "paleta": ["#070d1f", "#0d1a38", "#16305a", "#1f3f6b", "#e07a4f", "#f3a86e", "#f9d9b4", "#fcefe0", "#ffffff", "#1a2238"],
+  "tipografias": ["Nunito Sans"],
+  "layout": "Una columna centrada con mucho aire donde cada sección pinta su tramo del degradado para que el cielo sea continuo, portada con horizonte y mar, galerías en retícula tranquila y contacto en la luz blanca final.",
+  "movimiento": "Sin JS de animación: el resplandor del sol sube con el scroll de toda la página y un indicador de sol recorre el borde derecho con animation-timeline scroll(root), el sol de la portada asoma despacio al cargar y los bloques aparecen lentos con animation-timeline view(), todo dentro de @supports y apagado con prefers-reduced-motion.",
+  "peso": "ligera",
+  "librerias": [],
+  "estilos": ["degradado de cielo", "tipografía ultraligera", "scroll-driven CSS", "mucho aire", "una columna", "horizonte"],
+  "referencias": ["Photographers' virtual gallery", "Gil Huybrecht", "RISK"]
+}

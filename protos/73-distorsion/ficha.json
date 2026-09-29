@@ -1,0 +1,15 @@
+{
+  "n": 73,
+  "slug": "distorsion",
+  "nombre": "Distorsión",
+  "familia": "webgl",
+  "concepto": "El calor de la pampa hecho imagen: el fotograma de las tres mineras en la portada tiembla como el aire sobre la tierra caliente. Cada foto de la página ondula como un espejismo cuando el cursor pasa sobre ella, con un shader de desplazamiento sobre planos con la proporción exacta de cada imagen.",
+  "paleta": ["#000000", "#0f0e0d", "#f2eee6", "#8e877c", "#242220", "#ff6b1a", "#d9c3a0"],
+  "tipografias": ["Syne", "JetBrains Mono"],
+  "layout": "Portada con la imagen a todo el ancho y el nombre en Syne 800 que la muerde por abajo, luego secciones de dos columnas con el título fijo a la izquierda y el contenido a la derecha, ECO en una banda de arena.",
+  "movimiento": "El calor sube por la imagen de portada sin parar, el cursor deja una onda que se abre y se apaga, y al pasar por una foto un lienzo WebGL se coloca encima y la ondula con aberración leve.",
+  "peso": "pesada",
+  "librerias": ["ogl"],
+  "estilos": ["shader de desplazamiento", "hover con distorsión", "tema negro", "título fijo lateral", "tipografía display"],
+  "referencias": ["TAO TAJIMA, Filmmaker", "Ian Coad DP", "Edoardo Smerilli, Film Director"]
+}

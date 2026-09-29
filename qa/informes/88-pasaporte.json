@@ -1,0 +1,18 @@
+{
+ "slug": "88-pasaporte",
+ "bytes_html": 56408,
+ "externos": [],
+ "libs": [],
+ "fuentes": [
+  "roboto-flex",
+  "dm-mono"
+ ],
+ "imagenes_referenciadas": 52,
+ "bytes_imagenes_locales": 1806642,
+ "titulo": "Jose Adrianzen | Director de cine peruano",
+ "alto_1440": 12262,
+ "imagenes_en_dom": 54,
+ "problemas": [],
+ "avisos": [],
+ "ok": true
+}

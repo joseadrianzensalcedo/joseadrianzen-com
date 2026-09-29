@@ -1,0 +1,15 @@
+{
+  "n": 48,
+  "slug": "bitacora",
+  "nombre": "Bitácora",
+  "familia": "horizontal",
+  "concepto": "El sitio es el cuaderno de bitácora de un barco que zarpa de Lima: cada sección es una entrada con su marca de tiempo y su rumbo, y las coordenadas de Lima son la marca. Las fotos se pegan como registros numerados y los festivales son los puertos visitados, anotados en una tabla de escalas.",
+  "paleta": ["#efe5cf", "#e4d5b5", "#1c355e", "#4d6282", "#6f5132", "#a3442c", "#13233d"],
+  "tipografias": ["Space Mono", "Caveat"],
+  "layout": "Hoja pautada con margen rojo, columna de marcas de tiempo a la izquierda y entrada a la derecha, tablas de registro con filetes, tabla de escalas para las selecciones, ECO en una hoja nocturna de tinta y registros fotográficos con borde de papel.",
+  "movimiento": "El nombre se escribe a máquina con cursor al entrar, la brújula gira muy lento, reloj de Lima en vivo en la cabecera y entradas que se asientan con IntersectionObserver, todo apagado con prefers-reduced-motion.",
+  "peso": "ligera",
+  "librerias": [],
+  "estilos": ["cuaderno", "monoespaciada", "sepia y tinta", "tabla de datos", "coordenadas como marca", "anotación a mano"],
+  "referencias": ["RISK", "Gil Huybrecht", "Colonia Zacamil"]
+}

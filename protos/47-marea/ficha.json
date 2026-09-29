@@ -1,0 +1,15 @@
+{
+  "n": 47,
+  "slug": "marea",
+  "nombre": "Marea",
+  "familia": "horizontal",
+  "concepto": "Una costa en blanco y azul que se mueve como la marea: una línea de horizonte fija cruza toda la página y sube y baja con el scroll, con un velo de agua pálido debajo. El nombre nace sobre esa línea y se refleja en el agua, las imágenes flotan a distintas profundidades y ECO es el único tramo en aguas hondas.",
+  "paleta": ["#fbfcfd", "#f1f6f9", "#dbe8f0", "#9cc0d9", "#1d5c8f", "#0b2a47", "#5b7288", "#07203a"],
+  "tipografias": ["Playfair Display", "Josefin Sans"],
+  "layout": "Mucho aire sobre una retícula de 12 columnas asimétrica, imágenes flotantes escalonadas, tabla de mareas para las selecciones, tira de rodaje que deriva de lado, tramo de ECO con degradado de profundidad y contacto centrado.",
+  "movimiento": "Lenis para el scroll suave, parallax de imágenes con GSAP ScrollTrigger, horizonte que sube y baja en seno con el scroll y respira en reposo, y entrada orquestada donde se tiende el horizonte, el nombre emerge letra a letra y aparece su reflejo.",
+  "peso": "media",
+  "librerias": ["lenis", "gsap", "ScrollTrigger"],
+  "estilos": ["blanco y aire", "parallax suave", "serifa itálica", "línea de horizonte", "scroll horizontal", "reflejo"],
+  "referencias": ["Photographers' virtual gallery", "LxL Creative", "Gil Huybrecht"]
+}

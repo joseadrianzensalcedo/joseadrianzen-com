@@ -1,0 +1,22 @@
+{
+ "slug": "42-rio",
+ "bytes_html": 48025,
+ "externos": [],
+ "libs": [
+  "lenis.css",
+  "lenis.min.js",
+  "gsap.min.js",
+  "ScrollTrigger.min.js"
+ ],
+ "fuentes": [
+  "literata"
+ ],
+ "imagenes_referenciadas": 52,
+ "bytes_imagenes_locales": 1806642,
+ "titulo": "Jose Adrianzen | Director de cine peruano",
+ "alto_1440": 11963,
+ "imagenes_en_dom": 56,
+ "problemas": [],
+ "avisos": [],
+ "ok": true
+}

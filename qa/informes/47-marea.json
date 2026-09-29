@@ -1,0 +1,23 @@
+{
+ "slug": "47-marea",
+ "bytes_html": 49938,
+ "externos": [],
+ "libs": [
+  "lenis.css",
+  "lenis.min.js",
+  "gsap.min.js",
+  "ScrollTrigger.min.js"
+ ],
+ "fuentes": [
+  "playfair-display",
+  "josefin-sans"
+ ],
+ "imagenes_referenciadas": 48,
+ "bytes_imagenes_locales": 1807926,
+ "titulo": "Jose Adrianzen | Director de cine peruano",
+ "alto_1440": 19837,
+ "imagenes_en_dom": 51,
+ "problemas": [],
+ "avisos": [],
+ "ok": true
+}

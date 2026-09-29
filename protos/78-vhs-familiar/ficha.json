@@ -1,0 +1,15 @@
+{
+  "n": 78,
+  "slug": "vhs-familiar",
+  "nombre": "VHS familiar",
+  "familia": "retro",
+  "concepto": "La web es la cinta de video casero de la familia: imagen cálida y lavada por los años, fecha y contador en la esquina, PLAY al entrar y REC al final. Cada sección es una cinta con su etiqueta de franjas de colores y la franja de tracking cruza la pantalla cada tanto como un recuerdo que tiembla.",
+  "paleta": ["#e9e1d2", "#ddd3c1", "#2a2420", "#6f655b", "#171310", "#f4efe4", "#d4553e", "#e2b04a", "#86a98a", "#4a66ad"],
+  "tipografias": ["Rubik Dirt", "VT323", "Karla"],
+  "layout": "Portada como pantalla de televisor a todo el ancho, secciones abiertas por la etiqueta de una cinta numerada, obras en pantallas con letrero OSD, el afiche como caja de la cinta con lomo de colores y galerías en filas justificadas o álbum de fotos a la proporción real.",
+  "movimiento": "Pantalla azul con PLAY al cargar, el nombre entra con un salto de tracking, la franja de tracking cruza la pantalla cada pocos segundos con GSAP, el OSD fijo cambia capítulo y año según la sección y los bloques entran con un corrimiento de cinta, todo apagado con prefers-reduced-motion.",
+  "peso": "media",
+  "librerias": ["gsap", "ScrollTrigger"],
+  "estilos": ["fondo claro", "textura analógica", "grano de película", "microinteracciones", "tipografía como jerarquía"],
+  "referencias": ["Of Skin and Souls", "Velour Productions", "Niccolò Miranda"]
+}

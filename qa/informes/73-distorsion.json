@@ -1,0 +1,20 @@
+{
+ "slug": "73-distorsion",
+ "bytes_html": 56459,
+ "externos": [],
+ "libs": [
+  "ogl/index.js"
+ ],
+ "fuentes": [
+  "syne",
+  "jetbrains-mono"
+ ],
+ "imagenes_referenciadas": 53,
+ "bytes_imagenes_locales": 1823528,
+ "titulo": "Jose Adrianzen | Director de cine peruano",
+ "alto_1440": 14265,
+ "imagenes_en_dom": 57,
+ "problemas": [],
+ "avisos": [],
+ "ok": true
+}

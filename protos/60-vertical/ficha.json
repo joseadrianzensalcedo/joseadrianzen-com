@@ -1,0 +1,15 @@
+{
+  "n": 60,
+  "slug": "vertical",
+  "nombre": "Vertical",
+  "familia": "tipografia",
+  "concepto": "Una revista de cine japonesa leída en castellano: los títulos y las etiquetas corren en vertical como columnas de tinta, de derecha a izquierda, sobre mucho blanco. Las imágenes cuelgan de los títulos con un hilo fino y un clavo índigo, como rollos colgados en una pared.",
+  "paleta": ["#ffffff", "#1c1b19", "#28366e", "#86847e", "#e6e4de"],
+  "tipografias": ["Six Caps", "Yrsa"],
+  "layout": "Portada con el nombre en una sola columna vertical a la derecha, cada sección con su título vertical fijo a la derecha y el contenido a la izquierda en columnas de revista, premios, datos y cita escritos en vertical, navegación vertical en el borde izquierdo.",
+  "movimiento": "El nombre se escribe de arriba abajo al cargar y el hilo de la portada cae, y cada imagen colgada baja por su hilo y se mece dos veces con el pivote en el clavo al entrar en pantalla (IntersectionObserver y keyframes CSS). Con movimiento reducido todo queda quieto.",
+  "peso": "ligera",
+  "librerias": [],
+  "estilos": ["textos que se animan al desplazar", "diseño minimalista", "tema claro", "escritura vertical", "revista"],
+  "referencias": ["PERFECT DAYS official site (Wim Wenders)", "Ryoji Ikeda", "Studio Dumbar / DEPT"]
+}

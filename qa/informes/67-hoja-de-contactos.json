@@ -1,6 +1,6 @@
 {
  "slug": "67-hoja-de-contactos",
- "bytes_html": 55354,
+ "bytes_html": 55552,
  "externos": [],
  "libs": [],
  "fuentes": [
@@ -11,10 +11,7 @@
  "titulo": "Jose Adrianzen | Director de cine peruano",
  "alto_1440": 9119,
  "imagenes_en_dom": 64,
- "problemas": [
-  "desborde horizontal de 25px a 360px",
-  "desborde horizontal de 124px a 768px"
- ],
+ "problemas": [],
  "avisos": [],
- "ok": false
+ "ok": true
 }

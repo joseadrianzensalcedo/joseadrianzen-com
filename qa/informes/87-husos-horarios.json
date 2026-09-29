@@ -1,0 +1,21 @@
+{
+ "slug": "87-husos-horarios",
+ "bytes_html": 76226,
+ "externos": [],
+ "libs": [
+  "gsap.min.js",
+  "ScrollTrigger.min.js"
+ ],
+ "fuentes": [
+  "tourney",
+  "public-sans"
+ ],
+ "imagenes_referenciadas": 52,
+ "bytes_imagenes_locales": 1806642,
+ "titulo": "Jose Adrianzen | Director de cine peruano",
+ "alto_1440": 17675,
+ "imagenes_en_dom": 54,
+ "problemas": [],
+ "avisos": [],
+ "ok": true
+}

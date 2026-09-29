@@ -1,0 +1,15 @@
+{
+  "n": 80,
+  "slug": "television",
+  "nombre": "Televisión",
+  "familia": "retro",
+  "concepto": "La web se ve dentro de un televisor de tubo: al encender aparecen un segundo las barras de color de prueba y luego la señal, Jose Adrianzen en vivo. Cada sección es un canal, y al pasar de una a otra la pantalla se llena de ruido un instante, como cuando se giraba la perilla.",
+  "paleta": ["#0b0d0e", "#0d1417", "#e6eef2", "#8fa3ab", "#1c1916", "#43e36b", "#ff3b30", "#e8e02a", "#2ad4e0", "#2ad94a", "#e02ad4", "#e0322a", "#2a3ae0"],
+  "tipografias": ["Silkscreen", "Nunito Sans"],
+  "layout": "Marco fijo del televisor con esquinas curvas, líneas de barrido y viñeta sobre toda la página, EN VIVO y número de canal fijos, cada sección abierta por un zócalo de noticiero con su color de barra, obras dentro de pantallas internas y galerías a la proporción real.",
+  "movimiento": "Barras de prueba un segundo al cargar que se cierran en una línea, EN VIVO parpadeando, cambio de canal con ruido animado en canvas y un salto de brillo en el zócalo al entrar a cada sección con GSAP y ScrollTrigger, todo apagado con prefers-reduced-motion.",
+  "peso": "media",
+  "librerias": ["gsap", "ScrollTrigger"],
+  "estilos": ["fondo oscuro", "microinteracciones", "textura analógica", "tipografía como jerarquía", "símbolos propios como navegación"],
+  "referencias": ["Rodeo Film", "Of Skin and Souls", "Salomon Ligthelm"]
+}

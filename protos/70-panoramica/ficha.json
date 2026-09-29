@@ -1,0 +1,15 @@
+{
+  "n": 70,
+  "slug": "panoramica",
+  "nombre": "Panorámica",
+  "familia": "horizontal",
+  "concepto": "La web se recorre como una serie de panorámicas: cada sección es una fila que se desliza de lado con imanes, como una cámara que panea, y el título queda fijo a la izquierda como el rótulo de un rollo. Las imágenes van siempre completas, del alto de la fila o del ancho que quepa.",
+  "paleta": ["#0a0f15", "#101821", "#e4eaf0", "#8d9bab", "#e0a654"],
+  "tipografias": ["Oswald", "Hanken Grotesk"],
+  "layout": "Filas a sangre derecha con columna de título fija a la izquierda y riel horizontal con scroll-snap, que en móvil pasa el título arriba y deja asomar el cuadro siguiente.",
+  "movimiento": "Entrada de portada con los cuadros llegando desde la derecha en cascada y el nombre subiendo desde una rendija, barra de avance y contador por fila, flechas, teclado y arrastre con mouse, reveals por IntersectionObserver.",
+  "peso": "ligera",
+  "librerias": [],
+  "estilos": ["layout horizontal", "scroll-snap", "galería con scroll horizontal", "tipografía condensada", "fondo oscuro"],
+  "referencias": ["Photographers' virtual gallery", "Gil Huybrecht", "War in Ukraine (Artem Militonian)"]
+}

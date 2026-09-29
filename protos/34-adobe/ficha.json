@@ -1,0 +1,15 @@
+{
+  "n": 34,
+  "slug": "adobe",
+  "nombre": "Adobe",
+  "familia": "Andino piedra y altura",
+  "concepto": "Una casa de adobe de la sierra a mediodía: muros de barro con hiladas de adobe, sombras de vigas que cruzan en bandas diagonales suaves y se mueven como el sol, vanos con marcos gruesos y rectos. Cada sección es un cuarto con su dintel de terracota, y ECO es el cuarto interior con la luz de una sola ventana.",
+  "paleta": ["#e8d6b5", "#f3e8d2", "#c79a6c", "#a45f41", "#8e4f35", "#3a2519", "#2a1b12"],
+  "tipografias": ["Yrsa"],
+  "layout": "Cuartos con bordes gruesos y rectos, dinteles de terracota que llevan los títulos y bloques que se apilan como adobes en una rejilla sin redondeos, con las fotos en filas a su proporción real.",
+  "movimiento": "Al entrar la sombra de las vigas barre el muro y el nombre sube desde el vano, las bandas de sombra se desplazan lento todo el tiempo y con el scroll se corre una segunda capa (animation-timeline), y los cuartos aparecen al entrar en pantalla.",
+  "peso": "ligera",
+  "librerias": [],
+  "estilos": ["textura de material", "bordes gruesos", "paleta tierra", "sombra proyectada", "serifa cálida", "bloques rectos"],
+  "referencias": ["PERFECT DAYS official site (Wim Wenders)", "Adam Bricker", "Oliver Laxe"]
+}

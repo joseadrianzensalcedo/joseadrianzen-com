@@ -1,0 +1,21 @@
+{
+ "slug": "75-tunel",
+ "bytes_html": 62191,
+ "externos": [],
+ "libs": [
+  "three/three.module.min.js",
+  "three/addons/"
+ ],
+ "fuentes": [
+  "allerta-stencil",
+  "space-mono"
+ ],
+ "imagenes_referenciadas": 53,
+ "bytes_imagenes_locales": 1823528,
+ "titulo": "Jose Adrianzen | Director de cine peruano",
+ "alto_1440": 18263,
+ "imagenes_en_dom": 56,
+ "problemas": [],
+ "avisos": [],
+ "ok": true
+}

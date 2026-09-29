@@ -1,0 +1,15 @@
+{
+  "n": 68,
+  "slug": "carrusel",
+  "nombre": "Carrusel infinito",
+  "familia": "horizontal",
+  "concepto": "La web es una mesa de montaje que nunca se detiene: entre secciones cortas de texto corren rollos infinitos de fotogramas, uno hacia cada lado, como película pasando por la moviola. Al pasar el cursor el rollo se detiene y un clic en las fotos las abre completas.",
+  "paleta": ["#15110c", "#1d1812", "#efe5cf", "#b9ad95", "#d0753a"],
+  "tipografias": ["Red Hat Display"],
+  "layout": "Bandas de carrusel a sangre separadas por bloques de texto en rejilla de doce columnas, con todas las imágenes dimensionadas por alto en su proporción real.",
+  "movimiento": "Carruseles CSS en dos sentidos que se duplican por JS para un bucle continuo y se pausan con cursor o foco, entrada de portada con los rollos llegando desde lados opuestos y el nombre subiendo desde una rendija, reveals por IntersectionObserver.",
+  "peso": "ligera",
+  "librerias": [],
+  "estilos": ["carrusel infinito", "layout horizontal", "tipografía gigante", "fotos fijas de rodaje", "fondo oscuro"],
+  "referencias": ["LxL Creative", "Gil Huybrecht", "Photographers' virtual gallery"]
+}

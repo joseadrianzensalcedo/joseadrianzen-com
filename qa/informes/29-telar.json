@@ -1,0 +1,24 @@
+{
+ "slug": "29-telar",
+ "bytes_html": 41985,
+ "externos": [],
+ "libs": [
+  "lenis.css",
+  "gsap.min.js",
+  "ScrollTrigger.min.js",
+  "split-type.min.js",
+  "lenis.min.js"
+ ],
+ "fuentes": [
+  "montagu-slab",
+  "dm-mono"
+ ],
+ "imagenes_referenciadas": 52,
+ "bytes_imagenes_locales": 1806642,
+ "titulo": "Jose Adrianzen | Director de cine peruano",
+ "alto_1440": 14371,
+ "imagenes_en_dom": 57,
+ "problemas": [],
+ "avisos": [],
+ "ok": true
+}

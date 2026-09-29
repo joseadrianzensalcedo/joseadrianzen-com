@@ -1,0 +1,507 @@
+<!doctype html>
+<!-- CONCEPTO: la web como catálogo de cargo.site. Cada pieza (afiche, fotograma, foto de rodaje, retrato, foto) es una miniatura del mismo alto, dentro de una caja gris que muestra la imagen completa, con su número y su texto debajo. Cada miniatura abre un panel lateral con la pieza grande y su ficha, y se puede recorrer con flechas. / PALETA: papel #f3f3f1, caja gris #e2e2de, tinta #151515, gris medio #6b6b66, filete #d2d2cc y un solo acento naranja polvo #d9531e para el foco, el hover y el sello de ECO. / TIPOGRAFÍA: Space Grotesk sola, 300 a 700 (500 para el nombre y los títulos, 400 para el texto, números tabulares en los códigos). / LAYOUT: barra superior con nombre, índice y contador de piezas. Portada con el nombre grande y una fila de seis cajas que es la navegación. Cada sección abre con una cabecera de 12 columnas (código, título, ficha) y sigue con grillas de miniaturas uniformes de 2 a 6 columnas. / MOVIMIENTO: un solo momento orquestado en la portada (el nombre sube desde su máscara y las seis cajas se llenan en secuencia), después las miniaturas llegan en cascada suave al entrar en pantalla y el panel lateral se desliza con inercia. Todo se apaga con prefers-reduced-motion. / PESO: ligera -->
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Jose Adrianzen | Director de cine peruano</title>
+<meta name="description" content="Jose Adrianzen, director de cine peruano. Su documental Entre polvo y sueños, sobre mujeres mineras del Perú, premiado en festivales, y el cortometraje ECO.">
+<meta name="theme-color" content="#f3f3f1">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="es_PE">
+<meta property="og:title" content="Jose Adrianzen | Director de cine peruano">
+<meta property="og:description" content="Jose Adrianzen, director de cine peruano. Su documental Entre polvo y sueños, sobre mujeres mineras del Perú, premiado en festivales, y el cortometraje ECO.">
+<meta property="og:url" content="https://joseadrianzen.com/">
+<meta property="og:image" content="https://joseadrianzen.com/assets/og.jpg">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23e2e2de'/%3E%3Ctext x='16' y='23' text-anchor='middle' font-family='sans-serif' font-size='20' font-weight='600' fill='%23151515'%3EJ%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="../fonts/space-grotesk.css">
+<style>
+:root{--bg:#f3f3f1;--box:#e2e2de;--box2:#d6d6d1;--ink:#151515;--mu:#6b6b66;--ln:#d2d2cc;--ac:#d9531e;--pad:clamp(16px,2.6vw,40px);--gap:clamp(14px,1.6vw,24px);--f:'Space Grotesk',system-ui,sans-serif;--e:cubic-bezier(.2,.7,.1,1)}
+*{box-sizing:border-box;margin:0;padding:0}
+html:focus-within{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font:400 15px/1.55 var(--f);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body.lock{overflow:hidden}
+img{display:block}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer;text-align:left}
+:focus-visible{outline:2px solid var(--ac);outline-offset:3px}
+ul,ol{list-style:none}
+.n{font-variant-numeric:tabular-nums;color:var(--mu);letter-spacing:.02em}
+.sm{font-size:13px;line-height:1.5}
+.mu{color:var(--mu)}
+.u{background:linear-gradient(currentColor,currentColor) 0 100%/0 1px no-repeat;transition:background-size .4s var(--e)}
+a:hover .u,a:focus-visible .u,a.u:hover,a.u:focus-visible{background-size:100% 1px}
+
+/* barra */
+.bar{position:sticky;top:0;z-index:30;display:flex;align-items:center;gap:24px;padding:0 var(--pad);height:48px;background:rgba(243,243,241,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--ln);font-size:13px}
+.bar .me{font-weight:600;white-space:nowrap}
+.bar nav{flex:1;overflow-x:auto;scrollbar-width:none}
+.bar nav::-webkit-scrollbar{display:none}
+.bar nav ul{display:flex;gap:22px;white-space:nowrap}
+.bar nav a{color:var(--mu);transition:color .2s}
+.bar nav a:hover,.bar nav a:focus-visible{color:var(--ink)}
+.bar .ct{white-space:nowrap;color:var(--mu)}
+
+/* portada */
+.hero{padding:clamp(48px,9vh,110px) var(--pad) clamp(40px,6vh,72px);min-height:calc(100svh - 48px);display:flex;flex-direction:column;justify-content:space-between;gap:48px}
+.hero h1{font-weight:500;font-size:clamp(52px,12.4vw,210px);line-height:1.05;letter-spacing:-.045em;overflow:hidden;padding-bottom:.04em}
+.hero h1 span{display:inline-block}
+.hero .rol{font-size:clamp(16px,1.6vw,22px);margin-top:14px;letter-spacing:-.01em}
+.ix{display:grid;grid-template-columns:repeat(6,1fr);gap:var(--gap)}
+.ix a{display:block}
+.ix .th{aspect-ratio:4/3}
+.ix .cap{display:flex;gap:10px;margin-top:10px;font-size:14px}
+
+/* miniatura */
+.th{position:relative;display:block;aspect-ratio:5/4;background:var(--box);padding:9%;overflow:hidden;transition:background-color .35s}
+.th img{width:100%;height:100%;object-fit:contain;transition:transform .6s var(--e)}
+.it:hover .th,.it:focus-visible .th,.ix a:hover .th,.ix a:focus-visible .th{background:var(--box2)}
+.it:hover .th img,.it:focus-visible .th img,.ix a:hover .th img{transform:scale(1.035)}
+.it{display:block;width:100%}
+.it:focus-visible{outline-offset:4px}
+.cap{display:block;margin-top:10px;font-size:13px;line-height:1.45}
+.cap b{font-weight:500;display:block;font-size:14px}
+.cap .n{margin-right:8px}
+.it:hover .cap b,.it:focus-visible .cap b{color:var(--ac)}
+
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:34px var(--gap)}
+.grid.w{grid-template-columns:repeat(auto-fill,minmax(260px,1fr))}
+.grid.t .th{aspect-ratio:3/4}
+
+/* secciones */
+.sec{padding:clamp(64px,9vw,120px) var(--pad) 0;scroll-margin-top:0}
+#documental,#eco,#fotografia,#director,#blog,#contacto{scroll-margin-top:-20px}
+.hd{display:grid;grid-template-columns:repeat(12,1fr);gap:var(--gap);border-top:1px solid var(--ink);padding-top:14px;margin-bottom:clamp(32px,4vw,56px)}
+.hd .code{grid-column:1/3;font-size:13px}
+.hd h2{grid-column:3/9;font-weight:500;font-size:clamp(34px,4.6vw,72px);line-height:1.05;letter-spacing:-.035em}
+.hd .tag{grid-column:9/13;font-size:13px;color:var(--mu);align-self:end}
+.sub{display:flex;justify-content:space-between;gap:16px;align-items:baseline;border-top:1px solid var(--ln);padding-top:10px;margin:clamp(48px,5vw,72px) 0 22px;font-size:13px}
+.sub h3{font-weight:500;font-size:15px}
+.cols{display:grid;grid-template-columns:repeat(12,1fr);gap:var(--gap)}
+.golpe{font-size:clamp(26px,2.8vw,42px);line-height:1.15;letter-spacing:-.025em;font-weight:500;margin-bottom:22px}
+.txt p{max-width:58ch;margin-bottom:14px}
+.fc{margin-top:18px;font-size:13px;color:var(--mu);border-top:1px solid var(--ln);padding-top:10px}
+.dl{display:grid;grid-template-columns:minmax(110px,40%) 1fr;font-size:14px}
+.dl dt,.dl dd{padding:8px 0;border-top:1px solid var(--ln)}
+.dl dt{color:var(--mu)}
+.lst li{display:grid;grid-template-columns:34px 1fr;gap:8px;padding:10px 0;border-top:1px solid var(--ln);font-size:14px;line-height:1.45}
+.lst li .d{display:block;color:var(--mu);font-size:13px}
+.lst b{font-weight:500}
+
+/* reproductor */
+.vp{position:relative;aspect-ratio:1200/649;background:#000}
+.vp-poster{position:absolute;inset:0;width:100%;height:100%;display:block;cursor:pointer}
+.vp-poster img{width:100%;height:100%;object-fit:contain;transition:opacity .4s}
+.vp-lbl{position:absolute;left:14px;bottom:14px;background:var(--bg);color:var(--ink);font-size:14px;font-weight:500;padding:9px 14px 9px 12px;display:flex;gap:10px;align-items:center;transition:background-color .25s,color .25s}
+.vp-lbl::before{content:"";width:0;height:0;border-left:9px solid currentColor;border-top:6px solid transparent;border-bottom:6px solid transparent}
+.vp-poster:hover .vp-lbl,.vp-poster:focus-visible .vp-lbl{background:var(--ac);color:#fff}
+.vp-poster:hover img{opacity:.88}
+
+/* ECO */
+.sello{display:inline-flex;gap:8px;align-items:center;border:1px solid var(--ac);color:var(--ac);font-size:13px;font-weight:500;padding:5px 10px;margin-bottom:14px}
+.sello::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--ac)}
+.aviso{font-size:14px;color:var(--mu);max-width:48ch;margin-bottom:26px}
+.luz{display:flex;gap:10px;flex-wrap:wrap}
+.luz figure{flex:1 1 120px;max-width:258px}
+.luz .th{aspect-ratio:258/150;padding:0}
+.luz figcaption{font-size:12px;margin-top:6px}
+
+/* director */
+.cita{font-size:clamp(22px,2.3vw,34px);line-height:1.25;letter-spacing:-.02em;font-weight:400;margin-top:clamp(40px,5vw,72px);max-width:32ch}
+.cita footer{font-size:13px;color:var(--mu);margin-top:14px;letter-spacing:0}
+.txt strong{font-weight:600}
+
+/* blog y contacto */
+.blog{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--gap)}
+.blog .th{aspect-ratio:16/10}
+.blog h3{font-weight:500;font-size:clamp(20px,1.9vw,28px);line-height:1.2;letter-spacing:-.02em;margin-top:6px}
+.blog a:hover h3,.blog a:focus-visible h3{color:var(--ac)}
+.vias li a{display:grid;grid-template-columns:34px 140px 1fr auto;gap:8px;align-items:baseline;padding:18px 0;border-top:1px solid var(--ln);transition:padding .35s var(--e)}
+.vias li:last-child a{border-bottom:1px solid var(--ln)}
+.vias .v{font-size:clamp(20px,2.4vw,36px);letter-spacing:-.025em;font-weight:500;overflow-wrap:anywhere}
+.vias a:hover,.vias a:focus-visible{padding-left:10px}
+.vias a:hover .v,.vias a:focus-visible .v{color:var(--ac)}
+.vias .ar{transition:transform .35s var(--e)}
+.vias a:hover .ar{transform:translateX(-6px)}
+.foot{margin-top:clamp(80px,10vw,140px);padding:22px var(--pad) 28px;border-top:1px solid var(--ink);display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px 28px;font-size:13px;color:var(--mu)}
+.foot a:hover,.foot a:focus-visible{color:var(--ink)}
+
+/* panel */
+.scrim{position:fixed;inset:0;z-index:40;background:rgba(21,21,21,.28);opacity:0;visibility:hidden;transition:opacity .45s,visibility 0s .45s}
+.scrim.on{opacity:1;visibility:visible;transition:opacity .45s}
+.pn{position:fixed;top:0;right:0;bottom:0;z-index:50;width:min(600px,100vw);background:var(--bg);border-left:1px solid var(--ink);display:flex;flex-direction:column;transform:translateX(102%);visibility:hidden;transition:transform .6s var(--e),visibility 0s .6s}
+.pn.on{transform:none;visibility:visible;transition:transform .6s var(--e)}
+.pn-top{display:flex;align-items:center;gap:6px;height:48px;padding:0 10px 0 var(--pad);border-bottom:1px solid var(--ln);font-size:13px}
+.pn-top .pn-c{flex:1}
+.pn-top button{padding:8px 10px;font-size:13px}
+.pn-top button:hover{color:var(--ac)}
+.pn-b{flex:1;overflow-y:auto;padding:var(--pad)}
+.pn-img{background:var(--box);padding:6%;display:grid;place-items:center}
+.pn-img img{max-width:100%;max-height:62vh;width:auto;height:auto;object-fit:contain}
+.pn h2{font-weight:500;font-size:clamp(22px,2.2vw,30px);line-height:1.15;letter-spacing:-.02em;margin:22px 0 8px}
+.pn-m{font-size:13px;color:var(--mu);border-top:1px solid var(--ln);padding-top:10px;margin-top:12px}
+.pn-d{font-size:15px;max-width:48ch}
+.pn-a{display:inline-block;margin-top:18px;font-size:14px;font-weight:500}
+.pn-a:hover{color:var(--ac)}
+
+/* entrada */
+@keyframes up{from{transform:translateY(105%)}to{transform:none}}
+@keyframes fi{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+@keyframes fill{from{clip-path:inset(100% 0 0 0)}to{clip-path:inset(0 0 0 0)}}
+.hero h1 span{animation:up 1.1s var(--e) both}
+.hero .rol{animation:fi .9s .45s var(--e) both}
+.ix li{animation:fi .8s var(--e) both}
+.ix li .th img{animation:fill 1s var(--e) both}
+.ix li:nth-child(1),.ix li:nth-child(1) img{animation-delay:.55s}
+.ix li:nth-child(2),.ix li:nth-child(2) img{animation-delay:.63s}
+.ix li:nth-child(3),.ix li:nth-child(3) img{animation-delay:.71s}
+.ix li:nth-child(4),.ix li:nth-child(4) img{animation-delay:.79s}
+.ix li:nth-child(5),.ix li:nth-child(5) img{animation-delay:.87s}
+.ix li:nth-child(6),.ix li:nth-child(6) img{animation-delay:.95s}
+.js .rv{opacity:0;transform:translateY(16px);transition:opacity .8s var(--e),transform .8s var(--e);transition-delay:var(--d,0s)}
+.js .rv.v{opacity:1;transform:none}
+
+@media (max-width:1000px){
+ .ix{grid-template-columns:repeat(3,1fr)}
+ .hd .code{grid-column:1/13}.hd h2{grid-column:1/13}.hd .tag{grid-column:1/13}
+ .cols>*{grid-column:1/13!important}
+}
+@media (max-width:700px){
+ .bar{gap:14px}.bar .ct{display:none}
+ .ix{grid-template-columns:repeat(2,1fr)}
+ .grid,.grid.w{grid-template-columns:repeat(2,minmax(0,1fr));gap:26px 12px}
+ .blog{grid-template-columns:1fr}
+ .vias li a{grid-template-columns:28px 1fr auto}
+ .vias .t{display:none}
+ .cap{font-size:12px}.cap b{font-size:13px}
+ .dl{grid-template-columns:1fr 1.3fr}
+}
+@media (prefers-reduced-motion:reduce){
+ *,*::before,*::after{animation:none!important;transition:none!important}
+ .js .rv{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+<header class="bar">
+ <a class="me" href="#inicio">Jose Adrianzen</a>
+ <nav aria-label="Secciones"><ul>
+  <li><a href="#documental">Documental</a></li>
+  <li><a href="#eco">ECO</a></li>
+  <li><a href="#fotografia">Fotografía</a></li>
+  <li><a href="#director">El director</a></li>
+  <li><a href="#blog">Blog</a></li>
+  <li><a href="#contacto">Contacto</a></li>
+ </ul></nav>
+ <span class="ct n">47 piezas</span>
+</header>
+
+<main>
+<section class="hero" id="inicio">
+ <div>
+  <h1><span>Jose Adrianzen</span></h1>
+  <p class="rol">Director · Productor</p>
+ </div>
+ <ul class="ix" aria-label="Índice">
+  <li><a href="#documental"><span class="th"><img src="../assets/doc-mineras-b.webp" alt="Tres mineras almuerzan sobre la roca bajo un cielo de polvo" width="1200" height="649" decoding="async"></span><span class="cap"><span class="n">01</span>Documental</span></a></li>
+  <li><a href="#eco"><span class="th"><img src="../assets/eco-portada.webp" alt="Fotograma de ECO: una figura baja la escalera de una casa antigua en penumbra" width="1200" height="675" decoding="async"></span><span class="cap"><span class="n">02</span>ECO</span></a></li>
+  <li><a href="#fotografia"><span class="th"><img src="../assets/fot-puerto.webp" alt="Grúas del puerto del Callao bajo un cielo naranja" width="1200" height="748" decoding="async"></span><span class="cap"><span class="n">03</span>Fotografía</span></a></li>
+  <li><a href="#director"><span class="th"><img src="../assets/jose-retrato-b.webp" alt="Jose Adrianzen sentado junto a una escalera de madera" width="1182" height="1186" decoding="async"></span><span class="cap"><span class="n">04</span>El director</span></a></li>
+  <li><a href="#blog"><span class="th"><img src="../assets/bts-doc-1.webp" alt="Ajustando la cámara sobre el trípode en la pampa" width="998" height="560" decoding="async"></span><span class="cap"><span class="n">05</span>Blog</span></a></li>
+  <li><a href="#contacto"><span class="th"><img src="../assets/jose-escenario.webp" alt="Jose Adrianzen habla con micrófono durante una presentación" width="938" height="626" decoding="async"></span><span class="cap"><span class="n">06</span>Contacto</span></a></li>
+ </ul>
+</section>
+
+<!-- DOCUMENTAL -->
+<section class="sec" id="documental" aria-labelledby="t-doc">
+ <div class="hd"><span class="code n">01 · D</span><h2 id="t-doc">Entre polvo y sueños</h2><span class="tag">Documental · 2025</span></div>
+ <div class="cols">
+  <div class="txt" style="grid-column:1/6">
+   <p class="golpe">Ellas no solo buscan mineral.</p>
+   <p>Tres años de rodaje en los socavones y las pampas del Perú, acompañando a un grupo de mujeres mineras. No son mineras informales sin más: buscan formalizarse, que las reconozcan y una vida mejor para los suyos.</p>
+   <p>La película es un puente entre ellas y el mundo: una historia de lucha filmada a pie de mina, para que su voz llegue lejos.</p>
+   <p class="fc">Perú · Documental · Digital 2K · Español · Subtítulos en francés, inglés y turco</p>
+  </div>
+  <div style="grid-column:6/13">
+   <div class="vp" data-vimeo="1056105326">
+    <button class="vp-poster" type="button" aria-label="Ver el documental Entre polvo y sueños">
+     <img src="../assets/doc-mineras-b.webp" alt="Tres mineras almuerzan sobre la roca bajo un cielo de polvo" width="1200" height="649" loading="lazy" decoding="async">
+     <span class="vp-lbl">Ver el documental</span>
+    </button>
+   </div>
+   <p class="sm mu" style="margin-top:8px">D.00 · Tráiler · Vimeo 1056105326</p>
+  </div>
+ </div>
+
+ <div class="cols" style="margin-top:clamp(48px,5vw,80px)">
+  <div style="grid-column:1/5">
+   <div class="sub" style="margin-top:0"><h3>Ficha técnica</h3><span class="n">8</span></div>
+   <dl class="dl">
+    <dt>Dirección</dt><dd>Jose Adrianzen</dd>
+    <dt>Guion</dt><dd>Jose Adrianzen</dd>
+    <dt>Producción general</dt><dd>Jose Adrianzen y Solidaridad</dd>
+    <dt>Producido por</dt><dd>Bálu · Solidaridad</dd>
+    <dt>País</dt><dd>Perú</dd>
+    <dt>Formato</dt><dd>Digital 2K</dd>
+    <dt>Idioma</dt><dd>Español</dd>
+    <dt>Subtítulos</dt><dd>Francés, inglés y turco</dd>
+   </dl>
+  </div>
+  <div style="grid-column:5/9">
+   <div class="sub" style="margin-top:0"><h3>Premios</h3><span class="n">4</span></div>
+   <ol class="lst">
+    <li><span class="n">P1</span><span><b>Mejor documental</b> · TITAN International Film Festival<span class="d">Sídney, Australia · 3.ª edición · 2025</span></span></li>
+    <li><span class="n">P2</span><span><b>Mejor guion</b> · 13.º Noida International Film Festival<span class="d">Noida, India · 2026</span></span></li>
+    <li><span class="n">P3</span><span><b>Best of Festival</b> · Docuvision International Film Festival<span class="d">Lewes, Delaware, EE. UU. · 2026</span></span></li>
+    <li><span class="n">P4</span><span><b>Mención especial</b> · 13.º Noida International Film Festival<span class="d">Noida, India · 2026</span></span></li>
+   </ol>
+  </div>
+  <div style="grid-column:9/13">
+   <div class="sub" style="margin-top:0"><h3>Selecciones</h3><span class="n">11</span></div>
+   <ol class="lst">
+    <li><span class="n">S01</span><span>21.º International Labour Film Festival<span class="d">Selección oficial · Türkiye · 2026</span></span></li>
+    <li><span class="n">S02</span><span>The Workers Unite Film Festival<span class="d">Selección oficial · Nueva York, EE. UU. · 2025</span></span></li>
+    <li><span class="n">S03</span><span>London Vision Film Festival<span class="d">Selección oficial · Londres, Reino Unido · 2025</span></span></li>
+    <li><span class="n">S04</span><span>LISBIFF Lisboa Indie Film Festival<span class="d">Selección oficial · Lisboa, Portugal · 2025</span></span></li>
+    <li><span class="n">S05</span><span>Cine Invisible “Film Sozialak”<span class="d">Selección oficial · Bilbao, España · 2026</span></span></li>
+    <li><span class="n">S06</span><span>FIMMER · Festival Internacional de Mediometrajes<span class="d">Sección oficial · Manzanares El Real, España · 2025</span></span></li>
+    <li><span class="n">S07</span><span>ImoIFF Creatives International Film Festival<span class="d">Selección oficial · Imo, Nigeria · 2025</span></span></li>
+    <li><span class="n">S08</span><span>Cinego Shorts · Shorts on the Move<span class="d">Selección oficial · Karachi, Pakistán</span></span></li>
+    <li><span class="n">S09</span><span>Film Hour · Bodhak Studio<span class="d">Selección oficial · India</span></span></li>
+    <li><span class="n">S10</span><span>Cinematic Luxe Indie Showcase<span class="d">Winter Fest 26 · Cincinnati, EE. UU.</span></span></li>
+    <li><span class="n">S11</span><span>20.ª Muestra Cine + Video Indígena<span class="d">Selección oficial · Chile · 2026</span></span></li>
+   </ol>
+  </div>
+ </div>
+
+ <div class="sub"><h3>Afiche y fotogramas</h3><span class="n">7 piezas</span></div>
+ <ul class="grid">
+  <li><button class="it rv" type="button" data-t="Afiche" data-m="afiche.webp · 880 × 1244 px · Entre polvo y sueños" data-d="Afiche de Entre polvo y sueños: una minera parte piedra en la ladera de un cerro"><span class="th"><img src="../assets/afiche.webp" alt="Afiche de Entre polvo y sueños: una minera parte piedra en la ladera de un cerro" width="880" height="1244" loading="lazy" decoding="async"></span><span class="cap"><b><span class="n">D.01</span>Afiche</b><span class="mu">880 × 1244 · afiche oficial</span></span></button></li>
+  <li><button class="it rv" type="button" data-t="Fotograma 1" data-m="doc-titulo.webp · 1280 × 689 px · Entre polvo y sueños" data-d="Título del documental sobre fondo negro"><span class="th"><img src="../assets/doc-titulo.webp" alt="Título del documental sobre fondo negro" width="1280" height="689" loading="lazy" decoding="async"></span><span class="cap"><b><span class="n">D.02</span>Fotograma</b><span class="mu">Título del documental sobre fondo negro</span></span></button></li>
+  <li><button class="it rv" type="button" data-t="Fotograma 2" data-m="doc-tunel-b.webp · 1200 × 649 px · Entre polvo y sueños" data-d="Mineras caminan dentro del socavón con cascos y linternas"><span class="th"><img src="../assets/doc-tunel-b.webp" alt="Mineras caminan dentro del socavón con cascos y linternas" width="1200" height="649" loading="lazy" decoding="async"></span><span class="cap"><b><span class="n">D.03</span>Fotograma</b><span class="mu">Mineras caminan dentro del socavón con cascos y linternas</span></span></button></li>
+  <li><button class="it rv" type="button" data-t="Fotograma 3" data-m="doc-mineras-b.webp · 1200 × 649 px · Entre polvo y sueños" data-d="Tres mineras almuerzan sobre la roca bajo un cielo de polvo"><span class="th"><img src="../assets/doc-mineras-b.webp" alt="Tres mineras almuerzan sobre la roca bajo un cielo de polvo" width="1200" height="649" loading="lazy" decoding="async"></span><span class="cap"><b><span class="n">D.04</span>Fotograma</b><span class="mu">Tres mineras almuerzan sobre la roca bajo un cielo de polvo</span></span></button></li>
+  <li><button class="it rv" type="button" data-t="Fotograma 4" data-m="doc-noche-b.webp · 1200 × 649 px · Entre polvo y sueños" data-d="Minera con casco rojo llena sacos de piedra de noche"><span class="th"><img src="../assets/doc-noche-b.webp" alt="Minera con casco rojo llena sacos de piedra de noche" width="1200" height="649" loading="lazy" decoding="async"></span><span class="cap"><b><span class="n">D.05</span>Fotograma</b><span class="mu">Minera con casco rojo llena sacos de piedra de noche</span></span></button></li>
+  <li><button class="it rv" type="button" data-t="Fotograma 5" data-m="doc-casco-b.webp · 1200 × 649 px · Entre polvo y sueños" data-d="Retrato de una minera con casco naranja junto a tuberías"><span class="th"><img src="../assets/doc-casco-b.webp" alt="Retrato de una minera con casco naranja junto a tuberías" width="1200" height="649" loading="lazy" decoding="async"></span><span class="cap"><b><span class="n">D.06</span>Fotograma</b><span class="mu">Retrato de una minera con casco naranja junto a tuberías</span></span></button></li>
+  <li><button class="it rv" type="button" data-t="Fotograma 6" data-m="doc-entrevista-b.webp · 1200 × 649 px · Entre polvo y sueños" data-d="Mujer entrevistada en el interior de su vivienda"><span class="th"><img src="../assets/doc-entrevista-b.webp" alt="Mujer entrevistada en el interior de su vivienda" width="1200" height="649" loading="lazy" decoding="async"></span><span class="cap"><b><span class="n">D.07</span>Fotograma</b><span class="mu">Mujer entrevistada en el interior de su vivienda</span></span></button></li>
+ </ul>
+
+ <div class="sub"><h3>Rodaje</h3><span class="n">8 piezas</span></div>
+ <ul class="grid">
+  <li><button class="it rv" type="button" data-t="Rodaje 1" data-m="bts-doc-2.webp · 997 × 560 px · rodaje del documental" data-d="Jose Adrianzen dirige en la calle del asentamiento minero"><span class="th"><img src="../assets/bts-doc-2.webp" alt="Jose Adrianzen dirige en la calle del asentamiento minero" width="997" height="560" loading="lazy" decoding="async"></span><span class="cap"><b><span class="n">D.08</span>Rodaje</b><span class="mu">Jose Adrianzen dirige en la calle del asentamiento minero</span></span></button></li>
+  <li><button class="it rv" type="button" data-t="Rodaje 2" data-m="bts-doc-1.webp · 998 × 560 px · rodaje del documental" data-d="Ajustando la cámara sobre el trípode en la pampa"><span class="th"><img src="../assets/bts-doc-1.webp" alt="Ajustando la cámara sobre el trípode en la pampa" width="998" height="560" loading="lazy" decoding="async"></span><span class="cap"><b><span class="n">D.09</span>Rodaje</b><span class="mu">Ajustando la cámara sobre el trípode en la pampa</span></span></button></li>
+  <li><button class="it rv" type="button" data-t="Rodaje 3" data-m="bts-doc-5.webp · 997 × 560 px · rodaje del documental" data-d="Cámara y microfonista durante una entrevista"><span class="th"><img src="../assets/bts-doc-5.webp" alt="Cámara y microfonista durante una entrevista" width="997" height="560" loading="lazy" decoding="async"></span><span class="cap"><b><span class="n">D.10</span>Rodaje</b><span class="mu">Cámara y microfonista durante una entrevista</span></span></button></li>
+  <li><button class="it rv" type="button" data-t="Rodaje 4" data-m="bts-doc-3.webp · 997 × 560 px · rodaje del documental" data-d="Jose conversa con las mineras en la plaza del pueblo"><span class="th"><img src="../assets/bts-doc-3.webp" alt="Jose conversa con las mineras en la plaza del pueblo" width="997" height="560" loading="lazy" decoding="async"></span><span class="cap"><b><span class="n">D.11</span>Rodaje</b><span class="mu">Jose conversa con las mineras en la plaza del pueblo</span></span></button></li>
+  <li><button class="it rv" type="button" data-t="Rodaje 5" data-m="bts-doc-4.webp · 996 × 560 px · rodaje del documental" data-d="Jose explica una escena dentro de una tienda"><span class="th"><img src="../assets/bts-doc-4.webp" alt="Jose explica una escena dentro de una tienda" width="996" height="560" loading="lazy" decoding="async"></span><span class="cap"><b><span class="n">D.12</span>Rodaje</b><span class="mu">Jose explica una escena dentro de una tienda</span></span></button></li>
+  <li><button class="it rv" type="button" data-t="Rodaje 6" data-m="bts-doc-8.webp · 997 × 560 px · rodaje del documental" data-d="Entrevista iluminada con rebotador y caña de sonido"><span class="th"><img src="../assets/bts-doc-8.webp" alt="Entrevista iluminada con rebotador y caña de sonido" width="997" height="560" loading="lazy" decoding="async"></span><span class="cap"><b><span class="n">D.13</span>Rodaje</b><span class="mu">Entrevista iluminada con rebotador y caña de sonido</span></span></button></li>
+  <li><button class="it rv" type="button" data-t="Rodaje 7" data-m="bts-doc-7.webp · 997 × 560 px · rodaje del documental" data-d="Niños del pueblo miran el monitor de la cámara"><span class="th"><img src="../assets/bts-doc-7.webp" alt="Niños del pueblo miran el monitor de la cámara" width="997" height="560" loading="lazy" decoding="async"></span><span class="cap"><b><span class="n">D.14</span>Rodaje</b><span class="mu">Niños del pueblo miran el monitor de la cámara</span></span></button></li>
+  <li><button class="it rv" type="button" data-t="Rodaje 8" data-m="bts-doc-6.webp · 997 × 560 px · rodaje del documental" data-d="Jose maneja el control del dron dentro del auto de noche"><span class="th"><img src="../assets/bts-doc-6.webp" alt="Jose maneja el control del dron dentro del auto de noche" width="997" height="560" loading="lazy" decoding="async"></span><span class="cap"><b><span class="n">D.15</span>Rodaje</b><span class="mu">Jose maneja el control del dron dentro del auto de noche</span></span></button></li>
+ </ul>
+</section>
+
+<!-- ECO -->
+<section class="sec" id="eco" aria-labelledby="t-eco">
+ <div class="hd"><span class="code n">02 · E</span><h2 id="t-eco">ECO</h2><span class="tag">Cortometraje · Thriller psicológico · 2023</span></div>
+ <div class="cols">
+  <div class="txt" style="grid-column:1/6">
+   <p class="sello">Aún sin estrenar</p>
+   <p class="aviso">Está en circuito de festivales y todavía no se estrena, así que por ahora no se puede ver en línea. Pronto estará aquí.</p>
+   <p class="golpe">Una casa. Un secreto.</p>
+   <p>César, un psiquiatra respetable, esconde una doble vida tras su consulta y su matrimonio. Cuando Victoria, su joven paciente y amante, reúne el valor para revelar la verdad, el frágil equilibrio de su mundo se rompe. Entre espejos, secretos y sospechas, la esposa a la que todos creen frágil resulta ser la más lúcida.</p>
+   <p class="fc">Perú · 2023 · 13 min 12 s · Digital 6K · Español</p>
+  </div>
+  <div style="grid-column:7/13">
+   <div class="sub" style="margin-top:0"><h3>Equipo</h3><span class="n">9</span></div>
+   <dl class="dl">
+    <dt>Dirección</dt><dd>Jose Adrianzen</dd>
+    <dt>Guion</dt><dd>Jose Adrianzen y Matilde Carrión</dd>
+    <dt>Producción</dt><dd>Jose Adrianzen</dd>
+    <dt>Fotografía</dt><dd>Fabricio Raciti</dd>
+    <dt>Arte</dt><dd>Gonzalo Veratudela</dd>
+    <dt>Dir. de actores</dt><dd>Aníbal Lozano</dd>
+    <dt>Montaje</dt><dd>Jose Adrianzen</dd>
+    <dt>Sonido</dt><dd>Casko Pérez</dd>
+    <dt>Música</dt><dd>Augusto Madueño</dd>
+   </dl>
+  </div>
+ </div>
+
+ <div class="sub"><h3>Portada y fotogramas</h3><span class="n">2 piezas</span></div>
+ <ul class="grid w">
+  <li><button class="it rv" type="button" data-t="Portada de ECO" data-m="eco-portada.webp · 1200 × 675 px · ECO" data-d="Fotograma de ECO: una figura baja la escalera de una casa antigua en penumbra"><span class="th"><img src="../assets/eco-portada.webp" alt="Fotograma de ECO: una figura baja la escalera de una casa antigua en penumbra" width="1200" height="675" loading="lazy" decoding="async"></span><span class="cap"><b><span class="n">E.01</span>Portada</b><span class="mu">Una figura baja la escalera de una casa antigua en penumbra</span></span></button></li>
+  <li><button class="it rv" type="button" data-t="La silla" data-m="eco-silla.webp · 705 × 405 px · ECO" data-d="Fotograma de ECO: una silla vacía en una habitación en penumbra"><span class="th"><img src="../assets/eco-silla.webp" alt="Fotograma de ECO: una silla vacía en una habitación en penumbra" width="705" height="405" loading="lazy" decoding="async"></span><span class="cap"><b><span class="n">E.02</span>Fotograma</b><span class="mu">Una silla vacía en una habitación en penumbra</span></span></button></li>
+ </ul>
+
+ <div class="sub"><h3>Progresión de luz</h3><span class="n">5 fotogramas</span></div>
+ <div class="luz">
+  <figure><span class="th"><img src="../assets/eco-luz-1.webp" alt="Progresión de luz de ECO, fotograma 1" width="258" height="150" loading="lazy" decoding="async"></span><figcaption class="n">L1</figcaption></figure>
+  <figure><span class="th"><img src="../assets/eco-luz-2.webp" alt="Progresión de luz de ECO, fotograma 2" width="256" height="150" loading="lazy" decoding="async"></span><figcaption class="n">L2</figcaption></figure>
+  <figure><span class="th"><img src="../assets/eco-luz-3.webp" alt="Progresión de luz de ECO, fotograma 3" width="255" height="150" loading="lazy" decoding="async"></span><figcaption class="n">L3</figcaption></figure>
+  <figure><span class="th"><img src="../assets/eco-luz-4.webp" alt="Progresión de luz de ECO, fotograma 4" width="254" height="150" loading="lazy" decoding="async"></span><figcaption class="n">L4</figcaption></figure>
+  <figure><span class="th"><img src="../assets/eco-luz-5.webp" alt="Progresión de luz de ECO, fotograma 5" width="253" height="150" loading="lazy" decoding="async"></span><figcaption class="n">L5</figcaption></figure>
+ </div>
+
+ <div class="sub"><h3>Reparto</h3><span class="n">4</span></div>
+ <ul class="grid">
+  <li><button class="it rv" type="button" data-t="César" data-m="eco-cesar.webp · 650 × 377 px · ECO" data-d="Cristian Esquivel como César"><span class="th"><img src="../assets/eco-cesar.webp" alt="Cristian Esquivel como César en ECO" width="650" height="377" loading="lazy" decoding="async"></span><span class="cap"><b><span class="n">E.03</span>César</b><span class="mu">Cristian Esquivel</span></span></button></li>
+  <li><button class="it rv" type="button" data-t="Cristina" data-m="eco-cristina.webp · 641 × 404 px · ECO" data-d="Fiorella Luna como Cristina"><span class="th"><img src="../assets/eco-cristina.webp" alt="Fiorella Luna como Cristina en ECO" width="641" height="404" loading="lazy" decoding="async"></span><span class="cap"><b><span class="n">E.04</span>Cristina</b><span class="mu">Fiorella Luna</span></span></button></li>
+  <li><button class="it rv" type="button" data-t="Victoria" data-m="eco-victoria.webp · 641 × 404 px · ECO" data-d="Yamile Caparó como Victoria"><span class="th"><img src="../assets/eco-victoria.webp" alt="Yamile Caparó como Victoria en ECO" width="641" height="404" loading="lazy" decoding="async"></span><span class="cap"><b><span class="n">E.05</span>Victoria</b><span class="mu">Yamile Caparó</span></span></button></li>
+  <li><button class="it rv" type="button" data-t="La madre" data-m="eco-madre.webp · 641 × 404 px · ECO" data-d="Motta como la madre"><span class="th"><img src="../assets/eco-madre.webp" alt="Motta como la madre en ECO" width="641" height="404" loading="lazy" decoding="async"></span><span class="cap"><b><span class="n">E.06</span>La madre</b><span class="mu">Motta</span></span></button></li>
+ </ul>
+
+ <div class="sub"><h3>Rodaje</h3><span class="n">13 piezas</span></div>
+ <ul class="grid t">
+  <li><button class="it rv" type="button" data-t="Rodaje de ECO" data-m="349 × 620 px · E.07"><span class="th"><img src="../assets/eco-bts-set.webp" alt="El equipo ilumina el set mientras se prepara la escena" width="349" height="620" loading="lazy" decoding="async"></span><span class="cap n">E.07</span></button></li>
+  <li><button class="it rv" type="button" data-t="Rodaje de ECO" data-m="465 × 620 px · E.08"><span class="th"><img src="../assets/eco-bts-cama.webp" alt="Rodaje de la escena del dormitorio con luces cálidas y frías" width="465" height="620" loading="lazy" decoding="async"></span><span class="cap n">E.08</span></button></li>
+  <li><button class="it rv" type="button" data-t="Rodaje de ECO" data-m="465 × 620 px · E.09"><span class="th"><img src="../assets/eco-bts-yamile.webp" alt="Jose Adrianzen junto a Yamile Caparó con la claqueta" width="465" height="620" loading="lazy" decoding="async"></span><span class="cap n">E.09</span></button></li>
+  <li><button class="it rv" type="button" data-t="Rodaje de ECO" data-m="465 × 620 px · E.10"><span class="th"><img src="../assets/eco-bts-cristian-jose.webp" alt="Jose Adrianzen junto a Cristian Esquivel con la claqueta" width="465" height="620" loading="lazy" decoding="async"></span><span class="cap n">E.10</span></button></li>
+  <li><button class="it rv" type="button" data-t="Rodaje de ECO" data-m="465 × 620 px · E.11"><span class="th"><img src="../assets/eco-bts-cristian.webp" alt="Cristian Esquivel sostiene la claqueta de ECO" width="465" height="620" loading="lazy" decoding="async"></span><span class="cap n">E.11</span></button></li>
+  <li><button class="it rv" type="button" data-t="Rodaje de ECO" data-m="1102 × 620 px · E.12"><span class="th"><img src="../assets/eco-bts-locacion.webp" alt="La sala de la casa vacía, antes de vestir el set" width="1102" height="620" loading="lazy" decoding="async"></span><span class="cap n">E.12</span></button></li>
+  <li><button class="it rv" type="button" data-t="Rodaje de ECO" data-m="349 × 620 px · E.13"><span class="th"><img src="../assets/eco-bts-setcompleto.webp" alt="El set montado con trípodes, banderas y las lámparas de la casa" width="349" height="620" loading="lazy" decoding="async"></span><span class="cap n">E.13</span></button></li>
+  <li><button class="it rv" type="button" data-t="Rodaje de ECO" data-m="465 × 620 px · E.14"><span class="th"><img src="../assets/eco-bts-luces.webp" alt="Escena del dormitorio iluminada con luz azul y cálida, con el equipo alrededor" width="465" height="620" loading="lazy" decoding="async"></span><span class="cap n">E.14</span></button></li>
+  <li><button class="it rv" type="button" data-t="Rodaje de ECO" data-m="349 × 620 px · E.15"><span class="th"><img src="../assets/eco-bts-ensayo.webp" alt="Jose Adrianzen da indicaciones al equipo con la caña de sonido sobre la escena" width="349" height="620" loading="lazy" decoding="async"></span><span class="cap n">E.15</span></button></li>
+  <li><button class="it rv" type="button" data-t="Rodaje de ECO" data-m="465 × 620 px · E.16"><span class="th"><img src="../assets/eco-bts-claqueta3.webp" alt="Dos miembros del equipo posan con la claqueta de la escena 3" width="465" height="620" loading="lazy" decoding="async"></span><span class="cap n">E.16</span></button></li>
+  <li><button class="it rv" type="button" data-t="Rodaje de ECO" data-m="465 × 620 px · E.17"><span class="th"><img src="../assets/eco-bts-tomas.webp" alt="Cristian Esquivel se toma una foto entre tomas junto a Victoria en el piso" width="465" height="620" loading="lazy" decoding="async"></span><span class="cap n">E.17</span></button></li>
+  <li><button class="it rv" type="button" data-t="Rodaje de ECO" data-m="349 × 620 px · E.18"><span class="th"><img src="../assets/eco-bts-descanso.webp" alt="Un miembro del equipo descansa en un sillón durante el rodaje" width="349" height="620" loading="lazy" decoding="async"></span><span class="cap n">E.18</span></button></li>
+  <li><button class="it rv" type="button" data-t="Rodaje de ECO" data-m="786 × 620 px · E.19"><span class="th"><img src="../assets/eco-bts-reparto.webp" alt="Jose Adrianzen con Matilde Carrión y el reparto sobre la cama del set" width="786" height="620" loading="lazy" decoding="async"></span><span class="cap n">E.19</span></button></li>
+ </ul>
+</section>
+
+<!-- FOTOGRAFIA -->
+<section class="sec" id="fotografia" aria-labelledby="t-fot">
+ <div class="hd"><span class="code n">03 · F</span><h2 id="t-fot">Fotografía</h2><span class="tag">Bitácora visual · <a class="u" href="https://www.instagram.com/jadrianzens/" rel="noopener" target="_blank">@jadrianzens</a></span></div>
+ <ul class="grid w">
+  <li><button class="it rv" type="button" data-t="Callao" data-m="fot-puerto.webp · 1200 × 748 px · foto @jadrianzens" data-d="Grúas del puerto del Callao bajo un cielo naranja"><span class="th"><img src="../assets/fot-puerto.webp" alt="Grúas del puerto del Callao bajo un cielo naranja" width="1200" height="748" loading="lazy" decoding="async"></span><span class="cap"><b><span class="n">F.01</span>Puerto</b><span class="mu">Grúas del puerto del Callao bajo un cielo naranja</span></span></button></li>
+  <li><button class="it rv" type="button" data-t="Mar abierto" data-m="fot-mar.webp · 1200 × 695 px · foto @jadrianzens" data-d="Mar abierto con barcos en el horizonte al amanecer"><span class="th"><img src="../assets/fot-mar.webp" alt="Mar abierto con barcos en el horizonte al amanecer" width="1200" height="695" loading="lazy" decoding="async"></span><span class="cap"><b><span class="n">F.02</span>Mar</b><span class="mu">Mar abierto con barcos en el horizonte al amanecer</span></span></button></li>
+  <li><button class="it rv" type="button" data-t="Barco" data-m="fot-barco.webp · 1200 × 748 px · foto @jadrianzens" data-d="Barco pesquero solitario sobre un mar naranja"><span class="th"><img src="../assets/fot-barco.webp" alt="Barco pesquero solitario sobre un mar naranja" width="1200" height="748" loading="lazy" decoding="async"></span><span class="cap"><b><span class="n">F.03</span>Barco</b><span class="mu">Barco pesquero solitario sobre un mar naranja</span></span></button></li>
+  <li><button class="it rv" type="button" data-t="Gaviota" data-m="fot-gaviota.webp · 631 × 635 px · foto @jadrianzens" data-d="Proa de un buque, una gaviota y un remolcador en el puerto"><span class="th"><img src="../assets/fot-gaviota.webp" alt="Proa de un buque, una gaviota y un remolcador en el puerto" width="631" height="635" loading="lazy" decoding="async"></span><span class="cap"><b><span class="n">F.04</span>Gaviota</b><span class="mu">Proa de un buque, una gaviota y un remolcador en el puerto</span></span></button></li>
+  <li><button class="it rv" type="button" data-t="Muelle" data-m="fot-muelle.webp · 1000 × 747 px · foto @jadrianzens" data-d="Muelle de madera sobre un mar turquesa"><span class="th"><img src="../assets/fot-muelle.webp" alt="Muelle de madera sobre un mar turquesa" width="1000" height="747" loading="lazy" decoding="async"></span><span class="cap"><b><span class="n">F.05</span>Muelle</b><span class="mu">Muelle de madera sobre un mar turquesa</span></span></button></li>
+  <li><button class="it rv" type="button" data-t="Barcelona" data-m="fot-barcelona.webp · 698 × 862 px · foto @jadrianzens" data-d="Fachadas con balcones en Barcelona"><span class="th"><img src="../assets/fot-barcelona.webp" alt="Fachadas con balcones en Barcelona" width="698" height="862" loading="lazy" decoding="async"></span><span class="cap"><b><span class="n">F.06</span>Barcelona</b><span class="mu">Fachadas con balcones en Barcelona</span></span></button></li>
+  <li><button class="it rv" type="button" data-t="Louvre" data-m="fot-louvre.webp · 1000 × 748 px · foto @jadrianzens" data-d="Pirámide del Museo del Louvre contra las nubes"><span class="th"><img src="../assets/fot-louvre.webp" alt="Pirámide del Museo del Louvre contra las nubes" width="1000" height="748" loading="lazy" decoding="async"></span><span class="cap"><b><span class="n">F.07</span>Louvre</b><span class="mu">Pirámide del Museo del Louvre contra las nubes</span></span></button></li>
+ </ul>
+ <p class="sm mu" style="margin-top:22px">Todas las fotos: <a class="u" href="https://www.instagram.com/jadrianzens/" rel="noopener" target="_blank">@jadrianzens</a> · toca una miniatura para verla grande</p>
+</section>
+
+<!-- DIRECTOR -->
+<section class="sec" id="director" aria-labelledby="t-dir">
+ <div class="hd"><span class="code n">04 · J</span><h2 id="t-dir">Jose Adrianzen</h2><span class="tag">Sobre el director</span></div>
+ <div class="cols">
+  <div style="grid-column:1/6">
+   <span class="th" style="aspect-ratio:938/626;padding:0"><img src="../assets/jose-escenario.webp" alt="Jose Adrianzen habla con micrófono durante una presentación" width="938" height="626" loading="lazy" decoding="async"></span>
+   <div class="sub" style="margin-top:28px"><h3>Datos</h3><span class="n">4</span></div>
+   <dl class="dl">
+    <dt>Base</dt><dd>Lima, Perú</dd>
+    <dt>Formación</dt><dd>Cine y actuación</dd>
+    <dt>Gestión</dt><dd>Ingeniería empresarial</dd>
+    <dt>Antes</dt><dd>TV, publicidad y ONGs</dd>
+   </dl>
+  </div>
+  <div class="txt" style="grid-column:7/13">
+   <p>Desde pequeño, el cine y la política fueron mis dos grandes pasiones. Al inicio quería ser presidente, así que estudié derecho para entender a fondo las leyes y el funcionamiento del Estado. La vida me llevó por otro camino: en el cine encontré una forma más poderosa de generar impacto y de contar las historias que merecen ser escuchadas.</p>
+   <p>La curiosidad me ha llevado a recorrer casi todo el Perú, buena parte de Sudamérica y distintos rincones del mundo. Esos viajes me enseñaron a mirar realidades muy distintas a la mía y me confirmaron algo: <strong>el cine es una herramienta de transformación social</strong>. Con esa convicción decidí dedicarme por completo a la creación audiovisual.</p>
+   <p>Tengo <strong>estudios en cine y en actuación</strong>. Quería aportar a la industria del cine también desde la gestión: producción, financiamiento y distribución. Por eso decidí estudiar <strong>ingeniería empresarial</strong>.</p>
+   <p>En los últimos años he trabajado con varias ONGs, contando historias que suelen quedar en el olvido. Terminé de rodar el cortometraje <strong>ECO</strong>, hoy en circuito de festivales. Pero el proyecto que ha marcado mi trayectoria es <strong>Entre polvo y sueños</strong>: tres años de mi vida para dar voz a las mujeres mineras del Perú y reivindicar su lucha.</p>
+   <blockquote class="cita"><p>“Siempre he creído que las personas valen mucho y que, si es necesario, hay que llegar hasta el último rincón para visibilizarlas.”</p><footer>Jose Adrianzen</footer></blockquote>
+  </div>
+ </div>
+
+ <div class="sub"><h3>En cámara y fuera de ella</h3><span class="n">6 piezas</span></div>
+ <ul class="grid">
+  <li><button class="it rv" type="button" data-t="Retrato" data-m="jose-retrato-b.webp · 1182 × 1186 px" data-d="Jose Adrianzen sentado junto a una escalera de madera"><span class="th"><img src="../assets/jose-retrato-b.webp" alt="Jose Adrianzen sentado junto a una escalera de madera" width="1182" height="1186" loading="lazy" decoding="async"></span><span class="cap"><b><span class="n">J.01</span>Retrato</b><span class="mu">Sentado junto a una escalera de madera</span></span></button></li>
+  <li><button class="it rv" type="button" data-t="Actuación" data-m="jose-calavera.webp · 1000 × 560 px" data-d="Jose Adrianzen actuando, encapuchado y con una calavera y una vela"><span class="th"><img src="../assets/jose-calavera.webp" alt="Jose Adrianzen actuando, encapuchado y con una calavera y una vela" width="1000" height="560" loading="lazy" decoding="async"></span><span class="cap"><b><span class="n">J.02</span>Actuación</b><span class="mu">Encapuchado, con una calavera y una vela</span></span></button></li>
+  <li><button class="it rv" type="button" data-t="Teatro" data-m="jose-teatro.webp · 828 × 758 px" data-d="Jose Adrianzen en escena durante una obra de teatro"><span class="th"><img src="../assets/jose-teatro.webp" alt="Jose Adrianzen en escena durante una obra de teatro" width="828" height="758" loading="lazy" decoding="async"></span><span class="cap"><b><span class="n">J.03</span>Teatro</b><span class="mu">En escena durante una obra de teatro</span></span></button></li>
+  <li><button class="it rv" type="button" data-t="Shipibo" data-m="jose-shipibo.webp · 1000 × 669 px" data-d="Jose Adrianzen junto a músicos shipibo, en blanco y negro"><span class="th"><img src="../assets/jose-shipibo.webp" alt="Jose Adrianzen junto a músicos shipibo, en blanco y negro" width="1000" height="669" loading="lazy" decoding="async"></span><span class="cap"><b><span class="n">J.04</span>Músicos shipibo</b><span class="mu">En blanco y negro</span></span></button></li>
+  <li><button class="it rv" type="button" data-t="Taxi" data-m="jose-taxi.webp · 1000 × 665 px" data-d="Jose Adrianzen dentro de un taxi frente a un mural, en blanco y negro"><span class="th"><img src="../assets/jose-taxi.webp" alt="Jose Adrianzen dentro de un taxi frente a un mural, en blanco y negro" width="1000" height="665" loading="lazy" decoding="async"></span><span class="cap"><b><span class="n">J.05</span>Taxi</b><span class="mu">Frente a un mural, en blanco y negro</span></span></button></li>
+  <li><button class="it rv" type="button" data-t="Claqueta" data-m="jose-naipes.webp · 1000 × 561 px" data-d="Claqueta de rodaje sobre una mesa de juego"><span class="th"><img src="../assets/jose-naipes.webp" alt="Claqueta de rodaje sobre una mesa de juego" width="1000" height="561" loading="lazy" decoding="async"></span><span class="cap"><b><span class="n">J.06</span>Claqueta</b><span class="mu">Sobre una mesa de juego</span></span></button></li>
+ </ul>
+</section>
+
+<!-- BLOG -->
+<section class="sec" id="blog" aria-labelledby="t-blog">
+ <div class="hd"><span class="code n">05 · B</span><h2 id="t-blog">Blog</h2><span class="tag">Notas sobre cine · <a class="u" href="https://joseadrianzen.com/blog/">joseadrianzen.com/blog</a></span></div>
+ <ul class="blog">
+  <li><a href="https://joseadrianzen.com/blog/como-financiar-un-documental/"><span class="th"><img src="../assets/afiche.webp" alt="Afiche de Entre polvo y sueños: una minera parte piedra en la ladera de un cerro" width="880" height="1244" loading="lazy" decoding="async"></span><span class="cap"><span class="n">B.01</span> <span class="mu">Cómo se financió Entre polvo y sueños</span></span><h3>Nadie financia un documental que nunca le propusiste</h3></a></li>
+  <li><a href="https://joseadrianzen.com/blog/la-ia-no-sabe-donde-poner-la-camara/"><span class="th"><img src="../assets/bts-doc-1.webp" alt="Ajustando la cámara sobre el trípode en la pampa" width="998" height="560" loading="lazy" decoding="async"></span><span class="cap"><span class="n">B.02</span> <span class="mu">La IA como herramienta, no como directora</span></span><h3>La inteligencia artificial no sabe dónde poner la cámara</h3></a></li>
+ </ul>
+</section>
+
+<!-- CONTACTO -->
+<section class="sec" id="contacto" aria-labelledby="t-con">
+ <div class="hd"><span class="code n">06 · C</span><h2 id="t-con">Contacto</h2><span class="tag">Proyectos, festivales y colaboraciones · Lima · Perú</span></div>
+ <ul class="vias">
+  <li><a href="mailto:yo@joseadrianzen.com"><span class="n">C1</span><span class="t mu">Correo</span><span class="v">yo@joseadrianzen.com</span><span class="ar" aria-hidden="true">↗</span></a></li>
+  <li><a href="https://wa.me/51984323201" rel="noopener" target="_blank"><span class="n">C2</span><span class="t mu">WhatsApp</span><span class="v">+51 984 323 201</span><span class="ar" aria-hidden="true">↗</span></a></li>
+  <li><a href="https://www.instagram.com/jadrianzens/" rel="noopener" target="_blank"><span class="n">C3</span><span class="t mu">Instagram</span><span class="v">@jadrianzens</span><span class="ar" aria-hidden="true">↗</span></a></li>
+  <li><a href="https://www.linkedin.com/in/joseadrianzens/" rel="noopener" target="_blank"><span class="n">C4</span><span class="t mu">LinkedIn</span><span class="v">/in/joseadrianzens</span><span class="ar" aria-hidden="true">↗</span></a></li>
+ </ul>
+</section>
+</main>
+
+<footer class="foot">
+ <span>© 2026 Jose Adrianzen · Todos los derechos reservados</span>
+ <span>joseadrianzen.com</span>
+ <span><a href="https://joseadrianzen.com/blog/">Blog</a> · <a href="https://joseadrianzen.com/correo/">Correo web</a></span>
+</footer>
+
+<div class="scrim" aria-hidden="true"></div>
+<aside class="pn" id="pn" role="dialog" aria-modal="true" aria-labelledby="pn-t" inert>
+ <div class="pn-top">
+  <span class="pn-c n">01 / 01</span>
+  <button type="button" class="pn-p" aria-label="Pieza anterior">← Anterior</button>
+  <button type="button" class="pn-s" aria-label="Pieza siguiente">Siguiente →</button>
+  <button type="button" class="pn-x" aria-label="Cerrar el panel">Cerrar ✕</button>
+ </div>
+ <div class="pn-b">
+  <div class="pn-img"></div>
+  <h2 id="pn-t">Pieza</h2>
+  <p class="pn-d"></p>
+  <p class="pn-m"></p>
+  <a class="pn-a u" href="#" target="_blank" rel="noopener">Abrir a tamaño completo ↗</a>
+ </div>
+</aside>
+
+<script>
+document.querySelectorAll('.vp').forEach(function(vp){
+  var b=vp.querySelector('.vp-poster');
+  b.addEventListener('click',function(){
+    var f=document.createElement('iframe');
+    f.src='https://player.vimeo.com/video/'+vp.dataset.vimeo+'?autoplay=1&title=0&byline=0&portrait=0&dnt=1&color=c9a55c';
+    f.allow='autoplay; fullscreen; picture-in-picture';f.allowFullscreen=true;f.title='Entre polvo y sueños';
+    f.style.cssText='position:absolute;inset:0;width:100%;height:100%;border:0';
+    vp.appendChild(f);b.remove();
+  });
+});
+</script>
+<script>
+(function(){
+ var d=document,h=d.documentElement;h.classList.add('js');
+ /* cascada al entrar */
+ var rv=[].slice.call(d.querySelectorAll('.rv'));
+ function all(){rv.forEach(function(e){e.classList.add('v')})}
+ if('IntersectionObserver' in window){
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){var el=e.target,l=el.closest('.grid'),i=[].indexOf.call(l.querySelectorAll('.rv'),el)%6;el.style.setProperty('--d',(i*.06)+'s');el.classList.add('v');io.unobserve(el)}})},{rootMargin:'0px 0px 60% 0px'});
+  rv.forEach(function(e){io.observe(e)});
+  setTimeout(all,2400);
+ }else all();
+ /* panel */
+ var P=d.getElementById('pn'),S=d.querySelector('.scrim'),PI=P.querySelector('.pn-img'),PT=d.getElementById('pn-t'),PD=P.querySelector('.pn-d'),PM=P.querySelector('.pn-m'),PC=P.querySelector('.pn-c'),PA=P.querySelector('.pn-a'),PX=P.querySelector('.pn-x'),cur=null,last=null;
+ function list(b){return [].slice.call(b.closest('.grid').querySelectorAll('.it'))}
+ function z(n){return (n<10?'0':'')+n}
+ function show(b){
+  cur=b;var im=b.querySelector('img'),l=list(b),i=l.indexOf(b),n=new Image(),src=im.getAttribute('src');
+  n.src=src;n.alt=im.alt;n.width=+im.getAttribute('width');n.height=+im.getAttribute('height');
+  PI.innerHTML='';PI.appendChild(n);
+  PT.textContent=b.dataset.t;PD.textContent=b.dataset.d||'';PD.hidden=!b.dataset.d;PM.textContent=b.dataset.m||'';
+  PC.textContent=z(i+1)+' / '+z(l.length);PA.href=src;P.querySelector('.pn-b').scrollTop=0;
+ }
+ function open(b){last=b;show(b);P.removeAttribute('inert');P.classList.add('on');S.classList.add('on');d.body.classList.add('lock');setTimeout(function(){PX.focus()},60)}
+ function close(){if(!P.classList.contains('on'))return;P.classList.remove('on');S.classList.remove('on');P.setAttribute('inert','');d.body.classList.remove('lock');if(last)last.focus()}
+ function step(k){var l=list(cur);show(l[(l.indexOf(cur)+k+l.length)%l.length])}
+ d.addEventListener('click',function(e){var b=e.target.closest('.it');if(b)open(b)});
+ PX.addEventListener('click',close);S.addEventListener('click',close);
+ P.querySelector('.pn-p').addEventListener('click',function(){step(-1)});
+ P.querySelector('.pn-s').addEventListener('click',function(){step(1)});
+ d.addEventListener('keydown',function(e){if(!P.classList.contains('on'))return;if(e.key==='Escape')close();else if(e.key==='ArrowRight')step(1);else if(e.key==='ArrowLeft')step(-1)});
+})();
+</script>
+</body>
+</html>

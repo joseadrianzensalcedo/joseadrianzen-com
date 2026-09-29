@@ -1,0 +1,15 @@
+{
+  "n": 75,
+  "slug": "tunel",
+  "nombre": "Túnel",
+  "familia": "webgl",
+  "concepto": "Entrar al socavón: la portada es la bocamina de noche con el nombre a plantilla y, al bajar, un túnel de roca con cuadros de madera, rieles y lámparas colgadas, alumbrado por la luz del casco, que se recorre con el scroll. Al final la salida se abre en luz y la luz se vuelve la página, que es la señalización de la mina.",
+  "paleta": ["#0a0908", "#e8e3d9", "#1b1a18", "#6b665d", "#c9c2b4", "#f5c400", "#ff9d2e"],
+  "tipografias": ["Allerta Stencil", "Space Mono"],
+  "layout": "Portada fija de 420vh con el túnel en WebGL y, después, una hoja clara en rejilla de 12 columnas con placa amarilla de nivel junto a cada título, franjas de seguridad entre niveles, y ECO y contacto en roca negra.",
+  "movimiento": "El scroll hace caminar la cámara por el túnel con vaivén de paso, el cursor mueve la luz del casco, las lámparas titilan, al final la salida crece y se funde con el color de la página, revelados cortos.",
+  "peso": "pesada",
+  "librerias": ["three"],
+  "estilos": ["túnel 3D guiado por scroll", "textura procedural", "señalización industrial", "tipografía stencil", "franjas de seguridad"],
+  "referencias": ["Michael Gatt", "Edoardo Smerilli, Film Director", "Josh Goldsmith, Director & EP"]
+}

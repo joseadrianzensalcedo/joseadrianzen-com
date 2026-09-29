@@ -1,0 +1,15 @@
+{
+  "n": 69,
+  "slug": "mesa-de-luz",
+  "nombre": "Mesa de luz",
+  "familia": "horizontal",
+  "concepto": "La web es la mesa de luz de un montajista: sobre un vidrio blanco que brilla desde abajo quedan diapositivas sueltas en sus marcos, con su rótulo, y el texto vive en fichas blancas de archivo con su renglón rojo. Las diapositivas se arrastran como sobre una mesa real y un clic las lleva al visor a tamaño completo.",
+  "paleta": ["#f4f7f6", "#e3e9e8", "#ffffff", "#17191b", "#596166", "#c8321f", "#d5e3ee"],
+  "tipografias": ["Chivo", "DM Mono"],
+  "layout": "Portada con una ficha grande al centro rodeada de seis diapositivas, y secciones en rejilla de doce columnas donde las fichas conviven con mesas de diapositivas dispuestas por un algoritmo de columnas con giro y desorden de semilla fija.",
+  "movimiento": "Las diapositivas caen sobre la mesa al entrar con GSAP, se arrastran con Draggable dentro de su mesa, se enderezan al levantarlas y se asientan al soltar, con visor ampliado propio y sin arrastre en pantallas táctiles.",
+  "peso": "media",
+  "librerias": ["gsap", "Draggable"],
+  "estilos": ["mesa de luz", "diapositivas arrastrables", "fichas de archivo", "fondo claro", "grilla arrastrable"],
+  "referencias": ["LxL Creative", "First Frame", "Colonia Zacamil"]
+}

@@ -1,0 +1,15 @@
+{
+  "n": 59,
+  "slug": "peso-variable",
+  "nombre": "Peso variable",
+  "familia": "tipografia",
+  "concepto": "La letra respira: una sola fuente variable, Fraunces, cuyo grosor sigue al lector. El nombre de Jose nace en un trazo de 100, casi un hilo, y engorda hasta 900 mientras bajas, como una imagen que se revela en el baño químico.",
+  "paleta": ["#f6f5f1", "#0c0c0c", "#6e6c67", "#d9d7d0"],
+  "tipografias": ["Fraunces"],
+  "layout": "Portada fijada con el nombre en dos líneas desfasadas, rejilla editorial de 12 columnas con texto a la izquierda y fotos a la derecha, listas con filetes finos, ECO en página negra y muro en columnas.",
+  "movimiento": "GSAP ScrollTrigger con scrub sobre la variable --w que alimenta font-variation-settings: el nombre va de 100 a 900 con la portada fijada, los títulos engordan al cruzar la pantalla, la cita gana peso palabra por palabra y cada letra se hincha según su distancia al cursor (SplitType). El archivo local solo trae el eje de peso, así que el ancho se simula con el espaciado. Lenis da el scroll con inercia.",
+  "peso": "media",
+  "librerias": ["gsap", "ScrollTrigger", "Lenis", "SplitType"],
+  "estilos": ["tipografía gigante animada", "textos que se animan al desplazar", "scroll con inercia", "blanco y negro de alto contraste", "fuente variable"],
+  "referencias": ["Obys", "Cuberto", "Studio Dumbar / DEPT"]
+}

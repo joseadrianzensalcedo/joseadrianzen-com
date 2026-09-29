@@ -1,0 +1,21 @@
+{
+ "slug": "69-mesa-de-luz",
+ "bytes_html": 52917,
+ "externos": [],
+ "libs": [
+  "gsap.min.js",
+  "Draggable.min.js"
+ ],
+ "fuentes": [
+  "chivo",
+  "dm-mono"
+ ],
+ "imagenes_referenciadas": 51,
+ "bytes_imagenes_locales": 1786538,
+ "titulo": "Jose Adrianzen | Director de cine peruano",
+ "alto_1440": 11301,
+ "imagenes_en_dom": 62,
+ "problemas": [],
+ "avisos": [],
+ "ok": true
+}

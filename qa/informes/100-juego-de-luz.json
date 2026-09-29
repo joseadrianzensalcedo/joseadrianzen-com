@@ -1,0 +1,20 @@
+{
+ "slug": "100-juego-de-luz",
+ "bytes_html": 42846,
+ "externos": [],
+ "libs": [
+  "gsap.min.js"
+ ],
+ "fuentes": [
+  "playfair-display",
+  "public-sans"
+ ],
+ "imagenes_referenciadas": 53,
+ "bytes_imagenes_locales": 1823528,
+ "titulo": "Jose Adrianzen | Director de cine peruano",
+ "alto_1440": 14614,
+ "imagenes_en_dom": 56,
+ "problemas": [],
+ "avisos": [],
+ "ok": true
+}

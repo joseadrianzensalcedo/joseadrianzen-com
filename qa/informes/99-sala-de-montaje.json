@@ -1,0 +1,22 @@
+{
+ "slug": "99-sala-de-montaje",
+ "bytes_html": 50539,
+ "externos": [],
+ "libs": [
+  "gsap.min.js",
+  "Draggable.min.js",
+  "ScrollToPlugin.min.js"
+ ],
+ "fuentes": [
+  "geist",
+  "geist-mono"
+ ],
+ "imagenes_referenciadas": 52,
+ "bytes_imagenes_locales": 1803424,
+ "titulo": "Jose Adrianzen | Director de cine peruano",
+ "alto_1440": 11102,
+ "imagenes_en_dom": 69,
+ "problemas": [],
+ "avisos": [],
+ "ok": true
+}

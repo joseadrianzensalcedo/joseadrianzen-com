@@ -1,0 +1,15 @@
+{
+  "n": 72,
+  "slug": "pared-3d",
+  "nombre": "Pared 3D",
+  "familia": "webgl",
+  "concepto": "La portada es un muro en perspectiva con los 6 fotogramas y las 8 fotos de rodaje del documental, completos y sin recorte, que la cámara recorre de punta a punta con el scroll como un travelling lateral. El cuadro que queda al centro se enciende en color y los demás esperan en gris, con su pie en la parte baja.",
+  "paleta": ["#101114", "#16181c", "#e9e6df", "#8d8981", "#26282c", "#ff4d1f", "#ffb199"],
+  "tipografias": ["Unbounded", "Geist"],
+  "layout": "Portada fija de 460vh con la pared en WebGL y, debajo, una hoja oscura de 12 columnas con números al margen, índices numerados que abren el visor y ECO en una franja de grafito más claro.",
+  "movimiento": "La pared entra vista de lejos y se acerca, el scroll mueve la cámara en travelling con curvatura por velocidad, el cuadro central pasa de gris a color y el cursor lo resalta y lo abre en el visor.",
+  "peso": "pesada",
+  "librerias": ["three"],
+  "estilos": ["pared 3D de imágenes", "travelling guiado por scroll", "tema oscuro", "tipografía ancha", "índice numerado"],
+  "referencias": ["Edoardo Smerilli, Film Director", "Artefakt", "Josh Goldsmith, Director & EP"]
+}

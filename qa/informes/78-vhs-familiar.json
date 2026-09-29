@@ -1,0 +1,22 @@
+{
+ "slug": "78-vhs-familiar",
+ "bytes_html": 54699,
+ "externos": [],
+ "libs": [
+  "gsap.min.js",
+  "ScrollTrigger.min.js"
+ ],
+ "fuentes": [
+  "vt323",
+  "rubik-dirt",
+  "karla"
+ ],
+ "imagenes_referenciadas": 52,
+ "bytes_imagenes_locales": 1806642,
+ "titulo": "Jose Adrianzen | Director de cine peruano",
+ "alto_1440": 13525,
+ "imagenes_en_dom": 56,
+ "problemas": [],
+ "avisos": [],
+ "ok": true
+}

@@ -1,0 +1,15 @@
+{
+  "n": 32,
+  "slug": "chavin",
+  "nombre": "Chavín",
+  "familia": "Andino piedra y altura",
+  "concepto": "La web son las galerías subterráneas de Chavín de Huántar: granito casi negro, una lámpara de aceite que recorre el templo y títulos labrados en relieve cuya sombra cambia de lado según dónde está la luz. Los premios son estelas, las selecciones se numeran en romanos como una inscripción y ECO es la cámara interior, lo más oscuro del templo.",
+  "paleta": ["#0d0c0b", "#16140f", "#2b2721", "#d8cfbd", "#9d9483", "#d8a55b", "#8a8274"],
+  "tipografias": ["Cinzel", "Crimson Pro"],
+  "layout": "Eje central estrecho como el pasillo del Lanzón, galerías que se abren a lado y lado con marcos de doble línea incisa, estelas verticales para los premios y filas justificadas de fotos a su proporción real.",
+  "movimiento": "La lámpara entra desde la oscuridad y las letras del nombre aparecen a su paso, luego describe un arco lento con el scroll (GSAP ScrollTrigger suavizado) y los relieves de todos los títulos giran su sombra.",
+  "peso": "media",
+  "librerias": ["gsap", "ScrollTrigger", "SplitText"],
+  "estilos": ["textura de piedra", "tipografía lapidaria", "luz rasante", "relieve con text-shadow", "fondo oscuro", "ficha técnica visible"],
+  "referencias": ["PERFECT DAYS official site (Wim Wenders)", "Adam Bricker", "Hervé Baillargeon (director)"]
+}

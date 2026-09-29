@@ -1,0 +1,15 @@
+{
+  "n": 74,
+  "slug": "grano-shader",
+  "nombre": "Grano por shader",
+  "familia": "webgl",
+  "concepto": "La portada es una copia en proyección: los fotogramas del documental pasan uno tras otro con grano de película vivo, aberración cromática, parpadeo del obturador, temblor de ventanilla, rayas y motas, todo por postproceso. El resto de la página es la lata y la hoja de laboratorio de esa copia, con rollos numerados, tiras perforadas y hoja de contactos.",
+  "paleta": ["#14110e", "#1d1915", "#efe4cc", "#c9bba0", "#8f8574", "#2b251e", "#d4372c", "#c99a4a"],
+  "tipografias": ["Bebas Neue", "Courier Prime"],
+  "layout": "Portada de proyección a pantalla completa y, debajo, rollos numerados en una columna central ancha con etiqueta de lata, tira de película con perforaciones para los fotogramas y hoja de contactos para el rodaje.",
+  "movimiento": "La proyección corre sola con fundido entre cuadros cada cinco segundos, el cursor al moverse abre la aberración, al bajar crece el grano, el nombre entra a 24 pasos como una película que corre y los bloques se revelan desde un blanco quemado.",
+  "peso": "pesada",
+  "librerias": ["three", "three/addons EffectComposer", "three/addons ShaderPass"],
+  "estilos": ["postproceso WebGL", "grano de película", "aberración cromática", "estética de laboratorio", "tipografía condensada"],
+  "referencias": ["TAO TAJIMA, Filmmaker", "Adam Bricker", "Edoardo Smerilli, Film Director"]
+}

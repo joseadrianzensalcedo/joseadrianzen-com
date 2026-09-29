@@ -1,0 +1,15 @@
+{
+  "n": 58,
+  "slug": "brutal-rojo",
+  "nombre": "Brutal rojo",
+  "familia": "tipografia",
+  "concepto": "Un cartel de agitación pegado en la calle: rojo y negro, cajas con bordes de 4 px y la letra como única imagen de la portada. Sin gracia a propósito, pero con el ritmo de una planilla impresa a golpes, donde cada sección es una fila numerada.",
+  "paleta": ["#ff3b1f", "#0a0a0a"],
+  "tipografias": ["Archivo Black", "Space Mono"],
+  "layout": "Rejilla dura de celdas con bordes de 4 px, cabecera en celdas, secciones numeradas con el título a todo el ancho, tablas para fichas y selecciones, ECO y el blog invertidos en negro con letra roja.",
+  "movimiento": "El nombre entra a golpes con steps() al cargar, los títulos se deslizan desde la izquierda guiados por scroll con animation-timeline, el sello de ECO parpadea en dos tiempos y todo se invierte en rojo y negro al pasar el cursor, con sombra sólida de 6 px.",
+  "peso": "ligera",
+  "librerias": [],
+  "estilos": ["tipografía gigante animada", "textos que se animan al desplazar", "alto contraste", "brutalismo", "navegación solo texto"],
+  "referencias": ["Obys", "Ryoji Ikeda", "Artefakt"]
+}

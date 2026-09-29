@@ -1,0 +1,15 @@
+{
+  "n": 33,
+  "slug": "altura",
+  "nombre": "Altura",
+  "familia": "Andino piedra y altura",
+  "concepto": "La portada es el cielo a 4000 metros, azul profundo casi violeta que se abre hacia el horizonte, y una línea de cordillera nevada en SVG separa el cielo del contenido. Debajo de la nieve la web es blanca, con mucho aire y silencio, y ECO es la noche en la montaña.",
+  "paleta": ["#17123f", "#2b2c7a", "#4f64b8", "#b9c8ea", "#f6f7fb", "#e2e6f2", "#1c1d3d", "#62668a", "#3f4fb5"],
+  "tipografias": ["Figtree"],
+  "layout": "Columna de rótulos a la izquierda como cotas de altura y contenido a la derecha en una rejilla de 12, márgenes amplios, líneas de 1 px y fotos en filas horizontales a su proporción real.",
+  "movimiento": "Amanece al entrar (el cielo pasa de noche a azul), el nombre se asienta cerrando su espaciado y la cordillera sube en dos capas; con scroll la cordillera lejana va más lenta con animation-timeline y los bloques aparecen al entrar en pantalla con JS propio.",
+  "peso": "ligera",
+  "librerias": [],
+  "estilos": ["minimalismo", "mucho aire", "tipografía espaciada", "horizonte en SVG", "degradado de cielo", "tema claro con sección nocturna"],
+  "referencias": ["PERFECT DAYS official site (Wim Wenders)", "Oliver Laxe", "Hervé Baillargeon (director)"]
+}

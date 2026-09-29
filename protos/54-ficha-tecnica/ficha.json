@@ -1,0 +1,15 @@
+{
+  "n": 54,
+  "slug": "ficha-tecnica",
+  "nombre": "Ficha técnica",
+  "familia": "indice",
+  "concepto": "La web leída como el paquete de un DCP: todo es metadato clave y valor, como la lista de composición de una copia de cine (DIRECCIÓN, FORMATO, DURACIÓN, PREMIOS). Cada obra es una composición con su identificador y las imágenes entran como adjuntos con código, píxeles y tipo.",
+  "paleta": ["#111311", "#171a17", "#29302a", "#8cc39a", "#e9ece6", "#66736a"],
+  "tipografias": ["DM Mono"],
+  "layout": "Árbol del paquete fijo a la izquierda como navegación y bloques de metadatos en dos columnas (clave de ancho fijo, valor) con grupos de adjuntos en grilla y tiras, que en móvil pasan a una columna con barra superior.",
+  "movimiento": "Un solo momento orquestado: el nombre se escribe carácter por carácter con cursor de bloque y el rol aparece después, luego las filas de cada bloque se imprimen en cascada como un volcado de terminal, todo apagado con prefers-reduced-motion.",
+  "peso": "ligera",
+  "librerias": [],
+  "estilos": ["sección Works con cliente y fecha", "diseño minimalista", "tema oscuro casi negro", "lista numerada de obras", "tipografía como jerarquía"],
+  "referencias": ["Artefakt", "Isaac Julien", "TAO TAJIMA, Filmmaker", "Eladio Dieste"]
+}

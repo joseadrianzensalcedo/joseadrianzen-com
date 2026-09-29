@@ -1,0 +1,15 @@
+{
+  "n": 79,
+  "slug": "serigrafia",
+  "nombre": "Serigrafía",
+  "familia": "retro",
+  "concepto": "La web es un afiche serigrafiado a dos tintas, azul y naranja, sobre papel crema con fibra. Cada título se imprime dos veces con el registro corrido y las fotos salen en duotono con la tinta naranja desplazada, y recuperan su color al pasar el mouse.",
+  "paleta": ["#f1e8d6", "#e6d9bf", "#1f4fb4", "#19306e", "#f26a1b", "#b8480c"],
+  "tipografias": ["Ultra", "Bitter"],
+  "layout": "Portada de afiche con el nombre enorme sobre un sol naranja y franjas azules, secciones como pliegos numerados con filete doble, fichas en tablas de imprenta, premios como sellos circulares, bloque de créditos de afiche para ECO y galerías en duotono a la proporción real.",
+  "movimiento": "Al entrar, la tinta naranja del nombre llega desde lejos y cae casi en registro, los títulos repiten ese registro al aparecer con IntersectionObserver, los sellos giran al pasar el mouse y las fotos vuelven al color, todo apagado con prefers-reduced-motion.",
+  "peso": "ligera",
+  "librerias": [],
+  "estilos": ["fondo claro", "textura de papel", "tipografía protagonista", "duotono", "microinteracciones"],
+  "referencias": ["Niccolò Miranda", "Grit Pictures", "Colonia Zacamil"]
+}

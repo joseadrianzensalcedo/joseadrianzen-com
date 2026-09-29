@@ -1,0 +1,21 @@
+{
+ "slug": "74-grano-shader",
+ "bytes_html": 58840,
+ "externos": [],
+ "libs": [
+  "three/three.module.min.js",
+  "three/addons/"
+ ],
+ "fuentes": [
+  "bebas-neue",
+  "courier-prime"
+ ],
+ "imagenes_referenciadas": 53,
+ "bytes_imagenes_locales": 1823528,
+ "titulo": "Jose Adrianzen | Director de cine peruano",
+ "alto_1440": 16207,
+ "imagenes_en_dom": 57,
+ "problemas": [],
+ "avisos": [],
+ "ok": true
+}

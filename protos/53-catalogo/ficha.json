@@ -1,0 +1,15 @@
+{
+  "n": 53,
+  "slug": "catalogo",
+  "nombre": "Catálogo",
+  "familia": "indice",
+  "concepto": "La web como catálogo de cargo.site: cada pieza de la obra de Jose es una miniatura del mismo alto, en una caja gris que muestra la imagen completa, con su código y su texto debajo. Cada miniatura abre un panel lateral con la pieza grande, su ficha y el paso a la anterior o la siguiente.",
+  "paleta": ["#f3f3f1", "#e2e2de", "#151515", "#6b6b66", "#d2d2cc", "#d9531e"],
+  "tipografias": ["Space Grotesk"],
+  "layout": "Barra superior con nombre, índice y contador, portada con el nombre grande y seis cajas que son la navegación, y cada sección con cabecera de 12 columnas seguida de grillas de miniaturas uniformes de 2 a 6 columnas.",
+  "movimiento": "Un solo momento orquestado en la portada (el nombre sube de su máscara y las seis cajas se llenan en secuencia), cascada suave de miniaturas al entrar en pantalla y panel lateral que se desliza con inercia, todo apagado con prefers-reduced-motion.",
+  "peso": "ligera",
+  "librerias": [],
+  "estilos": ["grilla de noticias y obras", "galería numerada de proyectos", "filtros por categoría", "diseño minimalista", "tipografía como jerarquía"],
+  "referencias": ["Isaac Julien", "Gil Huybrecht", "Salomon Ligthelm", "Artefakt"]
+}

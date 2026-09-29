@@ -1,0 +1,23 @@
+{
+ "slug": "59-peso-variable",
+ "bytes_html": 42320,
+ "externos": [],
+ "libs": [
+  "lenis.css",
+  "gsap.min.js",
+  "ScrollTrigger.min.js",
+  "lenis.min.js",
+  "split-type.min.js"
+ ],
+ "fuentes": [
+  "fraunces"
+ ],
+ "imagenes_referenciadas": 53,
+ "bytes_imagenes_locales": 1925626,
+ "titulo": "Jose Adrianzen | Director de cine peruano",
+ "alto_1440": 17588,
+ "imagenes_en_dom": 57,
+ "problemas": [],
+ "avisos": [],
+ "ok": true
+}

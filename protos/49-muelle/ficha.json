@@ -1,0 +1,15 @@
+{
+  "n": 49,
+  "slug": "muelle",
+  "nombre": "Muelle",
+  "familia": "horizontal",
+  "concepto": "La página es un muelle de madera que entra al mar: todo el contenido va sobre tablones horizontales con juntas y clavos a la vista, y entre tablón y tablón se ve el turquesa del agua. Donde el muelle se abre, las fotos se asoman sobre el mar siempre completas, y los festivales son once tablones que se estrechan hacia el horizonte.",
+  "paleta": ["#d8cab0", "#c7b595", "#b3a07e", "#6e5a41", "#2b2419", "#1aa6a8", "#0e7c86", "#f4f1ea", "#3a3129"],
+  "tipografias": ["Zilla Slab"],
+  "layout": "Tablones a todo el ancho separados por juntas de agua de 6 px, clavos en los extremos, huecos de mar donde aparecen las fotos a su tamaño, selecciones como tablones que se estrechan en perspectiva y ECO sobre el muelle de noche.",
+  "movimiento": "Entrada orquestada donde los tablones de la portada llegan desde lados alternos y se asientan, brillo de agua que corre por el fondo y tablones que se acomodan con animation-timeline al entrar en vista, todo apagado con prefers-reduced-motion.",
+  "peso": "ligera",
+  "librerias": [],
+  "estilos": ["madera y mar", "franjas horizontales", "slab serif", "textura CSS", "perspectiva", "scroll-driven"],
+  "referencias": ["Photographers' virtual gallery", "LxL Creative", "Colonia Zacamil"]
+}

@@ -1,0 +1,15 @@
+{
+  "n": 77,
+  "slug": "cine-de-barrio",
+  "nombre": "Cine de barrio",
+  "familia": "retro",
+  "concepto": "La web es la fachada de un cine de barrio limeño de los ochenta, de noche: una marquesina de panel blanco iluminado con letras móviles negras anuncia el nombre y las obras, rodeada de bombillas que corren. Adentro está el vestíbulo, con la vitrina del afiche, la cartelera con puntos guía, el programa de mano del director y boletos de colores para el blog y el contacto.",
+  "paleta": ["#170d0b", "#5a0f15", "#fcf5e1", "#17110e", "#ffd978", "#caa25c", "#f3e7cf", "#efe3c8", "#a3202a", "#f2bcae", "#f2dd97", "#c3dfb3", "#bdd6e8"],
+  "tipografias": ["Staatliches", "Fraunces"],
+  "layout": "Portada con la marquesina centrada, cada obra abierta por su propia marquesina, vestíbulo en terciopelo con vitrina y programa, cartelera en una columna con puntos guía, créditos de ECO como créditos finales, programa de mano en papel crema y boletos troquelados para blog y contacto.",
+  "movimiento": "Las bombillas se encienden y corren, el panel parpadea como un tubo fluorescente y las letras se cuelgan una por una con su vaivén, los letreros se encienden al aparecer y los boletos se levantan al pasar el mouse, todo apagado con prefers-reduced-motion.",
+  "peso": "ligera",
+  "librerias": [],
+  "estilos": ["fondo oscuro", "tipografía protagonista", "microinteracciones", "textura analógica", "símbolos propios como navegación"],
+  "referencias": ["Of Skin and Souls", "Velour Productions", "Grit Pictures"]
+}

@@ -1,0 +1,18 @@
+{
+ "slug": "90-postales",
+ "bytes_html": 55843,
+ "externos": [],
+ "libs": [],
+ "fuentes": [
+  "lora",
+  "caveat"
+ ],
+ "imagenes_referenciadas": 52,
+ "bytes_imagenes_locales": 1806642,
+ "titulo": "Jose Adrianzen | Director de cine peruano",
+ "alto_1440": 15005,
+ "imagenes_en_dom": 69,
+ "problemas": [],
+ "avisos": [],
+ "ok": true
+}
