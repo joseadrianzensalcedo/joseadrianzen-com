@@ -1,0 +1,15 @@
+{
+  "n": 81,
+  "slug": "dorado",
+  "nombre": "Dorado",
+  "familia": "lujo",
+  "concepto": "La web es una invitación de gala en negro y oro: un pasepartú fijo con marco doble fino enmarca la ventana y la obra aparece centrada, con mucho aire, como en un programa de ceremonia. Los premios viven dentro de laureles dibujados a línea que crecen desde el tallo al entrar, y nada brilla: oro plano, líneas de un píxel y tipografía.",
+  "paleta": ["#0b0a08", "#13110d", "#c6a15b", "#8f7644", "#5e4d2e", "#ece4d4", "#a39884"],
+  "tipografias": ["Bodoni Moda", "Tenor Sans"],
+  "layout": "Pasepartú fijo con marco doble alrededor de la ventana y cabecera en la banda superior con monograma central y navegación partida, secciones centradas con numeral romano, fichas con puntos guía, laureles en retícula de cuatro y galerías en filas justificadas.",
+  "movimiento": "Entrada orquestada en la que el marco se traza desde el centro de cada lado, el nombre se abre como un telón y el rol sube, laureles que crecen desde el tallo con máscara cónica y revelados suaves con IntersectionObserver, todo apagado con prefers-reduced-motion.",
+  "peso": "ligera",
+  "librerias": [],
+  "estilos": ["negro y dorado", "marco doble", "laureles en SVG", "simetría centrada", "tipografía didona", "mucho aire"],
+  "referencias": ["Film Fest Gent", "IL CAPO PRODUCTION", "Alan Menken (compositor)"]
+}

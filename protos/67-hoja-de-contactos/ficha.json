@@ -1,0 +1,15 @@
+{
+  "n": 67,
+  "slug": "hoja-de-contactos",
+  "nombre": "Hoja de contactos",
+  "familia": "horizontal",
+  "concepto": "La web es la hoja de contactos de un fotógrafo: sobre papel negro, cada sección es una tira de negativo perforada con sus cuadros numerados que se recorre de lado. Un marcador de cera roja encierra el cuadro elegido, que aparece ampliado como copia de trabajo con su margen de papel, y todo el texto está mecanografiado como las notas de un archivo de rodaje.",
+  "paleta": ["#0b0a09", "#181715", "#5e5a53", "#c9a24a", "#e9e3d6", "#9d978c", "#d7261e", "#eee8dc"],
+  "tipografias": ["Courier Prime"],
+  "layout": "Tiras de película a lo ancho con perforaciones y numeración de borde hechas en CSS, notas mecanografiadas en retícula de 12 columnas bajo cada tira y copias ampliadas del cuadro elegido con margen de papel.",
+  "movimiento": "El nombre se escribe a máquina al entrar y después la cera roja se dibuja alrededor del cuadro elegido; cada tira dibuja su marca al aparecer, se arrastra con el mouse o se mueve con flechas, y cualquier cuadro se abre con lupa.",
+  "peso": "ligera",
+  "librerias": [],
+  "estilos": ["layout horizontal", "carrusel arrastrable", "tipografía mecanografiada", "tema negro", "grano de papel", "galería numerada"],
+  "referencias": ["LxL Creative", "Gil Huybrecht", "Edoardo Smerilli, Film Director"]
+}

@@ -1,0 +1,15 @@
+{
+  "n": 14,
+  "slug": "fotograma-a-fotograma",
+  "nombre": "Fotograma a fotograma",
+  "familia": "Cine inmersivo",
+  "concepto": "Un segundo de cine: la web son 24 pantallas, como los 24 fotogramas de un segundo, y cada una se detiene con scroll-snap en un fotograma completo con un solo dato, un nombre, un premio o una frase. Entre imagen e imagen entran cartones negros como los intertítulos del cine mudo, con ritmo de montaje y contador 01/24.",
+  "paleta": ["#080807", "#F3EEE4", "#8D877E", "#24221F", "#F2C230"],
+  "tipografias": ["League Gothic", "Newsreader"],
+  "layout": "24 pantallas de 100svh con scroll-snap: fotograma completo arriba y frase centrada debajo como subtítulo, cartones centrados, barra con contador 01/24 y línea de tiempo de 24 marcas.",
+  "movimiento": "Claqueta de entrada con 01/24 que corta en seco y viaja a la esquina para volverse el contador; luego cada corte deja caer su frase en 0,5 s.",
+  "peso": "ligera",
+  "librerias": [],
+  "estilos": ["video a pantalla completa", "transiciones suaves", "tipografía protagonista", "fotografía inspirada en cine", "tema negro"],
+  "referencias": ["Xanvier Allison", "Adam Bricker", "PERFECT DAYS official site (Wim Wenders)", "Edoardo Smerilli, Film Director"]
+}

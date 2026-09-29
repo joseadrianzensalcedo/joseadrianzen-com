@@ -1,0 +1,17 @@
+{
+ "slug": "93-solo-css",
+ "bytes_html": 47968,
+ "externos": [],
+ "libs": [],
+ "fuentes": [
+  "bricolage-grotesque"
+ ],
+ "imagenes_referenciadas": 53,
+ "bytes_imagenes_locales": 1823528,
+ "titulo": "Jose Adrianzen | Director de cine peruano",
+ "alto_1440": 15841,
+ "imagenes_en_dom": 57,
+ "problemas": [],
+ "avisos": [],
+ "ok": true
+}

@@ -1,0 +1,15 @@
+{
+  "n": 22,
+  "slug": "socavon",
+  "nombre": "Socavón",
+  "familia": "documental",
+  "concepto": "Bajar a la mina con una linterna de casco: la página es un socavón negro y la única luz es un haz amarillo fijo en la esquina superior. Cada foto está a oscuras hasta que entra en pantalla y la linterna la alumbra.",
+  "paleta": ["#0a0a09", "#121210", "#ffc21a", "#e9e5dc", "#a39e94", "#8a857c", "#26241f"],
+  "tipografias": ["Saira Stencil One", "Chivo"],
+  "layout": "Descenso vertical por niveles numerados con cinta de peligro, placas con pernos para ficha, premios y equipo, registro de galerías para las selecciones y el muro del director encabezado por el retrato.",
+  "movimiento": "Entrada orquestada (la linterna parpadea, se enciende el haz, se alumbra el socavón y un barrido enciende el nombre), fotos que se alumbran con una máscara radial al entrar, haz que sigue levemente al puntero y jaula que baja por un cable con el scroll.",
+  "peso": "ligera",
+  "librerias": [],
+  "estilos": ["iluminación dramática", "letra estarcida", "señalética industrial", "revelado al hacer scroll", "minimalismo oscuro"],
+  "referencias": ["Hervé Baillargeon (director)", "PERFECT DAYS official site (Wim Wenders)", "Oliver Laxe"]
+}

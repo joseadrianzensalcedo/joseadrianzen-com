@@ -1,0 +1,15 @@
+{
+  "n": 62,
+  "slug": "blanco-y-negro",
+  "nombre": "Blanco y negro",
+  "familia": "editorial",
+  "concepto": "Una monografía en blanco y negro puro, como un número de revista de moda dedicado a un cineasta: todo es tinta negra o papel blanco. El color vive escondido dentro de las fotos, que aparecen en gris y lo recuperan con un fundido lento al pasar el cursor, o al cruzar el centro de la pantalla en táctiles.",
+  "paleta": ["#ffffff", "#000000"],
+  "tipografias": ["Bodoni Moda", "Karla"],
+  "layout": "Tapa blanca con el nombre partido en dos líneas gigantes de Bodoni y una foto en gris, secciones que se alternan en negro y blanco a corte seco sobre una retícula de 12 columnas con mucho aire, fichas e índices con filetes finos, franja negra a sangre para la cita y filas justificadas para el rodaje de ECO.",
+  "movimiento": "Entrada orquestada de la tapa (el nombre de pila entra en itálica, el apellido se cierra desde un espaciado amplio y la foto se revela de blanco quemado a gris), fotos que recuperan el color con filter al pasar, barra que se invierte sola con mix-blend-mode, índice a pantalla completa en móvil y filas de contacto que se invierten; todo apagado con movimiento reducido.",
+  "peso": "ligera",
+  "librerias": [],
+  "estilos": ["blanco y negro", "alto contraste", "didona gigante", "revista de moda", "color al pasar el cursor", "mix-blend-mode"],
+  "referencias": ["Ethan W Photography", "Xanvier Allison", "Oliver Laxe"]
+}

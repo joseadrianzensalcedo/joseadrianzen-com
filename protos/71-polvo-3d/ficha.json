@@ -1,0 +1,15 @@
+{
+  "n": 71,
+  "slug": "polvo-3d",
+  "nombre": "Polvo en el aire",
+  "familia": "webgl",
+  "concepto": "Miles de motas de polvo flotan en una luz rasante ocre en la portada y se apartan o arremolinan cuando el cursor las cruza, como el aire de las pampas del documental. Después la página se asienta como el polvo: una hoja clara y sobria que sube por encima de la portada como un telón.",
+  "paleta": ["#0d0a07", "#ece5d8", "#1a1611", "#5e574b", "#d68a2e", "#8f4c12", "#cdc2ae", "#15120f"],
+  "tipografias": ["Archivo"],
+  "layout": "Portada fija a pantalla completa con WebGL y, encima, una hoja clara en rejilla suiza de 12 columnas con número de sección al margen, filas justificadas sin recorte y bloques oscuros para ECO y contacto.",
+  "movimiento": "La luz se enciende en 2,6 s y las letras del nombre se posan como motas, el cursor agita el polvo por su velocidad, al bajar el polvo sube y la hoja tapa la portada, revelados cortos de 14 px.",
+  "peso": "pesada",
+  "librerias": ["three"],
+  "estilos": ["partículas WebGL", "luz volumétrica", "rejilla suiza", "minimalismo", "tipografía fina enorme"],
+  "referencias": ["Edoardo Smerilli, Film Director", "Artefakt", "Michael Gatt"]
+}

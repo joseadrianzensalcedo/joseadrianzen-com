@@ -1,0 +1,15 @@
+{
+  "n": 18,
+  "slug": "penumbra",
+  "nombre": "Penumbra",
+  "familia": "thriller",
+  "concepto": "La página está casi toda a oscuras, como la casa de ECO de noche, y una linterna que sigue al cursor revela lo que hay debajo con una máscara radial, en móvil un haz fijo por el que pasa el contenido al bajar. Lo único que brilla por sí solo es el sello rojo de ECO, y un interruptor enciende la luz para leer con todo visible.",
+  "paleta": ["#030303", "#0a0a0a", "#ebe6dc", "#8f8a82", "#1c1b19", "#d42a2f"],
+  "tipografias": ["Instrument Sans", "Cormorant"],
+  "layout": "Editorial asimétrico en 12 columnas con mucho negro, títulos grandes a la izquierda, fotos de rodaje en tres columnas escalonadas y fotografía en zigzag.",
+  "movimiento": "Entrada con GSAP en la que la linterna parpadea dos veces y se enciende sobre el nombre, luz que sigue al cursor con inercia y al foco del teclado, haz que se mueve con el scroll en táctil, Lenis.",
+  "peso": "media",
+  "librerias": ["gsap", "ScrollTrigger", "lenis"],
+  "estilos": ["fondo negro", "interfaz mínima", "tipografía protagonista", "miniaturas de obras que reaccionan al mouse", "transiciones"],
+  "referencias": ["Michael Gatt", "Edoardo Smerilli, Film Director", "Ian Coad DP", "Josh Goldsmith, Director & EP"]
+}

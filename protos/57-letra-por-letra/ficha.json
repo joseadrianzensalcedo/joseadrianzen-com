@@ -1,0 +1,15 @@
+{
+  "n": 57,
+  "slug": "letra-por-letra",
+  "nombre": "Letra por letra",
+  "familia": "tipografia",
+  "concepto": "Una imprenta de tipos móviles: cada título se compone letra por letra al entrar, como un cajista que arma la línea, y se asienta con un rebote mínimo sobre su regleta negra. Papel blanco, tinta negra y en cada sección una sola palabra que se imprime en rojo al final.",
+  "paleta": ["#ffffff", "#111111", "#d8261c", "#6d6d6d", "#e4e4e4"],
+  "tipografias": ["Dela Gothic One", "Epilogue"],
+  "layout": "Rejilla suiza de 12 columnas con la ceja numerada en la columna izquierda y el título a la derecha sobre una regla, mucho blanco, texto a dos columnas, fotografía escalonada y muro en columnas.",
+  "movimiento": "SplitType parte cada título en letras y GSAP con ScrollTrigger las deja caer giradas hasta asentarse con back.out, la palabra roja cambia de tinta al final y la regla se tiende. Los enlaces hacen una ola letra por letra al pasar el cursor. Con movimiento reducido no se parte nada.",
+  "peso": "media",
+  "librerias": ["gsap", "ScrollTrigger", "SplitType"],
+  "estilos": ["tipografía gigante animada", "textos que se animan al desplazar", "diseño minimalista", "tema claro", "acento de un solo color"],
+  "referencias": ["Obys", "Cuberto", "Studio Dumbar / DEPT"]
+}

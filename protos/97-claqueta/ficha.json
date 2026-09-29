@@ -1,0 +1,15 @@
+{
+  "n": 97,
+  "slug": "claqueta",
+  "nombre": "Claqueta",
+  "familia": "ludico",
+  "concepto": "La navegación es una claqueta copiada de la que se usó en el rodaje de ECO, con pizarra blanca, palos con carta de color y campos escritos a plumón. Cada sección es una escena y cada bloque una toma, y al pasar de una a otra la claqueta se abre, anota el número nuevo y se cierra de golpe, con chasquido solo si el visitante marca Sync.",
+  "paleta": ["#161616", "#232323", "#f8f6f1", "#141414", "#f0ede6", "#121212", "#57534b", "#cdc7ba", "#d23c2c", "#2fb07a", "#f2d34b", "#39a6df", "#ef7aa5"],
+  "tipografias": ["Chivo", "Permanent Marker"],
+  "layout": "Escritorio en dos columnas, set negro fijo a la izquierda con la claqueta y el plan de rodaje (escenas y tomas como botones) y el guion en papel hueso a la derecha con escenas numeradas y tomas marcadas, en móvil barra superior con el palo a lo ancho y plan a pantalla completa.",
+  "movimiento": "Entrada orquestada (la claqueta sube, se abre y escribe PROD. mientras el nombre sube por máscara), golpe de claqueta con destello y rebote en cada toma detectada por ScrollTrigger, trazo a mano en Mos o Sync y saltos del plan con ScrollToPlugin.",
+  "peso": "media",
+  "librerias": ["gsap", "ScrollTrigger", "ScrollToPlugin", "SplitText"],
+  "estilos": ["navegación como objeto", "claqueta", "sonido opcional con Web Audio", "columna fija", "grotesca pesada", "tema hueso y negro"],
+  "referencias": ["DVEIN", "Velour Productions", "PERFECT DAYS official site (Wim Wenders)"]
+}

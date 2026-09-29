@@ -1,0 +1,15 @@
+{
+  "n": 16,
+  "slug": "espejo",
+  "nombre": "Espejo",
+  "familia": "thriller",
+  "concepto": "Un eje vertical recorre la página como la juntura de un espejo: cada sección se refleja en la siguiente, con el texto a la izquierda y luego a la derecha, y las galerías se arman en filas palíndromas. Los títulos llevan su reflejo en rojo sangre debajo, la otra vida que la casa de ECO esconde.",
+  "paleta": ["#0a0f0d", "#0f1613", "#e6e0d4", "#8e9a93", "#1d2823", "#9a3a33", "#c4605a"],
+  "tipografias": ["Bodoni Moda", "Jost"],
+  "layout": "Dos columnas simétricas alrededor de un eje central fijo, encabezados centrados con numeral romano sobre el eje y la etiqueta repetida en espejo, menú partido en dos mitades.",
+  "movimiento": "Entrada de portada con GSAP en la que el nombre sube y su reflejo baja desde la línea del espejo, títulos que se despliegan con scaleY desde esa línea y columnas y fotos que se abren desde el eje hacia afuera, con Lenis.",
+  "peso": "media",
+  "librerias": ["gsap", "ScrollTrigger", "SplitText", "lenis"],
+  "estilos": ["tema negro", "tipografía protagonista", "índice con vista previa en vivo y espejo de fondo", "fotografía inspirada en cine", "transiciones"],
+  "referencias": ["Josh Goldsmith, Director & EP", "Ethan W Photography", "Ian Coad DP"]
+}

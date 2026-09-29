@@ -1,0 +1,15 @@
+{
+  "n": 82,
+  "slug": "art-deco",
+  "nombre": "Art déco",
+  "familia": "lujo",
+  "concepto": "La web es la fachada y el programa de un palacio de cine de los años treinta: un abanico de rayos dorados se abre detrás del nombre como el sol de un proscenio y cada sección tiene su letrero vertical de marquesina, como los viejos cines de Hollywood. La obra se presenta en placas con remate escalonado, tiras de película y marcos con esquinas de latón, en negro y champán.",
+  "paleta": ["#0c0b09", "#15130f", "#e3cc98", "#b89c64", "#5c4d33", "#f1e9d8", "#a69c88"],
+  "tipografias": ["Limelight", "Josefin Sans"],
+  "layout": "Cabecera de marquesina con doble filete, portada con abanico de 37 rayos y secciones en dos columnas con un letrero vertical fijo a la izquierda y el contenido a la derecha, con placas escalonadas, listas con filete doble, tiras de película y galerías en mampostería.",
+  "movimiento": "Entrada orquestada en la que los rayos del abanico se despliegan desde el centro, los arcos se trazan y el nombre sube, abanicos de los letreros que se abren al entrar y esquinas de latón que crecen al pasar el puntero, todo con CSS e IntersectionObserver y apagado con prefers-reduced-motion.",
+  "peso": "ligera",
+  "librerias": [],
+  "estilos": ["art déco", "abanicos en SVG", "negro y champán", "letrero vertical", "placas escalonadas", "Hollywood clásico"],
+  "referencias": ["Film Fest Gent", "Obys", "Adovasio"]
+}

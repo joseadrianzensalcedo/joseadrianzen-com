@@ -1,0 +1,22 @@
+{
+ "slug": "66-scroll-lateral",
+ "bytes_html": 51943,
+ "externos": [],
+ "libs": [
+  "lenis.css",
+  "gsap.min.js",
+  "ScrollTrigger.min.js",
+  "lenis.min.js"
+ ],
+ "fuentes": [
+  "epilogue"
+ ],
+ "imagenes_referenciadas": 53,
+ "bytes_imagenes_locales": 1823528,
+ "titulo": "Jose Adrianzen | Director de cine peruano",
+ "alto_1440": 28614,
+ "imagenes_en_dom": 57,
+ "problemas": [],
+ "avisos": [],
+ "ok": true
+}

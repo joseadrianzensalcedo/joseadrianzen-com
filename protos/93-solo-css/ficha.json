@@ -1,0 +1,15 @@
+{
+  "n": 93,
+  "slug": "solo-css",
+  "nombre": "Solo CSS",
+  "familia": "fluido",
+  "concepto": "La web es el programa de mano de un festival, tinta negra sobre papel crema, y todo lo que se mueve lo mueve el propio scroll, sin JavaScript salvo el reproductor. Los títulos se entintan al entrar (su peso pasa de 200 a 800), las fotos se revelan de blanco y negro a color como una copia en la cubeta y el nombre de la tapa se adelgaza al salir.",
+  "paleta": ["#efe7d6", "#e5dbc5", "#141210", "#5f584e"],
+  "tipografias": ["Bricolage Grotesque"],
+  "layout": "Mancheta a todo el ancho con el retrato como foto de tapa y el índice numerado al lado, secciones abiertas con números gigantes y reglas gruesas, texto en columnas de periódico con filetes y palmarés en cuatro columnas.",
+  "movimiento": "animation-timeline view() para entintar títulos, revelar fotos y tender reglas, scroll() para la barra de progreso, números que derivan con el scroll, y :target para el índice, la sección marcada y el visor de fotos con anterior y siguiente, todo en @supports y apagado con prefers-reduced-motion.",
+  "peso": "ligera",
+  "librerias": [],
+  "estilos": ["solo CSS", "animaciones guiadas por scroll", "editorial impreso", "tipografía variable", "tema claro"],
+  "referencias": ["Albert Serra", "Obys", "Siena Film Foundation"]
+}

@@ -1,0 +1,15 @@
+{
+  "n": 52,
+  "slug": "indice-numerado",
+  "nombre": "Índice numerado",
+  "familia": "indice",
+  "concepto": "La web es un índice numerado de 01 a 87: cada pieza de contenido (un párrafo, un premio, un festival, una foto) es una entrada con su número grande en mono en el margen, como el índice de un catálogo razonado. No hay imágenes decorativas, las fotos son entradas del índice que se abren a tamaño completo.",
+  "paleta": ["#ebe6da", "#121110", "#5d574c"],
+  "tipografias": ["Hanken Grotesk", "IBM Plex Mono"],
+  "layout": "Portada con el nombre y una tabla de contenidos que funciona como navegación (entrada, sección y rango), barra pegajosa con contador de la entrada en lectura y secciones hechas de entradas con margen numerado que se abren en rejillas de 2 a 5 columnas para premios, festivales y fotos.",
+  "movimiento": "Un solo momento orquestado en la portada (el nombre sube, el filete grueso se traza y los números de la tabla cuentan desde 00 hasta su entrada), números pegados al margen mientras se lee y el contador de la barra avanzando, todo apagado con prefers-reduced-motion.",
+  "peso": "ligera",
+  "librerias": [],
+  "estilos": ["lista numerada de obras (#001 en adelante)", "galería numerada de proyectos", "tipografía como jerarquía", "diseño minimalista", "línea de tiempo de obras"],
+  "referencias": ["TAO TAJIMA, Filmmaker", "Gil Huybrecht", "Artefakt", "Eladio Dieste"]
+}

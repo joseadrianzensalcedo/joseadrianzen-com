@@ -1,0 +1,14 @@
+{
+	admin off
+}
+:{$PORT:8080} {
+	root * /srv
+	encode zstd gzip
+	header {
+		X-Robots-Tag "noindex, nofollow"
+		X-Content-Type-Options nosniff
+	}
+	@assets path /assets/* /fonts/* /lib/*
+	header @assets Cache-Control "public, max-age=604800"
+	file_server
+}

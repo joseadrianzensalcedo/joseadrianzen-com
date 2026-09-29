@@ -1,0 +1,37 @@
+{
+  "n": 76,
+  "slug": "chicha",
+  "nombre": "Chicha",
+  "familia": "retro",
+  "concepto": "La web es un afiche chicha impreso sobre negro: el nombre y las obras se rotulan en Bungee con el degradado de dos tintas de los carteles de Lima, amarillo a fucsia y verde a amarillo. Todo lo demás es sobrio, con jerarquía limpia, versalitas finas y mucho negro alrededor para que cada línea respire.",
+  "paleta": [
+    "#07060a",
+    "#100e14",
+    "#2a2631",
+    "#ff2fa4",
+    "#3cff7a",
+    "#ffea2e",
+    "#f7f3ea",
+    "#9c968c"
+  ],
+  "tipografias": [
+    "Bungee",
+    "Chivo"
+  ],
+  "layout": "Eje central de afiche con JOSE y ADRIANZEN justificados al mismo ancho, cabeceras centradas separadas por tres estrellas, fichas en tablas de filetes, premios en cuatro columnas y galerías en filas justificadas a la proporción real de cada foto.",
+  "movimiento": "Una pasada de rasero en CSS imprime cada línea del nombre con su degradado al entrar, los títulos de sección se imprimen igual al aparecer con IntersectionObserver, el sello de ECO se mece y las estrellas titilan, todo apagado con prefers-reduced-motion.",
+  "peso": "ligera",
+  "librerias": [],
+  "estilos": [
+    "fondo negro",
+    "tipografía protagonista",
+    "tipografía como jerarquía",
+    "microinteracciones",
+    "símbolos propios como navegación"
+  ],
+  "referencias": [
+    "Velour Productions",
+    "Grit Pictures",
+    "Salomon Ligthelm"
+  ]
+}

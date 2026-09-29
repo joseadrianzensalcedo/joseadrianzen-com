@@ -1,0 +1,15 @@
+{
+  "n": 15,
+  "slug": "proyeccion",
+  "nombre": "Proyección",
+  "familia": "Cine inmersivo",
+  "concepto": "La web se ve como una copia de 35 mm pasando por el proyector: arranca con la cola de arranque (3, 2, 1 y el barrido del círculo), un destello y la primera imagen. Encima viven los signos de la proyección, viñeta, grano, marcas de encuadre, la marca de cambio de rollo al final de cada sección y un contador de pies que avanza con el scroll.",
+  "paleta": ["#0E0B08", "#EFE3C8", "#F6EAD0", "#9E9179", "#2B241B", "#E3A04F"],
+  "tipografias": ["Big Shoulders Display", "Courier Prime"],
+  "layout": "Portada de 100svh con el fotograma completo y el título encima, y seis rollos numerados en una grilla de 12 columnas con pantallas enmarcadas por escuadras, fichas en dos columnas y galerías en filas justificadas.",
+  "movimiento": "Cola de arranque en CSS; GSAP con ScrollTrigger para el parpadeo controlado de la luz de fondo, las cortinillas de luz sobre cada título, la ventanilla que abre cada imagen, la marca de cambio de rollo y el contador de pies.",
+  "peso": "media",
+  "librerias": ["gsap", "ScrollTrigger"],
+  "estilos": ["scroll de un libro con sonido", "textos que se animan al desplazar", "transiciones entre páginas", "fotografía inspirada en cine", "tema negro"],
+  "referencias": ["PERFECT DAYS official site (Wim Wenders)", "Adam Bricker", "Michael Gatt", "Siena Film Foundation"]
+}

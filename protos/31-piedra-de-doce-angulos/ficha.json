@@ -1,0 +1,15 @@
+{
+  "n": 31,
+  "slug": "piedra-de-doce-angulos",
+  "nombre": "Piedra de doce ángulos",
+  "familia": "Andino piedra y altura",
+  "concepto": "La web es un muro inca de Cusco: la portada es un aparejo poligonal cuya piedra central tiene exactamente doce ángulos y lleva el nombre grabado. Cada sección es una hilada y cada pieza de contenido un bloque que encaja con juntas de 2 px, con ECO en el lado del muro que queda en sombra.",
+  "paleta": ["#141512", "#a5a79f", "#999b94", "#afb1a9", "#bdbbae", "#50524d", "#f5f1e3"],
+  "tipografias": ["Big Shoulders Display", "Chivo"],
+  "layout": "Rejilla de 12 columnas con gap de 2 px sobre fondo de junta, bloques con clip-path de chaflanes irregulares (una variante de doce vértices) y fotos en filas justificadas como sillares rectangulares, que en móvil pasan a mampostería de dos columnas.",
+  "movimiento": "Entrada orquestada: se traza el contorno de la piedra de doce ángulos, llega la luz de mediodía con sombra dura y grano, y se asienta el nombre; al bajar, cada bloque cae en su sitio con un leve rebote, y todo se apaga con movimiento reducido.",
+  "peso": "ligera",
+  "librerias": [],
+  "estilos": ["grilla irregular", "clip-path poligonal", "tipografía condensada", "ficha técnica visible", "textura de piedra", "sombra dura"],
+  "referencias": ["Adam Bricker", "Hervé Baillargeon (director)", "Edoardo Smerilli, Film Director"]
+}

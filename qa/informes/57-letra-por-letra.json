@@ -1,0 +1,22 @@
+{
+ "slug": "57-letra-por-letra",
+ "bytes_html": 49377,
+ "externos": [],
+ "libs": [
+  "gsap.min.js",
+  "ScrollTrigger.min.js",
+  "split-type.min.js"
+ ],
+ "fuentes": [
+  "dela-gothic-one",
+  "epilogue"
+ ],
+ "imagenes_referenciadas": 53,
+ "bytes_imagenes_locales": 1823528,
+ "titulo": "Jose Adrianzen | Director de cine peruano",
+ "alto_1440": 17902,
+ "imagenes_en_dom": 56,
+ "problemas": [],
+ "avisos": [],
+ "ok": true
+}

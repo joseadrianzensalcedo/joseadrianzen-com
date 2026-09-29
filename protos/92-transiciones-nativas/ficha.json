@@ -1,0 +1,15 @@
+{
+  "n": 92,
+  "slug": "transiciones-nativas",
+  "nombre": "Transiciones nativas",
+  "familia": "fluido",
+  "concepto": "La web es un cine pequeño con cinco salas, cada una en su propia página (documental, eco, fotografia, director, contacto), y pasar de una a otra es un fundido encadenado que hace el navegador solo, sin JavaScript. La cabecera se queda quieta, el punto de la sala activa se desliza entre enlaces y el título de cada sala sube como un intertítulo, mientras el index hace de vestíbulo con todo el contenido.",
+  "paleta": ["#161616", "#1c1c1c", "#2c2c2c", "#e9e6e0", "#bdb8b0", "#8f8a83"],
+  "tipografias": ["Manrope"],
+  "layout": "Rótulo de sala numerado y dos columnas con la izquierda pegajosa (afiche, fotograma o foto de escenario) y el texto a la derecha, fotogramas en retícula, muros en filas justificadas y cierre con enlace a la siguiente sala.",
+  "movimiento": "View Transitions entre documentos con @view-transition navigation auto: fundido a gris del contenido, cabecera fija, punto activo que se desliza y título que sale hacia arriba y entra desde abajo, visor de fotos con popover y @starting-style, ficha completa con details animado y portada que entra en foco con blur. Sin JS salvo el reproductor.",
+  "peso": "ligera",
+  "librerias": [],
+  "estilos": ["transiciones de página", "multipágina", "tema oscuro", "columna pegajosa", "minimalismo"],
+  "referencias": ["Locomotive", "Albert Serra", "Siena Film Foundation"]
+}

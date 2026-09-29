@@ -1,0 +1,15 @@
+{
+  "n": 27,
+  "slug": "manta",
+  "nombre": "Manta",
+  "familia": "Andino textil",
+  "concepto": "La página es una lliclla: pampas lisas de color crudo donde vive el contenido, separadas por listas de tinte natural de 8 a 24 px que se tejen de lado a lado al entrar. El nombre de la portada lleva franjas tejidas dentro de las letras y aparece pasada por pasada.",
+  "paleta": ["#ECE3D0", "#E2D7BF", "#241E19", "#A6456E", "#8E3A5C", "#283A64", "#1B2138", "#C38B2D", "#6D6A2F"],
+  "tipografias": ["Barlow Condensed", "Spectral"],
+  "layout": "Pampas a todo el ancho con títulos en mayúsculas medidos para llenar la línea, rejilla editorial de 12 columnas, premios como filas separadas por listas de color y galerías en filas justificadas sin recorte.",
+  "movimiento": "Portada orquestada con listas que pasan de un lado a otro y el nombre que se teje en pasadas escalonadas; luego cada lista se teje al entrar y los títulos grandes aparecen por pasadas con steps().",
+  "peso": "ligera",
+  "librerias": [],
+  "estilos": ["tipografía gigante animada", "tipografía como jerarquía", "ficha técnica visible", "textos que se animan al desplazar", "minimalismo"],
+  "referencias": ["Obys", "PERFECT DAYS official site (Wim Wenders)", "Studio Dumbar / DEPT", "Adam Bricker"]
+}

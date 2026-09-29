@@ -1,0 +1,23 @@
+{
+ "slug": "97-claqueta",
+ "bytes_html": 62830,
+ "externos": [],
+ "libs": [
+  "gsap.min.js",
+  "ScrollTrigger.min.js",
+  "ScrollToPlugin.min.js",
+  "SplitText.min.js"
+ ],
+ "fuentes": [
+  "chivo",
+  "permanent-marker"
+ ],
+ "imagenes_referenciadas": 52,
+ "bytes_imagenes_locales": 1806642,
+ "titulo": "Jose Adrianzen | Director de cine peruano",
+ "alto_1440": 14913,
+ "imagenes_en_dom": 57,
+ "problemas": [],
+ "avisos": [],
+ "ok": true
+}

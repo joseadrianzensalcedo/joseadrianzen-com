@@ -1,0 +1,15 @@
+{
+  "n": 13,
+  "slug": "trailer-primero",
+  "nombre": "Tráiler primero",
+  "familia": "Cine inmersivo",
+  "concepto": "Como en oliverlaxe.com, el reproductor del documental ocupa la portada entera y, mientras nadie lo toca, pasa en silencio una secuencia de fotogramas en fundido, como un tráiler mudo con su barra de avance. El nombre vive en una esquina en mono muy chico y todo lo demás baja en una sola columna sobria, blanco sobre negro.",
+  "paleta": ["#000000", "#FFFFFF", "#8C8C8C", "#262626"],
+  "tipografias": ["DM Sans", "DM Mono"],
+  "layout": "Portada de 100svh con el reproductor a todo lo ancho y, debajo, una columna única de 640 px con imágenes al ancho de la columna.",
+  "movimiento": "Tráiler mudo de seis fotogramas en fundido de 5 s cada uno con barra de avance, que se pausa fuera de pantalla; el resto aparece con un fundido de opacidad.",
+  "peso": "ligera",
+  "librerias": [],
+  "estilos": ["una sola pagina con video a pantalla completa en bucle", "video a pantalla completa", "minimalismo", "interfaz mínima", "tema negro"],
+  "referencias": ["Oliver Laxe", "Ali Ali (director de El Cairo)", "Xanvier Allison", "Hervé Baillargeon (director)"]
+}

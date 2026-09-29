@@ -1,0 +1,15 @@
+{
+  "n": 11,
+  "slug": "pantalla-completa",
+  "nombre": "Pantalla completa",
+  "familia": "Cine inmersivo",
+  "concepto": "La web es una sucesión de planos: cada sección abre con un fotograma completo a todo lo ancho, con barras negras cuando hace falta y nunca recortado. El título en Bebas Neue se monta sobre la imagen y cae sobre una franja negra donde vive el texto, como la banda de subtítulos.",
+  "paleta": ["#000000", "#EDE9E2", "#A9A49C", "#6E6A64", "#7FC4BE"],
+  "tipografias": ["Bebas Neue", "Instrument Sans"],
+  "layout": "Tomas apiladas de cuadro a pantalla completa más franja negra con grilla de 12 columnas, y navegación por puntos fija a la derecha.",
+  "movimiento": "La portada se abre como un obturador desde una rendija y el nombre sube palabra por palabra; cada cuadro abre sus barras al entrar y su título baja a su sitio.",
+  "peso": "ligera",
+  "librerias": [],
+  "estilos": ["video a pantalla completa", "tema negro", "minimalismo", "transiciones suaves", "fotografía inspirada en cine"],
+  "referencias": ["Xanvier Allison", "Oliver Laxe", "Hervé Baillargeon (director)", "Adam Bricker"]
+}

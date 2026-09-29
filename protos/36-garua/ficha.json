@@ -1,0 +1,15 @@
+{
+  "n": 36,
+  "slug": "garua",
+  "nombre": "Garúa",
+  "familia": "limeño",
+  "concepto": "Lima bajo el cielo panza de burro: un fondo gris perla casi plano donde el nombre se condensa desde la bruma mientras cae una garúa fina. Cada imagen se desempaña al entrar en la vista y ECO llega como una franja de tarde con bordes difusos.",
+  "paleta": ["#cfd2d2", "#dcdedc", "#e6e7e4", "#f2f2ef", "#353b3e", "#50585c", "#5b6468", "#51707b", "#41484c", "#eceeeb"],
+  "tipografias": ["Instrument Serif", "Instrument Sans"],
+  "layout": "Revista de columna ancha con cabeceras en itálica y golpe a la derecha, afiche fijo junto al palmarés, galerías en filas justificadas sin recorte y fotografía en tres columnas con pie en itálica.",
+  "movimiento": "Entrada orquestada con el nombre que pasa de desenfoque a nitidez, garúa en CSS y horizonte que se tiende; después cada bloque se desempaña al entrar y el nombre vuelve a la bruma al bajar con animation-timeline. Todo queda quieto con movimiento reducido.",
+  "peso": "ligera",
+  "librerias": [],
+  "estilos": ["minimalismo", "tipografía protagonista", "fotografía inspirada en cine", "transiciones suaves", "textos que se animan al desplazar"],
+  "referencias": ["PERFECT DAYS official site (Wim Wenders)", "Oliver Laxe", "Hervé Baillargeon (director)", "Ethan W Photography"]
+}

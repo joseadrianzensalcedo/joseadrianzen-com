@@ -1,0 +1,558 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Jose Adrianzen · 100 prototipos web</title>
+<meta name="description" content="Cien propuestas de diseño para joseadrianzen.com, con el contenido real del sitio.">
+<meta name="robots" content="noindex,nofollow">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23050505'/%3E%3Ctext x='32' y='46' font-size='40' text-anchor='middle' fill='%23c9a55c' font-family='Impact'%3EJ%3C/text%3E%3C/svg%3E">
+<style>
+@font-face{font-family:'Anton';src:url('assets/fonts/anton-400-latin.woff2') format('woff2');font-display:swap}
+@font-face{font-family:'Archivo';src:url('assets/fonts/archivo-400-latin.woff2') format('woff2');font-weight:400;font-display:swap}
+@font-face{font-family:'Archivo';src:url('assets/fonts/archivo-500-latin.woff2') format('woff2');font-weight:500;font-display:swap}
+@font-face{font-family:'Special Elite';src:url('assets/fonts/special-elite-400-latin.woff2') format('woff2');font-display:swap}
+:root{--fondo:#050505;--f2:#0c0b0a;--tinta:#f2efe9;--humo:#8a837a;--linea:#232019;--oro:#c9a55c;--polvo:#d68a2e;color-scheme:dark}
+@media (prefers-color-scheme:light){:root:not([data-theme=dark]){--fondo:#f2efe9;--f2:#e8e3da;--tinta:#0c0b0a;--humo:#5f584f;--linea:#d3ccc0;--oro:#8a6726;--polvo:#9a5a12;color-scheme:light}}
+:root[data-theme=light]{--fondo:#f2efe9;--f2:#e8e3da;--tinta:#0c0b0a;--humo:#5f584f;--linea:#d3ccc0;--oro:#8a6726;--polvo:#9a5a12;color-scheme:light}
+*{box-sizing:border-box}body{margin:0;background:var(--fondo);color:var(--tinta);font:15px/1.55 'Archivo',Arial,sans-serif}
+.w{max-width:1440px;margin:0 auto;padding-inline:clamp(16px,4vw,48px);padding-block:0 80px}
+.top{display:flex;justify-content:space-between;align-items:center;padding-block:18px;border-bottom:1px solid var(--linea);font-family:'Special Elite',monospace;font-size:13px;color:var(--humo);gap:12px}
+.top button{background:none;border:1px solid var(--linea);color:var(--tinta);font:inherit;padding:6px 12px;border-radius:999px;cursor:pointer}
+h1{font-family:'Anton',Impact,sans-serif;font-weight:400;text-transform:uppercase;font-size:clamp(48px,9vw,140px);line-height:.95;margin:48px 0 16px}
+h1 span{color:var(--oro)}
+.lede{max-width:64ch;font-size:17px;margin:0 0 8px}
+.sello{font-family:'Special Elite',monospace;color:var(--humo);font-size:13px;margin-bottom:28px}
+.filtros{display:flex;flex-wrap:wrap;gap:8px;position:sticky;top:0;background:var(--fondo);padding-block:12px;z-index:3;border-bottom:1px solid var(--linea)}
+.chip{border:1px solid var(--linea);background:none;color:var(--tinta);font:500 13px 'Archivo',sans-serif;padding:6px 12px;border-radius:999px;cursor:pointer}
+.chip[aria-pressed=true]{background:var(--oro);border-color:var(--oro);color:var(--fondo)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:28px 22px;margin-top:26px}
+.card{display:block;text-decoration:none;color:inherit}
+.shot{aspect-ratio:1440/900;background:var(--f2);border:1px solid var(--linea);overflow:hidden}
+.shot img{width:100%;height:100%;object-fit:contain;display:block;transition:transform .5s cubic-bezier(.2,.7,.2,1)}
+.card:hover .shot img,.card:focus-visible .shot img{transform:scale(1.03)}
+.card:focus-visible{outline:2px solid var(--oro);outline-offset:4px}
+.vacio{height:100%;display:grid;place-items:center;font-family:'Special Elite',monospace;color:var(--humo)}
+.pend{opacity:.5}
+.info{padding-top:12px}
+.n{font-family:'Special Elite',monospace;color:var(--polvo);font-size:12px}
+h3{font-family:'Anton',Impact,sans-serif;font-weight:400;text-transform:uppercase;font-size:26px;line-height:1.1;margin:2px 0 4px}
+.card:hover h3{color:var(--oro)}
+.fam{margin:0;font-size:13px;color:var(--humo)}
+.p-ligera{color:#8fb07a}.p-media{color:var(--polvo)}.p-pesada{color:#c46a5a}
+.con{margin:6px 0 8px;font-size:14px}
+.meta{display:flex;justify-content:space-between;gap:10px;align-items:center;font-size:12px;color:var(--humo)}
+.pal{display:flex}.pal i{width:14px;height:14px;border-radius:50%;border:1px solid var(--linea);margin-right:-4px}
+@media (prefers-reduced-motion:reduce){.shot img{transition:none}}
+</style></head><body><div class="w">
+<div class="top"><span>joseadrianzen.com · prototipos</span><button id="tema" type="button">Cambiar tema</button></div>
+<h1>100 webs para <span>Jose Adrianzen</span></h1>
+<p class="lede">Cien propuestas de diseño con todo el contenido real del sitio: el documental, ECO, la fotografía, el director, el blog y el contacto. Cada una es una web completa. Ábrelas, recórrelas en el celular y quédate con las que te muevan.</p>
+<p class="sello">47 de 100 listas · ligera, media o pesada según su carga · pasan un control automático de imágenes, textos y desbordes</p>
+<div class="filtros"><button type="button" class="chip" data-f="" aria-pressed="true">Todas</button><button type="button" class="chip" data-f="Apple oscuro" aria-pressed="false">Apple oscuro</button><button type="button" class="chip" data-f="Minimal blanco atemporal" aria-pressed="false">Minimal blanco atemporal</button><button type="button" class="chip" data-f="Cine inmersivo" aria-pressed="false">Cine inmersivo</button><button type="button" class="chip" data-f="Thriller psicológico (ECO)" aria-pressed="false">Thriller psicológico (ECO)</button><button type="button" class="chip" data-f="Documental: polvo y mina" aria-pressed="false">Documental: polvo y mina</button><button type="button" class="chip" data-f="Andino textil" aria-pressed="false">Andino textil</button><button type="button" class="chip" data-f="Andino piedra y altura" aria-pressed="false">Andino piedra y altura</button><button type="button" class="chip" data-f="Limeño" aria-pressed="false">Limeño</button><button type="button" class="chip" data-f="Selvático amazónico" aria-pressed="false">Selvático amazónico</button><button type="button" class="chip" data-f="Costa y puerto" aria-pressed="false">Costa y puerto</button><button type="button" class="chip" data-f="Índice o archivo" aria-pressed="false">Índice o archivo</button><button type="button" class="chip" data-f="Tipografía cinética y brutalista" aria-pressed="false">Tipografía cinética y brutalista</button><button type="button" class="chip" data-f="Editorial revista de cine" aria-pressed="false">Editorial revista de cine</button><button type="button" class="chip" data-f="Galería horizontal" aria-pressed="false">Galería horizontal</button><button type="button" class="chip" data-f="WebGL justificado (pesadas)" aria-pressed="false">WebGL justificado (pesadas)</button><button type="button" class="chip" data-f="Retro peruano" aria-pressed="false">Retro peruano</button><button type="button" class="chip" data-f="Lujo clásico" aria-pressed="false">Lujo clásico</button><button type="button" class="chip" data-f="Perú y el mundo" aria-pressed="false">Perú y el mundo</button><button type="button" class="chip" data-f="Fluido premium ligero" aria-pressed="false">Fluido premium ligero</button><button type="button" class="chip" data-f="Interactivo narrativo" aria-pressed="false">Interactivo narrativo</button>
+<button type="button" class="chip" data-p="ligera" aria-pressed="false">Solo ligeras</button></div>
+<div class="grid"><a class="card" data-fam="Apple oscuro" data-peso="ligera" href="01-negro-puro/" target="_blank" rel="noopener">
+<div class="shot"><img src="_galeria/01-negro-puro-1440.webp" alt="Portada del prototipo Negro puro" width="720" height="450" loading="lazy" decoding="async"></div>
+<div class="info"><span class="n">001</span><h3>Negro puro</h3>
+<p class="fam">Apple oscuro · <b class="p-ligera">ligera</b> · 43 kB</p>
+<p class="con">La página de producto de Apple reducida a lo esencial: una idea por pantalla sobre negro absoluto, cada imagen completa y centrada, y una línea corta debajo. El título del documental, que ya viene sobre negro, se funde con la página.</p>
+<div class="meta"><span class="pal"><i style="background:#000000"></i><i style="background:#ffffff"></i><i style="background:#86868b"></i><i style="background:#d2d2d7"></i><i style="background:#2a2a2d"></i></span><span class="tip">Geist</span></div></div></a><a class="card" data-fam="Apple oscuro" data-peso="ligera" href="02-ficha-de-producto/" target="_blank" rel="noopener">
+<div class="shot"><img src="_galeria/02-ficha-de-producto-1440.webp" alt="Portada del prototipo Ficha de producto" width="720" height="450" loading="lazy" decoding="async"></div>
+<div class="info"><span class="n">002</span><h3>Ficha de producto</h3>
+<p class="fam">Apple oscuro · <b class="p-ligera">ligera</b> · 57 kB</p>
+<p class="con">Cada obra se lanza como un producto en una página de Apple: lámina gris carbón con un degradado apenas visible, imagen grande, titular de tres palabras y especificaciones con líneas finas. Remata con una comparativa lado a lado del documental y ECO, como la página para comparar modelos.</p>
+<div class="meta"><span class="pal"><i style="background:#0b0b0c"></i><i style="background:#1c1c1e"></i><i style="background:#f5f5f7"></i><i style="background:#a1a1a6"></i><i style="background:#d9a877"></i><i style="background:#aebbd0"></i></span><span class="tip">Instrument Sans + JetBrains Mono</span></div></div></a><a class="card" data-fam="Apple oscuro" data-peso="ligera" href="03-keynote/" target="_blank" rel="noopener">
+<div class="shot"><img src="_galeria/03-keynote-1440.webp" alt="Portada del prototipo Keynote" width="720" height="450" loading="lazy" decoding="async"></div>
+<div class="info"><span class="n">003</span><h3>Keynote</h3>
+<p class="fam">Apple oscuro · <b class="p-ligera">ligera</b> · 44 kB</p>
+<p class="con">La web se recorre como una presentación en escenario: una frase gigante por pantalla (Tres años. Una mina. Ellas.) y, entre frase y frase, el fotograma a pantalla completa y completo. El scroll se detiene en cada diapositiva y un contador discreto marca por dónde va la función.</p>
+<div class="meta"><span class="pal"><i style="background:#060913"></i><i style="background:#0e1526"></i><i style="background:#f3f5f9"></i><i style="background:#8b93a7"></i><i style="background:#1c2335"></i><i style="background:#ff8a4c"></i></span><span class="tip">Inter Tight</span></div></div></a><a class="card" data-fam="Apple oscuro" data-peso="media" href="04-vidrio/" target="_blank" rel="noopener">
+<div class="shot"><img src="_galeria/04-vidrio-1440.webp" alt="Portada del prototipo Vidrio" width="720" height="450" loading="lazy" decoding="async"></div>
+<div class="info"><span class="n">004</span><h3>Vidrio</h3>
+<p class="fam">Apple oscuro · <b class="p-media">media</b> · 49 kB</p>
+<p class="con">Ventanas translúcidas, como las de visionOS, que flotan sobre fotogramas completos: cada escena fija un fotograma entero en el fondo y los paneles de vidrio pasan por encima desenfocando sus colores. La navegación es una pastilla de vidrio flotante y las ventanas llevan su barra de agarre.</p>
+<div class="meta"><span class="pal"><i style="background:#111113"></i><i style="background:#18181b"></i><i style="background:#f4f4f5"></i><i style="background:#d4d4d8"></i><i style="background:#a1a1aa"></i><i style="background:#c8a96a"></i></span><span class="tip">Manrope</span></div></div></a><a class="card" data-fam="Apple oscuro" data-peso="media" href="05-revelado/" target="_blank" rel="noopener">
+<div class="shot"><img src="_galeria/05-revelado-1440.webp" alt="Portada del prototipo Revelado" width="720" height="450" loading="lazy" decoding="async"></div>
+<div class="info"><span class="n">005</span><h3>Revelado</h3>
+<p class="fam">Apple oscuro · <b class="p-media">media</b> · 51 kB</p>
+<p class="con">Como en el cuarto oscuro, cada imagen empieza latente, un fantasma gris casi invisible, y el scroll la revela: el afiche aparece por franjas, los fotogramas se abren desde un punto de luz, la puerta de ECO se abre desde el centro y el texto se enciende palabra por palabra. Secciones fijas con sticky y clip-path, al modo de las páginas de producto de Apple.</p>
+<div class="meta"><span class="pal"><i style="background:#0b0b0b"></i><i style="background:#f2efe8"></i><i style="background:#8d8a85"></i><i style="background:#4a4743"></i><i style="background:#262422"></i><i style="background:#5ec2c0"></i></span><span class="tip">Schibsted Grotesk</span></div></div></a><a class="card" data-fam="Minimal blanco atemporal" data-peso="ligera" href="06-galeria-blanca/" target="_blank" rel="noopener">
+<div class="shot"><img src="_galeria/06-galeria-blanca-1440.webp" alt="Portada del prototipo Galería blanca" width="720" height="450" loading="lazy" decoding="async"></div>
+<div class="info"><span class="n">006</span><h3>Galería blanca</h3>
+<p class="fam">Minimal blanco atemporal · <b class="p-ligera">ligera</b> · 40 kB</p>
+<p class="con">La web como una galería de paredes blancas: cada imagen cuelga sola, en díptico o en tríptico, con mucho aire y una cartela chica en mono. Cada sección es una sala numerada en romanos con su texto de sala sobre un eje central.</p>
+<div class="meta"><span class="pal"><i style="background:#ffffff"></i><i style="background:#161616"></i><i style="background:#6f6f6f"></i><i style="background:#d9d9d9"></i></span><span class="tip">Cormorant + DM Mono</span></div></div></a><a class="card" data-fam="Minimal blanco atemporal" data-peso="ligera" href="07-grilla-suiza/" target="_blank" rel="noopener">
+<div class="shot"><img src="_galeria/07-grilla-suiza-1440.webp" alt="Portada del prototipo Grilla suiza" width="720" height="450" loading="lazy" decoding="async"></div>
+<div class="info"><span class="n">007</span><h3>Grilla suiza</h3>
+<p class="fam">Minimal blanco atemporal · <b class="p-ligera">ligera</b> · 38 kB</p>
+<p class="con">El estilo tipográfico internacional aplicado a la obra de un director: una grilla de 12 columnas que se ve de verdad, reglas negras de 1 px y números de sección 01 a 07 en el margen. Todo alineado a la izquierda, en blanco y negro, con el rojo suizo reservado para los enlaces.</p>
+<div class="meta"><span class="pal"><i style="background:#ffffff"></i><i style="background:#000000"></i><i style="background:#5f5f5f"></i><i style="background:#ededed"></i><i style="background:#d52b1e"></i></span><span class="tip">Archivo</span></div></div></a><div class="card pend" data-fam="Minimal blanco atemporal" data-peso="ligera">
+<div class="shot"><div class="vacio">En construcción</div></div>
+<div class="info"><span class="n">008</span><h3>Hoja de papel</h3>
+<p class="fam">Minimal blanco atemporal · <b class="p-ligera">ligera</b></p>
+<p class="con">Como un documento mecanografiado: Special Elite para etiquetas y fichas, Newsreader para texto, ancho de lectura 62ch centrado, fondo blanco hueso, sombras nulas. Las imágenes van en el ancho del texto.</p>
+<div class="meta"><span class="pal"></span><span class="tip"></span></div></div></div><div class="card pend" data-fam="Minimal blanco atemporal" data-peso="ligera">
+<div class="shot"><div class="vacio">En construcción</div></div>
+<div class="info"><span class="n">009</span><h3>Crema</h3>
+<p class="fam">Minimal blanco atemporal · <b class="p-ligera">ligera</b></p>
+<p class="con">Fondo crema cálido, Bodoni Moda a 500 para títulos con contraste alto, Karla para texto, oro apagado en líneas. Marco fino de 1 px alrededor de toda la página que respira con el scroll.</p>
+<div class="meta"><span class="pal"></span><span class="tip"></span></div></div></div><div class="card pend" data-fam="Minimal blanco atemporal" data-peso="ligera">
+<div class="shot"><div class="vacio">En construcción</div></div>
+<div class="info"><span class="n">010</span><h3>Dossier de prensa</h3>
+<p class="fam">Minimal blanco atemporal · <b class="p-ligera">ligera</b></p>
+<p class="con">Un press kit de festival: portada con título y laureles como texto, índice con números de página, secciones numeradas, pie con folio. Libre Franklin y Source Serif 4. Blanco y gris, acento negro.</p>
+<div class="meta"><span class="pal"></span><span class="tip"></span></div></div></div><a class="card" data-fam="Cine inmersivo" data-peso="ligera" href="11-pantalla-completa/" target="_blank" rel="noopener">
+<div class="shot"><img src="_galeria/11-pantalla-completa-1440.webp" alt="Portada del prototipo Pantalla completa" width="720" height="450" loading="lazy" decoding="async"></div>
+<div class="info"><span class="n">011</span><h3>Pantalla completa</h3>
+<p class="fam">Cine inmersivo · <b class="p-ligera">ligera</b> · 43 kB</p>
+<p class="con">La web es una sucesión de planos: cada sección abre con un fotograma completo a todo lo ancho, con barras negras cuando hace falta y nunca recortado. El título en Bebas Neue se monta sobre la imagen y cae sobre una franja negra donde vive el texto, como la banda de subtítulos.</p>
+<div class="meta"><span class="pal"><i style="background:#000000"></i><i style="background:#EDE9E2"></i><i style="background:#A9A49C"></i><i style="background:#6E6A64"></i><i style="background:#7FC4BE"></i></span><span class="tip">Bebas Neue + Instrument Sans</span></div></div></a><a class="card" data-fam="Cine inmersivo" data-peso="ligera" href="12-sala-oscura/" target="_blank" rel="noopener">
+<div class="shot"><img src="_galeria/12-sala-oscura-1440.webp" alt="Portada del prototipo Sala oscura" width="720" height="450" loading="lazy" decoding="async"></div>
+<div class="info"><span class="n">012</span><h3>Sala oscura</h3>
+<p class="fam">Cine inmersivo · <b class="p-ligera">ligera</b> · 43 kB</p>
+<p class="con">Entrar a la web es entrar a una sala: las luces de sala se apagan en un fundido de 1,2 s y una pantalla 2.39:1 se enciende como un proyector con el póster del documental y el botón. Todo lo demás vive debajo como un programa de mano en Oswald 300, gris humo sobre negro, que se lee a la luz de la pantalla.</p>
+<div class="meta"><span class="pal"><i style="background:#000000"></i><i style="background:#A19B93"></i><i style="background:#D9D3C9"></i><i style="background:#8A847C"></i><i style="background:#F0EBE2"></i><i style="background:#1B1A18"></i></span><span class="tip">Oswald</span></div></div></a><a class="card" data-fam="Cine inmersivo" data-peso="ligera" href="13-trailer-primero/" target="_blank" rel="noopener">
+<div class="shot"><img src="_galeria/13-trailer-primero-1440.webp" alt="Portada del prototipo Tráiler primero" width="720" height="450" loading="lazy" decoding="async"></div>
+<div class="info"><span class="n">013</span><h3>Tráiler primero</h3>
+<p class="fam">Cine inmersivo · <b class="p-ligera">ligera</b> · 34 kB</p>
+<p class="con">Como en oliverlaxe.com, el reproductor del documental ocupa la portada entera y, mientras nadie lo toca, pasa en silencio una secuencia de fotogramas en fundido, como un tráiler mudo con su barra de avance. El nombre vive en una esquina en mono muy chico y todo lo demás baja en una sola columna sobria, blanco sobre negro.</p>
+<div class="meta"><span class="pal"><i style="background:#000000"></i><i style="background:#FFFFFF"></i><i style="background:#8C8C8C"></i><i style="background:#262626"></i></span><span class="tip">DM Sans + DM Mono</span></div></div></a><a class="card" data-fam="Cine inmersivo" data-peso="ligera" href="14-fotograma-a-fotograma/" target="_blank" rel="noopener">
+<div class="shot"><img src="_galeria/14-fotograma-a-fotograma-1440.webp" alt="Portada del prototipo Fotograma a fotograma" width="720" height="450" loading="lazy" decoding="async"></div>
+<div class="info"><span class="n">014</span><h3>Fotograma a fotograma</h3>
+<p class="fam">Cine inmersivo · <b class="p-ligera">ligera</b> · 41 kB</p>
+<p class="con">Un segundo de cine: la web son 24 pantallas, como los 24 fotogramas de un segundo, y cada una se detiene con scroll-snap en un fotograma completo con un solo dato, un nombre, un premio o una frase. Entre imagen e imagen entran cartones negros como los intertítulos del cine mudo, con ritmo de montaje y contador 01/24.</p>
+<div class="meta"><span class="pal"><i style="background:#080807"></i><i style="background:#F3EEE4"></i><i style="background:#8D877E"></i><i style="background:#24221F"></i><i style="background:#F2C230"></i></span><span class="tip">League Gothic + Newsreader</span></div></div></a><a class="card" data-fam="Cine inmersivo" data-peso="media" href="15-proyeccion/" target="_blank" rel="noopener">
+<div class="shot"><img src="_galeria/15-proyeccion-1440.webp" alt="Portada del prototipo Proyección" width="720" height="450" loading="lazy" decoding="async"></div>
+<div class="info"><span class="n">015</span><h3>Proyección</h3>
+<p class="fam">Cine inmersivo · <b class="p-media">media</b> · 47 kB</p>
+<p class="con">La web se ve como una copia de 35 mm pasando por el proyector: arranca con la cola de arranque (3, 2, 1 y el barrido del círculo), un destello y la primera imagen. Encima viven los signos de la proyección, viñeta, grano, marcas de encuadre, la marca de cambio de rollo al final de cada sección y un contador de pies que avanza con el scroll.</p>
+<div class="meta"><span class="pal"><i style="background:#0E0B08"></i><i style="background:#EFE3C8"></i><i style="background:#F6EAD0"></i><i style="background:#9E9179"></i><i style="background:#2B241B"></i><i style="background:#E3A04F"></i></span><span class="tip">Big Shoulders Display + Courier Prime</span></div></div></a><a class="card" data-fam="Thriller psicológico (ECO)" data-peso="media" href="16-espejo/" target="_blank" rel="noopener">
+<div class="shot"><img src="_galeria/16-espejo-1440.webp" alt="Portada del prototipo Espejo" width="720" height="450" loading="lazy" decoding="async"></div>
+<div class="info"><span class="n">016</span><h3>Espejo</h3>
+<p class="fam">Thriller psicológico (ECO) · <b class="p-media">media</b> · 50 kB</p>
+<p class="con">Un eje vertical recorre la página como la juntura de un espejo: cada sección se refleja en la siguiente, con el texto a la izquierda y luego a la derecha, y las galerías se arman en filas palíndromas. Los títulos llevan su reflejo en rojo sangre debajo, la otra vida que la casa de ECO esconde.</p>
+<div class="meta"><span class="pal"><i style="background:#0a0f0d"></i><i style="background:#0f1613"></i><i style="background:#e6e0d4"></i><i style="background:#8e9a93"></i><i style="background:#1d2823"></i><i style="background:#9a3a33"></i></span><span class="tip">Bodoni Moda + Jost</span></div></div></a><a class="card" data-fam="Thriller psicológico (ECO)" data-peso="media" href="17-vhs/" target="_blank" rel="noopener">
+<div class="shot"><img src="_galeria/17-vhs-1440.webp" alt="Portada del prototipo Cinta VHS" width="720" height="450" loading="lazy" decoding="async"></div>
+<div class="info"><span class="n">017</span><h3>Cinta VHS</h3>
+<p class="fam">Thriller psicológico (ECO) · <b class="p-media">media</b> · 56 kB</p>
+<p class="con">La web es una cinta VHS encontrada en la casa de ECO y reproducida en un monitor, con indicadores en pantalla que responden al scroll y un contador que llega a 0:13:12, la duración de ECO. Cada sección es un capítulo de la cinta y ECO aparece como una pantalla de SIN SEÑAL sobria, con el sello Aún sin estrenar.</p>
+<div class="meta"><span class="pal"><i style="background:#05070c"></i><i style="background:#0a1019"></i><i style="background:#16202e"></i><i style="background:#dbe6ef"></i><i style="background:#f2f8fc"></i><i style="background:#8fd3e8"></i></span><span class="tip">Share Tech Mono + VT323</span></div></div></a><a class="card" data-fam="Thriller psicológico (ECO)" data-peso="media" href="18-penumbra/" target="_blank" rel="noopener">
+<div class="shot"><img src="_galeria/18-penumbra-1440.webp" alt="Portada del prototipo Penumbra" width="720" height="450" loading="lazy" decoding="async"></div>
+<div class="info"><span class="n">018</span><h3>Penumbra</h3>
+<p class="fam">Thriller psicológico (ECO) · <b class="p-media">media</b> · 47 kB</p>
+<p class="con">La página está casi toda a oscuras, como la casa de ECO de noche, y una linterna que sigue al cursor revela lo que hay debajo con una máscara radial, en móvil un haz fijo por el que pasa el contenido al bajar. Lo único que brilla por sí solo es el sello rojo de ECO, y un interruptor enciende la luz para leer con todo visible.</p>
+<div class="meta"><span class="pal"><i style="background:#030303"></i><i style="background:#0a0a0a"></i><i style="background:#ebe6dc"></i><i style="background:#8f8a82"></i><i style="background:#1c1b19"></i><i style="background:#d42a2f"></i></span><span class="tip">Instrument Sans + Cormorant</span></div></div></a><a class="card" data-fam="Thriller psicológico (ECO)" data-peso="ligera" href="19-expediente/" target="_blank" rel="noopener">
+<div class="shot"><img src="_galeria/19-expediente-1440.webp" alt="Portada del prototipo Expediente" width="720" height="450" loading="lazy" decoding="async"></div>
+<div class="info"><span class="n">019</span><h3>Expediente</h3>
+<p class="fam">Thriller psicológico (ECO) · <b class="p-ligera">ligera</b> · 45 kB</p>
+<p class="con">La web es la carpeta de archivo del psiquiatra de ECO sobre un escritorio en penumbra: tapa de cartulina con la etiqueta escrita a máquina y hojas amarillentas con formularios impresos llenados a máquina. Sellos rotados (CONFIDENCIAL, AÚN SIN ESTRENAR), fichas grapadas y fotos pegadas con esquinas que nunca tapan la imagen, en tono sobrio.</p>
+<div class="meta"><span class="pal"><i style="background:#1c1813"></i><i style="background:#efe5c9"></i><i style="background:#fbf8ef"></i><i style="background:#d6bf86"></i><i style="background:#262420"></i><i style="background:#56626b"></i></span><span class="tip">Courier Prime + Oswald</span></div></div></a><a class="card" data-fam="Thriller psicológico (ECO)" data-peso="media" href="20-escalera/" target="_blank" rel="noopener">
+<div class="shot"><img src="_galeria/20-escalera-1440.webp" alt="Portada del prototipo La escalera" width="720" height="450" loading="lazy" decoding="async"></div>
+<div class="info"><span class="n">020</span><h3>La escalera</h3>
+<p class="fam">Thriller psicológico (ECO) · <b class="p-media">media</b> · 50 kB</p>
+<p class="con">Bajar la página es bajar la escalera de la casa de ECO: cada sección abre con un peldaño que tiene su borde encendido y su sombra larga, y los peldaños bajan hacia la izquierda, lejos de la lámpara que cuelga arriba a la derecha. Al bajar, la luz cálida se apaga y se enfría, el fondo pasa de ámbar a azul, y las fotos cuelgan en la pared como cuadros con marco dorado.</p>
+<div class="meta"><span class="pal"><i style="background:#3a2311"></i><i style="background:#2c1d14"></i><i style="background:#1a212c"></i><i style="background:#0b1422"></i><i style="background:#f1e6d2"></i><i style="background:#c8b89c"></i></span><span class="tip">Playfair Display + Hanken Grotesk</span></div></div></a><a class="card" data-fam="Documental: polvo y mina" data-peso="ligera" href="21-polvo/" target="_blank" rel="noopener">
+<div class="shot"><img src="_galeria/21-polvo-1440.webp" alt="Portada del prototipo Polvo" width="720" height="450" loading="lazy" decoding="async"></div>
+<div class="info"><span class="n">021</span><h3>Polvo</h3>
+<p class="fam">Documental: polvo y mina · <b class="p-ligera">ligera</b> · 55 kB</p>
+<p class="con">Evolución directa de la web actual: negro mate, grano fijo y Anton con contorno cromático. La jerarquía cambia: el documental es la pieza central a doble ancho y sus premios y selecciones se leen como la franja de laureles de un afiche.</p>
+<div class="meta"><span class="pal"><i style="background:#050505"></i><i style="background:#0c0b0a"></i><i style="background:#f2efe9"></i><i style="background:#d68a2e"></i><i style="background:#c9a55c"></i><i style="background:#8a837a"></i></span><span class="tip">Anton + Archivo</span></div></div></a><a class="card" data-fam="Documental: polvo y mina" data-peso="ligera" href="22-socavon/" target="_blank" rel="noopener">
+<div class="shot"><img src="_galeria/22-socavon-1440.webp" alt="Portada del prototipo Socavón" width="720" height="450" loading="lazy" decoding="async"></div>
+<div class="info"><span class="n">022</span><h3>Socavón</h3>
+<p class="fam">Documental: polvo y mina · <b class="p-ligera">ligera</b> · 54 kB</p>
+<p class="con">Bajar a la mina con una linterna de casco: la página es un socavón negro y la única luz es un haz amarillo fijo en la esquina superior. Cada foto está a oscuras hasta que entra en pantalla y la linterna la alumbra.</p>
+<div class="meta"><span class="pal"><i style="background:#0a0a09"></i><i style="background:#121210"></i><i style="background:#ffc21a"></i><i style="background:#e9e5dc"></i><i style="background:#a39e94"></i><i style="background:#8a857c"></i></span><span class="tip">Saira Stencil One + Chivo</span></div></div></a><a class="card" data-fam="Documental: polvo y mina" data-peso="ligera" href="23-cuaderno-de-campo/" target="_blank" rel="noopener">
+<div class="shot"><img src="_galeria/23-cuaderno-de-campo-1440.webp" alt="Portada del prototipo Cuaderno de campo" width="720" height="450" loading="lazy" decoding="async"></div>
+<div class="info"><span class="n">023</span><h3>Cuaderno de campo</h3>
+<p class="fam">Documental: polvo y mina · <b class="p-ligera">ligera</b> · 56 kB</p>
+<p class="con">El cuaderno de rodaje de Jose: una hoja cuadriculada sobre el escritorio, con margen rojo y pestañas separadoras, todo escrito a máquina. A mano solo se escribe en los márgenes, las fotos van pegadas con cinta y los fotogramas como tiras de película.</p>
+<div class="meta"><span class="pal"><i style="background:#f5efe1"></i><i style="background:#d3c6a8"></i><i style="background:#2a2723"></i><i style="background:#5d5850"></i><i style="background:#2d4b8e"></i><i style="background:#b5432c"></i></span><span class="tip">Special Elite + Caveat</span></div></div></a><a class="card" data-fam="Documental: polvo y mina" data-peso="ligera" href="24-archivo-de-mina/" target="_blank" rel="noopener">
+<div class="shot"><img src="_galeria/24-archivo-de-mina-1440.webp" alt="Portada del prototipo Archivo de mina" width="720" height="450" loading="lazy" decoding="async"></div>
+<div class="info"><span class="n">024</span><h3>Archivo de mina</h3>
+<p class="fam">Documental: polvo y mina · <b class="p-ligera">ligera</b> · 57 kB</p>
+<p class="con">La obra de Jose tratada como un fondo de archivo fílmico: cada foto es un registro con código de rollo, fecha, lugar y medidas, y los premios y selecciones son un libro de registro. Donde el dato no existe se anota como en archivo (s. f., s. l.) y nunca se inventa.</p>
+<div class="meta"><span class="pal"><i style="background:#d1cfc8"></i><i style="background:#c5c3bb"></i><i style="background:#1c1b19"></i><i style="background:#4a4843"></i><i style="background:#b8721b"></i><i style="background:#8a5412"></i></span><span class="tip">Schibsted Grotesk + JetBrains Mono</span></div></div></a><a class="card" data-fam="Documental: polvo y mina" data-peso="media" href="25-puente/" target="_blank" rel="noopener">
+<div class="shot"><img src="_galeria/25-puente-1440.webp" alt="Portada del prototipo Puente" width="720" height="450" loading="lazy" decoding="async"></div>
+<div class="info"><span class="n">025</span><h3>Puente</h3>
+<p class="fam">Documental: polvo y mina · <b class="p-media">media</b> · 55 kB</p>
+<p class="con">La web se arma sobre la frase de la sinopsis: la película es un puente entre ellas y el mundo. En el centro del documental dos columnas se cruzan con el scroll, la mina sobre tierra y los quince festivales con su ciudad sobre cielo, mientras entre ambas se tiende un puente colgante dibujado con GSAP.</p>
+<div class="meta"><span class="pal"><i style="background:#cfe0e4"></i><i style="background:#2b2019"></i><i style="background:#3a2c22"></i><i style="background:#c9803a"></i><i style="background:#efe7da"></i><i style="background:#1e2226"></i></span><span class="tip">Fraunces + Manrope</span></div></div></a><a class="card" data-fam="Andino textil" data-peso="ligera" href="26-tocapu/" target="_blank" rel="noopener">
+<div class="shot"><img src="_galeria/26-tocapu-1440.webp" alt="Portada del prototipo Tocapu" width="720" height="450" loading="lazy" decoding="async"></div>
+<div class="info"><span class="n">026</span><h3>Tocapu</h3>
+<p class="fam">Andino textil · <b class="p-ligera">ligera</b> · 52 kB</p>
+<p class="con">Los tocapus incas como sistema: la portada es un unku que se teje fila por fila con cuadrados de motivos geométricos propios y deja un vacío negro para el nombre. Cada sección tiene su tocapu emblema y franjas de tocapus hacen de divisores.</p>
+<div class="meta"><span class="pal"><i style="background:#A31D32"></i><i style="background:#7A1526"></i><i style="background:#161110"></i><i style="background:#EFE6D2"></i><i style="background:#E4D7BC"></i><i style="background:#E2566B"></i></span><span class="tip">Unbounded + Instrument Sans</span></div></div></a><a class="card" data-fam="Andino textil" data-peso="ligera" href="27-manta/" target="_blank" rel="noopener">
+<div class="shot"><img src="_galeria/27-manta-1440.webp" alt="Portada del prototipo Manta" width="720" height="450" loading="lazy" decoding="async"></div>
+<div class="info"><span class="n">027</span><h3>Manta</h3>
+<p class="fam">Andino textil · <b class="p-ligera">ligera</b> · 47 kB</p>
+<p class="con">La página es una lliclla: pampas lisas de color crudo donde vive el contenido, separadas por listas de tinte natural de 8 a 24 px que se tejen de lado a lado al entrar. El nombre de la portada lleva franjas tejidas dentro de las letras y aparece pasada por pasada.</p>
+<div class="meta"><span class="pal"><i style="background:#ECE3D0"></i><i style="background:#E2D7BF"></i><i style="background:#241E19"></i><i style="background:#A6456E"></i><i style="background:#8E3A5C"></i><i style="background:#283A64"></i></span><span class="tip">Barlow Condensed + Spectral</span></div></div></a><div class="card pend" data-fam="Andino textil" data-peso="ligera">
+<div class="shot"><div class="vacio">En construcción</div></div>
+<div class="info"><span class="n">028</span><h3>Chumpi</h3>
+<p class="fam">Andino textil · <b class="p-ligera">ligera</b></p>
+<p class="con">Una faja tejida vertical fija a la izquierda como navegación (patrón escalonado en SVG que marca la sección activa), contenido a la derecha. Colores tierra con un fucsia sobrio. Tipografía Chivo.</p>
+<div class="meta"><span class="pal"></span><span class="tip"></span></div></div></div><div class="card pend" data-fam="Andino textil" data-peso="media">
+<div class="shot"><div class="vacio">En construcción</div></div>
+<div class="info"><span class="n">029</span><h3>Telar</h3>
+<p class="fam">Andino textil · <b class="p-media">media</b></p>
+<p class="con">Líneas de urdimbre verticales en SVG que se tensan al entrar en cada sección, los títulos aparecen como tejidos (SplitType letra por letra con GSAP). Paleta de lana natural: crudo, marrón, gris, con un rojo. Tipografía Montagu Slab.</p>
+<div class="meta"><span class="pal"></span><span class="tip"></span></div></div></div><div class="card pend" data-fam="Andino textil" data-peso="ligera">
+<div class="shot"><div class="vacio">En construcción</div></div>
+<div class="info"><span class="n">030</span><h3>Chakana</h3>
+<p class="fam">Andino textil · <b class="p-ligera">ligera</b></p>
+<p class="con">La cruz andina escalonada como estructura de portada: cuatro cuadrantes (Documental, ECO, Fotografía, Director) alrededor del nombre. Bordes escalonados en CSS (clip-path). Fondo negro azulado, dorado mate. Tipografía Cinzel para títulos, Public Sans para texto.</p>
+<div class="meta"><span class="pal"></span><span class="tip"></span></div></div></div><a class="card" data-fam="Andino piedra y altura" data-peso="ligera" href="31-piedra-de-doce-angulos/" target="_blank" rel="noopener">
+<div class="shot"><img src="_galeria/31-piedra-de-doce-angulos-1440.webp" alt="Portada del prototipo Piedra de doce ángulos" width="720" height="450" loading="lazy" decoding="async"></div>
+<div class="info"><span class="n">031</span><h3>Piedra de doce ángulos</h3>
+<p class="fam">Andino piedra y altura · <b class="p-ligera">ligera</b> · 55 kB</p>
+<p class="con">La web es un muro inca de Cusco: la portada es un aparejo poligonal cuya piedra central tiene exactamente doce ángulos y lleva el nombre grabado. Cada sección es una hilada y cada pieza de contenido un bloque que encaja con juntas de 2 px, con ECO en el lado del muro que queda en sombra.</p>
+<div class="meta"><span class="pal"><i style="background:#141512"></i><i style="background:#a5a79f"></i><i style="background:#999b94"></i><i style="background:#afb1a9"></i><i style="background:#bdbbae"></i><i style="background:#50524d"></i></span><span class="tip">Big Shoulders Display + Chivo</span></div></div></a><div class="card pend" data-fam="Andino piedra y altura" data-peso="media">
+<div class="shot"><div class="vacio">En construcción</div></div>
+<div class="info"><span class="n">032</span><h3>Chavín</h3>
+<p class="fam">Andino piedra y altura · <b class="p-media">media</b></p>
+<p class="con">Piedra oscura con luz rasante: títulos &#x27;inscritos&#x27; (text-shadow doble que simula relieve), fondo casi negro con textura de granito CSS, movimiento lento de la luz con GSAP al hacer scroll. Tipografía Cinzel y Crimson Pro.</p>
+<div class="meta"><span class="pal"></span><span class="tip"></span></div></div></div><div class="card pend" data-fam="Andino piedra y altura" data-peso="ligera">
+<div class="shot"><div class="vacio">En construcción</div></div>
+<div class="info"><span class="n">033</span><h3>Altura</h3>
+<p class="fam">Andino piedra y altura · <b class="p-ligera">ligera</b></p>
+<p class="con">Cielo de 4000 metros: azul profundo casi violeta arriba, blanco nieve, aire. Línea de cordillera en SVG como horizonte que separa portada y contenido. Tipografía Figtree a 300, muy espaciada. Sensación de silencio.</p>
+<div class="meta"><span class="pal"></span><span class="tip"></span></div></div></div><div class="card pend" data-fam="Andino piedra y altura" data-peso="ligera">
+<div class="shot"><div class="vacio">En construcción</div></div>
+<div class="info"><span class="n">034</span><h3>Adobe</h3>
+<p class="fam">Andino piedra y altura · <b class="p-ligera">ligera</b></p>
+<p class="con">Paredes de adobe: fondo terracota apagado y arena, sombras de mediodía de las vigas (bandas diagonales suaves), tipografía Yrsa. Bordes gruesos y rectos. Calor seco.</p>
+<div class="meta"><span class="pal"></span><span class="tip"></span></div></div></div><div class="card pend" data-fam="Andino piedra y altura" data-peso="media">
+<div class="shot"><div class="vacio">En construcción</div></div>
+<div class="info"><span class="n">035</span><h3>Puna</h3>
+<p class="fam">Andino piedra y altura · <b class="p-media">media</b></p>
+<p class="con">Amarillo ichu, horizonte muy bajo (el contenido empieza al 70 % de la pantalla), viento: partículas suaves en CSS que cruzan la portada, y Lenis para un scroll con inercia. Tipografía Anybody con ancho variable que se estira en los títulos.</p>
+<div class="meta"><span class="pal"></span><span class="tip"></span></div></div></div><a class="card" data-fam="Limeño" data-peso="ligera" href="36-garua/" target="_blank" rel="noopener">
+<div class="shot"><img src="_galeria/36-garua-1440.webp" alt="Portada del prototipo Garúa" width="720" height="450" loading="lazy" decoding="async"></div>
+<div class="info"><span class="n">036</span><h3>Garúa</h3>
+<p class="fam">Limeño · <b class="p-ligera">ligera</b> · 52 kB</p>
+<p class="con">Lima bajo el cielo panza de burro: un fondo gris perla casi plano donde el nombre se condensa desde la bruma mientras cae una garúa fina. Cada imagen se desempaña al entrar en la vista y ECO llega como una franja de tarde con bordes difusos.</p>
+<div class="meta"><span class="pal"><i style="background:#cfd2d2"></i><i style="background:#dcdedc"></i><i style="background:#e6e7e4"></i><i style="background:#f2f2ef"></i><i style="background:#353b3e"></i><i style="background:#50585c"></i></span><span class="tip">Instrument Serif + Instrument Sans</span></div></div></a><div class="card pend" data-fam="Limeño" data-peso="ligera">
+<div class="shot"><div class="vacio">En construcción</div></div>
+<div class="info"><span class="n">037</span><h3>Barranco</h3>
+<p class="fam">Limeño · <b class="p-ligera">ligera</b></p>
+<p class="con">Casonas y azulejos: un patrón de azulejo en SVG (dos colores) como cenefa entre secciones, bugambilia como acento, atardecer del malecón en la paleta (naranja quemado, azul de mar). Tipografía Prata y Jost.</p>
+<div class="meta"><span class="pal"></span><span class="tip"></span></div></div></div><div class="card pend" data-fam="Limeño" data-peso="ligera">
+<div class="shot"><div class="vacio">En construcción</div></div>
+<div class="info"><span class="n">038</span><h3>Concreto</h3>
+<p class="fam">Limeño · <b class="p-ligera">ligera</b></p>
+<p class="con">Brutalismo limeño de los 70: gris cemento, bloques pesados, tipografía mono grande (IBM Plex Mono) y grotesca dura (Archivo Black), líneas de encofrado como textura. Sin curvas.</p>
+<div class="meta"><span class="pal"></span><span class="tip"></span></div></div></div><div class="card pend" data-fam="Limeño" data-peso="media">
+<div class="shot"><div class="vacio">En construcción</div></div>
+<div class="info"><span class="n">039</span><h3>Neón de chifa</h3>
+<p class="fam">Limeño · <b class="p-media">media</b></p>
+<p class="con">Noche limeña: negro y letreros de neón (rojo, verde, fucsia) con text-shadow de neón que parpadea con GSAP en la portada, marquesina de cine de barrio para el nombre. Sobrio en el resto: solo los títulos son neón. Tipografía Monoton para el nombre y Outfit para el texto.</p>
+<div class="meta"><span class="pal"></span><span class="tip"></span></div></div></div><div class="card pend" data-fam="Limeño" data-peso="ligera">
+<div class="shot"><div class="vacio">En construcción</div></div>
+<div class="info"><span class="n">040</span><h3>Balcón</h3>
+<p class="fam">Limeño · <b class="p-ligera">ligera</b></p>
+<p class="con">Balcones limeños de madera: celosía como patrón de máscara sobre las imágenes en portada (se abre al hacer scroll), marrón oscuro, ocre, crema. Tipografía Marcellus. Colonial sin ser antiguo.</p>
+<div class="meta"><span class="pal"></span><span class="tip"></span></div></div></div><a class="card" data-fam="Selvático amazónico" data-peso="ligera" href="41-kene/" target="_blank" rel="noopener">
+<div class="shot"><img src="_galeria/41-kene-1440.webp" alt="Portada del prototipo Kené" width="720" height="450" loading="lazy" decoding="async"></div>
+<div class="info"><span class="n">041</span><h3>Kené</h3>
+<p class="fam">Selvático amazónico · <b class="p-ligera">ligera</b> · 51 kB</p>
+<p class="con">El kené shipibo leído como sistema lineal: un tejido de líneas en ángulo recto crece rama por rama desde el centro de la portada y rodea el nombre como si lo bordara. Cada sección vive dentro de un marco de tela con doble línea, cenefa de ganchos y esquinas en espiral, todo con geometría propia generada con una semilla fija.</p>
+<div class="meta"><span class="pal"><i style="background:#0b2a1f"></i><i style="background:#0f3326"></i><i style="background:#f4f2ea"></i><i style="background:#dfe6df"></i><i style="background:#a9bfb2"></i><i style="background:#e5532a"></i></span><span class="tip">Sora</span></div></div></a><div class="card pend" data-fam="Selvático amazónico" data-peso="media">
+<div class="shot"><div class="vacio">En construcción</div></div>
+<div class="info"><span class="n">042</span><h3>Río</h3>
+<p class="fam">Selvático amazónico · <b class="p-media">media</b></p>
+<p class="con">El río como eje: bandas horizontales que se mueven lento (CSS), marrón río y verde, contenido que fluye en horizontal dentro de cada sección con Lenis horizontal. Tipografía Literata.</p>
+<div class="meta"><span class="pal"></span><span class="tip"></span></div></div></div><div class="card pend" data-fam="Selvático amazónico" data-peso="media">
+<div class="shot"><div class="vacio">En construcción</div></div>
+<div class="info"><span class="n">043</span><h3>Luz entre hojas</h3>
+<p class="fam">Selvático amazónico · <b class="p-media">media</b></p>
+<p class="con">Sombras de hojas en SVG que se mueven suavemente sobre un fondo verde negro, con la luz cambiando con el scroll (GSAP). Texto crema, títulos en Fraunces con eje SOFT alto. Húmedo y silencioso.</p>
+<div class="meta"><span class="pal"></span><span class="tip"></span></div></div></div><div class="card pend" data-fam="Selvático amazónico" data-peso="ligera">
+<div class="shot"><div class="vacio">En construcción</div></div>
+<div class="info"><span class="n">044</span><h3>Iquitos</h3>
+<p class="fam">Selvático amazónico · <b class="p-ligera">ligera</b></p>
+<p class="con">Casa de fierro y azulejos de la belle époque amazónica: hierro forjado como líneas ornamentales finas en SVG, verde botella y marfil, tipografía Poiret One para títulos y Lora para texto.</p>
+<div class="meta"><span class="pal"></span><span class="tip"></span></div></div></div><div class="card pend" data-fam="Selvático amazónico" data-peso="media">
+<div class="shot"><div class="vacio">En construcción</div></div>
+<div class="info"><span class="n">045</span><h3>Noche de selva</h3>
+<p class="fam">Selvático amazónico · <b class="p-media">media</b></p>
+<p class="con">Negro total con luciérnagas (puntos que aparecen y se apagan, CSS), texto muy fino en Tenor Sans, y un botón opcional de sonido ambiente que NO se activa solo (sin archivo de audio: usa Web Audio para un ruido suave). Verde solo en los enlaces.</p>
+<div class="meta"><span class="pal"></span><span class="tip"></span></div></div></div><a class="card" data-fam="Costa y puerto" data-peso="ligera" href="46-callao/" target="_blank" rel="noopener">
+<div class="shot"><img src="_galeria/46-callao-1440.webp" alt="Portada del prototipo Callao" width="720" height="450" loading="lazy" decoding="async"></div>
+<div class="info"><span class="n">046</span><h3>Callao</h3>
+<p class="fam">Costa y puerto · <b class="p-ligera">ligera</b> · 52 kB</p>
+<p class="con">El puerto del Callao al atardecer convertido en sistema gráfico: la foto de las grúas abre la página completa y el nombre se estiba en el cielo naranja como una carga que baja de la pluma. Cada sección es una grúa numerada, los festivales son contenedores en un patio que se recorre de lado y la ficha técnica es la placa remachada de un contenedor.</p>
+<div class="meta"><span class="pal"><i style="background:#de7a35"></i><i style="background:#eea56c"></i><i style="background:#0f2a3e"></i><i style="background:#0a1c2b"></i><i style="background:#3f78ad"></i><i style="background:#f7f3ec"></i></span><span class="tip">Teko + IBM Plex Sans</span></div></div></a><div class="card pend" data-fam="Costa y puerto" data-peso="media">
+<div class="shot"><div class="vacio">En construcción</div></div>
+<div class="info"><span class="n">047</span><h3>Marea</h3>
+<p class="fam">Costa y puerto · <b class="p-media">media</b></p>
+<p class="con">Blanco y azul, movimiento de marea: parallax suave de las imágenes con Lenis, una línea de horizonte que sube y baja. Tipografía Josefin Sans a 300 y Playfair itálica. Aire de costa.</p>
+<div class="meta"><span class="pal"></span><span class="tip"></span></div></div></div><div class="card pend" data-fam="Costa y puerto" data-peso="ligera">
+<div class="shot"><div class="vacio">En construcción</div></div>
+<div class="info"><span class="n">048</span><h3>Bitácora</h3>
+<p class="fam">Costa y puerto · <b class="p-ligera">ligera</b></p>
+<p class="con">Cuaderno de bitácora de un barco: mono (Space Mono), coordenadas de Lima como marca, marcas de tiempo, sepia y azul tinta, fotos como &#x27;registros&#x27;. Los festivales como puertos visitados.</p>
+<div class="meta"><span class="pal"></span><span class="tip"></span></div></div></div><div class="card pend" data-fam="Costa y puerto" data-peso="ligera">
+<div class="shot"><div class="vacio">En construcción</div></div>
+<div class="info"><span class="n">049</span><h3>Muelle</h3>
+<p class="fam">Costa y puerto · <b class="p-ligera">ligera</b></p>
+<p class="con">Tablones de madera como layout: filas horizontales con juntas visibles, turquesa del mar entre tablones, tipografía Zilla Slab. Las fotos se asoman entre tablones.</p>
+<div class="meta"><span class="pal"></span><span class="tip"></span></div></div></div><div class="card pend" data-fam="Costa y puerto" data-peso="ligera">
+<div class="shot"><div class="vacio">En construcción</div></div>
+<div class="info"><span class="n">050</span><h3>Amanecer</h3>
+<p class="fam">Costa y puerto · <b class="p-ligera">ligera</b></p>
+<p class="con">Un degradado de amanecer sobre el mar (de azul noche a naranja a blanco) que avanza con el scroll usando animation-timeline en CSS, sin JS. Tipografía Nunito Sans a 200. Todo respira lento.</p>
+<div class="meta"><span class="pal"></span><span class="tip"></span></div></div></div><a class="card" data-fam="Índice o archivo" data-peso="ligera" href="51-filmografia/" target="_blank" rel="noopener">
+<div class="shot"><img src="_galeria/51-filmografia-1440.webp" alt="Portada del prototipo Filmografía" width="720" height="450" loading="lazy" decoding="async"></div>
+<div class="info"><span class="n">051</span><h3>Filmografía</h3>
+<p class="fam">Índice o archivo · <b class="p-ligera">ligera</b> · 50 kB</p>
+<p class="con">La web entera es una filmografía impresa en tabla: premios, selecciones, equipo, reparto y fotos son filas con sus columnas de festival, lugar, año y tamaño. Las fotos entran como filas con miniatura y al pasar el cursor se abren en una vista previa flotante que sigue al puntero, con el nombre del archivo y sus píxeles.</p>
+<div class="meta"><span class="pal"><i style="background:#ffffff"></i><i style="background:#000000"></i><i style="background:#5e5e5e"></i></span><span class="tip">Geist + Geist Mono</span></div></div></a><a class="card" data-fam="Índice o archivo" data-peso="ligera" href="52-indice-numerado/" target="_blank" rel="noopener">
+<div class="shot"><img src="_galeria/52-indice-numerado-1440.webp" alt="Portada del prototipo Índice numerado" width="720" height="450" loading="lazy" decoding="async"></div>
+<div class="info"><span class="n">052</span><h3>Índice numerado</h3>
+<p class="fam">Índice o archivo · <b class="p-ligera">ligera</b> · 46 kB</p>
+<p class="con">La web es un índice numerado de 01 a 87: cada pieza de contenido (un párrafo, un premio, un festival, una foto) es una entrada con su número grande en mono en el margen, como el índice de un catálogo razonado. No hay imágenes decorativas, las fotos son entradas del índice que se abren a tamaño completo.</p>
+<div class="meta"><span class="pal"><i style="background:#ebe6da"></i><i style="background:#121110"></i><i style="background:#5d574c"></i></span><span class="tip">Hanken Grotesk + IBM Plex Mono</span></div></div></a><div class="card pend" data-fam="Índice o archivo" data-peso="ligera">
+<div class="shot"><div class="vacio">En construcción</div></div>
+<div class="info"><span class="n">053</span><h3>Catálogo</h3>
+<p class="fam">Índice o archivo · <b class="p-ligera">ligera</b></p>
+<p class="con">Grilla de miniaturas uniformes (cajas del mismo alto con la imagen completa y fondo gris) con el texto debajo, tipo cargo.site. Tipografía Space Grotesk. Cada miniatura abre un panel lateral con el detalle.</p>
+<div class="meta"><span class="pal"></span><span class="tip"></span></div></div></div><div class="card pend" data-fam="Índice o archivo" data-peso="ligera">
+<div class="shot"><div class="vacio">En construcción</div></div>
+<div class="info"><span class="n">054</span><h3>Ficha técnica</h3>
+<p class="fam">Índice o archivo · <b class="p-ligera">ligera</b></p>
+<p class="con">La web hecha solo de fichas clave y valor, como los metadatos de un DCP: DIRECCIÓN, FORMATO, DURACIÓN, PREMIOS. DM Mono. Fondo gris muy oscuro, texto verde fósforo apagado y blanco. Las imágenes son &#x27;adjuntos&#x27;.</p>
+<div class="meta"><span class="pal"></span><span class="tip"></span></div></div></div><div class="card pend" data-fam="Índice o archivo" data-peso="ligera">
+<div class="shot"><div class="vacio">En construcción</div></div>
+<div class="info"><span class="n">055</span><h3>Base de datos</h3>
+<p class="fam">Índice o archivo · <b class="p-ligera">ligera</b></p>
+<p class="con">Estética de base de datos: filas alternas, columnas con ID, fecha, tipo, filtros por sección que sí funcionan (JS propio chico), timestamps. JetBrains Mono y Public Sans. Blanco y azul tinta.</p>
+<div class="meta"><span class="pal"></span><span class="tip"></span></div></div></div><a class="card" data-fam="Tipografía cinética y brutalista" data-peso="ligera" href="56-marquesina/" target="_blank" rel="noopener">
+<div class="shot"><img src="_galeria/56-marquesina-1440.webp" alt="Portada del prototipo Marquesina" width="720" height="450" loading="lazy" decoding="async"></div>
+<div class="info"><span class="n">056</span><h3>Marquesina</h3>
+<p class="fam">Tipografía cinética y brutalista · <b class="p-ligera">ligera</b> · 55 kB</p>
+<p class="con">La marquesina de un cine de estreno hecha web: la letra es la imagen y el nombre de Jose, en Anton a 33 vw, ocupa dos pantallas y corre de lado mientras bajas. Entre sección y sección pasan cintas continuas con los festivales y las ciudades que recorrió Entre polvo y sueños, y cada sección abre con su nombre al 20 vw a sangre.</p>
+<div class="meta"><span class="pal"><i style="background:#050505"></i><i style="background:#f4f3ef"></i><i style="background:#8d8c87"></i><i style="background:#2a2a28"></i></span><span class="tip">Anton + Libre Franklin</span></div></div></a><a class="card" data-fam="Tipografía cinética y brutalista" data-peso="media" href="57-letra-por-letra/" target="_blank" rel="noopener">
+<div class="shot"><img src="_galeria/57-letra-por-letra-1440.webp" alt="Portada del prototipo Letra por letra" width="720" height="450" loading="lazy" decoding="async"></div>
+<div class="info"><span class="n">057</span><h3>Letra por letra</h3>
+<p class="fam">Tipografía cinética y brutalista · <b class="p-media">media</b> · 48 kB</p>
+<p class="con">Una imprenta de tipos móviles: cada título se compone letra por letra al entrar, como un cajista que arma la línea, y se asienta con un rebote mínimo sobre su regleta negra. Papel blanco, tinta negra y en cada sección una sola palabra que se imprime en rojo al final.</p>
+<div class="meta"><span class="pal"><i style="background:#ffffff"></i><i style="background:#111111"></i><i style="background:#d8261c"></i><i style="background:#6d6d6d"></i><i style="background:#e4e4e4"></i></span><span class="tip">Dela Gothic One + Epilogue</span></div></div></a><div class="card pend" data-fam="Tipografía cinética y brutalista" data-peso="ligera">
+<div class="shot"><div class="vacio">En construcción</div></div>
+<div class="info"><span class="n">058</span><h3>Brutal rojo</h3>
+<p class="fam">Tipografía cinética y brutalista · <b class="p-ligera">ligera</b></p>
+<p class="con">Rojo y negro, bordes de 4 px, tipografía Archivo Black enorme, cero curvas, enlaces subrayados gruesos. Las imágenes van con borde negro. Sin gracia deliberada, pero con ritmo.</p>
+<div class="meta"><span class="pal"></span><span class="tip"></span></div></div></div><div class="card pend" data-fam="Tipografía cinética y brutalista" data-peso="media">
+<div class="shot"><div class="vacio">En construcción</div></div>
+<div class="info"><span class="n">059</span><h3>Peso variable</h3>
+<p class="fam">Tipografía cinética y brutalista · <b class="p-media">media</b></p>
+<p class="con">Una sola fuente variable (Fraunces o Roboto Flex) cuyo peso y ancho cambian con el scroll y al pasar el cursor (GSAP scrub sobre font-variation-settings). El nombre pasa de 100 a 900 mientras bajas. Blanco y negro.</p>
+<div class="meta"><span class="pal"></span><span class="tip"></span></div></div></div><div class="card pend" data-fam="Tipografía cinética y brutalista" data-peso="ligera">
+<div class="shot"><div class="vacio">En construcción</div></div>
+<div class="info"><span class="n">060</span><h3>Vertical</h3>
+<p class="fam">Tipografía cinética y brutalista · <b class="p-ligera">ligera</b></p>
+<p class="con">Textos verticales con writing-mode (títulos y etiquetas), lectura en columnas como una revista japonesa, mucho blanco, Yrsa para texto y Six Caps para los verticales. Las imágenes cuelgan de los títulos.</p>
+<div class="meta"><span class="pal"></span><span class="tip"></span></div></div></div><a class="card" data-fam="Editorial revista de cine" data-peso="ligera" href="61-cahiers/" target="_blank" rel="noopener">
+<div class="shot"><img src="_galeria/61-cahiers-1440.webp" alt="Portada del prototipo Cahiers" width="720" height="450" loading="lazy" decoding="async"></div>
+<div class="info"><span class="n">061</span><h3>Cahiers</h3>
+<p class="fam">Editorial revista de cine · <b class="p-ligera">ligera</b> · 50 kB</p>
+<p class="con">La web es un número especial de una revista de cine dedicado a Jose Adrianzen, con tapa amarilla al modo de los viejos Cahiers y la mancheta con su nombre a todo el ancho. Adentro se lee como revista: dossier del documental, estreno pendiente de ECO en páginas negras, portafolio, entrevista, notas y correspondencia.</p>
+<div class="meta"><span class="pal"><i style="background:#f3cf21"></i><i style="background:#121211"></i><i style="background:#faf7ee"></i><i style="background:#5c5850"></i><i style="background:#aaa497"></i></span><span class="tip">Libre Franklin + EB Garamond</span></div></div></a><a class="card" data-fam="Editorial revista de cine" data-peso="ligera" href="62-blanco-y-negro/" target="_blank" rel="noopener">
+<div class="shot"><img src="_galeria/62-blanco-y-negro-1440.webp" alt="Portada del prototipo Blanco y negro" width="720" height="450" loading="lazy" decoding="async"></div>
+<div class="info"><span class="n">062</span><h3>Blanco y negro</h3>
+<p class="fam">Editorial revista de cine · <b class="p-ligera">ligera</b> · 48 kB</p>
+<p class="con">Una monografía en blanco y negro puro, como un número de revista de moda dedicado a un cineasta: todo es tinta negra o papel blanco. El color vive escondido dentro de las fotos, que aparecen en gris y lo recuperan con un fundido lento al pasar el cursor, o al cruzar el centro de la pantalla en táctiles.</p>
+<div class="meta"><span class="pal"><i style="background:#ffffff"></i><i style="background:#000000"></i></span><span class="tip">Bodoni Moda + Karla</span></div></div></a><div class="card pend" data-fam="Editorial revista de cine" data-peso="ligera">
+<div class="shot"><div class="vacio">En construcción</div></div>
+<div class="info"><span class="n">063</span><h3>Diario</h3>
+<p class="fam">Editorial revista de cine · <b class="p-ligera">ligera</b></p>
+<p class="con">Diario impreso: cabecera con fecha y edición, columnas de 3, capitular, filetes dobles, pies de foto. Libre Caslon Text y Spectral. Papel gris muy claro.</p>
+<div class="meta"><span class="pal"></span><span class="tip"></span></div></div></div><div class="card pend" data-fam="Editorial revista de cine" data-peso="ligera">
+<div class="shot"><div class="vacio">En construcción</div></div>
+<div class="info"><span class="n">064</span><h3>Crítica</h3>
+<p class="fam">Editorial revista de cine · <b class="p-ligera">ligera</b></p>
+<p class="con">La web como una crítica de cine larga: estrellas, cita destacada a doble tamaño, párrafos largos con Literata, firma al final, notas al margen. Fondo blanco, tinta gris oscuro.</p>
+<div class="meta"><span class="pal"></span><span class="tip"></span></div></div></div><div class="card pend" data-fam="Editorial revista de cine" data-peso="ligera">
+<div class="shot"><div class="vacio">En construcción</div></div>
+<div class="info"><span class="n">065</span><h3>Libro</h3>
+<p class="fam">Editorial revista de cine · <b class="p-ligera">ligera</b></p>
+<p class="con">Un libro: portada con lomo, portadilla, capítulos numerados, folio en el pie, márgenes asimétricos (interior y exterior), Crimson Pro. Las imágenes como láminas a página completa.</p>
+<div class="meta"><span class="pal"></span><span class="tip"></span></div></div></div><a class="card" data-fam="Galería horizontal" data-peso="media" href="66-scroll-lateral/" target="_blank" rel="noopener">
+<div class="shot"><img src="_galeria/66-scroll-lateral-1440.webp" alt="Portada del prototipo Scroll lateral" width="720" height="450" loading="lazy" decoding="async"></div>
+<div class="info"><span class="n">066</span><h3>Scroll lateral</h3>
+<p class="fam">Galería horizontal · <b class="p-media">media</b> · 51 kB</p>
+<p class="con">La web es un tren de siete vagones que avanza de lado: la rueda vertical empuja el tren hacia la izquierda y cada sección es un vagón con su color de tierra y su carga acomodada en compartimentos. El nombre llega letra por letra desde la derecha, como vagones que se enganchan, y el rótulo de cada vagón se queda pegado a la izquierda mientras pasa.</p>
+<div class="meta"><span class="pal"><i style="background:#15120f"></i><i style="background:#ede6d8"></i><i style="background:#c4762b"></i><i style="background:#2e1815"></i><i style="background:#16343c"></i></span><span class="tip">Epilogue</span></div></div></a><div class="card pend" data-fam="Galería horizontal" data-peso="ligera">
+<div class="shot"><div class="vacio">En construcción</div></div>
+<div class="info"><span class="n">067</span><h3>Hoja de contactos</h3>
+<p class="fam">Galería horizontal · <b class="p-ligera">ligera</b> · 54 kB</p>
+<p class="con">La web es la hoja de contactos de un fotógrafo: sobre papel negro, cada sección es una tira de negativo perforada con sus cuadros numerados que se recorre de lado. Un marcador de cera roja encierra el cuadro elegido, que aparece ampliado como copia de trabajo con su margen de papel, y todo el texto está mecanografiado como las notas de un archivo de rodaje.</p>
+<div class="meta"><span class="pal"><i style="background:#0b0a09"></i><i style="background:#181715"></i><i style="background:#5e5a53"></i><i style="background:#c9a24a"></i><i style="background:#e9e3d6"></i><i style="background:#9d978c"></i></span><span class="tip">Courier Prime</span></div></div></div><div class="card pend" data-fam="Galería horizontal" data-peso="ligera">
+<div class="shot"><div class="vacio">En construcción</div></div>
+<div class="info"><span class="n">068</span><h3>Carrusel infinito</h3>
+<p class="fam">Galería horizontal · <b class="p-ligera">ligera</b></p>
+<p class="con">Carruseles infinitos de fotogramas (CSS, dos sentidos) entre secciones cortas, se pausan al pasar el cursor. Tipografía Red Hat Display. Negro cálido y crema.</p>
+<div class="meta"><span class="pal"></span><span class="tip"></span></div></div></div><div class="card pend" data-fam="Galería horizontal" data-peso="media">
+<div class="shot"><div class="vacio">En construcción</div></div>
+<div class="info"><span class="n">069</span><h3>Mesa de luz</h3>
+<p class="fam">Galería horizontal · <b class="p-media">media</b></p>
+<p class="con">Diapositivas sueltas sobre una mesa de luz (fondo luminoso blanco), se pueden arrastrar (GSAP Draggable) y ampliar. El texto vive en &#x27;fichas&#x27; blancas. Tipografía Chivo.</p>
+<div class="meta"><span class="pal"></span><span class="tip"></span></div></div></div><div class="card pend" data-fam="Galería horizontal" data-peso="ligera">
+<div class="shot"><div class="vacio">En construcción</div></div>
+<div class="info"><span class="n">070</span><h3>Panorámica</h3>
+<p class="fam">Galería horizontal · <b class="p-ligera">ligera</b></p>
+<p class="con">Cada sección es una fila con scroll horizontal y snap (scroll-snap-type x) de imágenes completas, títulos fijos a la izquierda. Tipografía Oswald a 200. Negro azulado.</p>
+<div class="meta"><span class="pal"></span><span class="tip"></span></div></div></div><a class="card" data-fam="WebGL justificado (pesadas)" data-peso="pesada" href="71-polvo-3d/" target="_blank" rel="noopener">
+<div class="shot"><img src="_galeria/71-polvo-3d-1440.webp" alt="Portada del prototipo Polvo en el aire" width="720" height="450" loading="lazy" decoding="async"></div>
+<div class="info"><span class="n">071</span><h3>Polvo en el aire</h3>
+<p class="fam">WebGL justificado (pesadas) · <b class="p-pesada">pesada</b> · 63 kB</p>
+<p class="con">Miles de motas de polvo flotan en una luz rasante ocre en la portada y se apartan o arremolinan cuando el cursor las cruza, como el aire de las pampas del documental. Después la página se asienta como el polvo: una hoja clara y sobria que sube por encima de la portada como un telón.</p>
+<div class="meta"><span class="pal"><i style="background:#0d0a07"></i><i style="background:#ece5d8"></i><i style="background:#1a1611"></i><i style="background:#5e574b"></i><i style="background:#d68a2e"></i><i style="background:#8f4c12"></i></span><span class="tip">Archivo</span></div></div></a><div class="card pend" data-fam="WebGL justificado (pesadas)" data-peso="pesada">
+<div class="shot"><div class="vacio">En construcción</div></div>
+<div class="info"><span class="n">072</span><h3>Pared 3D</h3>
+<p class="fam">WebGL justificado (pesadas) · <b class="p-pesada">pesada</b></p>
+<p class="con">Pared 3D de fotogramas como Edoardo Smerilli: los 6 fotogramas y 8 fotos de rodaje del documental en un muro en perspectiva que se recorre con el scroll (Three.js, texturas WebP completas, sin recortar). Tipografía Unbounded.</p>
+<div class="meta"><span class="pal"></span><span class="tip"></span></div></div></div><div class="card pend" data-fam="WebGL justificado (pesadas)" data-peso="pesada">
+<div class="shot"><div class="vacio">En construcción</div></div>
+<div class="info"><span class="n">073</span><h3>Distorsión</h3>
+<p class="fam">WebGL justificado (pesadas) · <b class="p-pesada">pesada</b></p>
+<p class="con">Imágenes que ondulan al pasar el cursor (shader de desplazamiento con OGL sobre planos con la proporción exacta de cada imagen). Justificación: el calor de la pampa. Fondo negro, tipografía Syne.</p>
+<div class="meta"><span class="pal"></span><span class="tip"></span></div></div></div><div class="card pend" data-fam="WebGL justificado (pesadas)" data-peso="pesada">
+<div class="shot"><div class="vacio">En construcción</div></div>
+<div class="info"><span class="n">074</span><h3>Grano por shader</h3>
+<p class="fam">WebGL justificado (pesadas) · <b class="p-pesada">pesada</b></p>
+<p class="con">Grano de película y aberración cromática por postproceso (Three.js EffectComposer con un ShaderPass propio) sobre los fotogramas del documental. Justificación: la textura de cine. Tipografía Bebas Neue.</p>
+<div class="meta"><span class="pal"></span><span class="tip"></span></div></div></div><div class="card pend" data-fam="WebGL justificado (pesadas)" data-peso="pesada">
+<div class="shot"><div class="vacio">En construcción</div></div>
+<div class="info"><span class="n">075</span><h3>Túnel</h3>
+<p class="fam">WebGL justificado (pesadas) · <b class="p-pesada">pesada</b></p>
+<p class="con">Entrar al socavón: un túnel 3D (Three.js, cilindro con textura procedural oscura y luces de casco) que se recorre con el scroll en la portada, y al final se abre a la página normal. Tipografía Allerta Stencil.</p>
+<div class="meta"><span class="pal"></span><span class="tip"></span></div></div></div><a class="card" data-fam="Retro peruano" data-peso="ligera" href="76-chicha/" target="_blank" rel="noopener">
+<div class="shot"><img src="_galeria/76-chicha-1440.webp" alt="Portada del prototipo Chicha" width="720" height="450" loading="lazy" decoding="async"></div>
+<div class="info"><span class="n">076</span><h3>Chicha</h3>
+<p class="fam">Retro peruano · <b class="p-ligera">ligera</b> · 49 kB</p>
+<p class="con">La web es un afiche chicha impreso sobre negro: el nombre y las obras se rotulan en Bungee con el degradado de dos tintas de los carteles de Lima, amarillo a fucsia y verde a amarillo. Todo lo demás es sobrio, con jerarquía limpia, versalitas finas y mucho negro alrededor para que cada línea respire.</p>
+<div class="meta"><span class="pal"><i style="background:#07060a"></i><i style="background:#100e14"></i><i style="background:#2a2631"></i><i style="background:#ff2fa4"></i><i style="background:#3cff7a"></i><i style="background:#ffea2e"></i></span><span class="tip">Bungee + Chivo</span></div></div></a><div class="card pend" data-fam="Retro peruano" data-peso="ligera">
+<div class="shot"><div class="vacio">En construcción</div></div>
+<div class="info"><span class="n">077</span><h3>Cine de barrio</h3>
+<p class="fam">Retro peruano · <b class="p-ligera">ligera</b></p>
+<p class="con">Cartelera de cine de barrio de los 80: letras móviles negras sobre panel blanco iluminado (nombre y obras), bombillas de marquesina en CSS, boletos. Tipografía Staatliches. Cálido y nostálgico.</p>
+<div class="meta"><span class="pal"></span><span class="tip"></span></div></div></div><div class="card pend" data-fam="Retro peruano" data-peso="media">
+<div class="shot"><div class="vacio">En construcción</div></div>
+<div class="info"><span class="n">078</span><h3>VHS familiar</h3>
+<p class="fam">Retro peruano · <b class="p-media">media</b></p>
+<p class="con">Video casero: fecha en la esquina (VT323), franja de tracking que pasa cada tanto (GSAP), colores lavados, &#x27;PLAY&#x27; y &#x27;REC&#x27;. Diferente del thriller: aquí es cálido, de recuerdo. Texto en Rubik Dirt solo para el nombre, Karla para el resto.</p>
+<div class="meta"><span class="pal"></span><span class="tip"></span></div></div></div><div class="card pend" data-fam="Retro peruano" data-peso="ligera">
+<div class="shot"><div class="vacio">En construcción</div></div>
+<div class="info"><span class="n">079</span><h3>Serigrafía</h3>
+<p class="fam">Retro peruano · <b class="p-ligera">ligera</b></p>
+<p class="con">Afiche a dos tintas (azul y naranja) con registro desplazado (mix-blend-mode multiply), papel crema con textura, tipografía Ultra para títulos y Bitter para texto. Las fotos en duotono por CSS.</p>
+<div class="meta"><span class="pal"></span><span class="tip"></span></div></div></div><div class="card pend" data-fam="Retro peruano" data-peso="media">
+<div class="shot"><div class="vacio">En construcción</div></div>
+<div class="info"><span class="n">080</span><h3>Televisión</h3>
+<p class="fam">Retro peruano · <b class="p-media">media</b></p>
+<p class="con">TV de tubo: pantalla curva con marco, barras de color de prueba al inicio (1 s), &#x27;EN VIVO&#x27; parpadeando, cambio de canal entre secciones (GSAP con ruido). Tipografía Silkscreen para etiquetas y Nunito Sans para texto.</p>
+<div class="meta"><span class="pal"></span><span class="tip"></span></div></div></div><a class="card" data-fam="Lujo clásico" data-peso="ligera" href="81-dorado/" target="_blank" rel="noopener">
+<div class="shot"><img src="_galeria/81-dorado-1440.webp" alt="Portada del prototipo Dorado" width="720" height="450" loading="lazy" decoding="async"></div>
+<div class="info"><span class="n">081</span><h3>Dorado</h3>
+<p class="fam">Lujo clásico · <b class="p-ligera">ligera</b> · 48 kB</p>
+<p class="con">La web es una invitación de gala en negro y oro: un pasepartú fijo con marco doble fino enmarca la ventana y la obra aparece centrada, con mucho aire, como en un programa de ceremonia. Los premios viven dentro de laureles dibujados a línea que crecen desde el tallo al entrar, y nada brilla: oro plano, líneas de un píxel y tipografía.</p>
+<div class="meta"><span class="pal"><i style="background:#0b0a08"></i><i style="background:#13110d"></i><i style="background:#c6a15b"></i><i style="background:#8f7644"></i><i style="background:#5e4d2e"></i><i style="background:#ece4d4"></i></span><span class="tip">Bodoni Moda + Tenor Sans</span></div></div></a><a class="card" data-fam="Lujo clásico" data-peso="ligera" href="82-art-deco/" target="_blank" rel="noopener">
+<div class="shot"><img src="_galeria/82-art-deco-1440.webp" alt="Portada del prototipo Art déco" width="720" height="450" loading="lazy" decoding="async"></div>
+<div class="info"><span class="n">082</span><h3>Art déco</h3>
+<p class="fam">Lujo clásico · <b class="p-ligera">ligera</b> · 51 kB</p>
+<p class="con">La web es la fachada y el programa de un palacio de cine de los años treinta: un abanico de rayos dorados se abre detrás del nombre como el sol de un proscenio y cada sección tiene su letrero vertical de marquesina, como los viejos cines de Hollywood. La obra se presenta en placas con remate escalonado, tiras de película y marcos con esquinas de latón, en negro y champán.</p>
+<div class="meta"><span class="pal"><i style="background:#0c0b09"></i><i style="background:#15130f"></i><i style="background:#e3cc98"></i><i style="background:#b89c64"></i><i style="background:#5c4d33"></i><i style="background:#f1e9d8"></i></span><span class="tip">Limelight + Josefin Sans</span></div></div></a><div class="card pend" data-fam="Lujo clásico" data-peso="ligera">
+<div class="shot"><div class="vacio">En construcción</div></div>
+<div class="info"><span class="n">083</span><h3>Palma</h3>
+<p class="fam">Lujo clásico · <b class="p-ligera">ligera</b></p>
+<p class="con">Como un festival de clase A: fondo azul noche, palma dorada abstracta en SVG, tipografía Italiana y Cormorant Garamond, catálogo de la película con laureles en texto.</p>
+<div class="meta"><span class="pal"></span><span class="tip"></span></div></div></div><div class="card pend" data-fam="Lujo clásico" data-peso="ligera">
+<div class="shot"><div class="vacio">En construcción</div></div>
+<div class="info"><span class="n">084</span><h3>Terciopelo</h3>
+<p class="fam">Lujo clásico · <b class="p-ligera">ligera</b></p>
+<p class="con">Borgoña profundo y negro, textura de terciopelo por CSS (degradados radiales suaves), oro viejo, tipografía Gloock y Lora. Luz baja de sala.</p>
+<div class="meta"><span class="pal"></span><span class="tip"></span></div></div></div><div class="card pend" data-fam="Lujo clásico" data-peso="ligera">
+<div class="shot"><div class="vacio">En construcción</div></div>
+<div class="info"><span class="n">085</span><h3>Catálogo de festival</h3>
+<p class="fam">Lujo clásico · <b class="p-ligera">ligera</b></p>
+<p class="con">Página de película en un catálogo impreso: cabecera con sección del festival, ficha en dos columnas, sinopsis, biofilmografía del director, contacto de ventas. Tipografía Forum y Source Serif 4. Blanco roto y gris.</p>
+<div class="meta"><span class="pal"></span><span class="tip"></span></div></div></div><a class="card" data-fam="Perú y el mundo" data-peso="media" href="86-mapa/" target="_blank" rel="noopener">
+<div class="shot"><img src="_galeria/86-mapa-1440.webp" alt="Portada del prototipo Mapa de festivales" width="720" height="450" loading="lazy" decoding="async"></div>
+<div class="info"><span class="n">086</span><h3>Mapa de festivales</h3>
+<p class="fam">Perú y el mundo · <b class="p-media">media</b> · 76 kB</p>
+<p class="con">Una carta de rutas nocturna con Lima en el centro exacto del mundo: en la portada las catorce rutas del documental salen de Lima y se dibujan hacia cada festival. En la sección del documental el mismo mapa se vuelve un índice interactivo donde cada punto abre la ficha de su festival.</p>
+<div class="meta"><span class="pal"><i style="background:#0A0D12"></i><i style="background:#0E131A"></i><i style="background:#16202A"></i><i style="background:#2C394A"></i><i style="background:#1D2631"></i><i style="background:#E8ECF0"></i></span><span class="tip">Geist + Geist Mono</span></div></div></a><div class="card pend" data-fam="Perú y el mundo" data-peso="media">
+<div class="shot"><div class="vacio">En construcción</div></div>
+<div class="info"><span class="n">087</span><h3>Husos horarios</h3>
+<p class="fam">Perú y el mundo · <b class="p-media">media</b></p>
+<p class="con">Relojes de aeropuerto para Lima, Sídney, Noida, Nueva York, Londres, Lisboa, Bilbao, Lagos, Karachi, Cincinnati, Santiago, con hora real (JS propio). Tablero de salidas con letras que giran (GSAP) para los premios. Tipografía Tourney.</p>
+<div class="meta"><span class="pal"></span><span class="tip"></span></div></div></div><div class="card pend" data-fam="Perú y el mundo" data-peso="ligera">
+<div class="shot"><div class="vacio">En construcción</div></div>
+<div class="info"><span class="n">088</span><h3>Pasaporte</h3>
+<p class="fam">Perú y el mundo · <b class="p-ligera">ligera</b></p>
+<p class="con">Un pasaporte con sellos de cada festival (SVG circular con ciudad y fecha, rotados), páginas con marca de agua, tipografía Roboto Flex y una mono. Verde pasaporte y tinta.</p>
+<div class="meta"><span class="pal"></span><span class="tip"></span></div></div></div><div class="card pend" data-fam="Perú y el mundo" data-peso="ligera">
+<div class="shot"><div class="vacio">En construcción</div></div>
+<div class="info"><span class="n">089</span><h3>De Lima al mundo</h3>
+<p class="fam">Perú y el mundo · <b class="p-ligera">ligera</b></p>
+<p class="con">Línea de tiempo vertical del recorrido del documental por ciudades y fechas (2025 a 2026), con la línea que se dibuja al bajar (animation-timeline en CSS). Tipografía Hanken Grotesk. Blanco y azul.</p>
+<div class="meta"><span class="pal"></span><span class="tip"></span></div></div></div><div class="card pend" data-fam="Perú y el mundo" data-peso="ligera">
+<div class="shot"><div class="vacio">En construcción</div></div>
+<div class="info"><span class="n">090</span><h3>Postales</h3>
+<p class="fam">Perú y el mundo · <b class="p-ligera">ligera</b></p>
+<p class="con">Cada festival es una postal (frente con fotograma completo, dorso con datos) que se voltea al pasar el cursor o tocar. Sobres y estampillas en CSS. Tipografía Caveat solo para la &#x27;escritura&#x27; y Lora para el resto.</p>
+<div class="meta"><span class="pal"></span><span class="tip"></span></div></div></div><a class="card" data-fam="Fluido premium ligero" data-peso="media" href="91-lenis-puro/" target="_blank" rel="noopener">
+<div class="shot"><img src="_galeria/91-lenis-puro-1440.webp" alt="Portada del prototipo Lenis puro" width="720" height="450" loading="lazy" decoding="async"></div>
+<div class="info"><span class="n">091</span><h3>Lenis puro</h3>
+<p class="fam">Fluido premium ligero · <b class="p-media">media</b> · 47 kB</p>
+<p class="con">Toda la web se desliza con inercia, como un travelling lento sobre rieles, y cada imagen entra como un plano que se abre desde una línea de luz, igual que un obturador. El nombre gigante lleva un fotograma del socavón dentro de su primera línea.</p>
+<div class="meta"><span class="pal"><i style="background:#0e0c0a"></i><i style="background:#17140f"></i><i style="background:#f4efe7"></i><i style="background:#d8d1c6"></i><i style="background:#9b9288"></i><i style="background:#2b2621"></i></span><span class="tip">Inter Tight</span></div></div></a><a class="card" data-fam="Fluido premium ligero" data-peso="ligera" href="92-transiciones-nativas/" target="_blank" rel="noopener">
+<div class="shot"><img src="_galeria/92-transiciones-nativas-1440.webp" alt="Portada del prototipo Transiciones nativas" width="720" height="450" loading="lazy" decoding="async"></div>
+<div class="info"><span class="n">092</span><h3>Transiciones nativas</h3>
+<p class="fam">Fluido premium ligero · <b class="p-ligera">ligera</b> · 48 kB</p>
+<p class="con">La web es un cine pequeño con cinco salas, cada una en su propia página (documental, eco, fotografia, director, contacto), y pasar de una a otra es un fundido encadenado que hace el navegador solo, sin JavaScript. La cabecera se queda quieta, el punto de la sala activa se desliza entre enlaces y el título de cada sala sube como un intertítulo, mientras el index hace de vestíbulo con todo el contenido.</p>
+<div class="meta"><span class="pal"><i style="background:#161616"></i><i style="background:#1c1c1c"></i><i style="background:#2c2c2c"></i><i style="background:#e9e6e0"></i><i style="background:#bdb8b0"></i><i style="background:#8f8a83"></i></span><span class="tip">Manrope</span></div></div></a><a class="card" data-fam="Fluido premium ligero" data-peso="ligera" href="93-solo-css/" target="_blank" rel="noopener">
+<div class="shot"><img src="_galeria/93-solo-css-1440.webp" alt="Portada del prototipo Solo CSS" width="720" height="450" loading="lazy" decoding="async"></div>
+<div class="info"><span class="n">093</span><h3>Solo CSS</h3>
+<p class="fam">Fluido premium ligero · <b class="p-ligera">ligera</b> · 47 kB</p>
+<p class="con">La web es el programa de mano de un festival, tinta negra sobre papel crema, y todo lo que se mueve lo mueve el propio scroll, sin JavaScript salvo el reproductor. Los títulos se entintan al entrar (su peso pasa de 200 a 800), las fotos se revelan de blanco y negro a color como una copia en la cubeta y el nombre de la tapa se adelgaza al salir.</p>
+<div class="meta"><span class="pal"><i style="background:#efe7d6"></i><i style="background:#e5dbc5"></i><i style="background:#141210"></i><i style="background:#5f584e"></i></span><span class="tip">Bricolage Grotesque</span></div></div></a><a class="card" data-fam="Fluido premium ligero" data-peso="ligera" href="94-respiracion/" target="_blank" rel="noopener">
+<div class="shot"><img src="_galeria/94-respiracion-1440.webp" alt="Portada del prototipo Respiración" width="720" height="450" loading="lazy" decoding="async"></div>
+<div class="info"><span class="n">094</span><h3>Respiración</h3>
+<p class="fam">Fluido premium ligero · <b class="p-ligera">ligera</b> · 46 kB</p>
+<p class="con">La página inhala y exhala: todo aparece con fundidos de 900 ms y curvas suaves en los dos extremos, nada salta, y el nombre de la portada exhala mientras entra en foco. El único color propio es el naranja del casco de las mineras, que sale del fotograma que abre la página y vuelve como un punto que late despacio.</p>
+<div class="meta"><span class="pal"><i style="background:#f0eeea"></i><i style="background:#e7e3dc"></i><i style="background:#dcd7cf"></i><i style="background:#2e2a26"></i><i style="background:#6f6a63"></i><i style="background:#e3842c"></i></span><span class="tip">Figtree</span></div></div></a><a class="card" data-fam="Fluido premium ligero" data-peso="ligera" href="95-un-solo-scroll/" target="_blank" rel="noopener">
+<div class="shot"><img src="_galeria/95-un-solo-scroll-1440.webp" alt="Portada del prototipo Un solo scroll" width="720" height="450" loading="lazy" decoding="async"></div>
+<div class="info"><span class="n">095</span><h3>Un solo scroll</h3>
+<p class="fam">Fluido premium ligero · <b class="p-ligera">ligera</b> · 43 kB</p>
+<p class="con">Toda la web es una sola tira de película negra que baja por una página crema, con sus perforaciones a los lados, y cada sección lleva un rótulo pegajoso que se apila arriba al pasar. Los rótulos van del crema al negro como una cuña de grises de laboratorio, así que al bajar se forma una franja con los tonos de las secciones ya vistas.</p>
+<div class="meta"><span class="pal"><i style="background:#efe6d2"></i><i style="background:#0b0a09"></i><i style="background:#b9ad97"></i><i style="background:#2a2622"></i><i style="background:#d8cbb0"></i><i style="background:#b3a283"></i></span><span class="tip">Schibsted Grotesk</span></div></div></a><a class="card" data-fam="Interactivo narrativo" data-peso="media" href="96-capitulos/" target="_blank" rel="noopener">
+<div class="shot"><img src="_galeria/96-capitulos-1440.webp" alt="Portada del prototipo Capítulos" width="720" height="450" loading="lazy" decoding="async"></div>
+<div class="info"><span class="n">096</span><h3>Capítulos</h3>
+<p class="fam">Interactivo narrativo · <b class="p-media">media</b> · 59 kB</p>
+<p class="con">La web se lee como una película en tres capítulos (la mina, la casa de ECO y el director) con un intermedio de fotografía y un epílogo. En cada capítulo el fotograma queda fijo a pantalla completa, entero y con barras de cine, y el texto sube por encima en tarjetas de papel que cambian el fotograma y su pie al llegar al centro.</p>
+<div class="meta"><span class="pal"><i style="background:#0b0a09"></i><i style="background:#f1ebdf"></i><i style="background:#1c1915"></i><i style="background:#5b5347"></i><i style="background:#efe7d8"></i><i style="background:#a89e8f"></i></span><span class="tip">Newsreader</span></div></div></a><a class="card" data-fam="Interactivo narrativo" data-peso="media" href="97-claqueta/" target="_blank" rel="noopener">
+<div class="shot"><img src="_galeria/97-claqueta-1440.webp" alt="Portada del prototipo Claqueta" width="720" height="450" loading="lazy" decoding="async"></div>
+<div class="info"><span class="n">097</span><h3>Claqueta</h3>
+<p class="fam">Interactivo narrativo · <b class="p-media">media</b> · 61 kB</p>
+<p class="con">La navegación es una claqueta copiada de la que se usó en el rodaje de ECO, con pizarra blanca, palos con carta de color y campos escritos a plumón. Cada sección es una escena y cada bloque una toma, y al pasar de una a otra la claqueta se abre, anota el número nuevo y se cierra de golpe, con chasquido solo si el visitante marca Sync.</p>
+<div class="meta"><span class="pal"><i style="background:#161616"></i><i style="background:#232323"></i><i style="background:#f8f6f1"></i><i style="background:#141414"></i><i style="background:#f0ede6"></i><i style="background:#121212"></i></span><span class="tip">Chivo + Permanent Marker</span></div></div></a><div class="card pend" data-fam="Interactivo narrativo" data-peso="ligera">
+<div class="shot"><div class="vacio">En construcción</div></div>
+<div class="info"><span class="n">098</span><h3>Elige tu entrada</h3>
+<p class="fam">Interactivo narrativo · <b class="p-ligera">ligera</b></p>
+<p class="con">La portada ofrece dos puertas: la mina (documental) o la casa (ECO). Según la elección, el orden y la paleta de la página cambian (ocre o azul verdoso) con una clase en body. Tipografía Bricolage Grotesque.</p>
+<div class="meta"><span class="pal"></span><span class="tip"></span></div></div></div><div class="card pend" data-fam="Interactivo narrativo" data-peso="media">
+<div class="shot"><div class="vacio">En construcción</div></div>
+<div class="info"><span class="n">099</span><h3>Sala de montaje</h3>
+<p class="fam">Interactivo narrativo · <b class="p-media">media</b></p>
+<p class="con">Línea de tiempo de edición como navegación: pistas (video, audio, títulos), clips con miniaturas, cabezal que se arrastra (GSAP Draggable) y mueve la página. Tipografía Geist Mono y Geist. Gris de software de edición.</p>
+<div class="meta"><span class="pal"></span><span class="tip"></span></div></div></div><div class="card pend" data-fam="Interactivo narrativo" data-peso="media">
+<div class="shot"><div class="vacio">En construcción</div></div>
+<div class="info"><span class="n">100</span><h3>Juego de luz</h3>
+<p class="fam">Interactivo narrativo · <b class="p-media">media</b></p>
+<p class="con">La progresión de luz de ECO (5 fotogramas) como control: un deslizador cambia la luz de toda la página, de ámbar a azul, incluidas las fotos (filter) y el fondo (GSAP para interpolar). Tipografía Playfair Display y Public Sans.</p>
+<div class="meta"><span class="pal"></span><span class="tip"></span></div></div></div></div></div>
+<script>
+(function(){var r=document.documentElement;var t=null;try{t=localStorage.getItem('tema')}catch(e){}if(t)r.dataset.theme=t;
+document.getElementById('tema').onclick=function(){var osc=r.dataset.theme?r.dataset.theme==='dark':!matchMedia('(prefers-color-scheme: light)').matches;r.dataset.theme=osc?'light':'dark';try{localStorage.setItem('tema',r.dataset.theme)}catch(e){}};
+var fam='',peso='';var cs=[].slice.call(document.querySelectorAll('.card'));
+function pinta(){cs.forEach(function(c){c.hidden=(fam&&c.dataset.fam!==fam)||(peso&&c.dataset.peso!==peso)})}
+document.querySelectorAll('.chip').forEach(function(b){b.onclick=function(){if(b.dataset.p!==undefined){peso=peso?'':'ligera';b.setAttribute('aria-pressed',!!peso)}else{fam=b.dataset.f;document.querySelectorAll('.chip[data-f]').forEach(function(x){x.setAttribute('aria-pressed',x===b)})}pinta()}});})();
+</script></body></html>

@@ -1,0 +1,15 @@
+{
+  "n": 26,
+  "slug": "tocapu",
+  "nombre": "Tocapu",
+  "familia": "Andino textil",
+  "concepto": "Los tocapus incas como sistema: la portada es un unku que se teje fila por fila con cuadrados de motivos geométricos propios y deja un vacío negro para el nombre. Cada sección tiene su tocapu emblema y franjas de tocapus hacen de divisores.",
+  "paleta": ["#A31D32", "#7A1526", "#161110", "#EFE6D2", "#E4D7BC", "#E2566B"],
+  "tipografias": ["Unbounded", "Instrument Sans"],
+  "layout": "Módulo cuadrado sobre rejilla de 12 columnas, secciones que alternan crema, negro y rojo como franjas de un unku, premios y equipo resueltos como tocapus de texto y galerías en filas justificadas sin recorte.",
+  "movimiento": "Tejido de la portada celda por celda, de ida y de vuelta, y el nombre que sube al terminar; franjas que se tejen al entrar y motivos que giran un cuarto de vuelta al pasar el mouse.",
+  "peso": "ligera",
+  "librerias": [],
+  "estilos": ["héroe con capas SVG segmentadas", "tipografía como jerarquía", "ficha técnica visible", "grilla de miniaturas", "minimalismo"],
+  "referencias": ["Eladio Dieste", "Ryoji Ikeda", "Adam Bricker", "Hervé Baillargeon (director)"]
+}

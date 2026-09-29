@@ -1,0 +1,15 @@
+{
+  "n": 41,
+  "slug": "kene",
+  "nombre": "Kené",
+  "familia": "Selvático amazónico",
+  "concepto": "El kené shipibo leído como sistema lineal: un tejido de líneas en ángulo recto crece rama por rama desde el centro de la portada y rodea el nombre como si lo bordara. Cada sección vive dentro de un marco de tela con doble línea, cenefa de ganchos y esquinas en espiral, todo con geometría propia generada con una semilla fija.",
+  "paleta": ["#0b2a1f", "#0f3326", "#f4f2ea", "#dfe6df", "#a9bfb2", "#e5532a"],
+  "tipografias": ["Sora"],
+  "layout": "Retícula de 12 columnas dentro de marcos de doble línea con esquinas en espiral, portada con una ventana central sobre el laberinto y galerías en filas justificadas del mismo alto sin recorte.",
+  "movimiento": "El laberinto de la portada se dibuja rama por rama desde el centro con trazos SVG escalonados por profundidad, las cenefas se tejen de izquierda a derecha al entrar y el resto aparece con desvanecidos cortos, todo apagado con movimiento reducido.",
+  "peso": "ligera",
+  "librerias": [],
+  "estilos": ["patrón lineal generativo en SVG", "textos que se animan al desplazar", "microinteracciones", "minimalismo", "tema oscuro"],
+  "referencias": ["PERFECT DAYS official site (Wim Wenders)", "Hervé Baillargeon (director)", "Velour Productions"]
+}

@@ -1,0 +1,21 @@
+{
+ "slug": "15-proyeccion",
+ "bytes_html": 48615,
+ "externos": [],
+ "libs": [
+  "gsap.min.js",
+  "ScrollTrigger.min.js"
+ ],
+ "fuentes": [
+  "big-shoulders-display",
+  "courier-prime"
+ ],
+ "imagenes_referenciadas": 52,
+ "bytes_imagenes_locales": 1806642,
+ "titulo": "Jose Adrianzen | Director de cine peruano",
+ "alto_1440": 13347,
+ "imagenes_en_dom": 55,
+ "problemas": [],
+ "avisos": [],
+ "ok": true
+}

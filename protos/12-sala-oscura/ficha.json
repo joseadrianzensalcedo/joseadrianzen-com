@@ -1,0 +1,15 @@
+{
+  "n": 12,
+  "slug": "sala-oscura",
+  "nombre": "Sala oscura",
+  "familia": "Cine inmersivo",
+  "concepto": "Entrar a la web es entrar a una sala: las luces de sala se apagan en un fundido de 1,2 s y una pantalla 2.39:1 se enciende como un proyector con el póster del documental y el botón. Todo lo demás vive debajo como un programa de mano en Oswald 300, gris humo sobre negro, que se lee a la luz de la pantalla.",
+  "paleta": ["#000000", "#A19B93", "#D9D3C9", "#8A847C", "#F0EBE2", "#1B1A18", "#C58B4D"],
+  "tipografias": ["Oswald"],
+  "layout": "Portada de 100svh con pantalla 2.39:1, créditos y dos filas de butacas en silueta, y debajo un programa centrado con créditos en dos columnas y galerías en filas justificadas.",
+  "movimiento": "Luces de sala que se apagan en 1,2 s y proyector que se enciende con dos parpadeos; las imágenes se encienden de la oscuridad al entrar y una hilera de luces de pasillo marca el avance con animation-timeline.",
+  "peso": "ligera",
+  "librerias": [],
+  "estilos": ["tema negro", "minimalismo", "entrada con o sin sonido en pantalla completa", "interfaz mínima", "transiciones suaves"],
+  "referencias": ["Oliver Laxe", "Michael Gatt", "PERFECT DAYS official site (Wim Wenders)", "Hervé Baillargeon (director)"]
+}

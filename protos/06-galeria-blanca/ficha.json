@@ -1,0 +1,15 @@
+{
+  "n": 6,
+  "slug": "galeria-blanca",
+  "nombre": "Galería blanca",
+  "familia": "blanco",
+  "concepto": "La web como una galería de paredes blancas: cada imagen cuelga sola, en díptico o en tríptico, con mucho aire y una cartela chica en mono. Cada sección es una sala numerada en romanos con su texto de sala sobre un eje central.",
+  "paleta": ["#ffffff", "#161616", "#6f6f6f", "#d9d9d9"],
+  "tipografias": ["Cormorant", "DM Mono"],
+  "layout": "Una sola columna sobre eje central con obras de anchos distintos, series tipológicas en grilla, dípticos y trípticos de alto igual calculados por proporción, pared de rodaje colgada en salón e índice fijo en el margen izquierdo desde 1280 px.",
+  "movimiento": "El nombre entra en 2,6 s cerrando el espaciado como un ojo que se acostumbra a la luz, baja un hilo de 1 px, y las obras se encienden con fundidos de 1,6 s al entrar en vista; visor propio en blanco con teclado y gesto.",
+  "peso": "ligera",
+  "librerias": [],
+  "estilos": ["minimalismo", "tema claro", "mucho espacio en blanco", "tipografía fina", "fotografía inspirada en cine"],
+  "referencias": ["Oliver Laxe", "Hervé Baillargeon (director)", "Ethan W Photography", "PERFECT DAYS official site (Wim Wenders)"]
+}

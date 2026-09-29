@@ -1,0 +1,15 @@
+{
+  "n": 96,
+  "slug": "capitulos",
+  "nombre": "Capítulos",
+  "familia": "ludico",
+  "concepto": "La web se lee como una película en tres capítulos (la mina, la casa de ECO y el director) con un intermedio de fotografía y un epílogo. En cada capítulo el fotograma queda fijo a pantalla completa, entero y con barras de cine, y el texto sube por encima en tarjetas de papel que cambian el fotograma y su pie al llegar al centro.",
+  "paleta": ["#0b0a09", "#f1ebdf", "#1c1915", "#5b5347", "#efe7d8", "#a89e8f", "#b87a2e", "#a8483f", "#c0602f"],
+  "tipografias": ["Newsreader"],
+  "layout": "Portada tipográfica con índice de capítulos, tres escenarios de 100vh fijados con una pista de tarjetas que pasa por encima (izquierda, derecha y anchas para listas y hojas de contactos) e intermedio y epílogo en papel a página abierta.",
+  "movimiento": "Entrada del nombre letra por letra con SplitText, pin de cada escenario con ScrollTrigger, fundido y revelado del fotograma al cambiar la tarjeta activa, Lenis y barra de avance teñida con el color del capítulo.",
+  "peso": "media",
+  "librerias": ["gsap", "ScrollTrigger", "SplitText", "lenis"],
+  "estilos": ["scrollytelling", "escenario fijo con pin", "tarjetas sobre imagen", "serifa editorial", "tema tinta y papel", "capítulos numerados"],
+  "referencias": ["PERFECT DAYS official site (Wim Wenders)", "Photographers' virtual gallery"]
+}

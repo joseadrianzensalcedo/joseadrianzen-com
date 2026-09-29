@@ -1,0 +1,15 @@
+{
+  "n": 25,
+  "slug": "puente",
+  "nombre": "Puente",
+  "familia": "documental",
+  "concepto": "La web se arma sobre la frase de la sinopsis: la película es un puente entre ellas y el mundo. En el centro del documental dos columnas se cruzan con el scroll, la mina sobre tierra y los quince festivales con su ciudad sobre cielo, mientras entre ambas se tiende un puente colgante dibujado con GSAP.",
+  "paleta": ["#cfe0e4", "#2b2019", "#3a2c22", "#c9803a", "#efe7da", "#1e2226", "#221a14"],
+  "tipografias": ["Fraunces", "Manrope"],
+  "layout": "Portada como horizonte (cielo arriba, tierra abajo) y secciones que alternan tierra, noche, cielo y arena; la escena del puente es un díptico de tres columnas (mina, puente, mundo) fijado a pantalla completa en escritorio y apilado en móvil.",
+  "movimiento": "Entrada orquestada con el horizonte que se tiende, la cordillera que se dibuja y las letras del nombre que suben desde el horizonte (SplitText); escena fijada con ScrollTrigger donde las columnas se cruzan en sentidos opuestos, el puente se dibuja y cada pieza se enciende al pasar por el tablero; Lenis para el scroll suave y todo quieto con movimiento reducido.",
+  "peso": "media",
+  "librerias": ["gsap", "ScrollTrigger", "SplitText", "lenis"],
+  "estilos": ["díptico", "scroll narrativo", "columnas en sentidos opuestos", "trazo de SVG", "serif editorial"],
+  "referencias": ["PERFECT DAYS official site (Wim Wenders)", "Colonia Zacamil", "Hervé Baillargeon (director)", "197 Historias Ilustradas"]
+}

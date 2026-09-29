@@ -1,0 +1,18 @@
+{
+ "slug": "11-pantalla-completa",
+ "bytes_html": 44067,
+ "externos": [],
+ "libs": [],
+ "fuentes": [
+  "bebas-neue",
+  "instrument-sans"
+ ],
+ "imagenes_referenciadas": 53,
+ "bytes_imagenes_locales": 1823528,
+ "titulo": "Jose Adrianzen | Director de cine peruano",
+ "alto_1440": 19932,
+ "imagenes_en_dom": 62,
+ "problemas": [],
+ "avisos": [],
+ "ok": true
+}

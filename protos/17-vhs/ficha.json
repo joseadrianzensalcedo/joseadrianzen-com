@@ -1,0 +1,15 @@
+{
+  "n": 17,
+  "slug": "vhs",
+  "nombre": "Cinta VHS",
+  "familia": "thriller",
+  "concepto": "La web es una cinta VHS encontrada en la casa de ECO y reproducida en un monitor, con indicadores en pantalla que responden al scroll y un contador que llega a 0:13:12, la duración de ECO. Cada sección es un capítulo de la cinta y ECO aparece como una pantalla de SIN SEÑAL sobria, con el sello Aún sin estrenar.",
+  "paleta": ["#05070c", "#0a1019", "#16202e", "#dbe6ef", "#f2f8fc", "#8fd3e8", "#6f8fb0", "#ff4d45", "#0b1d3a"],
+  "tipografias": ["Share Tech Mono", "VT323", "IBM Plex Sans"],
+  "layout": "Grilla de 12 columnas con capítulos que abren con cortina de título, contenido en visores con esquinas de cámara, reparto en cuatro monitores de vigilancia y blog como lomos de casete.",
+  "movimiento": "Entrada orquestada con GSAP que simula insertar la cinta (estática, PLAY, barra de enganche, nombre que se estabiliza), títulos y fotos que enganchan la señal a saltos, tracking en CSS cada 11 s y Lenis.",
+  "peso": "media",
+  "librerias": ["gsap", "ScrollTrigger", "lenis"],
+  "estilos": ["fondo negro", "pantalla completa", "tipografía protagonista", "miniaturas de obras que reaccionan al mouse", "fotoperiodismo inmersivo"],
+  "referencias": ["Michael Gatt", "Artem Shcherbakov", "Ian Coad DP", "Ukraine: A Country Mined"]
+}

@@ -1,0 +1,15 @@
+{
+  "n": 51,
+  "slug": "filmografia",
+  "nombre": "Filmografía",
+  "familia": "indice",
+  "concepto": "La web entera es una filmografía impresa en tabla: premios, selecciones, equipo, reparto y fotos son filas con sus columnas de festival, lugar, año y tamaño. Las fotos entran como filas con miniatura y al pasar el cursor se abren en una vista previa flotante que sigue al puntero, con el nombre del archivo y sus píxeles.",
+  "paleta": ["#ffffff", "#000000", "#5e5e5e"],
+  "tipografias": ["Geist", "Geist Mono"],
+  "layout": "Portada con el nombre a todo el ancho y un índice de seis filas, barra pegajosa con las secciones y cada sección como una rejilla de 12 columnas con celdas separadas por filetes de 1 px, tablas con cabecera pegajosa y una hoja de contactos justificada para el rodaje de ECO.",
+  "movimiento": "Un solo momento orquestado al entrar (los filetes del índice se trazan, el nombre sube desde su máscara y las filas llegan en cascada) y después inversión de filas a negro al pasar y la vista previa con inercia suave, todo apagado con prefers-reduced-motion.",
+  "peso": "ligera",
+  "librerias": [],
+  "estilos": ["sección Works con cliente y fecha", "diseño minimalista", "tipografía como jerarquía", "archivo con hover", "galería numerada de proyectos"],
+  "referencias": ["Artefakt", "Salomon Ligthelm", "Partizan", "Gil Huybrecht"]
+}

@@ -1,0 +1,22 @@
+{
+ "slug": "04-vidrio",
+ "bytes_html": 50376,
+ "externos": [],
+ "libs": [
+  "lenis.css",
+  "gsap.min.js",
+  "ScrollTrigger.min.js",
+  "lenis.min.js"
+ ],
+ "fuentes": [
+  "manrope"
+ ],
+ "imagenes_referenciadas": 53,
+ "bytes_imagenes_locales": 1823528,
+ "titulo": "Jose Adrianzen | Director de cine peruano",
+ "alto_1440": 21740,
+ "imagenes_en_dom": 63,
+ "problemas": [],
+ "avisos": [],
+ "ok": true
+}

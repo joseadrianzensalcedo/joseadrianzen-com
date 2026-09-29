@@ -1,0 +1,15 @@
+{
+  "n": 23,
+  "slug": "cuaderno-de-campo",
+  "nombre": "Cuaderno de campo",
+  "familia": "documental",
+  "concepto": "El cuaderno de rodaje de Jose: una hoja cuadriculada sobre el escritorio, con margen rojo y pestañas separadoras, todo escrito a máquina. A mano solo se escribe en los márgenes, las fotos van pegadas con cinta y los fotogramas como tiras de película.",
+  "paleta": ["#f5efe1", "#d3c6a8", "#2a2723", "#5d5850", "#2d4b8e", "#b5432c", "#ece0bc"],
+  "tipografias": ["Special Elite", "Caveat"],
+  "layout": "Una hoja centrada con columna de margen y columna de texto separadas por la línea roja, cada bloque con su nota al margen, pestañas de índice asomando por el borde derecho y copias de papel en filas justificadas.",
+  "movimiento": "Entrada orquestada (cae la etiqueta, se pega la cinta, la máquina escribe el nombre y se traza el dibujo de la mina), notas al margen que se escriben al entrar, subrayados que se trazan y copias que caen en su sitio; todo se apaga con movimiento reducido.",
+  "peso": "ligera",
+  "librerias": [],
+  "estilos": ["textura de papel", "collage", "escritura a mano", "máquina de escribir", "hoja de contactos"],
+  "referencias": ["Grit Pictures", "Niccolò Miranda", "Velour Productions", "PERFECT DAYS official site (Wim Wenders)"]
+}

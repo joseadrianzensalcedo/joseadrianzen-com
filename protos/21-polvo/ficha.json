@@ -1,0 +1,15 @@
+{
+  "n": 21,
+  "slug": "polvo",
+  "nombre": "Polvo",
+  "familia": "documental",
+  "concepto": "Evolución directa de la web actual: negro mate, grano fijo y Anton con contorno cromático. La jerarquía cambia: el documental es la pieza central a doble ancho y sus premios y selecciones se leen como la franja de laureles de un afiche.",
+  "paleta": ["#050505", "#0c0b0a", "#f2efe9", "#d68a2e", "#c9a55c", "#8a837a", "#232019"],
+  "tipografias": ["Anton", "Archivo"],
+  "layout": "Rejilla de 12 columnas donde el documental ocupa las 12 (reproductor, franja y fotogramas) y el resto trabaja a media página, con cortes numerados entre secciones y galerías en filas justificadas sin recorte.",
+  "movimiento": "Encendido del nombre en la portada como destello de proyector, destellos cortos en títulos al entrar, líneas de corte que se tienden, grano por pasos y cursor circular propio; todo se apaga con movimiento reducido.",
+  "peso": "ligera",
+  "librerias": [],
+  "estilos": ["grano de película superpuesto", "contorno cromático", "tipografía enorme", "ficha técnica visible", "minimalismo"],
+  "referencias": ["Rodeo Film", "Of Skin and Souls", "Hervé Baillargeon (director)", "Adam Bricker"]
+}

@@ -1,0 +1,15 @@
+{
+  "n": 95,
+  "slug": "un-solo-scroll",
+  "nombre": "Un solo scroll",
+  "familia": "fluido",
+  "concepto": "Toda la web es una sola tira de película negra que baja por una página crema, con sus perforaciones a los lados, y cada sección lleva un rótulo pegajoso que se apila arriba al pasar. Los rótulos van del crema al negro como una cuña de grises de laboratorio, así que al bajar se forma una franja con los tonos de las secciones ya vistas.",
+  "paleta": ["#efe6d2", "#0b0a09", "#b9ad97", "#2a2622", "#d8cbb0", "#b3a283", "#6e604c", "#3f372d", "#221e1a"],
+  "tipografias": ["Schibsted Grotesk"],
+  "layout": "Una sola columna de 880 px como tira de película con perforaciones, rótulos con position sticky que se superponen dejando franjas de 10 px, índice lateral fijo en escritorio con porcentaje de avance y botón de índice en móvil.",
+  "movimiento": "Barra de progreso arriba y porcentaje al costado, IntersectionObserver que marca la sección activa con una luz de grabación en el rótulo y en el índice, fundido corto de imágenes al entrar y visor con fundido.",
+  "peso": "ligera",
+  "librerias": [],
+  "estilos": ["una sola columna", "cabeceras pegajosas", "indicador de progreso", "tema crema y negro", "metáfora de película"],
+  "referencias": ["Siena Film Foundation", "Hervé Baillargeon (director)", "Oliver Laxe"]
+}

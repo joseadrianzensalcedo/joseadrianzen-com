@@ -1,0 +1,15 @@
+{
+  "n": 56,
+  "slug": "marquesina",
+  "nombre": "Marquesina",
+  "familia": "tipografia",
+  "concepto": "La marquesina de un cine de estreno hecha web: la letra es la imagen y el nombre de Jose, en Anton a 33 vw, ocupa dos pantallas y corre de lado mientras bajas. Entre sección y sección pasan cintas continuas con los festivales y las ciudades que recorrió Entre polvo y sueños, y cada sección abre con su nombre al 20 vw a sangre.",
+  "paleta": ["#050505", "#f4f3ef", "#8d8c87", "#2a2a28"],
+  "tipografias": ["Anton", "Libre Franklin"],
+  "layout": "Portada fija de 300 vh con el nombre en una sola línea que se desplaza, secciones que abren con un título al 20 vw que se sale del borde, rejilla de 12 columnas por dentro, cintas a todo el ancho entre secciones y el director en página blanca.",
+  "movimiento": "Letras del nombre que suben al cargar, desplazamiento horizontal del nombre y deriva de los títulos guiados por scroll con animation-timeline (respaldo de pocas líneas en JS), marquesinas CSS continuas que se detienen con el cursor y tira de rodaje de ECO en marquesina, todo apagado con prefers-reduced-motion.",
+  "peso": "ligera",
+  "librerias": [],
+  "estilos": ["tipografía gigante animada", "textos que se animan al desplazar", "blanco y negro de alto contraste", "marquesina continua", "navegación solo texto"],
+  "referencias": ["Obys", "PERFECT DAYS official site (Wim Wenders)", "Ryoji Ikeda"]
+}

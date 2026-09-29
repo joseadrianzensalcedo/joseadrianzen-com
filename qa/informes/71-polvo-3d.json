@@ -1,0 +1,20 @@
+{
+ "slug": "71-polvo-3d",
+ "bytes_html": 64790,
+ "externos": [],
+ "libs": [
+  "three/three.module.min.js",
+  "three/addons/"
+ ],
+ "fuentes": [
+  "archivo"
+ ],
+ "imagenes_referenciadas": 53,
+ "bytes_imagenes_locales": 1823528,
+ "titulo": "Jose Adrianzen | Director de cine peruano",
+ "alto_1440": 15783,
+ "imagenes_en_dom": 56,
+ "problemas": [],
+ "avisos": [],
+ "ok": true
+}

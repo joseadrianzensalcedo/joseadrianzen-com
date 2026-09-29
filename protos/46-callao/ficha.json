@@ -1,0 +1,15 @@
+{
+  "n": 46,
+  "slug": "callao",
+  "nombre": "Callao",
+  "familia": "horizontal",
+  "concepto": "El puerto del Callao al atardecer convertido en sistema gráfico: la foto de las grúas abre la página completa y el nombre se estiba en el cielo naranja como una carga que baja de la pluma. Cada sección es una grúa numerada, los festivales son contenedores en un patio que se recorre de lado y la ficha técnica es la placa remachada de un contenedor.",
+  "paleta": ["#de7a35", "#eea56c", "#0f2a3e", "#0a1c2b", "#3f78ad", "#f7f3ec", "#8f99a3", "#b04a1c"],
+  "tipografias": ["Teko", "IBM Plex Sans"],
+  "layout": "Portada con la foto del puerto a todo el ancho y el nombre en la franja del cielo, secciones abiertas por números de grúa gigantes sobre filetes gruesos, bloques planos de naranja y marino, patio horizontal de 11 contenedores, placa técnica remachada y galerías justificadas sin recorte.",
+  "movimiento": "Entrada orquestada en la portada (la pluma se tiende y las letras bajan una a una como carga con un leve rebote), bloques que entran de lado como sobre un carro, patio con scroll horizontal nativo y escala de calado fija que marca la profundidad con animation-timeline, todo apagado con prefers-reduced-motion.",
+  "peso": "ligera",
+  "librerias": [],
+  "estilos": ["industrial portuario", "tipografía condensada", "foto a sangre", "bloques de color planos", "scroll horizontal", "señalética"],
+  "referencias": ["Oliver Laxe", "LxL Creative", "Adam Bricker", "Photographers' virtual gallery"]
+}

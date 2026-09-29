@@ -1,0 +1,24 @@
+{
+ "slug": "25-puente",
+ "bytes_html": 56146,
+ "externos": [],
+ "libs": [
+  "lenis.css",
+  "gsap.min.js",
+  "ScrollTrigger.min.js",
+  "SplitText.min.js",
+  "lenis.min.js"
+ ],
+ "fuentes": [
+  "fraunces",
+  "manrope"
+ ],
+ "imagenes_referenciadas": 53,
+ "bytes_imagenes_locales": 1823528,
+ "titulo": "Jose Adrianzen | Director de cine peruano",
+ "alto_1440": 15542,
+ "imagenes_en_dom": 56,
+ "problemas": [],
+ "avisos": [],
+ "ok": true
+}

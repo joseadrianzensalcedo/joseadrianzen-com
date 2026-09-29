@@ -1,0 +1,15 @@
+{
+  "n": 7,
+  "slug": "grilla-suiza",
+  "nombre": "Grilla suiza",
+  "familia": "blanco",
+  "concepto": "El estilo tipográfico internacional aplicado a la obra de un director: una grilla de 12 columnas que se ve de verdad, reglas negras de 1 px y números de sección 01 a 07 en el margen. Todo alineado a la izquierda, en blanco y negro, con el rojo suizo reservado para los enlaces.",
+  "paleta": ["#ffffff", "#000000", "#5f5f5f", "#ededed", "#d52b1e"],
+  "tipografias": ["Archivo"],
+  "layout": "Margen izquierdo con numeración fija y grilla de 12 columnas con subgrid para tablas de ficha, premios y selecciones, fotografía compuesta sobre columnas y rodaje de ECO en filas justificadas, que pasa a 6 y 4 columnas en móvil.",
+  "movimiento": "Las guías bajan escalonadas al cargar, el nombre sube línea por línea desde una máscara, la regla de cada sección se traza de izquierda a derecha al entrar y los bloques aparecen en 0,7 s con IntersectionObserver.",
+  "peso": "ligera",
+  "librerias": [],
+  "estilos": ["minimalismo", "tema claro", "tipografía protagonista", "grilla visible", "estilo suizo"],
+  "referencias": ["Artefakt", "Adam Bricker", "Hervé Baillargeon (director)"]
+}

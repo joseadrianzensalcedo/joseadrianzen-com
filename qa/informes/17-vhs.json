@@ -1,0 +1,24 @@
+{
+ "slug": "17-vhs",
+ "bytes_html": 57515,
+ "externos": [],
+ "libs": [
+  "lenis.css",
+  "gsap.min.js",
+  "ScrollTrigger.min.js",
+  "lenis.min.js"
+ ],
+ "fuentes": [
+  "share-tech-mono",
+  "vt323",
+  "ibm-plex-sans"
+ ],
+ "imagenes_referenciadas": 53,
+ "bytes_imagenes_locales": 1823528,
+ "titulo": "Jose Adrianzen | Director de cine peruano",
+ "alto_1440": 15108,
+ "imagenes_en_dom": 54,
+ "problemas": [],
+ "avisos": [],
+ "ok": true
+}

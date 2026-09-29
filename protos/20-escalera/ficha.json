@@ -1,0 +1,15 @@
+{
+  "n": 20,
+  "slug": "escalera",
+  "nombre": "La escalera",
+  "familia": "thriller",
+  "concepto": "Bajar la página es bajar la escalera de la casa de ECO: cada sección abre con un peldaño que tiene su borde encendido y su sombra larga, y los peldaños bajan hacia la izquierda, lejos de la lámpara que cuelga arriba a la derecha. Al bajar, la luz cálida se apaga y se enfría, el fondo pasa de ámbar a azul, y las fotos cuelgan en la pared como cuadros con marco dorado.",
+  "paleta": ["#3a2311", "#2c1d14", "#1a212c", "#0b1422", "#f1e6d2", "#c8b89c", "#c9a15a", "#9b7842", "#6e2620", "#ffc56e"],
+  "tipografias": ["Playfair Display", "Hanken Grotesk"],
+  "layout": "Losas de sección con sangría decreciente del 40 % al 5 % que forman la escalera, contenido a lo ancho debajo, galerías en cascada y filas justificadas escalonadas que bajan hacia la izquierda.",
+  "movimiento": "Entrada con GSAP en la que la lámpara parpadea y se enciende y el nombre baja a sus peldaños, fondo de ámbar a azul con scrub, losas que entran desde la luz, sombras de los títulos orientadas según la lámpara y Lenis.",
+  "peso": "media",
+  "librerias": ["gsap", "ScrollTrigger", "lenis"],
+  "estilos": ["transiciones", "tipografía protagonista", "fotografía inspirada en cine", "textos que se animan al desplazar"],
+  "referencias": ["PERFECT DAYS official site (Wim Wenders)", "Edoardo Smerilli, Film Director", "Siena Film Foundation"]
+}

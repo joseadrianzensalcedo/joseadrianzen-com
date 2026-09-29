@@ -1,0 +1,18 @@
+{
+ "slug": "06-galeria-blanca",
+ "bytes_html": 40893,
+ "externos": [],
+ "libs": [],
+ "fuentes": [
+  "cormorant",
+  "dm-mono"
+ ],
+ "imagenes_referenciadas": 53,
+ "bytes_imagenes_locales": 1823528,
+ "titulo": "Jose Adrianzen | Director de cine peruano",
+ "alto_1440": 18632,
+ "imagenes_en_dom": 54,
+ "problemas": [],
+ "avisos": [],
+ "ok": true
+}

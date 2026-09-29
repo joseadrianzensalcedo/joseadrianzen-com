@@ -1,0 +1,203 @@
+{
+  "nombre": "Jose Adrianzen",
+  "nombre_regla": "Siempre sin tilde: Jose Adrianzen. Nunca José, nunca Adrianzén.",
+  "rol_portada": "Director · Productor",
+  "titulo_html": "Jose Adrianzen | Director de cine peruano",
+  "descripcion_meta": "Jose Adrianzen, director de cine peruano. Su documental Entre polvo y sueños, sobre mujeres mineras del Perú, premiado en festivales, y el cortometraje ECO.",
+  "base": "Lima, Perú",
+  "sitio": "https://joseadrianzen.com",
+  "navegacion": [
+    { "href": "#documental", "txt": "Documental" },
+    { "href": "#eco", "txt": "ECO" },
+    { "href": "#fotografia", "txt": "Fotografía" },
+    { "href": "#director", "txt": "El director" },
+    { "href": "#blog", "txt": "Blog" },
+    { "href": "#contacto", "txt": "Contacto" }
+  ],
+  "documental": {
+    "titulo": "Entre polvo y sueños",
+    "etiqueta": "Documental · 2025",
+    "anio": "2025",
+    "golpe": "Ellas no solo buscan mineral.",
+    "sinopsis": [
+      "Tres años de rodaje en los socavones y las pampas del Perú, acompañando a un grupo de mujeres mineras. No son mineras informales sin más: buscan formalizarse, que las reconozcan y una vida mejor para los suyos.",
+      "La película es un puente entre ellas y el mundo: una historia de lucha filmada a pie de mina, para que su voz llegue lejos."
+    ],
+    "ficha_corta": "Perú · Documental · Digital 2K · Español · Subtítulos en francés, inglés y turco",
+    "ficha": [
+      ["Dirección", "Jose Adrianzen"],
+      ["Guion", "Jose Adrianzen"],
+      ["Producción general", "Jose Adrianzen y Solidaridad"],
+      ["Producido por", "Bálu · Solidaridad"],
+      ["País", "Perú"],
+      ["Formato", "Digital 2K"],
+      ["Idioma", "Español"],
+      ["Subtítulos", "Francés, inglés y turco"]
+    ],
+    "vimeo_trailer_id": "1056105326",
+    "vimeo_nota": "El id 1056105326 es el tráiler. El documental completo se encadena después con otro id que Jose entregará. En el prototipo, el botón 'Ver el documental' carga este id.",
+    "poster_video": "doc-mineras-b",
+    "afiche": { "archivo": "afiche", "ancho": 880, "alto": 1244, "alt": "Afiche de Entre polvo y sueños: una minera parte piedra en la ladera de un cerro" },
+    "premios": [
+      { "k": "Mejor documental", "v": "TITAN International Film Festival", "d": "Sídney, Australia · 3.ª edición · 2025" },
+      { "k": "Mejor guion", "v": "13.º Noida International Film Festival", "d": "Noida, India · 2026" },
+      { "k": "Best of Festival", "v": "Docuvision International Film Festival", "d": "Lewes, Delaware, EE. UU. · 2026" },
+      { "k": "Mención especial", "v": "13.º Noida International Film Festival", "d": "Noida, India · 2026" }
+    ],
+    "selecciones": [
+      { "n": "21.º International Labour Film Festival", "d": "Selección oficial · Türkiye · 2026" },
+      { "n": "The Workers Unite Film Festival", "d": "Selección oficial · Nueva York, EE. UU. · 2025" },
+      { "n": "London Vision Film Festival", "d": "Selección oficial · Londres, Reino Unido · 2025" },
+      { "n": "LISBIFF Lisboa Indie Film Festival", "d": "Selección oficial · Lisboa, Portugal · 2025" },
+      { "n": "Cine Invisible “Film Sozialak”", "d": "Selección oficial · Bilbao, España · 2026" },
+      { "n": "FIMMER · Festival Internacional de Mediometrajes", "d": "Sección oficial · Manzanares El Real, España · 2025" },
+      { "n": "ImoIFF Creatives International Film Festival", "d": "Selección oficial · Imo, Nigeria · 2025" },
+      { "n": "Cinego Shorts · Shorts on the Move", "d": "Selección oficial · Karachi, Pakistán" },
+      { "n": "Film Hour · Bodhak Studio", "d": "Selección oficial · India" },
+      { "n": "Cinematic Luxe Indie Showcase", "d": "Winter Fest 26 · Cincinnati, EE. UU." },
+      { "n": "20.ª Muestra Cine + Video Indígena", "d": "Selección oficial · Chile · 2026" }
+    ],
+    "fotogramas": [
+      ["doc-titulo", "Título del documental sobre fondo negro", 1280, 689],
+      ["doc-tunel-b", "Mineras caminan dentro del socavón con cascos y linternas", 1200, 649],
+      ["doc-mineras-b", "Tres mineras almuerzan sobre la roca bajo un cielo de polvo", 1200, 649],
+      ["doc-noche-b", "Minera con casco rojo llena sacos de piedra de noche", 1200, 649],
+      ["doc-casco-b", "Retrato de una minera con casco naranja junto a tuberías", 1200, 649],
+      ["doc-entrevista-b", "Mujer entrevistada en el interior de su vivienda", 1200, 649]
+    ],
+    "rodaje": [
+      ["bts-doc-2", "Jose Adrianzen dirige en la calle del asentamiento minero", 997, 560],
+      ["bts-doc-1", "Ajustando la cámara sobre el trípode en la pampa", 998, 560],
+      ["bts-doc-5", "Cámara y microfonista durante una entrevista", 997, 560],
+      ["bts-doc-3", "Jose conversa con las mineras en la plaza del pueblo", 997, 560],
+      ["bts-doc-4", "Jose explica una escena dentro de una tienda", 996, 560],
+      ["bts-doc-8", "Entrevista iluminada con rebotador y caña de sonido", 997, 560],
+      ["bts-doc-7", "Niños del pueblo miran el monitor de la cámara", 997, 560],
+      ["bts-doc-6", "Jose maneja el control del dron dentro del auto de noche", 997, 560]
+    ]
+  },
+  "eco": {
+    "titulo": "ECO",
+    "etiqueta": "Cortometraje · Thriller psicológico · 2023",
+    "sello": "Aún sin estrenar",
+    "aviso": "Está en circuito de festivales y todavía no se estrena, así que por ahora no se puede ver en línea. Pronto estará aquí.",
+    "golpe": "Una casa. Un secreto.",
+    "sinopsis": "César, un psiquiatra respetable, esconde una doble vida tras su consulta y su matrimonio. Cuando Victoria, su joven paciente y amante, reúne el valor para revelar la verdad, el frágil equilibrio de su mundo se rompe. Entre espejos, secretos y sospechas, la esposa a la que todos creen frágil resulta ser la más lúcida.",
+    "ficha_corta": "Perú · 2023 · 13 min 12 s · Digital 6K · Español",
+    "equipo": [
+      ["Dirección", "Jose Adrianzen"],
+      ["Guion", "Jose Adrianzen y Matilde Carrión"],
+      ["Producción", "Jose Adrianzen"],
+      ["Fotografía", "Fabricio Raciti"],
+      ["Arte", "Gonzalo Veratudela"],
+      ["Dir. de actores", "Aníbal Lozano"],
+      ["Montaje", "Jose Adrianzen"],
+      ["Sonido", "Casko Pérez"],
+      ["Música", "Augusto Madueño"]
+    ],
+    "portada": { "archivo": "eco-portada", "ancho": 1200, "alto": 675, "alt": "Fotograma de ECO: una figura baja la escalera de una casa antigua en penumbra" },
+    "still_extra": { "archivo": "eco-silla", "ancho": 705, "alto": 405, "alt": "Fotograma de ECO: una silla vacía en una habitación en penumbra" },
+    "progresion_de_luz": [
+      ["eco-luz-1", 258, 150], ["eco-luz-2", 256, 150], ["eco-luz-3", 255, 150], ["eco-luz-4", 254, 150], ["eco-luz-5", 253, 150]
+    ],
+    "progresion_de_luz_nota": "Cinco fotogramas chicos que muestran cómo cambia la luz de la escena. Se pueden usar como tira o como fondo, nunca ampliados más de 2x porque son de 258 px.",
+    "reparto": [
+      ["eco-cesar", "César", "Cristian Esquivel", 650, 377],
+      ["eco-cristina", "Cristina", "Fiorella Luna", 641, 404],
+      ["eco-victoria", "Victoria", "Yamile Caparó", 641, 404],
+      ["eco-madre", "La madre", "Motta", 641, 404]
+    ],
+    "rodaje_sin_pies_de_foto": true,
+    "rodaje": [
+      ["eco-bts-set", "El equipo ilumina el set mientras se prepara la escena", 349, 620],
+      ["eco-bts-cama", "Rodaje de la escena del dormitorio con luces cálidas y frías", 465, 620],
+      ["eco-bts-yamile", "Jose Adrianzen junto a Yamile Caparó con la claqueta", 465, 620],
+      ["eco-bts-cristian-jose", "Jose Adrianzen junto a Cristian Esquivel con la claqueta", 465, 620],
+      ["eco-bts-cristian", "Cristian Esquivel sostiene la claqueta de ECO", 465, 620],
+      ["eco-bts-locacion", "La sala de la casa vacía, antes de vestir el set", 1102, 620],
+      ["eco-bts-setcompleto", "El set montado con trípodes, banderas y las lámparas de la casa", 349, 620],
+      ["eco-bts-luces", "Escena del dormitorio iluminada con luz azul y cálida, con el equipo alrededor", 465, 620],
+      ["eco-bts-ensayo", "Jose Adrianzen da indicaciones al equipo con la caña de sonido sobre la escena", 349, 620],
+      ["eco-bts-claqueta3", "Dos miembros del equipo posan con la claqueta de la escena 3", 465, 620],
+      ["eco-bts-tomas", "Cristian Esquivel se toma una foto entre tomas junto a Victoria en el piso", 465, 620],
+      ["eco-bts-descanso", "Un miembro del equipo descansa en un sillón durante el rodaje", 349, 620],
+      ["eco-bts-reparto", "Jose Adrianzen con Matilde Carrión y el reparto sobre la cama del set", 786, 620]
+    ]
+  },
+  "fotografia": {
+    "etiqueta": "Bitácora visual",
+    "titulo": "Fotografía",
+    "credito": "@jadrianzens",
+    "fotos": [
+      ["fot-puerto", "Grúas del puerto del Callao bajo un cielo naranja", 1200, 748],
+      ["fot-mar", "Mar abierto con barcos en el horizonte al amanecer", 1200, 695],
+      ["fot-barco", "Barco pesquero solitario sobre un mar naranja", 1200, 748],
+      ["fot-gaviota", "Proa de un buque, una gaviota y un remolcador en el puerto", 631, 635],
+      ["fot-muelle", "Muelle de madera sobre un mar turquesa", 1000, 747],
+      ["fot-barcelona", "Fachadas con balcones en Barcelona", 698, 862],
+      ["fot-louvre", "Pirámide del Museo del Louvre contra las nubes", 1000, 748]
+    ]
+  },
+  "director": {
+    "etiqueta": "Sobre el director",
+    "titulo": "Jose Adrianzen",
+    "retrato": { "archivo": "jose-retrato-b", "ancho": 1182, "alto": 1186, "alt": "Jose Adrianzen sentado junto a una escalera de madera" },
+    "foto_escenario": { "archivo": "jose-escenario", "ancho": 938, "alto": 626, "alt": "Jose Adrianzen habla con micrófono durante una presentación" },
+    "bio": [
+      "Desde pequeño, el cine y la política fueron mis dos grandes pasiones. Al inicio quería ser presidente, así que estudié derecho para entender a fondo las leyes y el funcionamiento del Estado. La vida me llevó por otro camino: en el cine encontré una forma más poderosa de generar impacto y de contar las historias que merecen ser escuchadas.",
+      "La curiosidad me ha llevado a recorrer casi todo el Perú, buena parte de Sudamérica y distintos rincones del mundo. Esos viajes me enseñaron a mirar realidades muy distintas a la mía y me confirmaron algo: el cine es una herramienta de transformación social. Con esa convicción decidí dedicarme por completo a la creación audiovisual.",
+      "Tengo estudios en cine y en actuación. Quería aportar a la industria del cine también desde la gestión: producción, financiamiento y distribución. Por eso decidí estudiar ingeniería empresarial.",
+      "En los últimos años he trabajado con varias ONGs, contando historias que suelen quedar en el olvido. Terminé de rodar el cortometraje ECO, hoy en circuito de festivales. Pero el proyecto que ha marcado mi trayectoria es Entre polvo y sueños: tres años de mi vida para dar voz a las mujeres mineras del Perú y reivindicar su lucha."
+    ],
+    "bio_negritas": ["el cine es una herramienta de transformación social", "estudios en cine y en actuación", "ingeniería empresarial", "ECO", "Entre polvo y sueños"],
+    "datos": [
+      ["Base", "Lima, Perú"],
+      ["Formación", "Cine y actuación"],
+      ["Gestión", "Ingeniería empresarial"],
+      ["Antes", "TV, publicidad y ONGs"]
+    ],
+    "cita": "Siempre he creído que las personas valen mucho y que, si es necesario, hay que llegar hasta el último rincón para visibilizarlas.",
+    "cita_autor": "Jose Adrianzen",
+    "muro_titulo": "En cámara y fuera de ella",
+    "muro": [
+      ["jose-retrato-b", "Jose Adrianzen sentado junto a una escalera de madera", 1182, 1186],
+      ["jose-calavera", "Jose Adrianzen actuando, encapuchado y con una calavera y una vela", 1000, 560],
+      ["jose-teatro", "Jose Adrianzen en escena durante una obra de teatro", 828, 758],
+      ["jose-shipibo", "Jose Adrianzen junto a músicos shipibo, en blanco y negro", 1000, 669],
+      ["jose-taxi", "Jose Adrianzen dentro de un taxi frente a un mural, en blanco y negro", 1000, 665],
+      ["jose-naipes", "Claqueta de rodaje sobre una mesa de juego", 1000, 561]
+    ]
+  },
+  "blog": {
+    "titulo": "Blog",
+    "etiqueta": "Notas sobre cine",
+    "url": "https://joseadrianzen.com/blog/",
+    "articulos": [
+      { "titulo": "Nadie financia un documental que nunca le propusiste", "url": "https://joseadrianzen.com/blog/como-financiar-un-documental/", "tema": "Cómo se financió Entre polvo y sueños", "imagen": "afiche" },
+      { "titulo": "La inteligencia artificial no sabe dónde poner la cámara", "url": "https://joseadrianzen.com/blog/la-ia-no-sabe-donde-poner-la-camara/", "tema": "La IA como herramienta, no como directora", "imagen": "bts-doc-1" }
+    ]
+  },
+  "contacto": {
+    "etiqueta": "Proyectos, festivales y colaboraciones",
+    "titulo": "Contacto",
+    "lugar": "Lima · Perú",
+    "vias": [
+      { "t": "Correo", "v": "yo@joseadrianzen.com", "href": "mailto:yo@joseadrianzen.com" },
+      { "t": "WhatsApp", "v": "+51 984 323 201", "href": "https://wa.me/51984323201" },
+      { "t": "Instagram", "v": "@jadrianzens", "href": "https://www.instagram.com/jadrianzens/" },
+      { "t": "LinkedIn", "v": "/in/joseadrianzens", "href": "https://www.linkedin.com/in/joseadrianzens/" }
+    ]
+  },
+  "pie": {
+    "derechos": "© 2026 Jose Adrianzen · Todos los derechos reservados",
+    "dominio": "joseadrianzen.com",
+    "correo_web": "https://joseadrianzen.com/correo/"
+  },
+  "fuentes_locales": {
+    "carpeta": "../assets/fonts/",
+    "anton": ["anton-400-latin.woff2", "anton-400-latin-ext.woff2"],
+    "archivo": ["archivo-300-latin.woff2", "archivo-400-latin.woff2", "archivo-500-latin.woff2", "archivo-300-latin-ext.woff2", "archivo-400-latin-ext.woff2", "archivo-500-latin-ext.woff2"],
+    "special_elite": ["special-elite-400-latin.woff2", "special-elite-400-latin-ext.woff2"]
+  },
+  "paleta_actual": { "negro": "#050505", "negro2": "#0c0b0a", "blanco": "#f2efe9", "polvo": "#d68a2e", "oro": "#c9a55c", "humo": "#8a837a", "linea": "#232019" }
+}

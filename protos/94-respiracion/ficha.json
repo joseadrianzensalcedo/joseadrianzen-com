@@ -1,0 +1,15 @@
+{
+  "n": 94,
+  "slug": "respiracion",
+  "nombre": "Respiración",
+  "familia": "fluido",
+  "concepto": "La página inhala y exhala: todo aparece con fundidos de 900 ms y curvas suaves en los dos extremos, nada salta, y el nombre de la portada exhala mientras entra en foco. El único color propio es el naranja del casco de las mineras, que sale del fotograma que abre la página y vuelve como un punto que late despacio.",
+  "paleta": ["#f0eeea", "#e7e3dc", "#dcd7cf", "#2e2a26", "#6f6a63", "#e3842c"],
+  "tipografias": ["Figtree"],
+  "layout": "Retícula de 12 columnas con mucho aire entre bloques, imágenes desplazadas que alternan izquierda y derecha, medidas de texto cortas y una galería de fotografía compuesta a mano en vez de un muro.",
+  "movimiento": "IntersectionObserver con fundidos de 900 ms y cubic-bezier(.45,0,.25,1), escalonados de 120 ms, imágenes que se asientan en 2,4 s, visor con fundido, punto naranja que respira cada 5 s y revelado inmediato solo cuando el scroll va demasiado rápido para apreciarlo.",
+  "peso": "ligera",
+  "librerias": [],
+  "estilos": ["minimalismo", "tema claro", "mucho espacio en blanco", "transiciones suaves", "tipografía fina"],
+  "referencias": ["Hervé Baillargeon (director)", "Albert Serra", "Siena Film Foundation"]
+}

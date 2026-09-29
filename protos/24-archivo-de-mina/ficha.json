@@ -1,0 +1,15 @@
+{
+  "n": 24,
+  "slug": "archivo-de-mina",
+  "nombre": "Archivo de mina",
+  "familia": "documental",
+  "concepto": "La obra de Jose tratada como un fondo de archivo fílmico: cada foto es un registro con código de rollo, fecha, lugar y medidas, y los premios y selecciones son un libro de registro. Donde el dato no existe se anota como en archivo (s. f., s. l.) y nunca se inventa.",
+  "paleta": ["#d1cfc8", "#c5c3bb", "#1c1b19", "#4a4843", "#b8721b", "#8a5412"],
+  "tipografias": ["Schibsted Grotesk", "JetBrains Mono"],
+  "layout": "Índice lateral fijo con los códigos de cada serie y el archivo en rejilla de 12 columnas con filetes, cabeceras de serie pegajosas, fichas de imagen con barra de metadatos y tablas de registro que en móvil se vuelven fichas apiladas.",
+  "movimiento": "Una línea de escáner ocre barre la portada y revela el nombre; las fotos se escanean de arriba abajo al entrar, las filas de las tablas se imprimen en orden y el índice marca la serie activa; todo se apaga con movimiento reducido.",
+  "peso": "ligera",
+  "librerias": [],
+  "estilos": ["ficha técnica visible", "metadatos como diseño", "tabla de registro", "rejilla suiza", "minimalismo"],
+  "referencias": ["Adam Bricker", "Salomon Ligthelm", "Velour Productions"]
+}

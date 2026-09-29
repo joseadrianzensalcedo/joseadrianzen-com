@@ -1,0 +1,15 @@
+{
+  "n": 91,
+  "slug": "lenis-puro",
+  "nombre": "Lenis puro",
+  "familia": "fluido",
+  "concepto": "Toda la web se desliza con inercia, como un travelling lento sobre rieles, y cada imagen entra como un plano que se abre desde una línea de luz, igual que un obturador. El nombre gigante lleva un fotograma del socavón dentro de su primera línea.",
+  "paleta": ["#0e0c0a", "#17140f", "#f4efe7", "#d8d1c6", "#9b9288", "#2b2621"],
+  "tipografias": ["Inter Tight"],
+  "layout": "Retícula de 12 columnas a margen amplio con títulos gigantes en 500 y ECO en 200, listas de premios a toda la anchura y muros de fotos en filas justificadas del mismo alto, sin recortar ninguna imagen.",
+  "movimiento": "Lenis en todo el scroll con lerp 0,075, GSAP solo en tres reveals (portada, título del documental y cita palabra por palabra) y una máscara con clip-path que abre cada imagen desde el centro por IntersectionObserver.",
+  "peso": "media",
+  "librerias": ["lenis", "gsap", "ScrollTrigger"],
+  "estilos": ["scroll suave con Lenis", "tipografía gigante animada", "tema negro", "máscaras de revelado", "transiciones suaves"],
+  "referencias": ["Hervé Baillargeon (director)", "Locomotive", "Siena Film Foundation", "Obys"]
+}

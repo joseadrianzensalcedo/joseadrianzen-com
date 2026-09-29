@@ -1,0 +1,18 @@
+{
+ "slug": "02-ficha-de-producto",
+ "bytes_html": 57914,
+ "externos": [],
+ "libs": [],
+ "fuentes": [
+  "instrument-sans",
+  "jetbrains-mono"
+ ],
+ "imagenes_referenciadas": 53,
+ "bytes_imagenes_locales": 1823528,
+ "titulo": "Jose Adrianzen | Director de cine peruano",
+ "alto_1440": 22021,
+ "imagenes_en_dom": 58,
+ "problemas": [],
+ "avisos": [],
+ "ok": true
+}

@@ -1,0 +1,15 @@
+{
+  "n": 66,
+  "slug": "scroll-lateral",
+  "nombre": "Scroll lateral",
+  "familia": "horizontal",
+  "concepto": "La web es un tren de siete vagones que avanza de lado: la rueda vertical empuja el tren hacia la izquierda y cada sección es un vagón con su color de tierra y su carga acomodada en compartimentos. El nombre llega letra por letra desde la derecha, como vagones que se enganchan, y el rótulo de cada vagón se queda pegado a la izquierda mientras pasa.",
+  "paleta": ["#15120f", "#ede6d8", "#c4762b", "#2e1815", "#16343c"],
+  "tipografias": ["Epilogue"],
+  "layout": "Pista horizontal entre una banda de cabecera y un riel con durmientes, vagones de alto fijo y ancho libre con compartimentos en columnas e imágenes dimensionadas por alto, que en móvil y con movimiento reducido se apilan en vertical.",
+  "movimiento": "Lenis más GSAP ScrollTrigger con pin y transform convierten la rueda en avance lateral, con llegada orquestada del nombre, durmientes que corren con el scroll, rótulos pegados por vagón, flechas del teclado y foco que lleva el tren hasta el elemento.",
+  "peso": "media",
+  "librerias": ["gsap", "ScrollTrigger", "lenis"],
+  "estilos": ["layout horizontal", "scroll horizontal", "narrativa por scroll", "tipografía gigante", "bloques de color", "pantalla completa"],
+  "referencias": ["War in Ukraine (Artem Militonian)", "Photographers' virtual gallery", "Gil Huybrecht"]
+}

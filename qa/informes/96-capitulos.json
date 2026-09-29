@@ -1,0 +1,23 @@
+{
+ "slug": "96-capitulos",
+ "bytes_html": 60542,
+ "externos": [],
+ "libs": [
+  "lenis.css",
+  "gsap.min.js",
+  "ScrollTrigger.min.js",
+  "SplitText.min.js",
+  "lenis.min.js"
+ ],
+ "fuentes": [
+  "newsreader"
+ ],
+ "imagenes_referenciadas": 53,
+ "bytes_imagenes_locales": 1823528,
+ "titulo": "Jose Adrianzen | Director de cine peruano",
+ "alto_1440": 19971,
+ "imagenes_en_dom": 71,
+ "problemas": [],
+ "avisos": [],
+ "ok": true
+}

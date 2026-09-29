@@ -1,0 +1,15 @@
+{
+  "n": 61,
+  "slug": "cahiers",
+  "nombre": "Cahiers",
+  "familia": "editorial",
+  "concepto": "La web es un número especial de una revista de cine dedicado a Jose Adrianzen, con tapa amarilla al modo de los viejos Cahiers y la mancheta con su nombre a todo el ancho. Adentro se lee como revista: dossier del documental, estreno pendiente de ECO en páginas negras, portafolio, entrevista, notas y correspondencia.",
+  "paleta": ["#f3cf21", "#121211", "#faf7ee", "#5c5850", "#aaa497"],
+  "tipografias": ["Libre Franklin", "EB Garamond"],
+  "layout": "Tapa con mancheta, número y año, foto central y titulares de tapa a los costados que son la navegación; interior en retícula de 12 columnas con rúbricas entre filetes, capitulares sobre bloque amarillo, ficha técnica en recuadro, afiche fijo junto al palmarés, hoja de contactos para el rodaje de ECO y cabezal fijo que nombra la rúbrica en curso.",
+  "movimiento": "Una sola entrada orquestada de la tapa (sube la mancheta, se tienden los filetes, la foto se imprime de arriba abajo y los titulares entran en cascada), revelados suaves con IntersectionObserver, titulares de tapa que se invierten al pasar y el sello de ECO que se estampa; todo apagado con movimiento reducido.",
+  "peso": "ligera",
+  "librerias": [],
+  "estilos": ["editorial impreso", "revista de cine", "mancheta tipográfica", "retícula de 12 columnas", "capitulares", "pies de foto en itálica"],
+  "referencias": ["Adam Bricker", "Artefakt", "Hervé Baillargeon (director)"]
+}

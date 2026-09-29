@@ -1,0 +1,24 @@
+{
+ "slug": "16-espejo",
+ "bytes_html": 50825,
+ "externos": [],
+ "libs": [
+  "lenis.css",
+  "gsap.min.js",
+  "ScrollTrigger.min.js",
+  "SplitText.min.js",
+  "lenis.min.js"
+ ],
+ "fuentes": [
+  "bodoni-moda",
+  "jost"
+ ],
+ "imagenes_referenciadas": 53,
+ "bytes_imagenes_locales": 1823528,
+ "titulo": "Jose Adrianzen | Director de cine peruano",
+ "alto_1440": 16058,
+ "imagenes_en_dom": 54,
+ "problemas": [],
+ "avisos": [],
+ "ok": true
+}

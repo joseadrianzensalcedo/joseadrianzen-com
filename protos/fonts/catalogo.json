@@ -1,0 +1,1161 @@
+[
+{
+"slug": "anybody",
+"familia": "Anybody",
+"categoria": "display",
+"variable": true,
+"pesos": "100 a 900",
+"ejes": [
+"ital",
+"wdth",
+"wght"
+],
+"css": "../fonts/anybody.css",
+"kb": 48
+},
+{
+"slug": "archivo",
+"familia": "Archivo",
+"categoria": "sans-serif",
+"variable": true,
+"pesos": "100 a 900",
+"ejes": [
+"ital",
+"wdth",
+"wght"
+],
+"css": "../fonts/archivo.css",
+"kb": 72
+},
+{
+"slug": "big-shoulders-display",
+"familia": "Big Shoulders Display",
+"categoria": "display",
+"variable": true,
+"pesos": "100 a 900",
+"ejes": [
+"wght"
+],
+"css": "../fonts/big-shoulders-display.css",
+"kb": 34
+},
+{
+"slug": "bodoni-moda",
+"familia": "Bodoni Moda",
+"categoria": "serif",
+"variable": true,
+"pesos": "400 a 900",
+"ejes": [
+"ital",
+"opsz",
+"wght"
+],
+"css": "../fonts/bodoni-moda.css",
+"kb": 54
+},
+{
+"slug": "bricolage-grotesque",
+"familia": "Bricolage Grotesque",
+"categoria": "sans-serif",
+"variable": true,
+"pesos": "200 a 800",
+"ejes": [
+"opsz",
+"wdth",
+"wght"
+],
+"css": "../fonts/bricolage-grotesque.css",
+"kb": 40
+},
+{
+"slug": "chivo",
+"familia": "Chivo",
+"categoria": "sans-serif",
+"variable": true,
+"pesos": "100 a 900",
+"ejes": [
+"ital",
+"wght"
+],
+"css": "../fonts/chivo.css",
+"kb": 69
+},
+{
+"slug": "cinzel",
+"familia": "Cinzel",
+"categoria": "serif",
+"variable": true,
+"pesos": "400 a 900",
+"ejes": [
+"wght"
+],
+"css": "../fonts/cinzel.css",
+"kb": 25
+},
+{
+"slug": "cormorant",
+"familia": "Cormorant",
+"categoria": "serif",
+"variable": true,
+"pesos": "300 a 700",
+"ejes": [
+"ital",
+"wght"
+],
+"css": "../fonts/cormorant.css",
+"kb": 71
+},
+{
+"slug": "crimson-pro",
+"familia": "Crimson Pro",
+"categoria": "serif",
+"variable": true,
+"pesos": "200 a 900",
+"ejes": [
+"ital",
+"wght"
+],
+"css": "../fonts/crimson-pro.css",
+"kb": 97
+},
+{
+"slug": "dm-sans",
+"familia": "DM Sans",
+"categoria": "sans-serif",
+"variable": true,
+"pesos": "100 a 1000",
+"ejes": [
+"ital",
+"opsz",
+"wght"
+],
+"css": "../fonts/dm-sans.css",
+"kb": 74
+},
+{
+"slug": "eb-garamond",
+"familia": "EB Garamond",
+"categoria": "serif",
+"variable": true,
+"pesos": "400 a 800",
+"ejes": [
+"ital",
+"wght"
+],
+"css": "../fonts/eb-garamond.css",
+"kb": 90
+},
+{
+"slug": "epilogue",
+"familia": "Epilogue",
+"categoria": "sans-serif",
+"variable": true,
+"pesos": "100 a 900",
+"ejes": [
+"ital",
+"wght"
+],
+"css": "../fonts/epilogue.css",
+"kb": 71
+},
+{
+"slug": "figtree",
+"familia": "Figtree",
+"categoria": "sans-serif",
+"variable": true,
+"pesos": "300 a 900",
+"ejes": [
+"ital",
+"wght"
+],
+"css": "../fonts/figtree.css",
+"kb": 40
+},
+{
+"slug": "fraunces",
+"familia": "Fraunces",
+"categoria": "serif",
+"variable": true,
+"pesos": "100 a 900",
+"ejes": [
+"ital",
+"opsz",
+"wght",
+"SOFT",
+"WONK"
+],
+"css": "../fonts/fraunces.css",
+"kb": 80
+},
+{
+"slug": "geist",
+"familia": "Geist",
+"categoria": "sans-serif",
+"variable": true,
+"pesos": "100 a 900",
+"ejes": [
+"ital",
+"wght"
+],
+"css": "../fonts/geist.css",
+"kb": 58
+},
+{
+"slug": "geist-mono",
+"familia": "Geist Mono",
+"categoria": "monospace",
+"variable": true,
+"pesos": "100 a 900",
+"ejes": [
+"ital",
+"wght"
+],
+"css": "../fonts/geist-mono.css",
+"kb": 47
+},
+{
+"slug": "gluten",
+"familia": "Gluten",
+"categoria": "display",
+"variable": true,
+"pesos": "100 a 900",
+"ejes": [
+"slnt",
+"wght"
+],
+"css": "../fonts/gluten.css",
+"kb": 47
+},
+{
+"slug": "hanken-grotesk",
+"familia": "Hanken Grotesk",
+"categoria": "sans-serif",
+"variable": true,
+"pesos": "100 a 900",
+"ejes": [
+"ital",
+"wght"
+],
+"css": "../fonts/hanken-grotesk.css",
+"kb": 68
+},
+{
+"slug": "ibm-plex-sans",
+"familia": "IBM Plex Sans",
+"categoria": "sans-serif",
+"variable": true,
+"pesos": "100 a 700",
+"ejes": [
+"ital",
+"wdth",
+"wght"
+],
+"css": "../fonts/ibm-plex-sans.css",
+"kb": 93
+},
+{
+"slug": "instrument-sans",
+"familia": "Instrument Sans",
+"categoria": "sans-serif",
+"variable": true,
+"pesos": "400 a 700",
+"ejes": [
+"ital",
+"wdth",
+"wght"
+],
+"css": "../fonts/instrument-sans.css",
+"kb": 60
+},
+{
+"slug": "inter-tight",
+"familia": "Inter Tight",
+"categoria": "sans-serif",
+"variable": true,
+"pesos": "100 a 900",
+"ejes": [
+"ital",
+"wght"
+],
+"css": "../fonts/inter-tight.css",
+"kb": 90
+},
+{
+"slug": "jetbrains-mono",
+"familia": "JetBrains Mono",
+"categoria": "monospace",
+"variable": true,
+"pesos": "100 a 800",
+"ejes": [
+"ital",
+"wght"
+],
+"css": "../fonts/jetbrains-mono.css",
+"kb": 81
+},
+{
+"slug": "josefin-sans",
+"familia": "Josefin Sans",
+"categoria": "sans-serif",
+"variable": true,
+"pesos": "100 a 700",
+"ejes": [
+"ital",
+"wght"
+],
+"css": "../fonts/josefin-sans.css",
+"kb": 58
+},
+{
+"slug": "jost",
+"familia": "Jost",
+"categoria": "sans-serif",
+"variable": true,
+"pesos": "100 a 900",
+"ejes": [
+"ital",
+"wght"
+],
+"css": "../fonts/jost.css",
+"kb": 55
+},
+{
+"slug": "karla",
+"familia": "Karla",
+"categoria": "sans-serif",
+"variable": true,
+"pesos": "200 a 800",
+"ejes": [
+"ital",
+"wght"
+],
+"css": "../fonts/karla.css",
+"kb": 63
+},
+{
+"slug": "league-gothic",
+"familia": "League Gothic",
+"categoria": "sans-serif",
+"variable": true,
+"pesos": "400 a 400",
+"ejes": [
+"wdth"
+],
+"css": "../fonts/league-gothic.css",
+"kb": 18
+},
+{
+"slug": "libre-franklin",
+"familia": "Libre Franklin",
+"categoria": "sans-serif",
+"variable": true,
+"pesos": "100 a 900",
+"ejes": [
+"ital",
+"wght"
+],
+"css": "../fonts/libre-franklin.css",
+"kb": 60
+},
+{
+"slug": "literata",
+"familia": "Literata",
+"categoria": "serif",
+"variable": true,
+"pesos": "200 a 900",
+"ejes": [
+"ital",
+"opsz",
+"wght"
+],
+"css": "../fonts/literata.css",
+"kb": 103
+},
+{
+"slug": "lora",
+"familia": "Lora",
+"categoria": "serif",
+"variable": true,
+"pesos": "400 a 700",
+"ejes": [
+"ital",
+"wght"
+],
+"css": "../fonts/lora.css",
+"kb": 76
+},
+{
+"slug": "manrope",
+"familia": "Manrope",
+"categoria": "sans-serif",
+"variable": true,
+"pesos": "200 a 800",
+"ejes": [
+"wght"
+],
+"css": "../fonts/manrope.css",
+"kb": 24
+},
+{
+"slug": "montagu-slab",
+"familia": "Montagu Slab",
+"categoria": "serif",
+"variable": true,
+"pesos": "100 a 700",
+"ejes": [
+"opsz",
+"wght"
+],
+"css": "../fonts/montagu-slab.css",
+"kb": 46
+},
+{
+"slug": "newsreader",
+"familia": "Newsreader",
+"categoria": "serif",
+"variable": true,
+"pesos": "200 a 800",
+"ejes": [
+"ital",
+"opsz",
+"wght"
+],
+"css": "../fonts/newsreader.css",
+"kb": 119
+},
+{
+"slug": "nunito-sans",
+"familia": "Nunito Sans",
+"categoria": "sans-serif",
+"variable": true,
+"pesos": "200 a 1000",
+"ejes": [
+"ital",
+"opsz",
+"wdth",
+"wght",
+"YTLC"
+],
+"css": "../fonts/nunito-sans.css",
+"kb": 62
+},
+{
+"slug": "oswald",
+"familia": "Oswald",
+"categoria": "sans-serif",
+"variable": true,
+"pesos": "200 a 700",
+"ejes": [
+"wght"
+],
+"css": "../fonts/oswald.css",
+"kb": 27
+},
+{
+"slug": "outfit",
+"familia": "Outfit",
+"categoria": "sans-serif",
+"variable": true,
+"pesos": "100 a 900",
+"ejes": [
+"wght"
+],
+"css": "../fonts/outfit.css",
+"kb": 31
+},
+{
+"slug": "playfair-display",
+"familia": "Playfair Display",
+"categoria": "serif",
+"variable": true,
+"pesos": "400 a 900",
+"ejes": [
+"ital",
+"wght"
+],
+"css": "../fonts/playfair-display.css",
+"kb": 75
+},
+{
+"slug": "public-sans",
+"familia": "Public Sans",
+"categoria": "sans-serif",
+"variable": true,
+"pesos": "100 a 900",
+"ejes": [
+"ital",
+"wght"
+],
+"css": "../fonts/public-sans.css",
+"kb": 53
+},
+{
+"slug": "red-hat-display",
+"familia": "Red Hat Display",
+"categoria": "sans-serif",
+"variable": true,
+"pesos": "300 a 900",
+"ejes": [
+"ital",
+"wght"
+],
+"css": "../fonts/red-hat-display.css",
+"kb": 61
+},
+{
+"slug": "roboto-flex",
+"familia": "Roboto Flex",
+"categoria": "sans-serif",
+"variable": true,
+"pesos": "100 a 1000",
+"ejes": [
+"opsz",
+"slnt",
+"wdth",
+"wght",
+"GRAD",
+"XOPQ",
+"XTRA",
+"YOPQ",
+"YTAS",
+"YTDE",
+"YTFI",
+"YTLC",
+"YTUC"
+],
+"css": "../fonts/roboto-flex.css",
+"kb": 33
+},
+{
+"slug": "schibsted-grotesk",
+"familia": "Schibsted Grotesk",
+"categoria": "sans-serif",
+"variable": true,
+"pesos": "400 a 900",
+"ejes": [
+"ital",
+"wght"
+],
+"css": "../fonts/schibsted-grotesk.css",
+"kb": 94
+},
+{
+"slug": "sora",
+"familia": "Sora",
+"categoria": "sans-serif",
+"variable": true,
+"pesos": "100 a 800",
+"ejes": [
+"wght"
+],
+"css": "../fonts/sora.css",
+"kb": 32
+},
+{
+"slug": "source-serif-4",
+"familia": "Source Serif 4",
+"categoria": "serif",
+"variable": true,
+"pesos": "200 a 900",
+"ejes": [
+"ital",
+"opsz",
+"wght"
+],
+"css": "../fonts/source-serif-4.css",
+"kb": 99
+},
+{
+"slug": "space-grotesk",
+"familia": "Space Grotesk",
+"categoria": "sans-serif",
+"variable": true,
+"pesos": "300 a 700",
+"ejes": [
+"wght"
+],
+"css": "../fonts/space-grotesk.css",
+"kb": 21
+},
+{
+"slug": "syne",
+"familia": "Syne",
+"categoria": "sans-serif",
+"variable": true,
+"pesos": "400 a 800",
+"ejes": [
+"wght"
+],
+"css": "../fonts/syne.css",
+"kb": 33
+},
+{
+"slug": "tourney",
+"familia": "Tourney",
+"categoria": "display",
+"variable": true,
+"pesos": "100 a 900",
+"ejes": [
+"ital",
+"wdth",
+"wght"
+],
+"css": "../fonts/tourney.css",
+"kb": 49
+},
+{
+"slug": "unbounded",
+"familia": "Unbounded",
+"categoria": "sans-serif",
+"variable": true,
+"pesos": "200 a 900",
+"ejes": [
+"wght"
+],
+"css": "../fonts/unbounded.css",
+"kb": 49
+},
+{
+"slug": "yrsa",
+"familia": "Yrsa",
+"categoria": "serif",
+"variable": true,
+"pesos": "300 a 700",
+"ejes": [
+"ital",
+"wght"
+],
+"css": "../fonts/yrsa.css",
+"kb": 97
+},
+{
+"slug": "abril-fatface",
+"familia": "Abril Fatface",
+"categoria": "display",
+"variable": false,
+"pesos": "400",
+"ejes": [],
+"css": "../fonts/abril-fatface.css",
+"kb": 12
+},
+{
+"slug": "alfa-slab-one",
+"familia": "Alfa Slab One",
+"categoria": "display",
+"variable": false,
+"pesos": "400",
+"ejes": [],
+"css": "../fonts/alfa-slab-one.css",
+"kb": 18
+},
+{
+"slug": "allerta-stencil",
+"familia": "Allerta Stencil",
+"categoria": "sans-serif",
+"variable": false,
+"pesos": "400",
+"ejes": [],
+"css": "../fonts/allerta-stencil.css",
+"kb": 8
+},
+{
+"slug": "amatic-sc",
+"familia": "Amatic SC",
+"categoria": "handwriting",
+"variable": false,
+"pesos": "400, 700",
+"ejes": [],
+"css": "../fonts/amatic-sc.css",
+"kb": 54
+},
+{
+"slug": "archivo-black",
+"familia": "Archivo Black",
+"categoria": "sans-serif",
+"variable": false,
+"pesos": "400",
+"ejes": [],
+"css": "../fonts/archivo-black.css",
+"kb": 18
+},
+{
+"slug": "barlow-condensed",
+"familia": "Barlow Condensed",
+"categoria": "sans-serif",
+"variable": false,
+"pesos": "100, 200, 300, 400, 500, 600, 700, 800, 900",
+"ejes": [],
+"css": "../fonts/barlow-condensed.css",
+"kb": 397
+},
+{
+"slug": "bebas-neue",
+"familia": "Bebas Neue",
+"categoria": "sans-serif",
+"variable": false,
+"pesos": "400",
+"ejes": [],
+"css": "../fonts/bebas-neue.css",
+"kb": 13
+},
+{
+"slug": "big-shoulders-stencil-display",
+"familia": "Big Shoulders Stencil Display",
+"categoria": "display",
+"variable": false,
+"pesos": "100, 200, 300, 400, 500, 600, 700, 800, 900",
+"ejes": [],
+"css": "../fonts/big-shoulders-stencil-display.css",
+"kb": 126
+},
+{
+"slug": "bitter",
+"familia": "Bitter",
+"categoria": "serif",
+"variable": false,
+"pesos": "100, 200, 300, 400, 500, 600, 700, 800, 900",
+"ejes": [],
+"css": "../fonts/bitter.css",
+"kb": 324
+},
+{
+"slug": "bungee",
+"familia": "Bungee",
+"categoria": "display",
+"variable": false,
+"pesos": "400",
+"ejes": [],
+"css": "../fonts/bungee.css",
+"kb": 14
+},
+{
+"slug": "bungee-shade",
+"familia": "Bungee Shade",
+"categoria": "display",
+"variable": false,
+"pesos": "400",
+"ejes": [],
+"css": "../fonts/bungee-shade.css",
+"kb": 29
+},
+{
+"slug": "caveat",
+"familia": "Caveat",
+"categoria": "handwriting",
+"variable": false,
+"pesos": "400, 500, 600, 700",
+"ejes": [],
+"css": "../fonts/caveat.css",
+"kb": 197
+},
+{
+"slug": "climate-crisis",
+"familia": "Climate Crisis",
+"categoria": "display",
+"variable": false,
+"pesos": "400",
+"ejes": [],
+"css": "../fonts/climate-crisis.css",
+"kb": 16
+},
+{
+"slug": "cormorant-garamond",
+"familia": "Cormorant Garamond",
+"categoria": "serif",
+"variable": false,
+"pesos": "300, 400, 500, 600, 700",
+"ejes": [],
+"css": "../fonts/cormorant-garamond.css",
+"kb": 224
+},
+{
+"slug": "courier-prime",
+"familia": "Courier Prime",
+"categoria": "monospace",
+"variable": false,
+"pesos": "400, 700",
+"ejes": [],
+"css": "../fonts/courier-prime.css",
+"kb": 79
+},
+{
+"slug": "dela-gothic-one",
+"familia": "Dela Gothic One",
+"categoria": "display",
+"variable": false,
+"pesos": "400",
+"ejes": [],
+"css": "../fonts/dela-gothic-one.css",
+"kb": 13
+},
+{
+"slug": "dm-mono",
+"familia": "DM Mono",
+"categoria": "monospace",
+"variable": false,
+"pesos": "300, 400, 500",
+"ejes": [],
+"css": "../fonts/dm-mono.css",
+"kb": 90
+},
+{
+"slug": "dm-serif-display",
+"familia": "DM Serif Display",
+"categoria": "serif",
+"variable": false,
+"pesos": "400",
+"ejes": [],
+"css": "../fonts/dm-serif-display.css",
+"kb": 48
+},
+{
+"slug": "fascinate",
+"familia": "Fascinate",
+"categoria": "display",
+"variable": false,
+"pesos": "400",
+"ejes": [],
+"css": "../fonts/fascinate.css",
+"kb": 14
+},
+{
+"slug": "forum",
+"familia": "Forum",
+"categoria": "display",
+"variable": false,
+"pesos": "400",
+"ejes": [],
+"css": "../fonts/forum.css",
+"kb": 23
+},
+{
+"slug": "gloock",
+"familia": "Gloock",
+"categoria": "serif",
+"variable": false,
+"pesos": "400",
+"ejes": [],
+"css": "../fonts/gloock.css",
+"kb": 25
+},
+{
+"slug": "ibm-plex-mono",
+"familia": "IBM Plex Mono",
+"categoria": "monospace",
+"variable": false,
+"pesos": "100, 200, 300, 400, 500, 600, 700",
+"ejes": [],
+"css": "../fonts/ibm-plex-mono.css",
+"kb": 215
+},
+{
+"slug": "instrument-serif",
+"familia": "Instrument Serif",
+"categoria": "serif",
+"variable": false,
+"pesos": "400",
+"ejes": [],
+"css": "../fonts/instrument-serif.css",
+"kb": 42
+},
+{
+"slug": "italiana",
+"familia": "Italiana",
+"categoria": "sans-serif",
+"variable": false,
+"pesos": "400",
+"ejes": [],
+"css": "../fonts/italiana.css",
+"kb": 9
+},
+{
+"slug": "libre-caslon-text",
+"familia": "Libre Caslon Text",
+"categoria": "serif",
+"variable": false,
+"pesos": "400, 700",
+"ejes": [],
+"css": "../fonts/libre-caslon-text.css",
+"kb": 76
+},
+{
+"slug": "limelight",
+"familia": "Limelight",
+"categoria": "display",
+"variable": false,
+"pesos": "400",
+"ejes": [],
+"css": "../fonts/limelight.css",
+"kb": 22
+},
+{
+"slug": "major-mono-display",
+"familia": "Major Mono Display",
+"categoria": "monospace",
+"variable": false,
+"pesos": "400",
+"ejes": [],
+"css": "../fonts/major-mono-display.css",
+"kb": 17
+},
+{
+"slug": "marcellus",
+"familia": "Marcellus",
+"categoria": "serif",
+"variable": false,
+"pesos": "400",
+"ejes": [],
+"css": "../fonts/marcellus.css",
+"kb": 14
+},
+{
+"slug": "marcellus-sc",
+"familia": "Marcellus SC",
+"categoria": "serif",
+"variable": false,
+"pesos": "400",
+"ejes": [],
+"css": "../fonts/marcellus-sc.css",
+"kb": 14
+},
+{
+"slug": "monoton",
+"familia": "Monoton",
+"categoria": "display",
+"variable": false,
+"pesos": "400",
+"ejes": [],
+"css": "../fonts/monoton.css",
+"kb": 16
+},
+{
+"slug": "nabla",
+"familia": "Nabla",
+"categoria": "display",
+"variable": false,
+"pesos": "400",
+"ejes": [],
+"css": "../fonts/nabla.css",
+"kb": 107
+},
+{
+"slug": "permanent-marker",
+"familia": "Permanent Marker",
+"categoria": "handwriting",
+"variable": false,
+"pesos": "400",
+"ejes": [],
+"css": "../fonts/permanent-marker.css",
+"kb": 28
+},
+{
+"slug": "pixelify-sans",
+"familia": "Pixelify Sans",
+"categoria": "display",
+"variable": false,
+"pesos": "400, 500, 600, 700",
+"ejes": [],
+"css": "../fonts/pixelify-sans.css",
+"kb": 31
+},
+{
+"slug": "poiret-one",
+"familia": "Poiret One",
+"categoria": "display",
+"variable": false,
+"pesos": "400",
+"ejes": [],
+"css": "../fonts/poiret-one.css",
+"kb": 7
+},
+{
+"slug": "prata",
+"familia": "Prata",
+"categoria": "serif",
+"variable": false,
+"pesos": "400",
+"ejes": [],
+"css": "../fonts/prata.css",
+"kb": 18
+},
+{
+"slug": "rubik-dirt",
+"familia": "Rubik Dirt",
+"categoria": "display",
+"variable": false,
+"pesos": "400",
+"ejes": [],
+"css": "../fonts/rubik-dirt.css",
+"kb": 302
+},
+{
+"slug": "rubik-glitch",
+"familia": "Rubik Glitch",
+"categoria": "display",
+"variable": false,
+"pesos": "400",
+"ejes": [],
+"css": "../fonts/rubik-glitch.css",
+"kb": 71
+},
+{
+"slug": "rubik-mono-one",
+"familia": "Rubik Mono One",
+"categoria": "sans-serif",
+"variable": false,
+"pesos": "400",
+"ejes": [],
+"css": "../fonts/rubik-mono-one.css",
+"kb": 12
+},
+{
+"slug": "rye",
+"familia": "Rye",
+"categoria": "display",
+"variable": false,
+"pesos": "400",
+"ejes": [],
+"css": "../fonts/rye.css",
+"kb": 40
+},
+{
+"slug": "saira-stencil-one",
+"familia": "Saira Stencil One",
+"categoria": "display",
+"variable": false,
+"pesos": "400",
+"ejes": [],
+"css": "../fonts/saira-stencil-one.css",
+"kb": 20
+},
+{
+"slug": "share-tech-mono",
+"familia": "Share Tech Mono",
+"categoria": "monospace",
+"variable": false,
+"pesos": "400",
+"ejes": [],
+"css": "../fonts/share-tech-mono.css",
+"kb": 13
+},
+{
+"slug": "silkscreen",
+"familia": "Silkscreen",
+"categoria": "display",
+"variable": false,
+"pesos": "400, 700",
+"ejes": [],
+"css": "../fonts/silkscreen.css",
+"kb": 15
+},
+{
+"slug": "six-caps",
+"familia": "Six Caps",
+"categoria": "sans-serif",
+"variable": false,
+"pesos": "400",
+"ejes": [],
+"css": "../fonts/six-caps.css",
+"kb": 14
+},
+{
+"slug": "space-mono",
+"familia": "Space Mono",
+"categoria": "monospace",
+"variable": false,
+"pesos": "400, 700",
+"ejes": [],
+"css": "../fonts/space-mono.css",
+"kb": 68
+},
+{
+"slug": "spectral",
+"familia": "Spectral",
+"categoria": "serif",
+"variable": false,
+"pesos": "200, 300, 400, 500, 600, 700, 800",
+"ejes": [],
+"css": "../fonts/spectral.css",
+"kb": 313
+},
+{
+"slug": "staatliches",
+"familia": "Staatliches",
+"categoria": "display",
+"variable": false,
+"pesos": "400",
+"ejes": [],
+"css": "../fonts/staatliches.css",
+"kb": 15
+},
+{
+"slug": "teko",
+"familia": "Teko",
+"categoria": "sans-serif",
+"variable": false,
+"pesos": "300, 400, 500, 600, 700",
+"ejes": [],
+"css": "../fonts/teko.css",
+"kb": 36
+},
+{
+"slug": "tenor-sans",
+"familia": "Tenor Sans",
+"categoria": "sans-serif",
+"variable": false,
+"pesos": "400",
+"ejes": [],
+"css": "../fonts/tenor-sans.css",
+"kb": 18
+},
+{
+"slug": "ultra",
+"familia": "Ultra",
+"categoria": "serif",
+"variable": false,
+"pesos": "400",
+"ejes": [],
+"css": "../fonts/ultra.css",
+"kb": 15
+},
+{
+"slug": "unica-one",
+"familia": "Unica One",
+"categoria": "display",
+"variable": false,
+"pesos": "400",
+"ejes": [],
+"css": "../fonts/unica-one.css",
+"kb": 13
+},
+{
+"slug": "vt323",
+"familia": "VT323",
+"categoria": "monospace",
+"variable": false,
+"pesos": "400",
+"ejes": [],
+"css": "../fonts/vt323.css",
+"kb": 17
+},
+{
+"slug": "xanh-mono",
+"familia": "Xanh Mono",
+"categoria": "monospace",
+"variable": false,
+"pesos": "400",
+"ejes": [],
+"css": "../fonts/xanh-mono.css",
+"kb": 37
+},
+{
+"slug": "zilla-slab",
+"familia": "Zilla Slab",
+"categoria": "serif",
+"variable": false,
+"pesos": "300, 400, 500, 600, 700",
+"ejes": [],
+"css": "../fonts/zilla-slab.css",
+"kb": 262
+}
+]

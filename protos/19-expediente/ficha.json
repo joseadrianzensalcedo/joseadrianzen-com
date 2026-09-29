@@ -1,0 +1,15 @@
+{
+  "n": 19,
+  "slug": "expediente",
+  "nombre": "Expediente",
+  "familia": "thriller",
+  "concepto": "La web es la carpeta de archivo del psiquiatra de ECO sobre un escritorio en penumbra: tapa de cartulina con la etiqueta escrita a máquina y hojas amarillentas con formularios impresos llenados a máquina. Sellos rotados (CONFIDENCIAL, AÚN SIN ESTRENAR), fichas grapadas y fotos pegadas con esquinas que nunca tapan la imagen, en tono sobrio.",
+  "paleta": ["#1c1813", "#efe5c9", "#fbf8ef", "#d6bf86", "#262420", "#56626b", "#a8322d", "#3e4a7a"],
+  "tipografias": ["Courier Prime", "Oswald"],
+  "layout": "Una columna de hojas apiladas con cabecera impresa y numeración, anexos para las fotos y pestañas de índice pegadas al borde derecho (arriba en móvil).",
+  "movimiento": "Solo CSS e IntersectionObserver: el nombre se escribe a máquina en la etiqueta de la tapa, las hojas se asientan al llegar y los sellos caen con un golpe corto.",
+  "peso": "ligera",
+  "librerias": [],
+  "estilos": ["tipografía protagonista", "información en página aparte", "fotografía inspirada en cine", "diseño minimalista"],
+  "referencias": ["Artefakt", "Ukraine: A Country Mined", "Ethan W Photography"]
+}
