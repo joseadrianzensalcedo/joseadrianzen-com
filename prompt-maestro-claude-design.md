@@ -21,7 +21,9 @@ Sitio actual: https://joseadrianzen.com (Astro estático, alojado en Hostinger).
 
 ## La idea central
 
-**"Del polvo a la pantalla."** La web es la película de Jose contada con su propio material. Arranca como un título de cine que se arma frente a ti, sigue como un reel que respondes con el cursor y termina en una ficha de sala con todos los datos. Tres referencias mandan, las demás suman detalles.
+**"Hasta el último rincón."** Sale de su propia frase: "Hay que llegar hasta el último rincón para visibilizarlas". La web hace eso con quien la visita. Todo empieza en los bordes de la pantalla (su nombre repetido en las cuatro orillas) y el cursor es la mirada que entra en cada rincón. Sobre el reel rompe la imagen en mosaico, sobre una obra la abre y la etiqueta dice qué va a pasar. Cada sección lleva al visitante un poco más adentro, de la portada a la mina, de la mina a la casa de ECO, de la casa al director. El cine de Jose es ir a donde nadie mira, y la web se recorre igual.
+
+En la carga, la línea fina del monograma "JA" recorre los cuatro bordes de la pantalla antes de soltar el nombre, como quien revisa cada rincón antes de entrar. Tres referencias mandan, las demás suman detalles.
 
 ### Referencia 1, la que más le gusta: Hervé Baillargeon
 
