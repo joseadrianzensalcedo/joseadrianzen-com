@@ -138,7 +138,7 @@ Piezas técnicas recomendadas (todas de código abierto, revisadas en GitHub el 
 ## Estructura y cada sección
 
 ### 0. Carga (máximo 1,5 s, solo la primera visita)
-Monograma "JA" montado sobre una línea fina de progreso que cruza la pantalla como la barra de una moviola (idea de First Frame). Al terminar, la línea se vuelve el horizonte de la portada.
+Monograma "JA" montado sobre una línea fina de progreso (idea de First Frame) que recorre los cuatro bordes de la pantalla, uno por uno. Donde pasa la línea aparece el nombre chico descifrándose en ese borde. Cuando cierra el recorrido, arranca la portada.
 
 ### 1. Portada
 - El nombre "JOSE ADRIANZEN" gigante, que se arma letra por letra desde bloques rectos (idea de Hervé), con el destello al terminar.
