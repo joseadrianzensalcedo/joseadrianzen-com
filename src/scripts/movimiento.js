@@ -182,7 +182,7 @@ if (!R) {
       if (FINO) el.addEventListener('pointerenter', () => el._partes && brillo(el._partes, 0.9, 0.03));
     });
     $$('[data-lineas]').forEach((el) => {
-      SplitText.create(el, { type: 'lines', mask: 'lines', linesClass: 'linea', autoSplit: true, onSplit: (s) => {
+      SplitText.create(el, { type: 'lines', mask: 'lines', linesClass: 'linea', autoSplit: true, aria: 'none', onSplit: (s) => {
         gsap.set(el, { visibility: 'visible' });
         return gsap.fromTo(s.lines, { yPercent: 105 }, { yPercent: 0, duration: 1.1, ease: SALE, stagger: 0.06, scrollTrigger: { trigger: el, start: 'top 90%', once: true } });
       } });
@@ -214,14 +214,15 @@ if (!R) {
       celda (9, 18 y 36 px) alineados a una rejilla. Sin WebGL, la foto se abre como un obturador. */
 const PIX_VS = 'attribute vec2 p;varying vec2 u;void main(){u=p*.5+.5;gl_Position=vec4(p,0,1);}';
 const NP = 28;
-const PIX_FS = 'precision highp float;varying vec2 u;uniform sampler2D t;uniform vec2 px,cov,op;uniform vec3 pt[' + NP + '];uniform float fz;' +
+const PIX_FS = 'precision highp float;varying vec2 u;uniform sampler2D t;uniform vec2 px,cov,op;uniform vec3 pt[' + NP + '];uniform float fz,ue;' +
   'vec3 foto(vec2 q){vec2 c=(q-.5)*cov+op;c.y=1.-c.y;return texture2D(t,c).rgb;}' +
   'float est(vec2 q){float k=0.;float asp=px.x/px.y;for(int i=0;i<' + NP + ';i++){vec2 d=(q-pt[i].xy)*vec2(asp,1.);k+=pt[i].z*exp(-dot(d,d)/.010);}return k;}' +
   'vec3 celda(float c,float k){vec2 g=(floor(u*px/c)+.5)*c/px;return vec3(foto(g+vec2(.002*k,0.)).r,foto(g).g,foto(g-vec2(.002*k,0.)).b);}' +
   'void main(){float s=px.y/900.+.4;vec3 col=foto(u);' +
-  'vec2 g3=(floor(u*px/(36.*s))+.5)*(36.*s)/px;vec2 g2=(floor(u*px/(18.*s))+.5)*(18.*s)/px;vec2 g1=(floor(u*px/(9.*s))+.5)*(9.*s)/px;' +
-  'float k3=max(est(g3),fz),k2=max(est(g2),fz),k1=max(est(g1),fz);' +
-  'if(k3>.8)col=celda(36.*s,k3);else if(k2>.45)col=celda(18.*s,k2);else if(k1>.18)col=celda(9.*s,k1);' +
+  // Sin estela (ue casi 0) no se recorren los 28 puntos: la foto entra solo con el nivel fz. Así cuesta mucho menos.
+  'float k=fz;vec2 g3=(floor(u*px/(36.*s))+.5)*(36.*s)/px;if(ue>.01)k=max(est(g3),fz);' +
+  'if(k>.8)col=celda(36.*s,k);else{vec2 g2=(floor(u*px/(18.*s))+.5)*(18.*s)/px;if(ue>.01)k=max(est(g2),fz);' +
+  'if(k>.45)col=celda(18.*s,k);else{vec2 g1=(floor(u*px/(9.*s))+.5)*(9.*s)/px;if(ue>.01)k=max(est(g1),fz);if(k>.18)col=celda(9.*s,k);}}' +
   'gl_FragColor=vec4(col,1.);}';
 
 function crearPix(fig) {
@@ -230,27 +231,40 @@ function crearPix(fig) {
   const gl = cv.getContext('webgl', { premultipliedAlpha: false, antialias: false }); if (!gl) return null;
   const sh = (tp, src) => { const x = gl.createShader(tp); gl.shaderSource(x, src); gl.compileShader(x); return x; };
   const pr = gl.createProgram(); gl.attachShader(pr, sh(gl.VERTEX_SHADER, PIX_VS)); gl.attachShader(pr, sh(gl.FRAGMENT_SHADER, PIX_FS)); gl.linkProgram(pr);
-  if (!gl.getProgramParameter(pr, gl.LINK_STATUS)) return null; gl.useProgram(pr);
+  /* Peras y manzanas: armar el efecto de píxeles toma un momento. Antes el navegador se quedaba congelado esperando.
+     Ahora lo arma por detrás (KHR_parallel_shader_compile) y la foto lo usa recién cuando está listo. */
+  const par = gl.getExtension('KHR_parallel_shader_compile');
+  let enlazado = false, fallo = false, alEnlazar = null;
+  const terminar = () => {
+    if (!gl.getProgramParameter(pr, gl.LINK_STATUS)) { fallo = true; return; }
+    enlazado = true; gl.useProgram(pr); preparar(); alEnlazar && alEnlazar();
+  };
+  const esperar = () => { if (gl.isContextLost()) return; if (gl.getProgramParameter(pr, par.COMPLETION_STATUS_KHR)) terminar(); else requestAnimationFrame(esperar); };
+  let uPx, uCov, uOp, uPt, uFz, uUe, tx;
+  function preparar() {
   const bf = gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER, bf); gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 1, -1, -1, 1, 1, 1]), gl.STATIC_DRAW);
   const lp = gl.getAttribLocation(pr, 'p'); gl.enableVertexAttribArray(lp); gl.vertexAttribPointer(lp, 2, gl.FLOAT, false, 0, 0);
-  const tx = gl.createTexture(); gl.bindTexture(gl.TEXTURE_2D, tx);
+  tx = gl.createTexture(); gl.bindTexture(gl.TEXTURE_2D, tx);
   [gl.TEXTURE_MIN_FILTER, gl.TEXTURE_MAG_FILTER].forEach((q) => gl.texParameteri(gl.TEXTURE_2D, q, gl.LINEAR));
   [gl.TEXTURE_WRAP_S, gl.TEXTURE_WRAP_T].forEach((q) => gl.texParameteri(gl.TEXTURE_2D, q, gl.CLAMP_TO_EDGE));
   const U = (n) => gl.getUniformLocation(pr, n);
-  const uPx = U('px'), uCov = U('cov'), uOp = U('op'), uPt = U('pt'), uFz = U('fz');
+  uPx = U('px'); uCov = U('cov'); uOp = U('op'); uPt = U('pt'); uFz = U('fz'); uUe = U('ue');
+  if (img.complete && img.naturalWidth) cargar(); else img.addEventListener('load', cargar, { once: true });
+  }
   const pts = new Float32Array(NP * 3); let cab = 0, cargada = false, activo = false;
   const m = { x: 0.5, y: 0.5, sx: 0.5, sy: 0.5, dentro: false };
   const medir = () => {
-    const w = cv.clientWidth, h = cv.clientHeight, k = Math.min(devicePixelRatio || 1, 2); if (!w || !h) return;
+    const w = cv.clientWidth, h = cv.clientHeight, k = Math.min(devicePixelRatio || 1, 1.5); if (!w || !h) return;
     cv.width = Math.round(w * k); cv.height = Math.round(h * k); gl.viewport(0, 0, cv.width, cv.height); gl.uniform2f(uPx, cv.width, cv.height);
     const ai = img.naturalWidth / img.naturalHeight, ac = w / h, sw = ac > ai ? 1 : ac / ai, shh = ac > ai ? ai / ac : 1;
     const op = (getComputedStyle(img).objectPosition || '50% 50%').split(' ').map((v) => parseFloat(v) / 100);
     const ox = isNaN(op[0]) ? 0.5 : op[0], oy = isNaN(op[1]) ? 0.5 : op[1];
     gl.uniform2f(uCov, sw, shh); gl.uniform2f(uOp, ox * (1 - sw) + sw / 2, oy * (1 - shh) + shh / 2);
   };
-  const dibujar = () => { gl.uniform3fv(uPt, pts); gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4); };
+  const dibujar = () => { let e = 0; for (let i = 2; i < pts.length; i += 3) e += pts[i]; gl.uniform1f(uUe, e); gl.uniform3fv(uPt, pts); gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4); };
   const cargar = () => { gl.bindTexture(gl.TEXTURE_2D, tx); gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, img); cargada = true; medir(); };
-  if (img.complete && img.naturalWidth) cargar(); else img.addEventListener('load', cargar, { once: true });
+  if (par) requestAnimationFrame(esperar); else terminar();
+  if (fallo) return null;
   const alRedimensionar = () => cargada && medir(); addEventListener('resize', alRedimensionar);
   function paso() {
     const dx = m.x - m.sx, dy = m.y - m.sy; m.sx += dx * 0.35; m.sy += dy * 0.35;
@@ -261,7 +275,11 @@ function crearPix(fig) {
     if (!m.dentro && vida < 0.02) { activo = false; gsap.ticker.remove(paso); gsap.to(cv, { opacity: 0, duration: 0.2 }); }
   }
   return {
-    listo: () => cargada,
+    listo: () => enlazado && cargada,
+    cuandoListo(f) {
+      const tras = () => (cargada ? f() : img.addEventListener('load', () => requestAnimationFrame(f), { once: true }));
+      if (enlazado) tras(); else alEnlazar = tras;
+    },
     fz(v) { if (!cargada) return; gl.uniform1f(uFz, v); dibujar(); cv.style.opacity = v > 0 ? 1 : 0; },
     punto(x, y, golpe) {
       if (!cargada) return; const r = cv.getBoundingClientRect(); m.x = (x - r.left) / r.width; m.y = 1 - (y - r.top) / r.height;
@@ -274,24 +292,43 @@ function crearPix(fig) {
   };
 }
 const figuras = $$('[data-pix]');
+const cola = []; let colaActiva = false;
+function encolar(f) {
+  if (f._pix || f._enCola) return; f._enCola = true; cola.push(f);
+  if (!colaActiva) { colaActiva = true; requestAnimationFrame(atender); }
+}
+function atender() {
+  const f = cola.shift();
+  if (f) { f._enCola = false; if (!f._pix) f._pix = crearPix(f); }
+  if (cola.length) setTimeout(() => requestAnimationFrame(atender), 60); else colaActiva = false;
+}
 if (!R && figuras.length) {
   const vistas = new IntersectionObserver((es) => es.forEach((e) => {
     const f = e.target;
-    if (e.isIntersecting && !f._pix) f._pix = crearPix(f);
+    if (e.isIntersecting && !f._pix) encolar(f);
     else if (!e.isIntersecting && f._pix && f._revelada) { f._pix.liberar(); f._pix = null; }
   }), { rootMargin: '300px 0px' });
   figuras.forEach((f) => {
     vistas.observe(f);
     const enc = $('.encuadre', f) || $('img', f);
     ScrollTrigger.create({ trigger: f, start: 'top 88%', once: true, onEnter: () => {
-      if (!f._pix) f._pix = crearPix(f);
-      const p = f._pix;
       gsap.fromTo(enc, { scale: 1.2 }, { scale: 1, duration: 2.2, ease: SALE });
-      if (p && p.listo()) {
+      const pixelada = (p) => {
         const n = { v: 1 }; p.fz(1); gsap.set(f, { clipPath: 'inset(0% 0% 0% 0%)' });
         gsap.to(n, { v: 0, duration: 1.3, ease: 'power2.in', onUpdate: () => p.fz(n.v), onComplete: () => { p.fz(0); f._revelada = true; } });
-      } else {
-        gsap.fromTo(f, { clipPath: 'inset(100% 0% 0% 0%)' }, { clipPath: 'inset(0% 0% 0% 0%)', duration: 1.6, ease: 'expo.inOut', onComplete: () => { f._revelada = true; } });
+      };
+      const obturador = () => gsap.fromTo(f, { clipPath: 'inset(100% 0% 0% 0%)' }, { clipPath: 'inset(0% 0% 0% 0%)', duration: 1.6, ease: 'expo.inOut', onComplete: () => { f._revelada = true; } });
+      if (!f._pix) { encolar(f); }
+      const p = f._pix;
+      if (p && p.listo()) pixelada(p);
+      else {
+        // Si el efecto no está listo, se espera un poco (máximo 0,35 s). Si no llega, la foto entra como obturador.
+        gsap.set(f, { clipPath: 'inset(100% 0% 0% 0%)' });
+        let hecho = false;
+        const plan = setTimeout(() => { if (!hecho) { hecho = true; obturador(); } }, 350);
+        const intentar = () => { const q = f._pix; if (!q) return requestAnimationFrame(() => !hecho && intentar());
+          q.cuandoListo(() => { if (hecho) return; hecho = true; clearTimeout(plan); pixelada(q); }); };
+        intentar();
       }
     } });
   });

@@ -3,7 +3,7 @@ import Logo from './Logo.astro';
 import { t, tr } from '../data/textos.js';
 import { ruta } from '../utils.js';
 import Idiomas from './Idiomas.astro';
-const { lang = 'es', actual = '', camino = '' } = Astro.props;
+const { lang = 'es', actual = '', camino = '', caminoOtros = camino } = Astro.props;
 const w = (es, en) => tr({ es, en }, lang);
 const x = t(lang);
 ---
@@ -11,7 +11,7 @@ const x = t(lang);
   <a class="nav-logo" href={ruta('', lang)} aria-label={w('Jose Adrianzen, inicio', 'Jose Adrianzen, home')}><Logo variante="nav" lang={lang} /></a>
   <nav aria-label={w('Principal', 'Main')}>
     {x.nav.map(([p, txt]) => <a href={ruta(p, lang)} aria-current={actual === p ? 'page' : undefined}>{txt}</a>)}
-    <Idiomas lang={lang} camino={camino} />
+    <Idiomas lang={lang} camino={camino} caminoOtros={caminoOtros} />
   </nav>
   <button class="menu" type="button">{x.menu}</button>
 </header>

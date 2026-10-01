@@ -12,7 +12,7 @@ main{display:block}
 /* nav sobre páginas claras */
 .nav-clara .nav{color:var(--tinta)}
 .nav-clara .nav .menu{border-color:var(--tinta);color:var(--tinta)}
-.nav-clara .nav.solido{background:rgba(240,238,233,.88);backdrop-filter:blur(10px)}
+.nav-clara .nav.solido{background:rgba(240,238,233,.88);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
 html.menu-abierto .nav{color:var(--papel)}html.menu-abierto .nav .menu{border-color:var(--papel);color:var(--papel)}
 .nav .idi{color:var(--humo)}.nav-clara .nav .idi{color:var(--humo-osc)}
 .nav nav a[aria-current]{color:var(--ambar)}.nav-clara .nav nav a[aria-current]{color:var(--ambar-osc)}

@@ -12,7 +12,9 @@ import '../styles/base.css';
 import '../styles/paginas.css';
 import '../styles/idiomas.css';
 
-const { titulo, descripcion, lang = 'es', camino = '', actual = '', navClara = false, intro = false, imagenOg = '/og.jpg', altOg = null, tipo = 'website', jsonLd = [], clase = '' } = Astro.props;
+const { titulo, descripcion, lang = 'es', camino = '', actual = '', navClara = false, intro = false, imagenOg = '/og.jpg', altOg = null, tipo = 'website', jsonLd = [], clase = '', soloEs = false } = Astro.props;
+// Los artículos del blog existen solo en español: en los otros idiomas el selector lleva a la lista del blog.
+const caminoOtros = soloEs ? 'blog' : camino;
 const w = (es, en) => tr({ es, en }, lang);
 const x = t(lang);
 const sitio = Astro.site?.href.replace(/\/$/, '') || 'https://joseadrianzen.com';
@@ -38,7 +40,7 @@ const textosMov = { menu: x.menu, cerrar: x.cerrar, pausa: x.pausa, seguir: x.se
   <title>{titulo}</title>
   <meta name="description" content={descripcion}>
   <link rel="canonical" href={url}>
-  {IDIOMAS.map((i) => <link rel="alternate" hreflang={i.c} href={sitio + ruta(camino, i.c)} />)}
+  {IDIOMAS.filter((i) => !soloEs || i.c === 'es').map((i) => <link rel="alternate" hreflang={i.c} href={sitio + ruta(camino, i.c)} />)}
   <link rel="alternate" hreflang="x-default" href={urlEs}>
   {PROTOTIPO && <meta name="robots" content="noindex, nofollow">}
   <meta name="theme-color" content="#0c0b0a">
@@ -62,8 +64,8 @@ const textosMov = { menu: x.menu, cerrar: x.cerrar, pausa: x.pausa, seguir: x.se
 </head>
 <body class:list={[{ 'nav-clara': navClara }]}>
   <a class="saltar-contenido" href="#contenido">{x.saltar}</a>
-  <Nav lang={lang} actual={actual} camino={camino} />
-  <MenuCapa lang={lang} actual={actual} camino={camino} />
+  <Nav lang={lang} actual={actual} camino={camino} caminoOtros={caminoOtros} />
+  <MenuCapa lang={lang} actual={actual} camino={camino} caminoOtros={caminoOtros} />
   <main id="contenido">
     {PROTOTIPO && <p class="aviso-prototipo">{w('Prototipo · no publicado', 'Prototype · not published')}</p>}
     <slot />

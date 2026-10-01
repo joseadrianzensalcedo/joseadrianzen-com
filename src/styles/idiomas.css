@@ -45,3 +45,4 @@
 /* Aviso de traducción automática, arriba de todo, discreto. */
 .aviso-traduccion{margin:0;padding:8px var(--m);background:var(--tinta2,#1a1816);color:var(--humo);font:400 13px/1.45 var(--lectura);text-align:center;border-top:1px solid rgba(240,238,233,.12)}
 .gigante{max-width:100%;min-width:0}
+.nav-clara .sel-idioma summary{color:var(--humo-osc)}.nav-clara .sel-idioma summary:hover,.nav-clara .sel-idioma[open] summary{color:var(--ambar-osc)}
