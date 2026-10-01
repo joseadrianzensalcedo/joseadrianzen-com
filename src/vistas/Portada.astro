@@ -3,7 +3,7 @@ import Base from '../layouts/Base.astro';
 import Logo from '../components/Logo.astro';
 import Foto from '../components/Foto.astro';
 import Enc from '../components/Enc.astro';
-import { Image } from 'astro:assets';
+import { Image, getImage } from 'astro:assets';
 import { t, tr } from '../data/textos.js';
 import { ruta, PROTOTIPO } from '../utils.js';
 import { idea, documental as D, eco as E, premios, selecciones, persona } from '../data/sitio.js';
@@ -13,19 +13,24 @@ const w = (es, en) => tr({ es, en }, lang);
 const x = t(lang);
 const fotos = import.meta.glob('/src/assets/img/*.webp', { eager: true });
 const img = (n) => fotos[`/src/assets/img/${n}.webp`].default;
+const movil = await getImage({ src: (await import('../assets/img/doc-dron-m.webp')).default, widths: [480, 800, 864], format: 'webp', quality: 88 });
 const arts = visibles(PROTOTIPO).slice(0, 3);
 const HOJA = [['fot-puerto', 'an', w('Grúas del puerto del Callao bajo un cielo naranja', 'Cranes at the port of Callao under an orange sky')], ['jose-shipibo', 'md', w('Jose con amigos shipibo en la calle', 'Jose with Shipibo friends in the street')], ['fot-mar', 'an', w('Mar abierto al amanecer', 'Open sea at dawn')], ['fot-barcelona', 'ch', w('Fachadas con balcones en Barcelona', 'Facades with balconies in Barcelona')], ['fot-gaviota', 'md', w('Proa de un buque y una gaviota en el puerto', 'A ship’s bow and a seagull in the port')]];
 const titulo = w('Jose Adrianzen | Director de cine peruano', 'Jose Adrianzen | Peruvian film director');
 const desc = w('Jose Adrianzen, director y productor de cine peruano. Documental premiado Entre polvo y sueños y cortometraje ECO.', 'Jose Adrianzen, Peruvian film director and producer. Award winning documentary Between Dust and Dreams and the short film ECO.');
 const ld = { '@context': 'https://schema.org', '@type': 'WebSite', name: 'Jose Adrianzen', url: 'https://joseadrianzen.com/', inLanguage: lang };
 ---
-<Base titulo={titulo} descripcion={desc} lang={lang} intro jsonLd={ld}>
+<Base titulo={titulo} descripcion={desc} lang={lang} intro jsonLd={ld} navCorto>
   <section class="hero oscuro">
-    <Image class="fondo" src={img('doc-noche')} alt={w('Una minera carga un saco de mineral de noche, bajo la luz de su casco', 'A woman miner carries a sack of ore at night under her helmet light')} widths={[800, 1200]} sizes="100vw" loading="eager" fetchpriority="high" />
+    <picture>
+      <source media="(max-width: 860px)" srcset={movil.srcSet.attribute} sizes="100vw" type="image/webp" />
+      <Image class="fondo" src={img('doc-dron')} alt={w('Vista aérea de un pueblo minero entre nevados de los Andes, de Entre polvo y sueños', 'Aerial view of a mining town among the snowy Andes, from Between Dust and Dreams')} widths={[800, 1200, 1800, 2048]} sizes="100vw" quality={88} loading="eager" fetchpriority="high" />
+    </picture>
     <div class="velo"></div>
     <div class="hero-pie">
-      <h1 class="hero-logo"><span class="mascara"><Logo variante="portada" armar titulo="Jose Adrianzen" lang={lang} /></span></h1>
-      <div class="hero-acc"><p class="rol">{tr(persona.rol, lang)}</p><a class="btn" href={ruta(D.slug, lang) + '#sala'}>{x.verDoc}</a></div>
+      <!-- Dos bloques: a la izquierda quién es (nombre y oficio), a la derecha qué ver (película y botón). -->
+      <div class="hero-quien"><h1 class="hero-logo"><span class="mascara"><Logo variante="nav" armar titulo="Jose Adrianzen" lang={lang} /></span></h1><p class="rol">{tr(persona.rol, lang)}</p></div>
+      <div class="hero-acc"><p class="hero-peli">{D.titulo}</p><a class="btn" href={ruta(D.slug, lang) + '#sala'}>{x.verPelicula}</a></div>
     </div>
     <button class="pausa" type="button" aria-pressed="false">{x.pausa}</button>
   </section>

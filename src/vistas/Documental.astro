@@ -23,9 +23,8 @@ const ld = { '@context': 'https://schema.org', '@type': 'Movie', name: D.titulo,
   <section class="hero alto oscuro">
     <Image class="fondo" src={fotos['/src/assets/img/doc-tunel.webp'].default} alt={w(D.fotogramas[0][1], D.fotogramas[0][2])} widths={[800, 1200]} sizes="100vw" loading="eager" fetchpriority="high" />
     <div class="velo"></div>
-    <div class="titulo-fijo"><h1 class="gigante claro" data-letras="gigante"><span>Entre polvo</span><span>y sueños</span></h1>{D.titulosOficiales[lang] && <p class="cod" data-aparece lang={lang}>{D.titulosOficiales[lang]}</p>}</div>
+    <div class="titulo-fijo"><div class="titulo-bloque"><h1 class="gigante claro" data-letras="gigante"><span>Entre polvo</span><span>y sueños</span></h1><p class="peli-datos" data-aparece><span>{w('Perú', 'Peru')}</span><span>2025</span><span>37:02</span><span>2K</span></p></div>{D.titulosOficiales[lang] && <p class="cod" data-aparece lang={lang}>{D.titulosOficiales[lang]}</p>}</div>
     <div class="hero-pie">
-      <div class="hero-logo"><span class="mascara"><Logo variante="documental" armar lang={lang} /></span></div>
       <div class="hero-acc"><p class="rol">{x.rolDoc}</p><a class="btn" href="#sala">{x.verPelicula}</a></div>
     </div>
     <button class="pausa" type="button" aria-pressed="false">{x.pausa}</button>

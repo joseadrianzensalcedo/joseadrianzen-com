@@ -1,0 +1,25 @@
+/* Ajustes de la diseñadora, 1 oct 2026.
+   Márgenes iguales en los cuatro lados de la cabecera: el mismo --m arriba, abajo, a la izquierda y a la derecha. */
+.nav:not(.solido){padding-top:var(--m)}
+.hero-pie{bottom:var(--m);left:var(--m);right:var(--m)}
+.pausa{top:calc(var(--m) + 64px);right:var(--m)}
+/* Portada: a la izquierda quién (nombre y oficio), a la derecha qué ver (película y botón). */
+.hero-quien{display:flex;flex-direction:column;gap:14px;min-width:0}
+.hero-quien .rol{margin:0}
+.hero-logo svg{width:min(760px,54vw)}
+.hero-acc{display:flex;flex-direction:column;align-items:flex-end;gap:12px}
+.hero-acc .btn{margin-top:0}
+.hero-peli{margin:0;font:400 clamp(26px,2.6vw,40px)/1 var(--disp);letter-spacing:.02em;text-transform:uppercase;color:var(--papel)}
+.nav-logo svg{height:clamp(28px,2.8vw,40px);width:auto}
+/* Documental: debajo del título, una línea y los datos de la película. El bloque toma el ancho del título. */
+.titulo-bloque{display:inline-block;max-width:100%}
+.peli-datos{display:flex;justify-content:space-between;gap:24px;margin:18px 0 0;padding-top:14px;border-top:1.5px solid var(--papel);font:500 clamp(11px,1vw,14px) var(--mono);letter-spacing:.2em;text-transform:uppercase;color:var(--papel)}
+@media (max-width:860px),(orientation:portrait) and (max-width:1100px){
+ .hero-quien{align-items:center}.hero-logo svg{width:min(100%,560px)}
+ .hero-acc{align-items:center}
+ .peli-datos{gap:12px}
+}
+.hero-acc{margin-left:auto}
+/* El código de tiempo de abajo no aparece mientras se ve la cabecera: ahí solo va el nombre (pedido de Jose, 1 oct 2026). */
+.tc{transition:opacity .4s}html.en-cabecera .tc{opacity:0}
+@media (max-width:860px),(orientation:portrait) and (max-width:1100px){.hero-acc{margin-left:0}}
