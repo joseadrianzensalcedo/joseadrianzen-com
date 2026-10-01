@@ -1,90 +1,69 @@
-"""Textura de desgaste tipo chapa de acero gastada, hecha desde cero (no se copia nada de la fuente).
-Patrón: chapa estriada (granos en forma de lenteja a ±45° en una red en diamante), gastada por zonas.
-Sale una imagen con transparencia: opaco = la letra se ve, transparente = hueco. Se repite sin costuras."""
-import numpy as np, sys
+"""Textura de desgaste tipo chapa estriada gastada, v2 (hecha desde cero, no copia la fuente).
+Modelo físico simple: la letra se imprimió sobre una chapa de acero estriada. La chapa tiene lentejas en relieve
+(curvas, con puntas) en una red en diamante, alternando la inclinación a ±45°. Donde la chapa está gastada la tinta
+no agarra en las lentejas, y si el gasto es fuerte la falta de tinta se estira por la punta de la lenteja hasta la
+vecina y forma cadenas en zigzag que dejan islas de tinta. Encima, astillas angulosas de pintura saltada.
+Salida: PNG de 1 bit con transparencia (transparente = hueco), que se repite sin costuras."""
+import numpy as np, sys, json
 from PIL import Image
-rng = np.random.default_rng(int(sys.argv[2]) if len(sys.argv) > 2 else 7)
-T = 1024; SS = 2; N = T * SS            # lado de la imagen, sobremuestreo para bordes limpios
-CAP = 256 * SS                           # una altura de mayúscula en píxeles
-CELDAS = 60; a = N / CELDAS              # red de la chapa: 0,06 de la altura de mayúscula
-P = dict(L=0.44, W=0.10, gasto=0.55, parche=0.95, rotura=0.55, polvo=0.955, vis0=0.35, contraste=1.6, isla=0.55, tuerce=0.35, onda=0.08, alarga=0.0, ancho0=0.35, raja_largo=0.35, raja_ancho=0.035, raja_fino=0.12, raja_tramo=0.55, raja_umbral=0.45, punta=0.8, aspero=0.45)
-for kv in sys.argv[3:]: k, v = kv.split('='); P[k] = float(v)
+P = dict(semilla=7, T=1024, CAP=256, celdas=60, L=0.42, W=0.11, curva=0.35, vis0=0.35, vis1=1.0, ancho0=0.45, ancho1=1.5,
+         estira=1.2, gasto_esc=0.8, contraste=1.5, sesgo=0.0, tuerce=0.12, onda=0.08, aspero=0.35,
+         astilla=0.0, astilla_tam=0.03, cadena=0.6, rotura=0.0, polvo=0.0, polvo_tam=0.006, SS=2)
+for kv in sys.argv[2:]: k, v = kv.split('='); P[k] = float(v)
+rng = np.random.default_rng(int(P['semilla']))
+SS = int(P.get('SS', 2)); T = int(P['T']); N = T * SS; CAP = P['CAP'] * SS; C = int(P['celdas']); a = N / C
 
-def ruido(escala_px, octavas=1):
-    """Ruido periódico suave (sale del espectro), media 0,5, de tamaño de grumo escala_px."""
-    f = np.fft.fftfreq(N)[:, None]**2 + np.fft.fftfreq(N)[None, :]**2
-    tot = np.zeros((N, N))
-    for o in range(octavas):
-        s = escala_px / (2**o)
-        filtro = np.exp(-f * (np.pi * s)**2)
-        z = np.real(np.fft.ifft2(np.fft.fft2(rng.standard_normal((N, N))) * filtro))
-        tot += z / z.std() * (0.5**o)
-    tot = tot / tot.std()
-    return 0.5 + 0.5 * np.tanh(tot * 0.8)
+def ruido(esc, oct_=1):
+    f2 = np.fft.fftfreq(N)[:, None]**2 + np.fft.fftfreq(N)[None, :]**2; tot = np.zeros((N, N))
+    for o in range(oct_):
+        s = esc / 2**o; z = np.real(np.fft.ifft2(np.fft.fft2(rng.standard_normal((N, N))) * np.exp(-f2 * (np.pi * s)**2)))
+        tot += z / z.std() * 0.5**o
+    return tot / tot.std()          # media 0, desvío 1
 
-def ruido_dir(largo, ancho, ang):
-    """Ruido estirado en una dirección (vetas largas y finas), periódico."""
-    fy = np.fft.fftfreq(N)[:, None]; fx = np.fft.fftfreq(N)[None, :]
-    c, s_ = np.cos(ang), np.sin(ang)
-    fpar = fx * c + fy * s_; fper = -fx * s_ + fy * c
-    filtro = np.exp(-(np.pi**2) * ((largo * fpar)**2 + (ancho * fper)**2))
-    z = np.real(np.fft.ifft2(np.fft.fft2(rng.standard_normal((N, N))) * filtro))
-    return z / z.std()
+y0, x0 = np.mgrid[0:N, 0:N].astype(np.float32)
+x = x0 + ruido(P['onda'] * CAP) * P['tuerce'] * a; y = y0 + ruido(P['onda'] * CAP) * P['tuerce'] * a
+gasto = 1 / (1 + np.exp(-(ruido(P['gasto_esc'] * CAP, 3) * P['contraste'] + P['sesgo'])))   # 0 limpio, 1 gastado
+medio = ruido(0.04 * CAP, 2); aspero = ruido(0.008 * CAP, 1)
+tabla = rng.random(1 << 20)
 
-y, x = np.mgrid[0:N, 0:N].astype(np.float32)
-# la chapa no es perfecta: se tuerce un poco, así las lentejas salen chuecas y de bordes ondulados
-wx = ruido(P["onda"] * CAP, 1); wy = ruido(P["onda"] * CAP, 1)
-x = x + (wx - 0.5) * 2 * P['tuerce'] * a; y = y + (wy - 0.5) * 2 * P['tuerce'] * a
-# punto de la red más cercano (dos subredes: esquinas y centros)
-best = None
-for off, signo in ((0.0, 1.0), (0.5, -1.0)):
-    ix = np.floor(x / a - off + 0.5); iy = np.floor(y / a - off + 0.5)
-    cx = (ix + off) * a; cy = (iy + off) * a
-    dx, dy = x - cx, y - cy; d2 = dx*dx + dy*dy
-    # un número al azar fijo por lenteja (la red se repite cada CELDAS)
-    idn = (np.mod(ix, CELDAS) * 131 + np.mod(iy, CELDAS) * 7919 + (signo > 0) * 31337).astype(np.int64)
-    if best is None: best = [d2, dx, dy, np.full_like(d2, signo), idn]
-    else:
-        m = d2 < best[0]
-        for i, v in enumerate((d2, dx, dy, np.full_like(d2, signo), idn)): best[i] = np.where(m, v, best[i])
-_, dx, dy, sg, idn = best
-tabla = rng.random(200000); azar1 = tabla[idn % 200000]; azar2 = tabla[(idn * 7 + 13) % 200000]
-c = np.sqrt(0.5)
-u = (dx + sg * dy) * c; v = (-sg * dx + dy) * c       # ejes de la lenteja, girada ±45°
-gasto = ruido(0.9 * CAP, 3)                             # zonas gastadas y zonas limpias
-gasto = np.clip((gasto - 0.5) * P.get('contraste', 1.6) + 0.5, 0, 1)
-# rajaduras: en lo gastado la lenteja se estira (más larga, no más ancha), como un tajo
-L = P['L'] * a * (0.75 + 0.5 * azar2) * (1 + P['alarga'] * gasto); W = P['W'] * a * (0.7 + 0.6 * azar2)
-perfil = np.clip(1 - np.abs(u / L), 0, None)**P['punta']   # puntas afiladas, no óvalos
-f = np.abs(v) / (W * perfil + 1e-3)                    # < 1 dentro de la lenteja
-f = np.where(perfil > 0, f, 9.0)
-aspero = ruido(0.007 * CAP, 1)
-f = f + (aspero - 0.5) * 2 * P['aspero']                # borde dentado, no liso
-
-medio = ruido(0.05 * CAP, 2)                            # rompe las lentejas y los bordes de los parches
-fino = ruido(0.012 * CAP, 1)
-
-# 1. lentejas: chicas y rotas en lo limpio, más grandes en lo gastado
-# cada lenteja aparece o no según su número al azar: en lo limpio aparecen pocas, en lo gastado casi todas
-aparece = azar1 < (P['vis0'] + (1 - P['vis0']) * gasto)
-umbral = P['ancho0'] + P['gasto'] * gasto
-lenteja = aparece & ((f + (medio - 0.5) * 2.2 * P['rotura']) < umbral)
-# 2. parches grandes donde el gasto es fuerte, con forma que sigue la chapa
-cerca = np.clip(1 - np.minimum(f, 3) / 3, 0, 1)
-# en lo muy gastado quedan islas de tinta (el ruido fino deja pedazos sueltos, no se borra todo)
-grumo = ruido(0.03 * CAP, 2)
-parche = (gasto + 0.22 * cerca + 0.30 * (medio - 0.5) + P['isla'] * (grumo - 0.5)) > P['parche']
-# 3. polvo fino en todos lados
-polvo = fino > P['polvo']
-# 4. rajaduras: líneas finas y quebradas a ±45°, como tajos en la chapa, solo donde está gastada
-raja = np.zeros((N, N), bool)
-for ang in (np.pi / 4, -np.pi / 4):
-    v = ruido_dir(P['raja_largo'] * CAP, P['raja_ancho'] * CAP, ang)
-    linea = np.abs(v) < P['raja_fino']                       # el cruce por cero de la veta es una línea fina
-    corte = ruido(0.04 * CAP, 2) > (1 - P['raja_tramo'])     # la línea se corta en tramos
-    raja |= linea & corte & (gasto > P['raja_umbral'])
-hueco = lenteja | parche | polvo | raja
+hueco_l = np.zeros((N, N), bool)
+# se miran las lentejas de los 3×3 vecinos de cada subred, así una lenteja estirada puede pasar a la celda de al lado
+for off, sg in ((0.0, 1.0), (0.5, -1.0)):
+    bx = np.floor(x / a - off); by = np.floor(y / a - off)
+    for di in (-1, 0, 1, 2):
+        for dj in (-1, 0, 1, 2):
+            ix = bx + di; iy = by + dj
+            cx = (ix + off) * a; cy = (iy + off) * a
+            dx = x - cx; dy = y - cy
+            if np.all(np.abs(dx) > 3 * a): continue
+            idn = (np.mod(ix, C).astype(np.int64) * 7919 + np.mod(iy, C).astype(np.int64) * 104729 + int(sg > 0) * 3) % (1 << 20)
+            r1 = tabla[idn]; r2 = tabla[(idn * 31 + 17) % (1 << 20)]; r3 = tabla[(idn * 57 + 5) % (1 << 20)]
+            c = np.sqrt(0.5); u = (dx + sg * dy) * c; v = (-sg * dx + dy) * c
+            g = gasto
+            L = P['L'] * a * (0.8 + 0.4 * r2) * (1 + P['estira'] * g)          # más gasto, lenteja más larga
+            W = P['W'] * a * (0.75 + 0.5 * r3)
+            v = v - P['curva'] * W * (u / L)**2 * 2                             # curva: lenteja como coma
+            t = np.clip(1 - np.abs(u / L), 0, None)
+            ancho = W * t**0.7 * (P['ancho0'] + P['ancho1'] * g)
+            dentro = np.abs(v) < ancho * (1 + (medio * 0.35 + aspero * P['aspero']))
+            visible = r1 < (P['vis0'] + (P['vis1'] - P['vis0']) * g)
+            hueco_l |= dentro & visible & (t > 0)
+if P['rotura'] > 0:   # la lenteja no sale entera: se corta en pedazos
+    hueco_l &= ruido(0.012 * CAP, 1) > (P['rotura'] * 2 - 1) * 1.2
+hueco = hueco_l
+if P['polvo'] > 0:   # polvo anguloso solo donde está gastado (no en lo limpio, así no parece perdigón)
+    pv = ruido(P['polvo_tam'] * CAP, 1) + ruido(P['polvo_tam'] * 0.5 * CAP, 1) * 0.6
+    hueco |= (pv > 2.6 - 2.0 * P['polvo'] * gasto)
+if P['astilla'] > 0:   # astillas: bordes de celdas de Voronoi muy finas no, pedazos angulosos de pintura saltada
+    pts = rng.random((int(P['astilla']), 2)) * N
+    from scipy.spatial import cKDTree
+    gx = np.stack([x0.ravel(), y0.ravel()], 1)
+    tree = cKDTree(np.concatenate([pts + [ox, oy] for ox in (-N, 0, N) for oy in (-N, 0, N)]))
+    d, idx = tree.query(gx, k=1); idx = idx % len(pts)
+    sel = rng.random(len(pts)) < 0.5
+    hueco |= (sel[idx].reshape(N, N) & (gasto > 0.6) & (ruido(P['astilla_tam'] * CAP, 1) > 0.8))
 alfa = (~hueco).astype(np.float32)
-img = Image.fromarray((alfa * 255).astype(np.uint8)).resize((T, T), Image.LANCZOS)
-rgba = Image.merge('RGBA', [Image.new('L', (T, T), 0)] * 3 + [img])
-rgba.save(sys.argv[1]); print('hueco', round(float(hueco.mean()), 3))
+img = Image.fromarray((alfa * 255).astype(np.uint8)).resize((T, T), Image.LANCZOS).point(lambda q: 255 if q > 127 else 0)
+p = Image.new('P', (T, T)); p.putpalette([0, 0, 0, 0, 0, 0]); p.paste(img.point(lambda q: 1 if q else 0))
+p.save(sys.argv[1], optimize=True, transparency=0, bits=1)
+print(json.dumps({'hueco_textura': round(float(hueco.mean()), 3)}))
