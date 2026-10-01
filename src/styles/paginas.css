@@ -178,6 +178,8 @@ html.visor-abierto{overflow:hidden}
 .post-cab .cod{display:flex;flex-wrap:wrap;gap:6px 18px;color:var(--ambar-osc)}
 .art-titulo{font:400 clamp(48px,7vw,96px)/.95 var(--disp);text-transform:uppercase;margin:22px 0 40px;text-wrap:balance}
 .post-figura{max-width:860px;margin:0 auto;aspect-ratio:16/9}
+/* Afiches y fotos verticales: se ven enteros, sin recortar. */
+.post-figura.vertical{max-width:min(520px,100%);aspect-ratio:880/1244}
 .post-pie{color:var(--humo-osc)!important;margin-top:12px!important}
 .post-cuerpo{margin-top:40px}
 .post-cuerpo p{font:400 clamp(18px,1.4vw,20.5px)/1.68 var(--lectura);margin-bottom:22px}

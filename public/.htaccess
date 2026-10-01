@@ -12,6 +12,9 @@ ServerSignature Off
   # anterior enlazaba asi. El sistema de ficheros distingue mayusculas, de
   # modo que sin esto los marcadores viejos darian 404.
   RewriteRule ^Correo/?(.*)$ /correo/$1 [R=301,L]
+
+  # Rediseño 2026: el mapa del sitio ahora lo genera Astro. Los buscadores que pidan el viejo van al nuevo.
+  RewriteRule ^sitemap\.xml$ /sitemap-index.xml [R=301,L]
 </IfModule>
 
 <IfModule mod_headers.c>

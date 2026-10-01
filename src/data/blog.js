@@ -5,6 +5,33 @@
 
 export const articulos = [
   {
+    // Publicado en el sitio anterior el 28 set 2026 (copiado tal cual del sitio en vivo el 1 oct 2026 para no perderlo en el rediseño).
+    slug: 'como-financiar-un-documental',
+    estado: 'publicado',
+    titulo: 'Tu película no puede depender de la paciencia de otros',
+    tema: 'Producción',
+    fecha: '2026-09-28',
+    modificado: '2026-09-29',
+    descripcion: 'Lo que aprendí financiando mi documental Entre polvo y sueños con una ONG, qué partes de una película nunca hay que soltar y qué fondos existen hoy en el Perú.',
+    imagen: 'afiche',
+    vertical: true,
+    alt: 'Afiche de Entre polvo y sueños, una minera con casco parte piedra en la ladera de un cerro, bajo los laureles de sus premios y selecciones',
+    pie: 'Afiche oficial de Entre polvo y sueños',
+    cuerpo: [
+      'Un documental casi nunca se cae por falta de plata. Se cae porque alguien, queriendo o sin querer, deja de empujarlo. Lo aprendí con el mío, a mitad del camino, cuando el proyecto se quedó quieto un tiempo y yo no tenía cómo moverlo.',
+      'La historia empezó bien. En marzo de 2022 me contrataron para grabar un evento en Lima, donde un grupo de mujeres mineras firmaba la creación de una red nacional. La organizaba Solidaridad, una ONG nacida en 1969 en los Países Bajos que hoy trabaja en doce países de Latinoamérica. Según la propia organización, esa red arrancó con 430 integrantes, y en el Perú trabajan entre 8 000 y 14 000 pallaqueras, las mujeres que escogen a mano el mineral entre las rocas. Yo llegué pensando que minería informal y minería ilegal eran lo mismo. Salí sabiendo que no, y con una película en la cabeza.',
+      'Seguí grabando para ellos unos seis meses. Una tarde, regresando de una mina artesanal, le dije a la persona que me contrataba que ahí había un documental. Ella se lo pasó a su jefe. Lo único que me pidieron fue mi reel, y en dos meses teníamos el proyecto armado. La ONG cubrió viajes, hoteles, coordinaciones, dirección de fotografía, sonido, la postproducción de audio y la música. Yo puse los equipos, la preproducción, la edición y mi trabajo como productor y director.',
+      'Ahí tomé tres decisiones que después me salvaron. Me aseguré de compartir la propiedad del documental y de que nadie me ganara en porcentaje. Me quedé con la dirección. Y pedí que la distribución quedara en el contrato antes de grabar un solo plano. También tomé una que me costó caro. Le di a la ONG el control total de la logística.',
+      'Para manejarla, la ONG designó a una productora de su lado. Ahí se trabó todo. No aceleró lo que le tocaba y dejó el documental de lado. Yo no tenía cómo moverlo, porque esa parte ya no era mía. Cuando pedí una reunión para ver qué pasaba, lo que tocaba era explicar el retraso y corregirlo. En lugar de eso se ofendió, porque la reunión dejaba en evidencia lo que no se había hecho. Se encargó de que en la organización no me volvieran a llamar, aunque ella no era la única que me convocaba. Y no se quedó ahí. Cuando expones a alguien, muchas veces reacciona con anticuerpos que no tienen sustento. Esta persona llegó a hablar mal del trabajo que habíamos hecho, un trabajo impecable, y trató de desacreditarlo. En todo proyecto vas a encontrar a alguien así, que lo atrase a propósito o sin darse cuenta, y casi nunca vas a poder cambiar a esa persona.',
+      'Lo que sí puedes cambiar es cuánto depende tu película de ella. El documental siguió porque todo estaba firmado. No había penalidades ni plazos al detalle, bastó el compromiso del contrato para que la ONG cumpliera. La distribución se pagó porque estaba escrita y se movió porque la empujé yo. El resultado fueron cuatro premios y trece selecciones oficiales en festivales de varios países. Eso también se lo debo a Solidaridad. Confiaron en un proyecto que nació en una conversación de regreso de una mina, pusieron la plata y cumplieron con la distribución hasta el final. Una persona no mancha el trabajo de toda una organización, y contar lo que falló no le quita nada a lo que hicieron bien. Si hubiera dejado la propiedad o la distribución en manos ajenas, esa historia terminaba en un disco duro.',
+      'Si hoy un cineasta joven me preguntara qué no debe soltar, le diría cuatro cosas. La primera es la propiedad, compartida si hace falta, pero nunca en minoría. La segunda es la dirección, porque quien pone la plata no siempre sabe hacia dónde va la película. La tercera es la distribución, escrita desde el primer día. La cuarta es el calendario. Si una parte la maneja otro, que quede con fechas y entregables por escrito, porque sin eso no tienes cómo reclamar cuando se atrase. Eso fue lo que me faltó a mí.',
+      'La plata pública tampoco depende de ti, así que conviene conocer sus tiempos. El Ministerio de Cultura, con su Dirección del Audiovisual, la Fonografía y los Nuevos Medios (DAFO), destinó más de S/ 29,5 millones a su plan de estímulos para cine y audiovisual de 2026, repartidos en catorce líneas que se abren entre abril y diciembre. Por primera vez, al menos el 40% de ese dinero se reserva para proyectos de fuera de Lima y Callao, por la Ley 32309. Hoy siguen abiertos dos concursos, el de distribución, que cierra el 20 de octubre, y el de promoción internacional, que cierra el 13 de noviembre. Los de proyectos de documental de este año ya cerraron, y los de 2027 saldrán con el próximo plan anual. Afuera está Ibermedia, el fondo iberoamericano de cine. Según LatAm Cinema, su convocatoria de 2026 daba hasta 100 mil dólares para coproducir un documental de más de 70 minutos. Si te asocias con una productora de otro país, ella puede postular a los fondos del suyo y el proyecto suma dos bolsas en vez de una.',
+      'Yo postulé a fondos y no gané. Me faltaba una obra reconocida que respaldara lo que venía, y el documental me la dio. Por eso mi consejo es buscar en todos lados, empezar por el Ministerio de Cultura, que está al alcance de cualquiera, y pedir la plata sin miedo, porque no se pierde nada. Si autofinanciar una parte te abre la puerta a otros fondos, hazlo, pero que no se vuelva costumbre. Lo sano es trabajar con dinero que no sea tuyo.',
+      'Queda una última cosa que sí controlas del todo, tu propio interés. Un documental dura años. Habrá gente que lo atrase, fondos que no salgan y meses en que nada se mueva. Disfruta el proceso, porque si el que pierde las ganas eres tú, el proyecto se viene abajo aunque todo lo demás esté firmado.',
+    ],
+    firma: 'Jose Adrianzen es director y productor del documental Entre polvo y sueños.',
+  },
+  {
     slug: 'la-ia-no-sabe-donde-poner-la-camara',
     estado: 'publicado',
     titulo: 'La inteligencia artificial no sabe dónde poner la cámara',
