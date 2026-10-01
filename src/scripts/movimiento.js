@@ -486,8 +486,8 @@ if (tc) ScrollTrigger.create({ start: 0, end: 'max', onUpdate: (s) => {
 const barra = $('.barra-lectura i'), articulo = $('.post-cuerpo');
 if (barra && articulo) gsap.fromTo(barra, { scaleX: 0 }, { scaleX: 1, ease: 'none', transformOrigin: '0 50%', scrollTrigger: { trigger: articulo, start: 'top 60%', end: 'bottom 70%', scrub: true } });
 
-/* 17. Estela de grano en toda la página. Por donde pasa el mouse, el dedo o el lápiz, la página se vuelve grano de película
-       antigua por medio segundo. Cada granito toma el color real de lo que tiene debajo (la foto, la letra, el logo o el
+/* 17. Grano en toda la página. Donde está el mouse, el dedo o el lápiz, la página se vuelve un círculo de grano de
+       película antigua, igual que sobre las fotos, y se apaga en cuanto el cursor se va. Cada granito toma el color real de lo que tiene debajo (la foto, la letra, el logo o el
        fondo) y cambia 24 veces por segundo. */
 const PX = (() => {
   const cv = document.createElement('canvas'); cv.className = 'estela'; cv.setAttribute('aria-hidden', 'true'); document.body.appendChild(cv);
@@ -541,7 +541,7 @@ const PX = (() => {
      la película, que cambia en cada cuadro. El sorteo depende del cuadro, así entre cuadro y cuadro no tiembla. */
   const az = (a, b, c) => { const x = Math.sin(a * 127.1 + b * 311.7 + c * 74.7) * 43758.5453; return x - Math.floor(x); };
   const gris = (b, k) => `rgb(${Math.min(255, b[0] * k) | 0},${Math.min(255, b[1] * k) | 0},${Math.min(255, b[2] * k) | 0})`;
-  const GR = FINO ? 12 : 8, TAM = FINO ? [1.2, 3.4] : [1.6, 4.2];
+  const GR = FINO ? 18 : 12, TAM = FINO ? [1.2, 3.4] : [1.6, 4.2];
   function granos(x0, y0, lado, b, sem, n) {
     for (let i = 0; i < n; i++) {
       const gx = x0 + (az(sem, i, 1.3) * 1.5 - 0.25) * lado, gy = y0 + (az(sem, i, 2.9) * 1.5 - 0.25) * lado;
@@ -551,15 +551,17 @@ const PX = (() => {
       cx.fillStyle = gris(b, k); cx.fillRect(gx, gy, t, t * (0.7 + az(sem, i, 7.9) * 0.6));
     }
   }
-  function punto(x, y, f) { const gx = Math.floor(x / C), gy = Math.floor(y / C), r = FINO ? (f > 0.75 ? 1 : 0) : (f > 0.5 ? 2 : 1);
-    for (let dx = -r; dx <= r; dx++) for (let dy = -r; dy <= r; dy++) { const d = Math.hypot(dx, dy); if (d > r + 0.2) continue;
-      if (Math.random() < 0.45 + (1 - d / (r + 1)) * 0.55) encender(gx + dx, gy + dy, f * (1 - d / (r + 1.8)) + 0.25); } }
-  function trazo(x, y, f) { if (ult) { const dx = x - ult.x, dy = y - ult.y, n = Math.max(1, Math.ceil(Math.hypot(dx, dy) / (C * 0.8)));
-    for (let i = 1; i <= n; i++) punto(ult.x + dx * i / n, ult.y + dy * i / n, f); } else punto(x, y, f); ult = { x, y }; arrancar(); }
+  /* Un círculo de grano alrededor del cursor, como el de las fotos (pedido de Jose, 1 oct 2026): denso al centro y
+     suelto en el borde. Va donde está el cursor y se apaga en un instante, sin dejar estela detrás. */
+  const RAD = FINO ? 6 : 5;
+  function punto(x, y, f) { const gx = Math.floor(x / C), gy = Math.floor(y / C);
+    for (let dx = -RAD; dx <= RAD; dx++) for (let dy = -RAD; dy <= RAD; dy++) { const d = Math.hypot(dx, dy) / RAD; if (d > 1) continue;
+      const k = Math.exp(-d * d * 2.6); if (Math.random() < 0.35 + k * 0.65) encender(gx + dx, gy + dy, 0.25 + (0.4 + f * 0.6) * k); } }
+  function trazo(x, y, f) { punto(x, y, f); ult = { x, y }; arrancar(); }
   function arrancar() { if (!vivo) { vivo = true; gsap.ticker.add(paso); } }
   function paso(t, dt) { const f = Math.min(3, dt / 16.7); cx.clearRect(0, 0, W, H);
     const cuadro = Math.floor(t * 24);
-    celdas.forEach((c, k) => { c.v -= (FINO ? 0.022 : 0.04) * f; if (c.v <= 0) { celdas.delete(k); return; }
+    celdas.forEach((c, k) => { c.v -= 0.07 * f; if (c.v <= 0) { celdas.delete(k); return; }
       cx.globalAlpha = Math.min(FINO ? 0.85 : 0.4, c.v * 1.9); granos(c.x * C, c.y * C, C, c.b, c.x * 7.13 + c.y * 3.71 + cuadro * 1.37, Math.ceil(GR * Math.min(1, c.v * 1.6))); });
     for (let i = bloques.length - 1; i >= 0; i--) { const B = bloques[i]; if (B.a <= 0) { bloques.splice(i, 1); continue; } cx.globalAlpha = B.a;
       for (const p of B.p) granos(p[0], p[1], B.s, p[2], p[0] * 0.37 + p[1] * 0.91 + cuadro * 2.11, B.n); }
