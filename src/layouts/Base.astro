@@ -1,55 +1,74 @@
 ---
-import { ruta } from '../utils.js';
-import '../styles/site.css';
+// Plantilla común de todas las páginas: cabecera, menú, pie, cursor, estela de píxeles y motor de movimiento.
+import Nav from '../components/Nav.astro';
+import MenuCapa from '../components/MenuCapa.astro';
+import Pie from '../components/Pie.astro';
+import { t } from '../data/textos.js';
+import { ruta, PROTOTIPO } from '../utils.js';
+import { premios, persona } from '../data/sitio.js';
+import '../styles/fuentes.css';
+import '../styles/base.css';
+import '../styles/paginas.css';
 
-const {
-  title,
-  description,
-  canonical,
-  ogType = 'website',
-  ogDescription = description,
-  ogImageAlt,
-  jsonLd,
-  bodyClass,
-} = Astro.props;
-
-// En staging no queremos que Google indexe la copia de pruebas.
-const noindex = import.meta.env.STAGING === 'true' || process.env.STAGING === 'true';
-const og = 'https://joseadrianzen.com/assets/og.jpg';
-const favicon = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23050505'/%3E%3Ctext y='74' x='50' text-anchor='middle' font-size='68' font-family='Arial Black,Arial' fill='%23d68a2e'%3EJ%3C/text%3E%3C/svg%3E";
+const { titulo, descripcion, lang = 'es', camino = '', actual = '', navClara = false, intro = false, imagenOg = '/og.jpg', altOg = 'Jose Adrianzen, director de cine', tipo = 'website', jsonLd = [], clase = '' } = Astro.props;
+const x = t(lang);
+const sitio = Astro.site?.href.replace(/\/$/, '') || 'https://joseadrianzen.com';
+const url = sitio + ruta(camino, lang);
+const urlEs = sitio + ruta(camino, 'es'), urlEn = sitio + ruta(camino, 'en');
+const persona_ld = {
+  '@context': 'https://schema.org', '@type': 'Person', '@id': sitio + '/#jose', name: persona.nombre,
+  jobTitle: lang === 'en' ? 'Film director and producer' : 'Director y productor de cine', url: sitio + '/',
+  sameAs: ['https://www.instagram.com/jadrianzens/', 'https://www.linkedin.com/in/joseadrianzens/'],
+  alumniOf: { '@type': 'CollegeOrUniversity', name: 'EPIC, IES Peruano de Cine y Creatividad' },
+  homeLocation: { '@type': 'Place', name: 'Lima, Perú' },
+  award: premios.map((p) => `${p.k.es}, ${p.v}`),
+};
+const textosMov = { menu: x.menu, cerrar: x.cerrar, pausa: x.pausa, seguir: x.seguir, detener: x.detener, mover: x.mover, saltarIntro: x.saltarIntro };
 ---
 <!doctype html>
-<html lang="es">
+<html lang={lang} class={clase}>
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>{title}</title>
-<meta name="description" content={description}>
-{noindex && <meta name="robots" content="noindex,nofollow">}
-<meta name="theme-color" content="#050505">
-<meta property="og:title" content={title}>
-<meta property="og:description" content={ogDescription}>
-<meta property="og:image" content={og}>
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
-{ogImageAlt && <meta property="og:image:alt" content={ogImageAlt}>}
-<meta property="og:type" content={ogType}>
-<meta property="og:url" content={canonical}>
-<meta property="og:site_name" content="Jose Adrianzen">
-<meta property="og:locale" content="es_PE">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content={title}>
-<meta name="twitter:description" content={ogDescription}>
-<meta name="twitter:image" content={og}>
-<link rel="preload" as="font" type="font/woff2" href={ruta('assets/fonts/anton-400-latin.woff2')} crossorigin>
-<link rel="preload" as="font" type="font/woff2" href={ruta('assets/fonts/archivo-400-latin.woff2')} crossorigin>
-<link rel="stylesheet" href={ruta('assets/fuentes.css')}>
-<link rel="icon" href={favicon}>
-<link rel="canonical" href={canonical}>
-{jsonLd && <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}
-<slot name="head" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <script is:inline set:html={`(function(){var h=document.documentElement;if(matchMedia('(prefers-reduced-motion: reduce)').matches)return;h.classList.add('mov');var v=0;try{v=sessionStorage.getItem('ja-intro')==='1'}catch(e){}${intro ? "if(!v)h.classList.add('intro');" : ''}setTimeout(function(){if(!window.__mov)h.classList.remove('mov','intro')},4000)})()`} />
+  <title>{titulo}</title>
+  <meta name="description" content={descripcion}>
+  <link rel="canonical" href={url}>
+  <link rel="alternate" hreflang="es" href={urlEs}>
+  <link rel="alternate" hreflang="en" href={urlEn}>
+  <link rel="alternate" hreflang="x-default" href={urlEs}>
+  {PROTOTIPO && <meta name="robots" content="noindex, nofollow">}
+  <meta name="theme-color" content="#0c0b0a">
+  <meta name="color-scheme" content="dark light">
+  <link rel="icon" href={ruta('favicon.svg').replace(/\/$/, '')} type="image/svg+xml">
+  <link rel="icon" href={ruta('icono-32.png').replace(/\/$/, '')} sizes="32x32" type="image/png">
+  <link rel="apple-touch-icon" href={ruta('icono-180.png').replace(/\/$/, '')}>
+  <link rel="preload" href={ruta('fuentes/bebas-neue/bebas-neue-latin-400-normal.woff2').replace(/\/$/, '')} as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href={ruta('fuentes/newsreader/newsreader-latin-wght-normal.woff2').replace(/\/$/, '')} as="font" type="font/woff2" crossorigin>
+  <meta property="og:type" content={tipo}>
+  <meta property="og:site_name" content="Jose Adrianzen">
+  <meta property="og:locale" content={x.locale}>
+  <meta property="og:title" content={titulo}>
+  <meta property="og:description" content={descripcion}>
+  <meta property="og:url" content={url}>
+  <meta property="og:image" content={sitio + imagenOg}>
+  <meta property="og:image:alt" content={altOg}>
+  <meta name="twitter:card" content="summary_large_image">
+  <script type="application/ld+json" set:html={JSON.stringify([persona_ld, ...[].concat(jsonLd)])} />
+  <script type="application/json" id="textos-mov" set:html={JSON.stringify(textosMov)} />
 </head>
-<body class={bodyClass}>
-<slot />
+<body class:list={[{ 'nav-clara': navClara }]}>
+  <a class="saltar-contenido" href="#contenido">{x.saltar}</a>
+  <Nav lang={lang} actual={actual} camino={camino} />
+  <MenuCapa lang={lang} actual={actual} camino={camino} />
+  <main id="contenido">
+    {PROTOTIPO && <p class="aviso-prototipo">{lang === 'en' ? 'Prototype · not published' : 'Prototipo · no publicado'}</p>}
+    <slot />
+  </main>
+  <Pie lang={lang} />
+  <img class="flota" alt="" aria-hidden="true">
+  <div class="cursor" aria-hidden="true"><span class="aro"></span><span class="punto"></span><b></b></div>
+  <div class="tc" aria-hidden="true"><i>TC</i><span>00:00:00:00</span></div>
+  <script>import '../scripts/movimiento.js';</script>
 </body>
 </html>

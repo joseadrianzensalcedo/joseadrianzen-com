@@ -1,0 +1,5 @@
+---
+// Encabezado de sección como borde de película: número de cuadro, nombre y código.
+const { n, t, d = '', osc = false, id } = Astro.props;
+---
+<div class:list={['enc', { osc }]} data-aparece id={id}><b>{n}</b><span>{t}</span><i></i><em>{d}</em></div>

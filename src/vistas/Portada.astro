@@ -1,0 +1,96 @@
+---
+import Base from '../layouts/Base.astro';
+import Logo from '../components/Logo.astro';
+import Foto from '../components/Foto.astro';
+import Enc from '../components/Enc.astro';
+import { Image } from 'astro:assets';
+import { t, tr } from '../data/textos.js';
+import { ruta, PROTOTIPO } from '../utils.js';
+import { idea, documental as D, eco as E, premios, selecciones, persona } from '../data/sitio.js';
+import { visibles } from '../data/blog.js';
+const { lang = 'es' } = Astro.props;
+const x = t(lang);
+const fotos = import.meta.glob('/src/assets/img/*.webp', { eager: true });
+const img = (n) => fotos[`/src/assets/img/${n}.webp`].default;
+const arts = visibles(PROTOTIPO).slice(0, 3);
+const HOJA = [['fot-puerto', 'an', 'Grúas del puerto del Callao bajo un cielo naranja'], ['jose-shipibo', 'md', 'Jose con amigos shipibo en la calle'], ['fot-mar', 'an', 'Mar abierto al amanecer'], ['fot-barcelona', 'ch', 'Fachadas con balcones en Barcelona'], ['fot-gaviota', 'md', 'Proa de un buque y una gaviota en el puerto']];
+const titulo = lang === 'en' ? 'Jose Adrianzen | Peruvian film director' : 'Jose Adrianzen | Director de cine peruano';
+const desc = lang === 'en'
+  ? 'Jose Adrianzen, Peruvian film director and producer. Award winning documentary Between Dust and Dreams and the short film ECO.'
+  : 'Jose Adrianzen, director y productor de cine peruano. Documental premiado Entre polvo y sueños y cortometraje ECO.';
+const ld = { '@context': 'https://schema.org', '@type': 'WebSite', name: 'Jose Adrianzen', url: 'https://joseadrianzen.com/', inLanguage: lang };
+---
+<Base titulo={titulo} descripcion={desc} lang={lang} intro jsonLd={ld}>
+  <section class="hero oscuro">
+    <Image class="fondo" src={img('doc-noche')} alt={lang === 'en' ? 'A woman miner carries a sack of ore at night under her helmet light' : 'Una minera carga un saco de mineral de noche, bajo la luz de su casco'} widths={[800, 1200]} sizes="100vw" loading="eager" fetchpriority="high" />
+    <div class="velo"></div>
+    <div class="hero-pie">
+      <h1 class="hero-logo"><span class="mascara"><Logo variante="portada" armar titulo="Jose Adrianzen" /></span></h1>
+      <div class="hero-acc"><p class="rol">{persona.rol[lang]}</p><a class="btn" href={ruta(D.slug, lang) + '#sala'}>{x.verDoc}</a></div>
+    </div>
+    <button class="pausa" type="button" aria-pressed="false">{x.pausa}</button>
+  </section>
+
+  <section class="idea papel grano">
+    <Enc n="01" t={x.laIdea} d="JA 35 · cuadro 01" />
+    <div class="idea-caja">
+      <h2 class="gigante" data-letras="gigante"><span>{idea.lineas[lang][0]}</span><span class="s2">{idea.lineas[lang][1]}</span><span class="s3">{idea.lineas[lang][2]}</span></h2>
+      <div class="idea-der">
+        <Foto n="doc-casco" clase="idea-foto" alt={lang === 'en' ? 'A woman miner in a yellow helmet looks into the camera' : 'Una minera con casco amarillo mira a cámara'} paralaje cursor={x.cursor.ver} sizes="(max-width: 860px) 80vw, 40vw" />
+        <p class="idea-txt" data-lineas>{idea.texto[lang]}</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="peli oscuro grano" id="peliculas">
+    <Enc n="02" t={x.peliculas} d="1 / 2" osc />
+    <div class="peli-caja">
+      <a href={ruta(D.slug, lang)} class="peli-enlace" aria-label={D.titulo}><Foto n="doc-mineras" clase="peli-foto" alt={D.fotogramas[1][lang === 'en' ? 2 : 1]} cursor={x.cursor.ver} sizes="(max-width: 860px) 100vw, 56vw" /></a>
+      <div class="peli-txt">
+        <h2 class="titulo" data-letras="titulo">{D.titulo}</h2>
+        <p class="cod" data-aparece>{lang === 'en' ? 'Documentary · Peru' : 'Documental · Perú'} · {D.anio} · {D.duracion} · {D.formato}</p>
+        <p class="golpe" data-lineas>“{D.golpe[lang]}”</p>
+        <p class="lect" data-lineas>{D.sinopsis[lang][0]}</p>
+        <a class="lnk" href={ruta(D.slug, lang)} data-aparece>{x.verPelicula}</a>
+      </div>
+    </div>
+    <div class="premios" data-cascada>{premios.slice(0, 3).map((p) => <div><b data-descifra>{p.corto}</b><span>{p.k[lang]}</span></div>)}</div>
+    <div class="franja-ctl"><button type="button" aria-pressed="false">{x.detener}</button></div>
+    <div class="franja" aria-label={x.selecciones}><p>{[...selecciones, ...selecciones].map((s) => s.n).join(' · ')} · </p></div>
+  </section>
+
+  <section class="fotos papel grano" id="fotografia">
+    <Enc n="03" t={x.fotografia} d={x.hoja} />
+    <div class="carril" data-cursor={x.cursor.arrastra}>
+      <div class="hoja">
+        {HOJA.map(([n, c, a], i) => <figure class={c}><Image src={img(n)} alt={a} widths={[480, 800]} sizes="40vw" draggable="false" /><figcaption>{String(i + 1).padStart(2, '0')}A{i === 0 ? ' ▲' : ''}</figcaption></figure>)}
+      </div>
+    </div>
+    <a class="lnk osc-l" href={ruta('fotografia', lang)} data-aparece>{x.verTodas}</a>
+  </section>
+
+  <section class="eco oscuro grano">
+    <Enc n="02" t={x.peliculas} d="2 / 2" osc />
+    <div class="eco-caja">
+      <div class="eco-txt">
+        <h2 class="eco-t" data-letras="eco">ECO</h2>
+        <p class="sello" data-aparece>{E.sello[lang]}</p>
+        <p class="cod" data-aparece>{lang === 'en' ? 'Short film · psychological thriller' : 'Cortometraje · thriller psicológico'} · {E.duracion} · {E.formato}</p>
+        <p class="golpe" data-lineas>“{E.golpe[lang]}”</p>
+        <a class="lnk eco-l" href={ruta(E.slug, lang)} data-aparece>{x.conocerEco}</a>
+      </div>
+      <Foto n="eco-madre" clase="eco-foto" alt={lang === 'en' ? 'An older woman seated on a sofa in half light' : 'Una mujer mayor sentada en un sofá, en penumbra'} cursor={x.cursor.ver} sizes="(max-width: 860px) 100vw, 60vw" />
+    </div>
+    <div class="luz">{E.luz.map((n, k) => <figure><Image src={img(n)} alt="" widths={[260]} /><figcaption>0{k + 1}{k === 0 ? ` · ${x.claveAlta}` : k === 4 ? ` · ${x.claveBaja}` : ''}</figcaption></figure>)}</div>
+  </section>
+
+  <section class="blog papel grano" id="blog">
+    <Enc n="04" t={x.blog} d={x.unaPorSemana} />
+    <p class="pista">{x.pista}</p>
+    {arts.map((a, k) => (
+      <a class="fila" href={ruta('blog/' + a.slug, 'es')} data-cursor={x.cursor.leer} data-img={img(a.imagen).src} hreflang="es">
+        <b>0{k + 1}</b><span data-lineas>{a.titulo}</span><em>{a.tema}{a.estado !== 'publicado' ? ' · borrador' : ''}</em>
+      </a>
+    ))}
+  </section>
+</Base>

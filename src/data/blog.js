@@ -1,0 +1,72 @@
+// Artículos del blog. Una sola fuente para la lista, la página de cada artículo, la portada y el feed.
+// estado 'publicado' aparece siempre. estado 'revision' solo aparece en la vista previa del prototipo (PROTOTIPO=true),
+// con su marca, y nunca en producción hasta que Jose dé el OK por correo.
+// Párrafos que empiezan con "## " son subtítulos.
+
+export const articulos = [
+  {
+    slug: 'la-ia-no-sabe-donde-poner-la-camara',
+    estado: 'publicado',
+    titulo: 'La inteligencia artificial no sabe dónde poner la cámara',
+    tema: 'IA como herramienta',
+    fecha: '2026-09-02',
+    descripcion: 'Tres años filmando a las mujeres mineras del Perú me dejaron una certeza, la inteligencia artificial es una herramienta nueva para el problema de siempre, y ese problema no es técnico.',
+    imagen: 'bts-doc-1',
+    alt: 'Jose Adrianzen ajusta la cámara sobre el trípode en la pampa',
+    pie: 'Ajustando la cámara sobre el trípode en la pampa',
+    cuerpo: [
+      'Tres años trabajando para contar la vida de las mujeres mineras del Perú. En todo ese tiempo, una de las decisiones más importantes es dónde poner la cámara. Por eso, cuando escucho que la inteligencia artificial va a terminar con el cine o a salvarlo de una vez, me sale la misma respuesta, ni lo uno ni lo otro. Es una herramienta nueva para el problema de siempre. Y el problema de siempre no es técnico.',
+      'Cada vez que el cine cambió de técnica, alguien anunció su funeral. Pasó con el sonido, con el color, con el video, con el digital. Y cada vez ocurrió lo mismo, el oficio se abarató, entró más gente y se hicieron más películas, buenas y malas. George Lucas, que construyó su carrera empujando la técnica del cine, lo dijo hace poco en una entrevista con la revista A Rabbit\'s Foot, "La inteligencia artificial va a hacer mucho más fácil hacer películas, no hay nada que hacer al respecto, es el progreso". Se le puede discutir el entusiasmo, no la dirección. La pregunta ya no es si la IA entra al cine, porque ya entró. La pregunta es quién la maneja, para qué y cómo.',
+      'El caso que recuerdo lo dejó El brutalista (The Brutalist). En 2025 su montajista, Dávid Jancsó, contó que la producción usó Respeecher, un software de voz, para afinar la pronunciación del húngaro de Adrien Brody y Felicity Jones. La molestia duró semanas y amenazó su temporada de premios. Al final Brody ganó el Oscar de 2025 a mejor actor. El público no castigó la actuación, castigó la sensación de engaño. Esa es la línea que me importa como director. La herramienta se usa, se declara y se pone al servicio de un actor que sí estuvo ahí, delante de la cámara.',
+      'La Academia tuvo que moverse rápido. En abril de 2025 publicó una regla. Las herramientas de inteligencia artificial no ayudan ni perjudican las opciones de una película a la nominación. Un año después ajustó la tuerca para su próxima edición. Los guiones deben ser de autoría humana y solo cuentan las actuaciones hechas por personas. Su presidenta, Lynette Howell Taylor, lo resumió en una frase, "Los humanos tienen que estar en el centro del proceso creativo". Los actores ya habían marcado esa cancha en 2023, cuando el sindicato paró Hollywood hasta conseguir reglas de consentimiento y pago por las réplicas digitales. Y el mercado sumó su propia lección con Critterz, presentada como la primera gran película animada hecha con inteligencia artificial y anunciada para estrenarse en Cannes 2026. No llegó. Según Bloomberg, la producción terminó buscando un nuevo socio tecnológico después de que OpenAI apagara la herramienta de video con la que contaba. Levantar una película sobre una herramienta que otro puede apagar no es independencia. Es alquiler.',
+      'Para los que hacemos cine desde Latinoamérica, con presupuestos cortos, esta discusión no es teoría. Bien usada, la inteligencia artificial en el cine abarata la carpintería que rodea al plano. Ordenar presupuestos, probar un subtitulado antes de encargar el definitivo, limpiar un audio de referencia, previsualizar una secuencia para no quemar una jornada de rodaje. Cada centavo que se ahorra ahí es un centavo que vuelve a lo único que no se puede delegar, estar presente. Un modelo se entrena con lo que ya se filmó. La señora que baja de la pampa con el costal al hombro no existe en ningún archivo hasta que alguien sube con una cámara y la mira de frente. Ese sigue siendo el trabajo. La inteligencia artificial puede sostenerte la escalera. A qué ventana asomarse, eso lo decides tú.',
+    ],
+    firma: 'Jose Adrianzen es director y productor del documental Entre polvo y sueños.',
+  },
+  {
+    slug: 'el-cine-latinoamericano-no-cabe-en-cannes',
+    estado: 'revision',
+    titulo: 'El cine latinoamericano no cabe en Cannes',
+    tema: 'Cine latinoamericano',
+    fecha: '2026-09-03',
+    descripcion: 'Cannes 2026 dejó fuera de su competencia a toda Latinoamérica. El mapa completo dice otra cosa sobre dónde sí nos toman en serio.',
+    imagen: 'bts-doc-3',
+    alt: 'Jose Adrianzen conversa con dos mujeres mineras en una plaza de la sierra peruana durante el rodaje del documental Entre polvo y sueños',
+    pie: 'Rodaje de Entre polvo y sueños en la sierra',
+    cuerpo: [
+      'En mayo de 2026 la Competencia Oficial de Cannes se anunció sin una sola película latinoamericana. Ni brasileña, ni mexicana, ni argentina, ni colombiana, ni peruana. Cero. Y eso pasó apenas un año después de que Brasil ganara su primer Oscar a Mejor Película Internacional con Aún estoy aquí, de Walter Salles, en la ceremonia de marzo de 2025. La contradicción es tan grande que uno tiene la sensación de que el cine latinoamericano vive en dos calendarios distintos, el que celebra sus victorias y el que sigue negándole la mesa principal.',
+      '## Un festival que no nos mira',
+      'En Cannes 2026 no hubo nadie de la región compitiendo por la Palma de Oro. La presencia latinoamericana quedó en Un Certain Regard con dos películas dirigidas por mujeres, El deshielo de la chilena Manuela Martelli y Siempre soy tu animal materno de la costarricense Valentina Maurel. Argentina apareció con El Partido, un documental sobre el 2 a 1 del Mundial 86 con Inglaterra, ubicado en la sección Cannes Premiere. Ese fue el mapa entero de un continente entero.',
+      '## Donde sí estamos',
+      'El mismo año en que Cannes nos relegó, San Sebastián armó una sección Horizontes Latinos con doce películas. Doce, no una cortesía. En Venecia, dos películas argentinas y una mexicana entraron a la Semana de la Crítica, y tres cintas colombianas se colaron entre la Mostra y la Semana Veneciana. El mapa completo no dice que nuestro cine sea marginal, dice que hay festivales donde nos toman en serio y otros donde todavía funcionamos como exotismo curado.',
+      '## Lo que esto le dice a un director peruano',
+      'Yo entré al circuito por el documental. Entre polvo y sueños ha ido a festivales de cuatro continentes y no aterrizó en Cannes porque no fue diseñado para caber ahí. Se hizo en la sierra peruana, con mujeres mineras artesanales, con un presupuesto que no rima con las estrategias de venta que ordenan la Croisette. Y viajó igual. Si un director latinoamericano ordena su carrera solo por el sueño de Cannes, se va a pasar la vida esperando que un comité francés lo autorice a existir.',
+      'El cine latinoamericano no está en crisis. Está en otra habitación. La pregunta ya no es cómo entrar a la que nos incomoda, sino qué seguimos construyendo en la que sí nos escucha.',
+    ],
+    firma: 'Jose Adrianzen es director y productor. Su documental Entre polvo y sueños recorre festivales de cuatro continentes.',
+  },
+  {
+    slug: 'el-cine-peruano-no-esta-donde-lo-buscan',
+    estado: 'revision',
+    titulo: 'El cine peruano no está donde lo buscan',
+    tema: 'Cine peruano',
+    fecha: '2026-08-26',
+    descripcion: 'Desde la cartelera de Lima el cine peruano parece en crisis. Si uno mira dónde se está filmando, la imagen cambia.',
+    imagen: 'bts-doc-2',
+    alt: 'Jose Adrianzen dirige en la calle del asentamiento minero',
+    pie: 'Rodaje de Entre polvo y sueños',
+    cuerpo: [
+      'Cada cierto tiempo alguien declara que el cine peruano está en crisis. Lo dicen mirando la cartelera de los multicines de Lima, y desde ahí tienen razón. Los estrenos nacionales son pocos y duran poco. Pero esa es una foto tomada desde una sola ventana. Si uno se aleja de la cartelera y mira dónde se está filmando, la imagen cambia.',
+      '## Se filma más que nunca, y más lejos que nunca',
+      'Hoy una cámara capaz de registrar imagen de cine cabe en una mochila. Eso, que suena a detalle técnico, cambió el mapa. Ya no hace falta que una historia pase por Lima para convertirse en película. Se está filmando en Ayacucho, en Cusco, en Puno, en la selva, en la pampa.',
+      '## El documental es la puerta',
+      'No es casualidad que buena parte de ese movimiento sea documental. El documental exige menos plata y más paciencia, tiempo para ganarse la confianza de la gente, para volver, para esperar la luz. Y obliga a escuchar. Uno llega con una idea de la película y la realidad se la corrige.',
+      '## Los festivales como sala de estreno',
+      'Para una película peruana independiente, el festival ya no es el adorno, es la sala de estreno. Ahí encuentra público, prensa, otros directores, y a veces el empujón que le abre la siguiente puerta.',
+      'El cine peruano existe, se está haciendo ahora mismo, casi siempre sin permiso y casi siempre lejos de donde lo buscan. La próxima vez que alguien pregunte dónde está, la respuesta corta es en el camino, filmando.',
+    ],
+    firma: 'Jose Adrianzen es director y productor. Su documental Entre polvo y sueños recorre festivales de cuatro continentes.',
+  },
+];
+
+export const visibles = (prototipo) => articulos.filter((a) => a.estado === 'publicado' || prototipo).sort((a, b) => b.fecha.localeCompare(a.fecha));

@@ -1,0 +1,67 @@
+---
+// ECO no se puede ver ni se enlaza hasta su estreno (regla fija de Jose). Solo sinopsis y fotogramas fijos.
+import Base from '../layouts/Base.astro';
+import Foto from '../components/Foto.astro';
+import Enc from '../components/Enc.astro';
+import { Image } from 'astro:assets';
+import { t, tr } from '../data/textos.js';
+import { ruta } from '../utils.js';
+import { eco as E, documental as D } from '../data/sitio.js';
+const { lang = 'es' } = Astro.props;
+const x = t(lang), en = lang === 'en';
+const fotos = import.meta.glob('/src/assets/img/*.webp', { eager: true });
+const img = (n) => fotos[`/src/assets/img/${n}.webp`].default;
+const titulo = en ? 'ECO | Short film by Jose Adrianzen' : 'ECO | Cortometraje de Jose Adrianzen';
+const ld = { '@context': 'https://schema.org', '@type': 'Movie', name: 'ECO', dateCreated: E.anio, duration: 'PT13M12S', countryOfOrigin: 'PE', genre: 'Thriller psicológico', director: { '@id': 'https://joseadrianzen.com/#jose' }, description: E.sinopsis.es };
+---
+<Base titulo={titulo} descripcion={E.sinopsis[lang]} lang={lang} camino={E.slug} actual="entre-polvo-y-suenos" jsonLd={ld} altOg="ECO" clase="noche">
+  <section class="hero alto oscuro eco-cab">
+    <Image class="fondo" src={img('eco-silla')} alt={en ? 'Frame from ECO' : 'Fotograma de ECO'} widths={[800, 1200]} sizes="100vw" loading="eager" fetchpriority="high" />
+    <div class="velo fuerte"></div>
+    <div class="eco-hero">
+      <h1 class="eco-titulo" data-letras="eco">ECO</h1>
+      <p class="sello grande" data-aparece>{E.sello[lang]}</p>
+      <p class="cod" data-aparece>{x.rolEco} · {E.anio} · {E.duracion} · {E.formato}</p>
+    </div>
+    <button class="pausa" type="button" aria-pressed="false">{x.pausa}</button>
+  </section>
+
+  <section class="luz-grande oscuro">
+    <p class="cod luz-cod" data-aparece><span>{x.claves}</span><span>{x.clavesSub}</span></p>
+    <div class="luz xl">{E.luz.map((n, k) => <figure><Image src={img(n)} alt="" widths={[260]} /><figcaption>0{k + 1}{k === 0 ? ` · ${x.claveAlta}` : k === 4 ? ` · ${x.claveBaja}` : ''}</figcaption></figure>)}</div>
+  </section>
+
+  <section class="sinopsis oscuro grano">
+    <Enc n="01" t={x.sinopsis} d="JA 35" osc />
+    <div class="sin-caja">
+      <div>
+        <p class="entrada" data-lineas>“{E.golpe[lang]}”</p>
+        <p class="lectura" data-lineas>{E.sinopsis[lang]}</p>
+        <p class="aviso-eco" data-lineas>{E.aviso[lang]}</p>
+      </div>
+      <dl class="ficha osc" data-cascada>{E.ficha.map(([k, v]) => <div><dt>{tr(k, lang)}</dt><dd>{v}</dd></div>)}</dl>
+    </div>
+  </section>
+
+  <section class="reparto oscuro">
+    <Enc n="02" t={x.reparto} d={en ? 'four characters' : 'cuatro personajes'} osc />
+    <div class="rep">
+      {E.reparto.map(([n, p, a]) => <div class="rep-item"><Foto n={n} clase="rep-foto" alt={`${tr(p, lang)}, ${a}`} cursor={tr(p, lang)} sizes="(max-width: 860px) 100vw, 25vw" /><p><b>{a}</b><span>{tr(p, lang)}</span></p></div>)}
+    </div>
+  </section>
+
+  <section class="rodaje oscuro">
+    <Enc n="03" t={x.rodaje} d="6K" osc />
+    <div class="escalera eco-esc">
+      {E.rodaje.slice(0, 5).map(([n, a], k) => <Foto n={n} clase={`e e${k % 3}`} alt={a} cursor={x.cursor.ver} sizes="(max-width: 860px) 50vw, 20vw" />)}
+    </div>
+  </section>
+
+  <section class="siguiente oscuro">
+    <p class="cod" data-aparece>{x.siguiente} ▶</p>
+    <a class="sig-enlace" href={ruta(D.slug, lang)}>
+      <h2 class="gigante claro sig-largo" data-letras="titulo">{D.titulo}</h2>
+      <Foto n="doc-mineras" clase="sig-foto" alt="" cursor={x.cursor.ver} sizes="(max-width: 860px) 60vw, 40vw" />
+    </a>
+  </section>
+</Base>

@@ -1,15 +1,15 @@
 ---
-import { ruta } from '../utils.js';
-import { navegacion, correoUrl } from '../data/sitio.js';
-const { prefijo = '' } = Astro.props;
+import Logo from './Logo.astro';
+import { t } from '../data/textos.js';
+import { ruta, rutaOtroIdioma } from '../utils.js';
+const { lang = 'es', actual = '', camino = '' } = Astro.props;
+const x = t(lang);
 ---
-<nav aria-label="Navegación principal">
-  <a class="logo" href={prefijo ? ruta('') : '#inicio'}>JOSE ADRIANZ<span>E</span>N</a>
-  <ul>
-    {navegacion.map(i => (
-      <li><a href={prefijo ? ruta('') + i.href : i.href}>{i.txt}</a></li>
-    ))}
-    <li><a href={ruta('blog')} target="_blank" rel="noopener">Blog</a></li>
-    <li><a href={correoUrl}>Correo</a></li>
-  </ul>
-</nav>
+<header class="nav">
+  <a class="nav-logo" href={ruta('', lang)} aria-label={lang === 'en' ? 'Jose Adrianzen, home' : 'Jose Adrianzen, inicio'}><Logo variante="nav" /></a>
+  <nav aria-label={lang === 'en' ? 'Main' : 'Principal'}>
+    {x.nav.map(([p, txt]) => <a href={ruta(p, lang)} aria-current={actual === p ? 'page' : undefined}>{txt}</a>)}
+    <a class="idi" href={rutaOtroIdioma(camino, lang)} hreflang={lang === 'en' ? 'es' : 'en'} lang={lang === 'en' ? 'es' : 'en'} aria-label={x.idiomaOtroLabel}>ES / EN</a>
+  </nav>
+  <button class="menu" type="button">{x.menu}</button>
+</header>

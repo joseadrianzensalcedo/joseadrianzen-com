@@ -1,0 +1,9 @@
+---
+// Logo de Jose Adrianzen con cada letra separada (dibujo idéntico al original). La línea de código cambia según la página.
+const logos = import.meta.glob('/src/assets/logos/*.svg', { query: '?raw', import: 'default', eager: true });
+const { variante = 'nav', armar = false, titulo = 'Jose Adrianzen' } = Astro.props;
+let svg = logos[`/src/assets/logos/${variante}.svg`];
+if (!svg) throw new Error('Falta el logo ' + variante);
+svg = svg.replace('<svg ', `<svg role="img" aria-label="${titulo}" ${armar ? 'data-armar ' : ''}`);
+---
+<Fragment set:html={svg} />

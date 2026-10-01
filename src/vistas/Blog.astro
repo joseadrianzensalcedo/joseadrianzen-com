@@ -1,0 +1,30 @@
+---
+import Base from '../layouts/Base.astro';
+import { t } from '../data/textos.js';
+import { ruta, fechaLegible, minutos, PROTOTIPO } from '../utils.js';
+import { visibles } from '../data/blog.js';
+const { lang = 'es' } = Astro.props;
+const x = t(lang), en = lang === 'en';
+const fotos = import.meta.glob('/src/assets/img/*.webp', { eager: true });
+const arts = visibles(PROTOTIPO);
+const temas = [...new Set(arts.map((a) => a.tema))];
+const titulo = en ? 'Blog | Jose Adrianzen' : 'Blog | Jose Adrianzen, cine peruano y latinoamericano';
+const desc = en ? 'Weekly articles by Jose Adrianzen on Peruvian and Latin American film and on AI as a tool.' : 'Un artículo por semana de Jose Adrianzen sobre cine peruano, cine latinoamericano e IA como herramienta.';
+---
+<Base titulo={titulo} descripcion={desc} lang={lang} camino="blog" actual="blog" navClara>
+  <section class="foto-cab papel grano">
+    <h1 class="gigante" data-letras="gigante"><span>Blog</span></h1>
+    <p class="cod temas" data-aparece>{temas.map((t) => <span>{t}</span>)}</p>
+    {x.soloEs && <p class="nota-idioma">{x.soloEs}</p>}
+  </section>
+  <section class="blog blog-lista papel grano">
+    <p class="pista">{x.pista}</p>
+    {arts.map((a, k) => (
+      <a class="fila" href={ruta('blog/' + a.slug, 'es')} hreflang="es" data-cursor={x.cursor.leer} data-img={fotos[`/src/assets/img/${a.imagen}.webp`].default.src}>
+        <b>{String(arts.length - k).padStart(2, '0')}</b>
+        <span data-lineas>{a.titulo}</span>
+        <em>{fechaLegible(a.fecha, lang)} · {minutos(a)} {x.leer}{a.estado !== 'publicado' ? (en ? ' · draft' : ' · borrador') : ''}</em>
+      </a>
+    ))}
+  </section>
+</Base>

@@ -1,0 +1,60 @@
+---
+import Base from '../layouts/Base.astro';
+import Foto from '../components/Foto.astro';
+import { t, tr } from '../data/textos.js';
+import { fotografia } from '../data/sitio.js';
+const { lang = 'es' } = Astro.props;
+const x = t(lang), en = lang === 'en';
+const fotos = import.meta.glob('/src/assets/img/*.webp', { eager: true });
+const titulo = en ? 'Photography | Jose Adrianzen' : 'Fotografía | Jose Adrianzen';
+const desc = en ? 'Photography by Jose Adrianzen, travel, portraits and film sets.' : 'Fotografía de Jose Adrianzen, viajes, retratos y rodajes.';
+const forma = (n) => { const m = fotos[`/src/assets/img/${n}.webp`].default; const r = m.width / m.height; return r > 1.25 ? 'an' : r < 0.9 ? 'al' : 'cu'; };
+---
+<Base titulo={titulo} descripcion={desc} lang={lang} camino="fotografia" actual="fotografia" navClara>
+  <section class="foto-cab papel grano">
+    <h1 class="gigante" data-letras="gigante"><span>{x.fotografia}</span></h1>
+    <div class="filtros" role="group" aria-label={en ? 'Filter photos' : 'Filtrar fotos'}>
+      {x.filtros.map(([k, v], i) => <button type="button" data-ver={k} aria-pressed={i === 0 ? 'true' : 'false'}>{v}</button>)}
+      <span class="cuenta">{fotografia.length} {en ? 'frames' : 'cuadros'}</span>
+    </div>
+  </section>
+  <section class="hoja-grande papel grano">
+    {fotografia.map(([n, a, cat], i) => (
+      <button type="button" class:list={['celda', forma(n)]} data-cat={cat} data-i={i} aria-label={tr(a, lang)}>
+        <Foto n={n} alt={tr(a, lang)} cursor={x.cursor.ver} sizes="(max-width: 860px) 50vw, 25vw" />
+        <span class="num">{String(i + 1).padStart(2, '0')}A{i === 4 ? ' ▲' : ''}</span>
+      </button>
+    ))}
+  </section>
+  <div class="visor" hidden role="dialog" aria-modal="true" aria-label={x.fotografia}>
+    <img alt="">
+    <p class="visor-pie"></p>
+    <button type="button" class="v-cerrar" aria-label={x.cerrar}>{x.cerrar} ✕</button>
+    <button type="button" class="v-ant" aria-label={en ? 'Previous' : 'Anterior'}>←</button>
+    <button type="button" class="v-sig" aria-label={en ? 'Next' : 'Siguiente'}>→</button>
+  </div>
+  <script>
+    // Visor ampliado: se abre al tocar una foto, flechas o deslizar para pasar, Escape para cerrar. Filtros por palabra.
+    const celdas = [...document.querySelectorAll('.celda')], visor = document.querySelector('.visor');
+    const vImg = visor.querySelector('img'), vPie = visor.querySelector('.visor-pie');
+    let i = 0, origen = null;
+    const visibles = () => celdas.filter((c) => !c.hidden);
+    const mostrar = (k) => { const v = visibles(); i = (k + v.length) % v.length; const im = v[i].querySelector('img');
+      vImg.src = im.currentSrc || im.src; vImg.srcset = im.srcset; vImg.sizes = '100vw'; vImg.alt = im.alt; vPie.textContent = v[i].querySelector('.num').textContent + ' · ' + im.alt; };
+    const abrir = (c) => { origen = c; mostrar(visibles().indexOf(c)); visor.hidden = false; document.documentElement.classList.add('visor-abierto'); visor.querySelector('.v-cerrar').focus(); };
+    const cerrar = () => { visor.hidden = true; document.documentElement.classList.remove('visor-abierto'); origen?.focus(); };
+    celdas.forEach((c) => c.addEventListener('click', () => abrir(c)));
+    visor.querySelector('.v-cerrar').addEventListener('click', cerrar);
+    visor.querySelector('.v-ant').addEventListener('click', () => mostrar(i - 1));
+    visor.querySelector('.v-sig').addEventListener('click', () => mostrar(i + 1));
+    visor.addEventListener('click', (e) => { if (e.target === visor) cerrar(); });
+    addEventListener('keydown', (e) => { if (visor.hidden) return; if (e.key === 'Escape') cerrar(); if (e.key === 'ArrowLeft') mostrar(i - 1); if (e.key === 'ArrowRight') mostrar(i + 1); });
+    let x0 = null; visor.addEventListener('touchstart', (e) => { x0 = e.touches[0].clientX; }, { passive: true });
+    visor.addEventListener('touchend', (e) => { if (x0 === null) return; const d = e.changedTouches[0].clientX - x0; if (Math.abs(d) > 50) mostrar(i + (d < 0 ? 1 : -1)); x0 = null; });
+    document.querySelectorAll('[data-ver]').forEach((b) => b.addEventListener('click', () => {
+      const k = b.dataset.ver; document.querySelectorAll('[data-ver]').forEach((o) => o.setAttribute('aria-pressed', String(o === b)));
+      celdas.forEach((c) => { c.hidden = k !== 'todo' && c.dataset.cat !== k; });
+      window.dispatchEvent(new Event('resize'));
+    }));
+  </script>
+</Base>

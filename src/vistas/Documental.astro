@@ -1,0 +1,78 @@
+---
+import Base from '../layouts/Base.astro';
+import Logo from '../components/Logo.astro';
+import Foto from '../components/Foto.astro';
+import Enc from '../components/Enc.astro';
+import Reproductor from '../components/Reproductor.astro';
+import { Image } from 'astro:assets';
+import { t, tr } from '../data/textos.js';
+import { ruta, PROTOTIPO } from '../utils.js';
+import { documental as D, eco as E, premios, selecciones } from '../data/sitio.js';
+const { lang = 'es' } = Astro.props;
+const x = t(lang), en = lang === 'en';
+const fotos = import.meta.glob('/src/assets/img/*.webp', { eager: true });
+const titulo = en ? `${D.tituloEn} | Documentary by Jose Adrianzen` : `${D.titulo} | Documental de Jose Adrianzen`;
+const desc = D.sinopsis[lang][0];
+const ld = { '@context': 'https://schema.org', '@type': 'Movie', name: D.titulo, alternateName: D.tituloEn, dateCreated: D.anio, duration: 'PT37M2S', countryOfOrigin: 'PE', inLanguage: 'es',
+  director: { '@id': 'https://joseadrianzen.com/#jose' }, description: D.sinopsis.es.join(' '),
+  productionCompany: [{ '@type': 'Organization', name: 'Solidaridad' }, { '@type': 'Organization', name: 'BÁLU' }],
+  award: premios.map((p) => `${p.k.es}, ${p.v}`), trailer: { '@type': 'VideoObject', name: `${D.titulo}, tráiler`, embedUrl: 'https://player.vimeo.com/video/1056105326', thumbnailUrl: 'https://joseadrianzen.com/og.jpg' } };
+---
+<Base titulo={titulo} descripcion={desc} lang={lang} camino={D.slug} actual={D.slug} tipo="video.movie" jsonLd={ld} altOg={D.titulo}>
+  <section class="hero alto oscuro">
+    <Image class="fondo" src={fotos['/src/assets/img/doc-tunel.webp'].default} alt={D.fotogramas[0][en ? 2 : 1]} widths={[800, 1200]} sizes="100vw" loading="eager" fetchpriority="high" />
+    <div class="velo"></div>
+    <div class="titulo-fijo"><h1 class="gigante claro" data-letras="gigante"><span>Entre polvo</span><span>y sueños</span></h1>{en && <p class="cod" data-aparece>{D.tituloEn}</p>}</div>
+    <div class="hero-pie">
+      <div class="hero-logo"><span class="mascara"><Logo variante="documental" armar /></span></div>
+      <div class="hero-acc"><p class="rol">{x.rolDoc}</p><a class="btn" href="#sala">{x.verPelicula}</a></div>
+    </div>
+    <button class="pausa" type="button" aria-pressed="false">{x.pausa}</button>
+  </section>
+
+  <section class="sala oscuro" id="sala">
+    <p class="cod sala-cod" data-aparece><span>{x.sala}</span><span>{x.trailer} 1:56</span><span>{x.documental} 37:02</span><span>ES · EN · FR · TR</span></p>
+    <Reproductor lang={lang} />
+  </section>
+
+  <section class="sinopsis papel grano">
+    <Enc n="01" t={x.sinopsis} d="JA 35 · cuadro 01" />
+    <div class="sin-caja">
+      <div>
+        <p class="entrada" data-lineas>“{D.golpe[lang]}”</p>
+        {D.sinopsis[lang].map((p) => <p class="lectura" data-lineas>{p}</p>)}
+        {PROTOTIPO && <p class="nota-proto">{en ? 'Synopsis proposed from the Solidaridad press release (14 Aug 2025). Pending Jose’s OK.' : 'Sinopsis propuesta con los datos de la nota de prensa de Solidaridad (14 ago 2025). Pendiente del OK de Jose.'} <a href={D.fuenteSinopsis} target="_blank" rel="noopener">Fuente</a></p>}
+      </div>
+      <dl class="ficha" data-cascada>{D.ficha.map(([k, v]) => <div><dt>{tr(k, lang)}</dt><dd>{v}</dd></div>)}</dl>
+    </div>
+  </section>
+
+  <section class="fotogramas oscuro grano">
+    <Enc n="02" t={en ? 'Frames' : 'Fotogramas'} d={en ? 'from the film' : 'de la película'} osc />
+    <div class="cuadros">
+      {D.fotogramas.slice(1).map(([n, es, enAlt], i) => <Foto n={n} clase={`cuadro c${i}`} alt={en ? enAlt : es} cursor={x.cursor.ver} sizes="(max-width: 860px) 100vw, 50vw" />)}
+    </div>
+  </section>
+
+  <section class="creditos oscuro">
+    <p class="cr-cat" data-aparece>{x.premios}</p>
+    {premios.map((p) => <div class="cr-bloque" data-cascada><p class="cr-nom"><span data-descifra>{p.k[lang]}</span></p><p class="cr-det">{p.v} · {p.d[lang]}</p></div>)}
+    <p class="cr-cat" data-aparece>{x.selecciones}</p>
+    <ul class="cr-lista" data-cascada>{selecciones.map((s) => <li><b>{s.n}</b><span>{s.d}</span></li>)}</ul>
+  </section>
+
+  <section class="rodaje papel grano">
+    <Enc n="03" t={x.rodaje} d={en ? 'no captions' : 'sin pies de foto'} />
+    <div class="escalera">
+      {D.rodaje.slice(0, 5).map(([n, a], k) => <Foto n={n} clase={`e e${k % 3}`} alt={a} cursor={x.cursor.ver} sizes="(max-width: 860px) 50vw, 20vw" />)}
+    </div>
+  </section>
+
+  <section class="siguiente oscuro">
+    <p class="cod" data-aparece>{x.siguiente} ▶</p>
+    <a class="sig-enlace" href={ruta(E.slug, lang)}>
+      <h2 class="gigante claro" data-letras="eco">ECO</h2>
+      <Foto n="eco-madre" clase="sig-foto" alt="" cursor="ECO" sizes="(max-width: 860px) 60vw, 40vw" />
+    </a>
+  </section>
+</Base>

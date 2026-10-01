@@ -1,0 +1,51 @@
+---
+import Base from '../layouts/Base.astro';
+import Logo from '../components/Logo.astro';
+import Foto from '../components/Foto.astro';
+import Enc from '../components/Enc.astro';
+import { t, tr } from '../data/textos.js';
+import { ruta } from '../utils.js';
+import { sobreMi as S, persona } from '../data/sitio.js';
+const { lang = 'es' } = Astro.props;
+const x = t(lang), en = lang === 'en';
+const titulo = en ? 'About | Jose Adrianzen, Peruvian film director' : 'Sobre mí | Jose Adrianzen, director de cine peruano';
+const desc = S.bio[lang][0];
+---
+<Base titulo={titulo} descripcion={desc} lang={lang} camino="sobre-mi" actual="sobre-mi" tipo="profile" navClara>
+  <section class="yo papel grano">
+    <Foto n={S.retrato} clase="yo-foto" alt="Jose Adrianzen" eager pix sizes="(max-width: 860px) 100vw, 48vw" pos="50% 35%" />
+    <div class="yo-texto">
+      <p class="rol" data-aparece>{persona.rol[lang]}</p>
+      <h1 class="yo-logo"><span class="mascara"><Logo variante="sobre-mi" armar titulo="Jose Adrianzen" /></span></h1>
+      <div class="bio">{S.bio[lang].map((p) => <p data-lineas>{p}</p>)}</div>
+    </div>
+  </section>
+
+  <section class="cita oscuro grano">
+    <p data-lineas>“{S.cita[lang]}”</p>
+    <p class="cod" data-aparece>Jose Adrianzen · {en ? 'on Between Dust and Dreams' : 'sobre Entre polvo y sueños'}</p>
+  </section>
+
+  <section class="trayecto papel grano">
+    <Enc n="01" t={x.trayectoria} d={en ? 'my life in film, frame by frame' : 'la tira de mi vida en cine'} />
+    <div class="tira-vida" data-cascada>{S.trayecto.map((e, k) => <div><b>{String(k + 1).padStart(2, '0')}</b><span>{tr(e, lang)}</span></div>)}</div>
+  </section>
+
+  <section class="muro oscuro grano">
+    <Enc n="02" t={en ? 'On and off camera' : 'En cámara y fuera de ella'} d="" osc />
+    <div class="escalera">{S.muro.map(([n, a], k) => <Foto n={n} clase={`e e${k % 3}`} alt={a} cursor={x.cursor.ver} sizes="(max-width: 860px) 50vw, 25vw" />)}</div>
+  </section>
+
+  <section class="dos-bloques papel grano">
+    <div>
+      <Enc n="03" t={x.formacion} d="" />
+      <ul class="datos" data-cascada>{S.formacion.map((f) => <li>{tr(f, lang)}</li>)}</ul>
+    </div>
+    <div>
+      <Enc n="04" t={x.prensa} d="" />
+      <p class="descarga" aria-disabled="true">{x.dossier} <span>{x.proximamente}</span></p>
+      <p class="descarga" aria-disabled="true">{x.fotosAlta} <span>{x.proximamente}</span></p>
+      <a class="lnk" href={ruta('contacto', lang)} data-aparece>{x.escribeme}</a>
+    </div>
+  </section>
+</Base>

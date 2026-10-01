@@ -1,17 +1,21 @@
 {
   "name": "joseadrianzen-com",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "private": true,
   "type": "module",
-  "description": "Sitio personal de Jose Adrianzen, director de cine",
+  "description": "Sitio personal de Jose Adrianzen, director de cine. Rediseño 2026.",
   "scripts": {
     "dev": "astro dev",
-    "start": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
+    "prototipo": "PROTOTIPO=true astro build",
     "astro": "astro"
   },
   "dependencies": {
-    "astro": "^7.2.7"
+    "@astrojs/sitemap": "3.7.4",
+    "astro": "7.3.5",
+    "gsap": "3.13.0",
+    "lenis": "1.3.26",
+    "sharp": "^0.34.0"
   }
 }

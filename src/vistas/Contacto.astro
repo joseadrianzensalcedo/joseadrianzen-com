@@ -1,0 +1,21 @@
+---
+import Base from '../layouts/Base.astro';
+import { t } from '../data/textos.js';
+import { vias, persona } from '../data/sitio.js';
+const { lang = 'es' } = Astro.props;
+const x = t(lang), en = lang === 'en';
+const correo = vias[0];
+const titulo = en ? 'Contact | Jose Adrianzen' : 'Contacto | Jose Adrianzen';
+const desc = en ? 'Write to Jose Adrianzen about projects, festivals and press.' : 'Escríbele a Jose Adrianzen sobre proyectos, festivales y prensa.';
+---
+<Base titulo={titulo} descripcion={desc} lang={lang} camino="contacto" actual="contacto" clase="noche">
+  <section class="escribe oscuro grano">
+    <p class="cod" data-aparece><span>{x.escribeme}</span><span>{x.publicoContacto}</span></p>
+    <h1 class="visually-hidden">{x.contacto}</h1>
+    <a class="correo" href={correo.href} data-letras="titulo">{persona.correo}</a>
+    <div class="canales" data-cascada>
+      {vias.slice(1).map((v) => <a class="canal" href={v.href} target="_blank" rel="noopener"><b>{v.t}</b><span>{v.v}</span><em aria-hidden="true">↗</em></a>)}
+    </div>
+    <p class="cod base" data-aparece>{persona.base[lang]}</p>
+  </section>
+</Base>

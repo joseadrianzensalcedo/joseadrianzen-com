@@ -1,0 +1,133 @@
+---
+// Reproductor propio del documental. El video vive en Vimeo pero no se ve nada de Vimeo: controles, póster y botones son del sitio.
+// Se abre en el idioma del navegador del visitante (sin rastrear su ubicación) y cambia de idioma sin perder el minuto.
+import { Image } from 'astro:assets';
+import { documental as D } from '../data/sitio.js';
+import { t } from '../data/textos.js';
+const { lang = 'es' } = Astro.props;
+const x = t(lang);
+const fotos = import.meta.glob('/src/assets/img/*.webp', { eager: true });
+const VIDEOS = D.videos, TITULO = D.titulo;
+const en = lang === 'en';
+---
+<div class="rp" id="rp" data-cursor={en ? 'Play' : 'Ver'}>
+  <button class="poster" type="button" aria-label={en ? 'Watch the documentary Between Dust and Dreams' : 'Ver el documental Entre polvo y sueños'}>
+    <Image src={fotos['/src/assets/img/doc-entrevista.webp'].default} alt="" widths={[800, 1200]} sizes="100vw" />
+    <span>{en ? 'Watch the documentary' : 'Ver el documental'}</span>
+  </button>
+  <div class="espera" aria-hidden="true"><i></i></div>
+  <div class="capa" aria-hidden="true"></div>
+  <p class="aviso" role="status">{en ? 'The video does not load. Check your connection and try again.' : 'El video no carga. Revisa tu conexión y vuelve a intentar.'}</p>
+  <div class="barra" role="group" aria-label={en ? 'Video controls' : 'Controles del video'}>
+    <button class="ctl" data-accion="play" type="button" aria-label={en ? 'Play' : 'Reproducir'}>
+      <svg viewBox="0 0 24 24" class="i-play"><path d="M7 4l13 8-13 8z"/></svg>
+      <svg viewBox="0 0 24 24" class="i-pausa" hidden><path d="M6 4h4v16H6zM14 4h4v16h-4z"/></svg>
+    </button>
+    <input class="avance" type="range" min="0" max="1000" step="1" value="0" aria-label={en ? 'Progress' : 'Avance del video'}>
+    <span class="tiempo"><span class="actual">0:00</span> / <span class="total">0:00</span></span>
+    <div class="vol">
+      <button class="ctl" data-accion="mute" type="button" aria-label={en ? 'Mute' : 'Silenciar'}>
+        <svg viewBox="0 0 24 24" class="i-son"><path d="M4 9h4l5-4v14l-5-4H4zM16 8a5 5 0 010 8M18.5 5.5a8.5 8.5 0 010 13" stroke="currentColor" stroke-width="1.6" fill="none"/><path d="M4 9h4l5-4v14l-5-4H4z"/></svg>
+        <svg viewBox="0 0 24 24" class="i-mudo" hidden><path d="M4 9h4l5-4v14l-5-4H4z"/><path d="M16 9l5 6M21 9l-5 6" stroke="currentColor" stroke-width="1.6"/></svg>
+      </button>
+      <input class="volumen" type="range" min="0" max="100" step="1" value="100" aria-label={en ? 'Volume' : 'Volumen'}>
+    </div>
+    <button class="ctl" data-accion="pantalla" type="button" aria-label={en ? 'Full screen' : 'Pantalla completa'}>
+      <svg viewBox="0 0 24 24"><path d="M4 9V4h5M15 4h5v5M20 15v5h-5M9 20H4v-5" stroke="currentColor" stroke-width="1.8" fill="none"/></svg>
+    </button>
+  </div>
+</div>
+<div class="rp-opciones">
+  <div class="fuentes" role="group" aria-label={en ? 'What to watch' : 'Qué ver'}>
+    <button type="button" data-fuente="documental" aria-pressed="true">{x.documental} · 37:02</button>
+    <button type="button" data-fuente="trailer" aria-pressed="false">{x.trailer} · 1:56</button>
+  </div>
+  <div class="fuentes idiomas" role="group" aria-label={en ? 'Subtitle language' : 'Idioma de los subtítulos'}>
+    {x.idiomas.map(([c, n]) => <button type="button" data-idioma={c} lang={c} aria-pressed="false">{n}</button>)}
+  </div>
+</div>
+<script is:inline define:vars={{ VIDEOS, TITULO }}>
+
+(function(){
+  var rp=document.getElementById('rp');
+  var barra=rp.querySelector('.barra'), avance=rp.querySelector('.avance'), volumen=rp.querySelector('.volumen');
+  var bPlay=rp.querySelector('[data-accion=play]'), bMute=rp.querySelector('[data-accion=mute]'), bPant=rp.querySelector('[data-accion=pantalla]');
+  var tAct=rp.querySelector('.actual'), tTot=rp.querySelector('.total');
+  function idiomaInicial(){
+    var forzado=new URLSearchParams(location.search).get('idioma');if(forzado&&VIDEOS[forzado])return forzado;
+    var ls=navigator.languages&&navigator.languages.length?navigator.languages:[navigator.language||'es'];
+    for(var i=0;i<ls.length;i++){var c=String(ls[i]).slice(0,2).toLowerCase();if(VIDEOS[c])return c;}
+    return 'en';
+  }
+  var player=null, dur=0, arrastrando=false, reloj=null, fuente='documental', idioma=idiomaInicial();
+  function url(){var v=VIDEOS[idioma][fuente];if(!v&&fuente==='documental')v=VIDEOS.en.documental;return v;}
+  function embed(u){var m=u.match(/vimeo\.com\/(\d+)(?:\/([0-9a-f]+))?/);return 'https://player.vimeo.com/video/'+m[1]+'?'+(m[2]?'h='+m[2]+'&':'');}
+  function marca(){document.querySelectorAll('[data-idioma]').forEach(function(x){x.setAttribute('aria-pressed',x.dataset.idioma===idioma);});}
+  marca();
+
+  function fmt(s){s=Math.max(0,Math.floor(s||0));var h=Math.floor(s/3600),m=Math.floor(s%3600/60),x=s%60;return (h?h+':'+String(m).padStart(2,'0'):m)+':'+String(x).padStart(2,'0');}
+  function pinta(r,v){r.style.setProperty('--p',(v/r.max*100)+'%');}
+  function src(u){return embed(u)+'controls=0&title=0&byline=0&portrait=0&badge=0&dnt=1&playsinline=1&autopause=0&keyboard=0&pip=0&vimeo_logo=0&autoplay=1';}
+  function cargaSdk(){return new Promise(function(ok,mal){if(window.Vimeo)return ok();var s=document.createElement('script');s.src='https://player.vimeo.com/api/player.js';s.onload=ok;s.onerror=mal;document.head.appendChild(s);});}
+
+  function despierta(){rp.classList.remove('quieto');clearTimeout(reloj);reloj=setTimeout(function(){if(!rp.classList.contains('pausado'))rp.classList.add('quieto');},2500);}
+  function estado(pausado){rp.classList.toggle('pausado',pausado);rp.classList.toggle('reproduciendo',!pausado);
+    bPlay.querySelector('.i-play').toggleAttribute('hidden',!pausado);bPlay.querySelector('.i-pausa').toggleAttribute('hidden',pausado);bPlay.setAttribute('aria-label',pausado?'Reproducir':'Pausar');}
+
+  function inicia(){
+    rp.classList.add('listo','cargando');rp.classList.remove('error');
+    cargaSdk().then(function(){
+      var f=document.createElement('iframe');
+      f.src=src(url());f.allow='autoplay; fullscreen';f.title=TITULO;f.setAttribute('tabindex','-1');
+      rp.insertBefore(f,rp.firstChild);
+      player=new Vimeo.Player(f);
+      player.on('loaded',function(){rp.classList.remove('cargando');player.getDuration().then(function(d){dur=d;tTot.textContent=fmt(d);});});
+      player.on('bufferstart',function(){rp.classList.add('cargando');});
+      player.on('bufferend',function(){rp.classList.remove('cargando');});
+      player.on('play',function(){rp.classList.remove('cargando');estado(false);despierta();});
+      player.on('pause',function(){estado(true);});
+      player.on('ended',function(){estado(true);});
+      player.on('timeupdate',function(e){if(arrastrando)return;var v=Math.round(e.percent*1000);avance.value=v;pinta(avance,v);tAct.textContent=fmt(e.seconds);avance.setAttribute('aria-valuetext',fmt(e.seconds)+' de '+fmt(dur));});
+      player.on('volumechange',function(e){var v=Math.round(e.volume*100);volumen.value=v;pinta(volumen,v);});
+      player.on('error',function(){rp.classList.add('error');rp.classList.remove('cargando');});
+      player.play().catch(function(){estado(true);rp.classList.remove('cargando');});
+      bPlay.focus({preventScroll:true});
+    }).catch(function(){rp.classList.add('error');rp.classList.remove('cargando');});
+  }
+  function alterna(){if(!player)return;player.getPaused().then(function(p){p?player.play():player.pause();});}
+
+  rp.querySelector('.poster').addEventListener('click',inicia);
+  rp.querySelector('.capa').addEventListener('click',function(){alterna();despierta();});
+  rp.querySelector('.capa').addEventListener('dblclick',function(){pantalla();});
+  bPlay.addEventListener('click',alterna);
+  bMute.addEventListener('click',function(){if(!player)return;player.getMuted().then(function(m){player.setMuted(!m);bMute.querySelector('.i-son').toggleAttribute('hidden',!m);bMute.querySelector('.i-mudo').toggleAttribute('hidden',m);bMute.setAttribute('aria-label',m?'Silenciar':'Activar sonido');});});
+  volumen.addEventListener('input',function(){pinta(volumen,volumen.value);if(player)player.setVolume(volumen.value/100);});
+  avance.addEventListener('input',function(){arrastrando=true;pinta(avance,avance.value);tAct.textContent=fmt(avance.value/1000*dur);});
+  avance.addEventListener('change',function(){arrastrando=false;if(player)player.setCurrentTime(avance.value/1000*dur);});
+  function pantalla(){if(document.fullscreenElement)document.exitFullscreen();else if(rp.requestFullscreen)rp.requestFullscreen();else if(player)player.requestFullscreen();}
+  bPant.addEventListener('click',pantalla);
+  rp.addEventListener('pointermove',despierta);
+  rp.addEventListener('keydown',function(e){if(!player||e.target.type==='range'&&(e.key==='ArrowLeft'||e.key==='ArrowRight'))return;
+    if(e.key===' '||e.key==='k'){e.preventDefault();alterna();}
+    else if(e.key==='ArrowRight'){player.getCurrentTime().then(function(t){player.setCurrentTime(Math.min(dur,t+10));});}
+    else if(e.key==='ArrowLeft'){player.getCurrentTime().then(function(t){player.setCurrentTime(Math.max(0,t-10));});}
+    else if(e.key==='f'){pantalla();} else if(e.key==='m'){bMute.click();}
+    despierta();});
+  function cambia(guardaTiempo){
+    if(!player){inicia();return;}
+    rp.classList.add('cargando');
+    var t0=0;
+    (guardaTiempo?player.getCurrentTime():Promise.resolve(0)).then(function(t){t0=t;return player.loadVideo(url());})
+      .then(function(){return player.getDuration();})
+      .then(function(d){dur=d;tTot.textContent=fmt(d);return t0>0&&t0<d?player.setCurrentTime(t0):0;})
+      .then(function(){return player.play();})
+      .catch(function(){rp.classList.add('error');rp.classList.remove('cargando');});
+  }
+  document.querySelectorAll('[data-fuente]').forEach(function(b){b.addEventListener('click',function(){
+    fuente=b.dataset.fuente;document.querySelectorAll('[data-fuente]').forEach(function(x){x.setAttribute('aria-pressed',x===b);});
+    cambia(false);});});
+  document.querySelectorAll('[data-idioma]').forEach(function(b){b.addEventListener('click',function(){
+    if(b.dataset.idioma===idioma)return;idioma=b.dataset.idioma;marca();cambia(fuente==='documental');});});
+})();
+
+</script>

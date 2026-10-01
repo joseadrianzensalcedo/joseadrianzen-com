@@ -1,129 +1,217 @@
-// Datos del sitio. Editar aqui en vez de tocar el HTML de las secciones.
+// Datos del sitio. Todo el texto y las listas viven aquí, separados del diseño.
+// Cambiar un premio, una sinopsis o una foto se hace en este archivo, sin tocar las páginas.
+// Cada texto va en español (es) y en inglés (en). El inglés es traducción de Claude, pendiente de revisión de Jose.
+
+export const persona = {
+  nombre: 'Jose Adrianzen',
+  rol: { es: 'Director · Productor', en: 'Director · Producer' },
+  correo: 'yo@joseadrianzen.com',
+  base: { es: 'Lima, Perú', en: 'Lima, Peru' },
+  nacimiento: '22.09.1989',
+};
+
+/* La idea de la portada. Reemplaza "Hasta el último rincón" (pedido de Jose, 30 set 2026).
+   "Revelar" es a la vez sacar a la luz y revelar película, y es el hilo conductor del movimiento de la web. */
+export const idea = {
+  lineas: { es: ['Revelar', 'lo que', 'no se ve'], en: ['Reveal', 'what', 'stays unseen'] },
+  texto: {
+    es: 'Cine sobre lo que queda oculto, hasta donde esté. Historias de gente que casi nadie filma, contadas desde adentro.',
+    en: 'Films about what stays hidden, wherever it is. Stories of people almost no one films, told from the inside.',
+  },
+};
 
 export const premios = [
-  { k: 'Mejor documental', v: 'TITAN International Film Festival', d: 'Sídney, Australia · 3.ª edición · 2025' },
-  { k: 'Mejor guion',      v: '13.º Noida International Film Festival', d: 'Noida, India · 2026' },
-  { k: 'Best of Festival', v: 'Docuvision International Film Festival', d: 'Lewes, Delaware, EE. UU. · 2026' },
-  { k: 'Mención especial', v: '13.º Noida International Film Festival', d: 'Noida, India · 2026' },
+  { k: { es: 'Mejor documental', en: 'Best Documentary' }, v: 'TITAN International Film Festival', d: { es: 'Sídney, Australia · 3.ª edición · 2025', en: 'Sydney, Australia · 3rd edition · 2025' }, corto: 'TITAN 2025' },
+  { k: { es: 'Mejor guion', en: 'Best Screenplay' }, v: '13.º Noida International Film Festival', d: { es: 'Noida, India · 2026', en: 'Noida, India · 2026' }, corto: 'Noida 2026' },
+  { k: { es: 'Best of Festival', en: 'Best of Festival' }, v: 'Docuvision International Film Festival', d: { es: 'Lewes, Delaware, EE. UU. · 2026', en: 'Lewes, Delaware, USA · 2026' }, corto: 'Docuvision 2026' },
+  { k: { es: 'Mención especial', en: 'Special Mention' }, v: '13.º Noida International Film Festival', d: { es: 'Noida, India · 2026', en: 'Noida, India · 2026' }, corto: 'Noida 2026' },
 ];
 
 export const selecciones = [
-  { n: '21.º International Labour Film Festival',        d: 'Selección oficial · Türkiye · 2026' },
-  { n: 'The Workers Unite Film Festival',                d: 'Selección oficial · Nueva York, EE. UU. · 2025' },
-  { n: 'London Vision Film Festival',                    d: 'Selección oficial · Londres, Reino Unido · 2025' },
-  { n: 'LISBIFF Lisboa Indie Film Festival',             d: 'Selección oficial · Lisboa, Portugal · 2025' },
-  { n: 'Cine Invisible “Film Sozialak”',       d: 'Selección oficial · Bilbao, España · 2026' },
-  { n: 'FIMMER · Festival Internacional de Mediometrajes', d: 'Sección oficial · Manzanares El Real, España · 2025' },
-  { n: 'ImoIFF Creatives International Film Festival',   d: 'Selección oficial · Imo, Nigeria · 2025' },
-  { n: 'Cinego Shorts · Shorts on the Move',             d: 'Selección oficial · Karachi, Pakistán' },
-  { n: 'Film Hour · Bodhak Studio',                      d: 'Selección oficial · India' },
-  { n: 'Cinematic Luxe Indie Showcase',                  d: 'Winter Fest 26 · Cincinnati, EE. UU.' },
-  { n: '20.ª Muestra Cine + Video Indígena',             d: 'Selección oficial · Chile · 2026' },
+  { n: '21.º International Labour Film Festival', d: 'Türkiye · 2026' },
+  { n: 'The Workers Unite Film Festival', d: 'Nueva York, EE. UU. · 2025' },
+  { n: 'London Vision Film Festival', d: 'Londres, Reino Unido · 2025' },
+  { n: 'LISBIFF Lisboa Indie Film Festival', d: 'Lisboa, Portugal · 2025' },
+  { n: 'Cine Invisible “Film Sozialak”', d: 'Bilbao, España · 2026' },
+  { n: 'FIMMER · Festival Internacional de Mediometrajes', d: 'Manzanares El Real, España · 2025' },
+  { n: 'ImoIFF Creatives International Film Festival', d: 'Imo, Nigeria · 2025' },
+  { n: 'Cinego Shorts · Shorts on the Move', d: 'Karachi, Pakistán' },
+  { n: 'Film Hour · Bodhak Studio', d: 'India' },
+  { n: 'Cinematic Luxe Indie Showcase', d: 'Winter Fest 26 · Cincinnati, EE. UU.' },
+  { n: '20.ª Muestra Cine + Video Indígena', d: 'Chile · 2026' },
 ];
 
-export const fichaDocumental = [
-  ['Dirección', 'Jose Adrianzen'],
-  ['Guion', 'Jose Adrianzen'],
-  ['Producción general', 'Jose Adrianzen y Solidaridad'],
-  ['Producido por', 'Bálu · Solidaridad'],
-  ['País', 'Perú'],
-  ['Formato', 'Digital 2K'],
-  ['Idioma', 'Español'],
-  ['Subtítulos', 'Francés, inglés y turco'],
-];
+/* Sinopsis del documental.
+   Fuente de los hechos: nota de prensa de Solidaridad, coproductora, "Entre Polvo y Sueños: New Documentary on the Strength
+   and Collective Power of Women Miners", publicada el 14 ago 2025, consultada el 30 set 2026:
+   https://www.solidaridadnetwork.org/news/entre-polvo-y-suenos-new-documentary-on-the-strength-and-collective-power-of-women-miners/
+   "Tres años" sale de la bio de Jose. Redacción propuesta por Claude, pendiente del OK de Jose como sinopsis oficial. */
+export const documental = {
+  slug: 'entre-polvo-y-suenos',
+  titulo: 'Entre polvo y sueños',
+  tituloEn: 'Between Dust and Dreams',
+  anio: '2025',
+  duracion: '37:02',
+  formato: '2K',
+  golpe: { es: 'Ellas no solo buscan mineral.', en: 'They are not only looking for ore.' },
+  sinopsis: {
+    es: [
+      'En Arequipa, María Reyes es pallaquera, busca mineral entre la roca que otros ya descartaron. En Puno, Julia Pomalique enfrenta las barreras de una cultura que no imagina a una mujer en la mina. En Madre de Dios, Vilma Contreras rompió los estereotipos y sigue en pie.',
+      'Entre polvo y sueños acompaña a tres mineras de la minería artesanal y de pequeña escala del Perú, un tema que hoy entra a la agenda pública casi siempre sin escucharlas a ellas. Tres años de rodaje en socavones y pampas para que su voz llegue lejos.',
+    ],
+    en: [
+      'In Arequipa, María Reyes is a pallaquera, sifting for ore in the rock others have already discarded. In Puno, Julia Pomalique faces the barriers of a culture that cannot picture a woman in the mine. In Madre de Dios, Vilma Contreras defied the stereotypes and is still standing.',
+      'Between Dust and Dreams follows three women in Peru’s artisanal and small scale mining, an issue now on the public agenda that rarely listens to them. Three years of shooting in tunnels and open pits so their voice can travel far.',
+    ],
+  },
+  ficha: [
+    [{ es: 'Dirección', en: 'Director' }, 'Jose Adrianzen'],
+    [{ es: 'Guion', en: 'Screenplay' }, 'Jose Adrianzen'],
+    [{ es: 'Producción general', en: 'Executive production' }, 'Jose Adrianzen y Solidaridad'],
+    [{ es: 'Producido por', en: 'Produced by' }, 'BÁLU · Solidaridad'],
+    [{ es: 'Programa', en: 'Programme' }, 'RECLAIM Sustainability!'],
+    [{ es: 'País', en: 'Country' }, 'Perú'],
+    [{ es: 'Formato', en: 'Format' }, 'Digital 2K'],
+    [{ es: 'Duración', en: 'Running time' }, '37:02'],
+    [{ es: 'Idioma', en: 'Language' }, 'Español'],
+    [{ es: 'Subtítulos', en: 'Subtitles' }, 'Français · English · Türkçe'],
+  ],
+  // Vimeo. Fuente: ficha pública de cada video (oEmbed), consultada el 30 set 2026. Ver segundo cerebro.
+  videos: {
+    es: { documental: 'https://vimeo.com/1082640610', trailer: 'https://vimeo.com/1056105326' },
+    en: { documental: 'https://vimeo.com/1082640629/31b003bd4a', trailer: 'https://vimeo.com/1056105326' },
+    fr: { documental: 'https://vimeo.com/1082640645', trailer: 'https://vimeo.com/1056105326' },
+    tr: { documental: null, trailer: 'https://vimeo.com/1157320004' },
+  },
+  fotogramas: [
+    ['doc-tunel', 'Mineras caminan dentro del socavón con cascos y linternas', 'Women miners walk inside the tunnel with helmets and lamps'],
+    ['doc-mineras', 'Tres mineras almuerzan sobre la roca bajo un cielo de polvo', 'Three women miners eat lunch on the rock under a dusty sky'],
+    ['doc-noche', 'Minera con casco rojo llena sacos de piedra de noche', 'A miner in a red helmet fills sacks with stone at night'],
+    ['doc-casco', 'Retrato de una minera con casco naranja junto a tuberías', 'Portrait of a miner in an orange helmet next to pipes'],
+    ['doc-entrevista', 'Mujer entrevistada en el interior de su vivienda', 'A woman interviewed inside her home'],
+  ],
+  rodaje: [
+    ['bts-doc-2', 'Jose Adrianzen dirige en la calle del asentamiento minero'],
+    ['bts-doc-1', 'Ajustando la cámara sobre el trípode en la pampa'],
+    ['bts-doc-5', 'Cámara y microfonista durante una entrevista'],
+    ['bts-doc-3', 'Jose conversa con las mineras en la plaza del pueblo'],
+    ['bts-doc-4', 'Jose explica una escena dentro de una tienda'],
+    ['bts-doc-8', 'Entrevista iluminada con rebotador y caña de sonido'],
+    ['bts-doc-7', 'Niños del pueblo miran el monitor de la cámara'],
+    ['bts-doc-6', 'Jose maneja el control del dron dentro del auto de noche'],
+  ],
+  fuenteSinopsis: 'https://www.solidaridadnetwork.org/news/entre-polvo-y-suenos-new-documentary-on-the-strength-and-collective-power-of-women-miners/',
+};
 
-export const equipoEco = [
-  ['Dirección', 'Jose Adrianzen'],
-  ['Guion', 'Jose Adrianzen y Matilde Carrión'],
-  ['Producción', 'Jose Adrianzen'],
-  ['Fotografía', 'Fabricio Raciti'],
-  ['Arte', 'Gonzalo Veratudela'],
-  ['Dir. de actores', 'Aníbal Lozano'],
-  ['Montaje', 'Jose Adrianzen'],
-  ['Sonido', 'Casko Pérez'],
-  ['Música', 'Augusto Madueño'],
-];
-
-export const fotogramasDoc = [
-  ['doc-titulo',      'Título del documental sobre fondo negro'],
-  ['doc-tunel-b',     'Mineras caminan dentro del socavón con cascos y linternas'],
-  ['doc-mineras-b',   'Tres mineras almuerzan sobre la roca bajo un cielo de polvo'],
-  ['doc-noche-b',     'Minera con casco rojo llena sacos de piedra de noche'],
-  ['doc-casco-b',     'Retrato de una minera con casco naranja junto a tuberías'],
-  ['doc-entrevista-b','Mujer entrevistada en el interior de su vivienda'],
-];
-
-export const btsDoc = [
-  ['bts-doc-2', 'Jose Adrianzen dirige en la calle del asentamiento minero'],
-  ['bts-doc-1', 'Ajustando la cámara sobre el trípode en la pampa'],
-  ['bts-doc-5', 'Cámara y microfonista durante una entrevista'],
-  ['bts-doc-3', 'Jose conversa con las mineras en la plaza del pueblo'],
-  ['bts-doc-4', 'Jose explica una escena dentro de una tienda'],
-  ['bts-doc-8', 'Entrevista iluminada con rebotador y caña de sonido'],
-  ['bts-doc-7', 'Niños del pueblo miran el monitor de la cámara'],
-  ['bts-doc-6', 'Jose maneja el control del dron dentro del auto de noche'],
-];
-
-export const repartoEco = [
-  ['eco-cesar',    'César, interpretado por Cristian Esquivel', 'César',     'Cristian Esquivel'],
-  ['eco-cristina', 'Cristina, interpretada por Fiorella Luna',  'Cristina',  'Fiorella Luna'],
-  ['eco-victoria', 'Victoria, interpretada por Yamile Caparó',  'Victoria',  'Yamile Caparó'],
-  ['eco-madre',    'La madre, interpretada por Motta',          'La madre',  'Motta'],
-];
-
-export const btsEco = [
-  ['eco-bts-set',           'El equipo ilumina el set mientras se prepara la escena'],
-  ['eco-bts-cama',          'Rodaje de la escena del dormitorio con luces cálidas y frías'],
-  ['eco-bts-yamile',        'Jose Adrianzen junto a Yamile Caparó con la claqueta'],
-  ['eco-bts-cristian-jose', 'Jose Adrianzen junto a Cristian Esquivel con la claqueta'],
-  ['eco-bts-cristian',      'Cristian Esquivel sostiene la claqueta de ECO'],
-  ['eco-bts-locacion',      'La sala de la casa vacía, antes de vestir el set'],
-  ['eco-bts-setcompleto',   'El set montado con trípodes, banderas y las lámparas de la casa'],
-  ['eco-bts-luces',         'Escena del dormitorio iluminada con luz azul y cálida, con el equipo alrededor'],
-  ['eco-bts-ensayo',        'Jose Adrianzen da indicaciones al equipo con la caña de sonido sobre la escena'],
-  ['eco-bts-claqueta3',     'Dos miembros del equipo posan con la claqueta de la escena 3'],
-  ['eco-bts-tomas',         'Cristian Esquivel se toma una foto entre tomas junto a Victoria en el piso'],
-  ['eco-bts-descanso',      'Un miembro del equipo descansa en un sillón durante el rodaje'],
-  ['eco-bts-reparto',       'Jose Adrianzen con Matilde Carrión y el reparto sobre la cama del set'],
-];
+/* ECO. Regla fija: no se puede ver ni se enlaza hasta su estreno. Solo sinopsis y fotogramas fijos. */
+export const eco = {
+  slug: 'eco',
+  titulo: 'ECO',
+  anio: '2023',
+  duracion: '13:12',
+  formato: '6K',
+  sello: { es: 'Aún sin estrenar', en: 'Not yet released' },
+  aviso: {
+    es: 'Está en circuito de festivales y todavía no se estrena, así que por ahora no se puede ver en línea.',
+    en: 'It is on the festival circuit and has not been released yet, so it cannot be watched online for now.',
+  },
+  golpe: { es: 'Una casa. Un secreto.', en: 'One house. One secret.' },
+  sinopsis: {
+    es: 'César, un psiquiatra respetable, esconde una doble vida tras su consulta y su matrimonio. Cuando Victoria, su joven paciente y amante, reúne el valor para revelar la verdad, el frágil equilibrio de su mundo se rompe. Entre espejos, secretos y sospechas, la esposa a la que todos creen frágil resulta ser la más lúcida.',
+    en: 'César, a respected psychiatrist, hides a double life behind his practice and his marriage. When Victoria, his young patient and lover, finds the courage to tell the truth, the fragile balance of his world breaks. Among mirrors, secrets and suspicion, the wife everyone believes is fragile turns out to be the most lucid of all.',
+  },
+  ficha: [
+    [{ es: 'Dirección', en: 'Director' }, 'Jose Adrianzen'],
+    [{ es: 'Guion', en: 'Screenplay' }, 'Jose Adrianzen y Matilde Carrión'],
+    [{ es: 'Producción', en: 'Producer' }, 'Jose Adrianzen'],
+    [{ es: 'Fotografía', en: 'Cinematography' }, 'Fabricio Raciti'],
+    [{ es: 'Arte', en: 'Production design' }, 'Gonzalo Veratudela'],
+    [{ es: 'Dirección de actores', en: 'Acting coach' }, 'Aníbal Lozano'],
+    [{ es: 'Montaje', en: 'Editing' }, 'Jose Adrianzen'],
+    [{ es: 'Sonido', en: 'Sound' }, 'Casko Pérez'],
+    [{ es: 'Música', en: 'Music' }, 'Augusto Madueño'],
+    [{ es: 'Formato', en: 'Format' }, 'Digital 6K'],
+    [{ es: 'Duración', en: 'Running time' }, '13:12'],
+  ],
+  reparto: [
+    ['eco-cesar', 'César', 'Cristian Esquivel'],
+    ['eco-victoria', 'Victoria', 'Yamile Caparó'],
+    ['eco-cristina', 'Cristina', 'Fiorella Luna'],
+    ['eco-madre', { es: 'La madre', en: 'The mother' }, 'Motta'],
+  ],
+  // Cinco fotogramas ordenados por brillo medido (gris promedio 106, 99, 67, 48 y 26): de clave alta a clave baja.
+  luz: ['eco-luz-1', 'eco-luz-5', 'eco-luz-2', 'eco-luz-3', 'eco-luz-4'],
+  rodaje: [
+    ['eco-bts-set', 'El equipo ilumina el set mientras se prepara la escena'],
+    ['eco-bts-cama', 'Rodaje de la escena del dormitorio con luces cálidas y frías'],
+    ['eco-bts-yamile', 'Jose Adrianzen junto a Yamile Caparó con la claqueta'],
+    ['eco-bts-locacion', 'La sala de la casa vacía, antes de vestir el set'],
+    ['eco-bts-ensayo', 'Jose Adrianzen da indicaciones al equipo con la caña de sonido sobre la escena'],
+    ['eco-bts-reparto', 'Jose Adrianzen con Matilde Carrión y el reparto sobre la cama del set'],
+  ],
+};
 
 export const fotografia = [
-  ['fot-puerto',    'Grúas del puerto del Callao bajo un cielo naranja'],
-  ['fot-mar',       'Mar abierto con barcos en el horizonte al amanecer'],
-  ['fot-barco',     'Barco pesquero solitario sobre un mar naranja'],
-  ['fot-gaviota',   'Proa de un buque, una gaviota y un remolcador en el puerto'],
-  ['fot-muelle',    'Muelle de madera sobre un mar turquesa'],
-  ['fot-barcelona', 'Fachadas con balcones en Barcelona'],
-  ['fot-louvre',    'Pirámide del Museo del Louvre contra las nubes'],
+  ['fot-puerto', { es: 'Grúas del puerto del Callao bajo un cielo naranja', en: 'Cranes at the port of Callao under an orange sky' }, 'viajes'],
+  ['jose-retrato', { es: 'Retrato de Jose Adrianzen', en: 'Portrait of Jose Adrianzen' }, 'retratos'],
+  ['fot-mar', { es: 'Mar abierto con barcos en el horizonte al amanecer', en: 'Open sea with boats on the horizon at dawn' }, 'viajes'],
+  ['fot-barcelona', { es: 'Fachadas con balcones en Barcelona', en: 'Facades with balconies in Barcelona' }, 'viajes'],
+  ['jose-shipibo', { es: 'Jose Adrianzen junto a músicos shipibo, en blanco y negro', en: 'Jose Adrianzen with Shipibo musicians, black and white' }, 'retratos'],
+  ['fot-gaviota', { es: 'Proa de un buque, una gaviota y un remolcador en el puerto', en: 'A ship’s bow, a seagull and a tugboat in the port' }, 'viajes'],
+  ['bts-doc-1', { es: 'Rodaje de Entre polvo y sueños en la pampa', en: 'Shooting Between Dust and Dreams in the open pit' }, 'rodajes'],
+  ['fot-louvre', { es: 'Pirámide del Museo del Louvre contra las nubes', en: 'The Louvre pyramid against the clouds' }, 'viajes'],
+  ['jose-teatro', { es: 'Jose Adrianzen en escena durante una obra de teatro', en: 'Jose Adrianzen on stage during a play' }, 'retratos'],
+  ['fot-muelle', { es: 'Muelle de madera sobre un mar turquesa', en: 'Wooden pier over a turquoise sea' }, 'viajes'],
+  ['eco-bts-luces', { es: 'Rodaje de ECO con luz azul y cálida', en: 'Shooting ECO with blue and warm light' }, 'rodajes'],
+  ['fot-barco', { es: 'Barco pesquero solitario sobre un mar naranja', en: 'A lone fishing boat on an orange sea' }, 'viajes'],
+  ['jose-taxi', { es: 'Jose Adrianzen dentro de un taxi frente a un mural', en: 'Jose Adrianzen in a taxi in front of a mural' }, 'retratos'],
+  ['bts-doc-7', { es: 'Niños del pueblo miran el monitor de la cámara', en: 'Village children look at the camera monitor' }, 'rodajes'],
 ];
 
-export const muroDirector = [
-  ['jose-retrato-b', 'Jose Adrianzen sentado junto a una escalera de madera'],
-  ['jose-calavera',  'Jose Adrianzen actuando, encapuchado y con una calavera y una vela'],
-  ['jose-teatro',    'Jose Adrianzen en escena durante una obra de teatro'],
-  ['jose-shipibo',   'Jose Adrianzen junto a músicos shipibo, en blanco y negro'],
-  ['jose-taxi',      'Jose Adrianzen dentro de un taxi frente a un mural, en blanco y negro'],
-  ['jose-naipes',    'Claqueta de rodaje sobre una mesa de juego'],
-];
+export const sobreMi = {
+  retrato: 'jose-retrato-b',
+  bio: {
+    es: [
+      'Desde pequeño, el cine y la política fueron mis dos grandes pasiones. Al inicio quería ser presidente, así que estudié derecho para entender a fondo las leyes y el funcionamiento del Estado. La vida me llevó por otro camino. En el cine encontré una forma más poderosa de generar impacto y de contar las historias que merecen ser escuchadas.',
+      'La curiosidad me ha llevado a recorrer casi todo el Perú, buena parte de Sudamérica y distintos rincones del mundo. Esos viajes me enseñaron a mirar realidades muy distintas a la mía y me confirmaron algo, el cine es una herramienta de transformación social.',
+      'Tengo estudios en cine y en actuación. Quería aportar a la industria también desde la gestión (producción, financiamiento y distribución), por eso estudio ingeniería empresarial. En los últimos años he trabajado con varias ONG, contando historias que suelen quedar en el olvido.',
+      'Terminé de rodar el cortometraje ECO, hoy en circuito de festivales. Pero el proyecto que ha marcado mi trayectoria es Entre polvo y sueños, tres años de mi vida para dar voz a las mujeres mineras del Perú y reivindicar su lucha.',
+    ],
+    en: [
+      'Since I was a child, film and politics were my two great passions. At first I wanted to be president, so I studied law to understand the laws and how the State works. Life took me somewhere else. In film I found a more powerful way to make an impact and to tell the stories that deserve to be heard.',
+      'Curiosity has taken me across almost all of Peru, much of South America and different corners of the world. Those journeys taught me to look at realities very different from mine and confirmed one thing, film is a tool for social change.',
+      'I trained in filmmaking and acting. I also wanted to contribute to the industry from the management side (production, financing and distribution), so I am studying business engineering. In recent years I have worked with several NGOs, telling stories that tend to be forgotten.',
+      'I finished shooting the short film ECO, now on the festival circuit. But the project that has defined my path is Between Dust and Dreams, three years of my life to give a voice to Peru’s women miners and stand up for their struggle.',
+    ],
+  },
+  cita: {
+    es: 'Siempre he creído que las personas valen mucho y que, si es necesario, hay que llegar hasta el último rincón para visibilizarlas.',
+    en: 'I have always believed that people matter a great deal and that, if necessary, you have to reach the farthest corner to make them visible.',
+  },
+  trayecto: [
+    { es: 'Televisión y publicidad', en: 'Television and advertising' },
+    { es: 'Videos institucionales y ONG', en: 'Institutional films and NGOs' },
+    { es: 'Entre polvo y sueños', en: 'Between Dust and Dreams' },
+    { es: 'ECO', en: 'ECO' },
+  ],
+  formacion: [
+    { es: 'Dirección y Realización de Cine y TV, EPIC (IES Peruano de Cine y Creatividad)', en: 'Film and TV Directing, EPIC (Peruvian Institute of Film and Creativity)' },
+    { es: 'Estudios de derecho', en: 'Law studies' },
+    { es: 'Ingeniería empresarial, UTP', en: 'Business engineering, UTP' },
+  ],
+  muro: [
+    ['jose-calavera', 'Jose Adrianzen actuando, encapuchado y con una calavera y una vela'],
+    ['jose-shipibo', 'Jose Adrianzen junto a músicos shipibo, en blanco y negro'],
+    ['jose-escenario', 'Jose Adrianzen sobre un escenario'],
+    ['jose-naipes', 'Claqueta de rodaje sobre una mesa de juego'],
+  ],
+};
 
 export const vias = [
-  { t: 'Correo',    v: 'yo@joseadrianzen.com',   href: 'mailto:yo@joseadrianzen.com', ext: false },
-  { t: 'WhatsApp',  v: '+51 984 323 201',        href: 'https://wa.me/51984323201',   ext: true },
-  { t: 'Instagram', v: '@jadrianzens',           href: 'https://www.instagram.com/jadrianzens/', ext: true },
-  { t: 'LinkedIn',  v: '/in/joseadrianzens',     href: 'https://www.linkedin.com/in/joseadrianzens/', ext: true },
+  { t: 'Correo', v: 'yo@joseadrianzen.com', href: 'mailto:yo@joseadrianzen.com?subject=Desde%20la%20web', ext: false },
+  { t: 'WhatsApp', v: '+51 984 323 201', href: 'https://wa.me/51984323201', ext: true },
+  { t: 'Instagram', v: '@jadrianzens', href: 'https://www.instagram.com/jadrianzens/', ext: true },
+  { t: 'LinkedIn', v: 'in/joseadrianzens', href: 'https://www.linkedin.com/in/joseadrianzens/', ext: true },
 ];
 
-// El correo ya no sale a Hostinger: vive en el propio dominio (Roundcube con
-// la piel del sitio, en /correo; ver correo/INSTALAR.md). La URL va absoluta a
-// proposito, porque en staging el sitio se sirve bajo /joseadrianzen-com/ en
-// GitHub Pages, donde no hay PHP ni buzon: alli el enlace tiene que salir
-// igualmente a produccion en vez de dar un 404.
 export const correoUrl = 'https://joseadrianzen.com/correo/';
-
-export const navegacion = [
-  { href: '#documental',  txt: 'Documental' },
-  { href: '#eco',         txt: 'ECO' },
-  { href: '#fotografia',  txt: 'Fotografía' },
-  { href: '#director',    txt: 'El director' },
-  { href: '#contacto',    txt: 'Contacto' },
-];

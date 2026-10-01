@@ -1,0 +1,11 @@
+---
+import Base from '../layouts/Base.astro';
+import { ruta } from '../utils.js';
+---
+<Base titulo="Página no encontrada | Jose Adrianzen" descripcion="Esta página no existe." lang="es" clase="noche">
+  <section class="escribe oscuro grano no-encontrada">
+    <p class="cod" data-aparece><span>404</span><span>Fuera de cuadro</span></p>
+    <h1 class="gigante claro" data-letras="gigante"><span>Fuera</span><span>de cuadro</span></h1>
+    <a class="lnk" href={ruta('')} data-aparece>Volver al inicio</a>
+  </section>
+</Base>

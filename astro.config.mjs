@@ -1,25 +1,17 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
+import sitemap from '@astrojs/sitemap';
 
-// El build de staging va a GitHub Pages, que sirve el sitio bajo /joseadrianzen-com/.
-// El de produccion va a la raiz de joseadrianzen.com.
+// PROTOTIPO=true arma la vista previa: muestra los borradores del blog con su marca y bloquea buscadores.
+// STAGING=true sirve el sitio bajo /joseadrianzen-com/ (GitHub Pages). Producción va a la raíz.
 const staging = process.env.STAGING === 'true';
 
 export default defineConfig({
-  site: staging
-    ? 'https://joseadrianzensalcedo.github.io'
-    : 'https://joseadrianzen.com',
+  site: staging ? 'https://joseadrianzensalcedo.github.io' : 'https://joseadrianzen.com',
   base: staging ? '/joseadrianzen-com' : '/',
   trailingSlash: 'ignore',
-  build: {
-    // index.html y blog/index.html, igual que hoy en Hostinger
-    format: 'directory',
-    inlineStylesheets: 'auto',
-  },
+  i18n: { locales: ['es', 'en'], defaultLocale: 'es', routing: { prefixDefaultLocale: false } },
+  integrations: [sitemap({ i18n: { defaultLocale: 'es', locales: { es: 'es-PE', en: 'en' } } })],
+  build: { format: 'directory', inlineStylesheets: 'auto' },
   compressHTML: true,
-  vite: {
-    build: {
-      cssMinify: 'lightningcss',
-    },
-  },
 });
