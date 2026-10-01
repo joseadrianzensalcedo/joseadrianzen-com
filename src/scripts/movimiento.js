@@ -157,8 +157,9 @@ function filtroBorde(fs) {
     '<feDisplacementMap in="SourceGraphic" in2="r" scale="' + (0.012 * t).toFixed(2) + '" xChannelSelector="R" yChannelSelector="G"/>';
   svgBordes.appendChild(f); const url = 'url(#' + id + ')'; bordes.set(t, url); return url;
 }
-// La textura se pide al abrir la página (sin mostrarse), así la primera pasada del cursor ya la tiene.
-addEventListener('load', () => { const d = document.createElement('div'); d.className = 'gastada precarga'; d.setAttribute('aria-hidden', 'true'); document.body.appendChild(d); });
+// La textura y la letra AWAKENNING STEEL se piden al abrir la página (sin mostrarse), así la primera pasada del cursor
+// ya las tiene. Sin esto, la primera vez el título cambiaba a medias: el navegador baja la letra recién cuando se usa.
+addEventListener('load', () => { if ($('.titulo-pelicula')) document.fonts?.load?.('40px "Awakenning Steel"'); const d = document.createElement('div'); d.className = 'gastada precarga'; d.setAttribute('aria-hidden', 'true'); document.body.appendChild(d); });
 function ponerGasto(c, poner, sinBorde) {
   if (poner) {
     if (!c.style.getPropertyValue('--mx')) { c.style.setProperty('--mx', (Math.random() * 2.8).toFixed(2) + 'em'); c.style.setProperty('--my', (Math.random() * 2.8).toFixed(2) + 'em'); }
