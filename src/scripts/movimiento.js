@@ -133,10 +133,12 @@ if (pausa) {
       Técnico: una textura propia (public/texturas/desgaste.png, hecha con herramientas/textura-desgaste.py, sin copiar
       nada de la fuente) que se usa como máscara: donde la textura es transparente, la letra tiene un hueco. Se repite
       cada 2,8 em, así escala con el tamaño de la letra, y cada letra toma un pedazo distinto. Un filtro SVG chico mueve
-      el borde 1 % del tamaño de la letra para que no quede liso. Hueco medido en la textura: 10 %. La primera versión
-      copiaba el 26 % que quita AWAKENNING STEEL y Jose la vio "demasiado exagerada" (1 oct 2026): ahora la chapa
-      queda limpia casi toda y el dibujo aparece solo en algunas zonas gastadas de cada letra.
-      Parámetros: semilla 7, vis0=0.05 W=0.11 L=0.48 gasto=0.5 contraste=1.8 parche=0.98 isla=0.7 tuerce=0.15 onda=0.07. */
+      el borde 1 % del tamaño de la letra para que no quede liso. Historia (1 oct 2026): 24 % de hueco fue "demasiado
+      exagerado". 10 % con puntos y manchas pareció "le dispararon con una escopeta, huecos y no rasgaduras". Lo que
+      se ve como rajadura en STEEL son los tajos finos en diagonal de la chapa, así que ahora solo hay tajos: sin
+      puntos de polvo ni manchas redondas. Hueco: 7 %.
+      Parámetros: semilla 7, vis0=0.45 W=0.09 L=0.5 gasto=0.35 contraste=1.3 parche=9 polvo=2 raja_umbral=9 isla=0.7
+      tuerce=0.15 onda=0.07. */
 const bordes = new Map();
 const svgBordes = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
 svgBordes.setAttribute('aria-hidden', 'true'); svgBordes.style.cssText = 'position:absolute;width:0;height:0;overflow:hidden';

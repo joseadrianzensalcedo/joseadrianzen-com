@@ -7,7 +7,7 @@ rng = np.random.default_rng(int(sys.argv[2]) if len(sys.argv) > 2 else 7)
 T = 1024; SS = 2; N = T * SS            # lado de la imagen, sobremuestreo para bordes limpios
 CAP = 256 * SS                           # una altura de mayúscula en píxeles
 CELDAS = 60; a = N / CELDAS              # red de la chapa: 0,06 de la altura de mayúscula
-P = dict(L=0.44, W=0.10, gasto=0.55, parche=0.95, rotura=0.55, polvo=0.955, vis0=0.35, contraste=1.6, isla=0.55, tuerce=0.35, onda=0.08, punta=0.8, aspero=0.45)
+P = dict(L=0.44, W=0.10, gasto=0.55, parche=0.95, rotura=0.55, polvo=0.955, vis0=0.35, contraste=1.6, isla=0.55, tuerce=0.35, onda=0.08, alarga=0.0, ancho0=0.35, raja_largo=0.35, raja_ancho=0.035, raja_fino=0.12, raja_tramo=0.55, raja_umbral=0.45, punta=0.8, aspero=0.45)
 for kv in sys.argv[3:]: k, v = kv.split('='); P[k] = float(v)
 
 def ruido(escala_px, octavas=1):
@@ -21,6 +21,15 @@ def ruido(escala_px, octavas=1):
         tot += z / z.std() * (0.5**o)
     tot = tot / tot.std()
     return 0.5 + 0.5 * np.tanh(tot * 0.8)
+
+def ruido_dir(largo, ancho, ang):
+    """Ruido estirado en una dirección (vetas largas y finas), periódico."""
+    fy = np.fft.fftfreq(N)[:, None]; fx = np.fft.fftfreq(N)[None, :]
+    c, s_ = np.cos(ang), np.sin(ang)
+    fpar = fx * c + fy * s_; fper = -fx * s_ + fy * c
+    filtro = np.exp(-(np.pi**2) * ((largo * fpar)**2 + (ancho * fper)**2))
+    z = np.real(np.fft.ifft2(np.fft.fft2(rng.standard_normal((N, N))) * filtro))
+    return z / z.std()
 
 y, x = np.mgrid[0:N, 0:N].astype(np.float32)
 # la chapa no es perfecta: se tuerce un poco, así las lentejas salen chuecas y de bordes ondulados
@@ -42,22 +51,23 @@ _, dx, dy, sg, idn = best
 tabla = rng.random(200000); azar1 = tabla[idn % 200000]; azar2 = tabla[(idn * 7 + 13) % 200000]
 c = np.sqrt(0.5)
 u = (dx + sg * dy) * c; v = (-sg * dx + dy) * c       # ejes de la lenteja, girada ±45°
-L = P['L'] * a * (0.75 + 0.5 * azar2); W = P['W'] * a * (0.7 + 0.6 * azar2)
+gasto = ruido(0.9 * CAP, 3)                             # zonas gastadas y zonas limpias
+gasto = np.clip((gasto - 0.5) * P.get('contraste', 1.6) + 0.5, 0, 1)
+# rajaduras: en lo gastado la lenteja se estira (más larga, no más ancha), como un tajo
+L = P['L'] * a * (0.75 + 0.5 * azar2) * (1 + P['alarga'] * gasto); W = P['W'] * a * (0.7 + 0.6 * azar2)
 perfil = np.clip(1 - np.abs(u / L), 0, None)**P['punta']   # puntas afiladas, no óvalos
 f = np.abs(v) / (W * perfil + 1e-3)                    # < 1 dentro de la lenteja
 f = np.where(perfil > 0, f, 9.0)
 aspero = ruido(0.007 * CAP, 1)
 f = f + (aspero - 0.5) * 2 * P['aspero']                # borde dentado, no liso
 
-gasto = ruido(0.9 * CAP, 3)                             # zonas gastadas y zonas limpias
-gasto = np.clip((gasto - 0.5) * P.get('contraste', 1.6) + 0.5, 0, 1)
 medio = ruido(0.05 * CAP, 2)                            # rompe las lentejas y los bordes de los parches
 fino = ruido(0.012 * CAP, 1)
 
 # 1. lentejas: chicas y rotas en lo limpio, más grandes en lo gastado
 # cada lenteja aparece o no según su número al azar: en lo limpio aparecen pocas, en lo gastado casi todas
 aparece = azar1 < (P['vis0'] + (1 - P['vis0']) * gasto)
-umbral = 0.35 + 1.1 * gasto * P['gasto']
+umbral = P['ancho0'] + P['gasto'] * gasto
 lenteja = aparece & ((f + (medio - 0.5) * 2.2 * P['rotura']) < umbral)
 # 2. parches grandes donde el gasto es fuerte, con forma que sigue la chapa
 cerca = np.clip(1 - np.minimum(f, 3) / 3, 0, 1)
@@ -66,7 +76,14 @@ grumo = ruido(0.03 * CAP, 2)
 parche = (gasto + 0.22 * cerca + 0.30 * (medio - 0.5) + P['isla'] * (grumo - 0.5)) > P['parche']
 # 3. polvo fino en todos lados
 polvo = fino > P['polvo']
-hueco = lenteja | parche | polvo
+# 4. rajaduras: líneas finas y quebradas a ±45°, como tajos en la chapa, solo donde está gastada
+raja = np.zeros((N, N), bool)
+for ang in (np.pi / 4, -np.pi / 4):
+    v = ruido_dir(P['raja_largo'] * CAP, P['raja_ancho'] * CAP, ang)
+    linea = np.abs(v) < P['raja_fino']                       # el cruce por cero de la veta es una línea fina
+    corte = ruido(0.04 * CAP, 2) > (1 - P['raja_tramo'])     # la línea se corta en tramos
+    raja |= linea & corte & (gasto > P['raja_umbral'])
+hueco = lenteja | parche | polvo | raja
 alfa = (~hueco).astype(np.float32)
 img = Image.fromarray((alfa * 255).astype(np.uint8)).resize((T, T), Image.LANCZOS)
 rgba = Image.merge('RGBA', [Image.new('L', (T, T), 0)] * 3 + [img])
