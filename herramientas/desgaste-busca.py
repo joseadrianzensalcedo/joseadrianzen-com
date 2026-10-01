@@ -36,10 +36,10 @@ def evaluar(p):
         big[:, c0:c1] = grande[oy:oy + R.shape[0], ox:ox + (c1 - c0)]
     m = metricas(R, R & big, CAP)
     return puntaje(m), m
-RANGO = dict(vis0=(0.5, 0.95), ancho0=(0.3, 0.8), ancho1=(0.5, 2.0), rotura=(0.0, 0.3), polvo=(0.0, 0.6), contraste=(1.0, 3.0),
-             gasto_esc=(0.5, 1.4), sesgo=(-1.5, 0.5), L=(0.28, 0.45), W=(0.10, 0.18), estira=(0.0, 0.8), aspero=(0.1, 0.6), tuerce=(0.05, 0.3))
-mejor = dict(vis0=0.6, ancho0=0.55, ancho1=1.5, rotura=0.12, polvo=0.3, contraste=1.5, gasto_esc=0.8, sesgo=0.0, L=0.36, W=0.14, estira=0.3, aspero=0.35, tuerce=0.12)
-base = dict(celdas=72, onda=0.08)
+RANGO = dict(vis0=(0.4, 0.95), ancho0=(0.3, 0.9), ancho1=(1.0, 3.5), rotura=(0.0, 0.08), polvo=(0.0, 0.2), contraste=(1.0, 3.0),
+             gasto_esc=(0.5, 1.4), sesgo=(-1.5, 0.5), L=(0.25, 0.38), W=(0.08, 0.14), curva=(0.2, 0.9), aspero=(0.05, 0.25), tuerce=(0.05, 0.3))
+mejor = dict(vis0=0.6, ancho0=0.55, ancho1=2.2, rotura=0.03, polvo=0.1, contraste=1.6, gasto_esc=1.0, sesgo=-0.5, L=0.33, W=0.11, curva=0.5, aspero=0.15, tuerce=0.15)
+base = dict(celdas=72, onda=0.08, estira=0.0)
 pm, mm = evaluar({**base, **mejor}); print('inicio', round(pm, 3), json.dumps({k: float(v) for k, v in mm.items()}), flush=True)
 random.seed(int(sys.argv[1]) if len(sys.argv) > 1 else 1)
 paso = 0.25

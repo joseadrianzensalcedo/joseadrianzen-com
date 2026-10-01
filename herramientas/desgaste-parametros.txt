@@ -1,0 +1,1 @@
+celdas=72 onda=0.08 vis0=0.5 ancho0=0.754 ancho1=1.34 rotura=0.093 polvo=0.354 contraste=1.5 gasto_esc=0.991 sesgo=-0.359 L=0.436 W=0.14 estira=0.702 aspero=0.411 tuerce=0.195 ancho0=0.5 sesgo=-0.8 aspero=0.2 polvo=0.25 rotura=0.04 banda=1.8

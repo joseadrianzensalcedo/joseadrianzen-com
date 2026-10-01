@@ -8,7 +8,7 @@ import numpy as np, sys, json
 from PIL import Image
 P = dict(semilla=7, T=1024, CAP=256, celdas=60, L=0.42, W=0.11, curva=0.35, vis0=0.35, vis1=1.0, ancho0=0.45, ancho1=1.5,
          estira=1.2, gasto_esc=0.8, contraste=1.5, sesgo=0.0, tuerce=0.12, onda=0.08, aspero=0.35,
-         astilla=0.0, astilla_tam=0.03, cadena=0.6, rotura=0.0, polvo=0.0, polvo_tam=0.006, SS=2)
+         astilla=0.0, astilla_tam=0.03, cadena=0.6, rotura=0.0, banda=1.0, polvo=0.0, polvo_tam=0.006, SS=2)
 for kv in sys.argv[2:]: k, v = kv.split('='); P[k] = float(v)
 rng = np.random.default_rng(int(P['semilla']))
 SS = int(P.get('SS', 2)); T = int(P['T']); N = T * SS; CAP = P['CAP'] * SS; C = int(P['celdas']); a = N / C
@@ -22,7 +22,15 @@ def ruido(esc, oct_=1):
 
 y0, x0 = np.mgrid[0:N, 0:N].astype(np.float32)
 x = x0 + ruido(P['onda'] * CAP) * P['tuerce'] * a; y = y0 + ruido(P['onda'] * CAP) * P['tuerce'] * a
-gasto = 1 / (1 + np.exp(-(ruido(P['gasto_esc'] * CAP, 3) * P['contraste'] + P['sesgo'])))   # 0 limpio, 1 gastado
+def ruido_banda(esc, estira, oct_=3):
+    # como ruido(), pero las manchas salen estiradas a lo ancho: en STEEL el gasto corre en bandas horizontales
+    fy = np.fft.fftfreq(N)[:, None]; fx = np.fft.fftfreq(N)[None, :]; tot = np.zeros((N, N))
+    for o in range(oct_):
+        s = esc / 2**o
+        z = np.real(np.fft.ifft2(np.fft.fft2(rng.standard_normal((N, N))) * np.exp(-(np.pi * s)**2 * ((fx * estira)**2 + (fy / estira)**2))))
+        tot += z / z.std() * 0.5**o
+    return tot / tot.std()
+gasto = 1 / (1 + np.exp(-(ruido_banda(P['gasto_esc'] * CAP, P['banda']) * P['contraste'] + P['sesgo'])))   # 0 limpio, 1 gastado
 medio = ruido(0.04 * CAP, 2); aspero = ruido(0.008 * CAP, 1)
 tabla = rng.random(1 << 20)
 
