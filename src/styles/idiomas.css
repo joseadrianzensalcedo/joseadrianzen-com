@@ -1,0 +1,47 @@
+/* Idiomas. Dos cosas: el selector de idioma y las fuentes de cada alfabeto.
+   Peras y manzanas: Bebas, Newsreader y Plex solo tienen letras latinas (y Plex, cirílicas). Para los demás alfabetos
+   cambiamos las tres variables de fuente por la mejor fuente que ya trae el teléfono o la computadora del visitante,
+   en el mismo espíritu: condensada para títulos, con serifa para leer, de ancho fijo para datos. */
+
+/* Cirílico (ruso, ucraniano) y vietnamita: Bebas no tiene esas letras, Oswald es su pariente condensada que sí. */
+:root:lang(ru),:root:lang(uk){--disp:'Oswald','Bebas Neue',sans-serif;--lectura:'Newsreader','Noto Serif',Georgia,serif}
+:root:lang(vi){--disp:'Oswald','Bebas Neue',sans-serif}
+
+/* Chino, japonés y coreano. */
+:root:lang(zh){--disp:'Bebas Neue','PingFang SC','Noto Sans SC','Noto Sans CJK SC','Microsoft YaHei',sans-serif;--lectura:'Newsreader','Songti SC','Noto Serif SC','Noto Serif CJK SC','SimSun',serif;--mono:'IBM Plex Mono','PingFang SC','Noto Sans CJK SC','Microsoft YaHei',monospace}
+:root:lang(ja){--disp:'Bebas Neue','Hiragino Sans','Hiragino Kaku Gothic ProN','Noto Sans JP','Noto Sans CJK JP','Yu Gothic',sans-serif;--lectura:'Newsreader','Hiragino Mincho ProN','Noto Serif JP','Noto Serif CJK JP','Yu Mincho',serif;--mono:'IBM Plex Mono','Hiragino Sans','Noto Sans CJK JP','Yu Gothic',monospace}
+:root:lang(ko){--disp:'Bebas Neue','Apple SD Gothic Neo','Noto Sans KR','Noto Sans CJK KR','Malgun Gothic',sans-serif;--lectura:'Newsreader','AppleMyungjo','Noto Serif KR','Noto Serif CJK KR','Batang',serif;--mono:'IBM Plex Mono','Apple SD Gothic Neo','Noto Sans CJK KR','Malgun Gothic',monospace}
+
+/* Árabe, hindi y tailandés: letras más altas y con signos arriba y abajo, necesitan más interlínea. */
+:root:lang(ar){--disp:'Bebas Neue','Noto Kufi Arabic','Geeza Pro','Segoe UI',sans-serif;--lectura:'Newsreader','Noto Naskh Arabic','Geeza Pro','Traditional Arabic','Times New Roman',serif;--mono:'IBM Plex Mono','Noto Kufi Arabic','Geeza Pro','Segoe UI',monospace}
+:root:lang(hi){--disp:'Bebas Neue','Kohinoor Devanagari','Noto Sans Devanagari','Nirmala UI',sans-serif;--lectura:'Newsreader','Noto Serif Devanagari','Kohinoor Devanagari','Nirmala UI',serif;--mono:'IBM Plex Mono','Kohinoor Devanagari','Noto Sans Devanagari','Nirmala UI',monospace}
+:root:lang(th){--disp:'Bebas Neue','Thonburi','Noto Sans Thai','Leelawadee UI',sans-serif;--lectura:'Newsreader','Noto Serif Thai','Thonburi','Leelawadee UI',serif;--mono:'IBM Plex Mono','Thonburi','Noto Sans Thai','Leelawadee UI',monospace}
+:root:lang(ar) body,:root:lang(hi) body,:root:lang(th) body{line-height:1.75}
+:root:lang(ar) .linea-mask,:root:lang(hi) .linea-mask,:root:lang(th) .linea-mask{padding-block:.35em;margin-block:-.35em}
+
+/* En alfabetos sin mayúsculas el espaciado de letras rompe la lectura. */
+:root:lang(zh) *,:root:lang(ja) *,:root:lang(ko) *,:root:lang(ar) *,:root:lang(hi) *,:root:lang(th) *{letter-spacing:0!important}
+/* Títulos gigantes en chino, japonés y coreano: los caracteres son cuadrados y anchos, se reducen un poco. */
+:root:lang(zh) .gigante,:root:lang(ja) .gigante,:root:lang(ko) .gigante{line-height:1.12}
+
+/* Selector en la barra de arriba. Sin JavaScript, con details y summary. */
+.sel-idioma{position:relative}
+.sel-idioma summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:6px;padding:6px 0;color:var(--humo);transition:color .2s}
+.sel-idioma summary::-webkit-details-marker{display:none}
+.sel-idioma summary:hover,.sel-idioma[open] summary{color:var(--ambar)}
+.sel-idioma summary i{font-style:normal;font-size:9px;transition:transform .25s}
+.sel-idioma[open] summary i{transform:rotate(180deg)}
+.sel-idioma ul{position:absolute;top:calc(100% + 12px);inset-inline-end:0;z-index:30;list-style:none;margin:0;padding:8px;width:min(340px,86vw);max-height:min(70vh,560px);overflow-y:auto;display:grid;grid-template-columns:1fr 1fr;gap:2px;background:var(--tinta);border:1px solid var(--linea,#34322e);box-shadow:0 18px 50px rgba(0,0,0,.45)}
+.sel-idioma li a{display:flex;align-items:baseline;gap:8px;padding:9px 10px;color:var(--papel);text-transform:none;letter-spacing:0;font:400 14px/1.2 var(--lectura);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sel-idioma li a b{font:500 10px var(--mono);letter-spacing:.1em;color:var(--humo);min-width:2.6em}
+.sel-idioma li a:hover,.sel-idioma li a[aria-current]{background:var(--tinta2,#1a1816);color:var(--ambar)}
+.sel-idioma li a[aria-current] b{color:var(--ambar)}
+
+/* Lista de idiomas dentro del menú de pantalla completa (móvil y tableta). */
+.menu-idiomas{list-style:none;margin:28px 0 0;padding:18px 0 0;border-top:1px solid rgba(240,238,233,.18);display:flex;flex-wrap:wrap;gap:6px 16px}
+.menu-idiomas a{color:var(--humo);font:400 15px/1.6 var(--lectura);text-decoration:none}
+.menu-idiomas a[aria-current]{color:var(--ambar)}
+
+/* Aviso de traducción automática, arriba de todo, discreto. */
+.aviso-traduccion{margin:0;padding:8px var(--m);background:var(--tinta2,#1a1816);color:var(--humo);font:400 13px/1.45 var(--lectura);text-align:center;border-top:1px solid rgba(240,238,233,.12)}
+.gigante{max-width:100%;min-width:0}

@@ -134,17 +134,49 @@ const ESTILOS = {
   titulo: { desde: { yPercent: () => gsap.utils.random(-60, 60) }, hasta: { yPercent: 0, duration: 1.3, ease: SALE }, esc: 0.035, pasos: true },
   eco: { desde: { scale: 2.4, opacity: 0, filter: 'blur(14px)', transformOrigin: '50% 60%' }, hasta: { scale: 1, opacity: 1, filter: 'blur(0px)', duration: 1.6, ease: SALE }, esc: 0.16, pasos: false },
 };
+/* Títulos gigantes que no caben. En español "adentro" entra justo, pero en ruso o polaco la palabra más larga
+   puede tener el doble de letras. Si el título es más ancho que su caja, se achica lo necesario y nada más. */
+function anchoNatural(el) {
+  // Mide las letras mismas (cada nodo de texto), no las cajas que las envuelven, así sirve antes y después de partirlas.
+  const caja = el.getBoundingClientRect(), rtl = getComputedStyle(el).direction === 'rtl'; let m = 0;
+  const w = document.createTreeWalker(el, NodeFilter.SHOW_TEXT); const r = document.createRange();
+  for (let n = w.nextNode(); n; n = w.nextNode()) {
+    if (!n.textContent.trim()) continue;
+    r.selectNodeContents(n); const t = r.getBoundingClientRect();
+    m = Math.max(m, rtl ? caja.right - t.left : t.right - caja.left);
+  }
+  return m;
+}
+function ajustarGigantes() {
+  $$('.gigante').forEach((el) => {
+    el.style.fontSize = '';
+    for (let i = 0; i < 3; i++) {
+      const sobra = anchoNatural(el) / el.clientWidth;
+      if (sobra <= 1.005) break;
+      el.style.fontSize = (parseFloat(getComputedStyle(el).fontSize) / sobra) * 0.98 + 'px';
+    }
+  });
+}
+const fuentesListas = document.fonts?.ready ?? Promise.resolve();
+fuentesListas.then(ajustarGigantes);
+document.fonts?.addEventListener?.('loadingdone', ajustarGigantes);
+let tAjuste, anchoPrevio = innerWidth;
+addEventListener('resize', () => { if (innerWidth === anchoPrevio) return; anchoPrevio = innerWidth; clearTimeout(tAjuste); tAjuste = setTimeout(ajustarGigantes, 150); });
 if (!R) {
-  const listo = document.fonts?.ready ?? Promise.resolve();
+  const listo = fuentesListas;
   listo.then(() => {
+    /* En árabe, hindi y tailandés las letras se unen o llevan signos encima. Partirlas letra por letra las rompe,
+       así que ahí el título se arma palabra por palabra. */
+    const POR_PALABRA = /^(ar|hi|th)/.test(document.documentElement.lang);
     $$('[data-letras]').forEach((el) => {
       const E = ESTILOS[el.dataset.letras] || ESTILOS.titulo;
-      SplitText.create(el, { type: 'lines,chars', mask: 'lines', linesClass: 'linea', autoSplit: true, onSplit: (s) => {
-        gsap.set(el, { visibility: 'visible' }); el._partes = s.chars;
+      SplitText.create(el, { type: POR_PALABRA ? 'lines,words' : 'lines,chars', mask: 'lines', linesClass: 'linea', autoSplit: true, onSplit: (s) => {
+        const partes = POR_PALABRA ? s.words : s.chars;
+        gsap.set(el, { visibility: 'visible' }); el._partes = partes;
         const tl = gsap.timeline({ scrollTrigger: { trigger: el, start: 'top 88%', once: true } })
-          .fromTo(s.chars, E.desde, { ...E.hasta, stagger: { each: E.esc, from: 'random' } }, 0);
-        if (E.pasos) tl.fromTo(s.chars, { opacity: 0 }, { opacity: 1, duration: 0.5, ease: 'steps(4)', stagger: { each: E.esc, from: 'random' } }, 0);
-        tl.add(() => brillo(s.chars, 0.9, 0.035), '-=0.5');
+          .fromTo(partes, E.desde, { ...E.hasta, stagger: { each: E.esc, from: 'random' } }, 0);
+        if (E.pasos) tl.fromTo(partes, { opacity: 0 }, { opacity: 1, duration: 0.5, ease: 'steps(4)', stagger: { each: E.esc, from: 'random' } }, 0);
+        tl.add(() => brillo(partes, 0.9, 0.035), '-=0.5');
         return tl;
       } });
       if (FINO) el.addEventListener('pointerenter', () => el._partes && brillo(el._partes, 0.9, 0.03));

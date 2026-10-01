@@ -1,12 +1,13 @@
 ---
 import Base from '../layouts/Base.astro';
-import { t } from '../data/textos.js';
+import { t, tr } from '../data/textos.js';
 import { vias, persona } from '../data/sitio.js';
 const { lang = 'es' } = Astro.props;
+const w = (es, en) => tr({ es, en }, lang);
 const x = t(lang), en = lang === 'en';
 const correo = vias[0];
-const titulo = en ? 'Contact | Jose Adrianzen' : 'Contacto | Jose Adrianzen';
-const desc = en ? 'Write to Jose Adrianzen about projects, festivals and press.' : 'Escríbele a Jose Adrianzen sobre proyectos, festivales y prensa.';
+const titulo = w('Contacto | Jose Adrianzen', 'Contact | Jose Adrianzen');
+const desc = w('Escríbele a Jose Adrianzen sobre proyectos, festivales y prensa.', 'Write to Jose Adrianzen about projects, festivals and press.');
 ---
 <Base titulo={titulo} descripcion={desc} lang={lang} camino="contacto" actual="contacto" clase="noche">
   <section class="escribe oscuro grano">
@@ -14,8 +15,8 @@ const desc = en ? 'Write to Jose Adrianzen about projects, festivals and press.'
     <h1 class="visually-hidden">{x.contacto}</h1>
     <a class="correo" href={correo.href} data-letras="titulo">{persona.correo}</a>
     <div class="canales" data-cascada>
-      {vias.slice(1).map((v) => <a class="canal" href={v.href} target="_blank" rel="noopener"><b>{v.t}</b><span>{v.v}</span><em aria-hidden="true">↗</em></a>)}
+      {vias.slice(1).map((v) => <a class="canal" href={v.href} target="_blank" rel="noopener"><b>{tr(v.t, lang)}</b><span>{v.v}</span><em aria-hidden="true">↗</em></a>)}
     </div>
-    <p class="cod base" data-aparece>{persona.base[lang]}</p>
+    <p class="cod base" data-aparece>{tr(persona.base, lang)}</p>
   </section>
 </Base>

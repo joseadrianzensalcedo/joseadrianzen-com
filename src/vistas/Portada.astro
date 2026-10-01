@@ -9,24 +9,23 @@ import { ruta, PROTOTIPO } from '../utils.js';
 import { idea, documental as D, eco as E, premios, selecciones, persona } from '../data/sitio.js';
 import { visibles } from '../data/blog.js';
 const { lang = 'es' } = Astro.props;
+const w = (es, en) => tr({ es, en }, lang);
 const x = t(lang);
 const fotos = import.meta.glob('/src/assets/img/*.webp', { eager: true });
 const img = (n) => fotos[`/src/assets/img/${n}.webp`].default;
 const arts = visibles(PROTOTIPO).slice(0, 3);
-const HOJA = [['fot-puerto', 'an', 'Grúas del puerto del Callao bajo un cielo naranja'], ['jose-shipibo', 'md', 'Jose con amigos shipibo en la calle'], ['fot-mar', 'an', 'Mar abierto al amanecer'], ['fot-barcelona', 'ch', 'Fachadas con balcones en Barcelona'], ['fot-gaviota', 'md', 'Proa de un buque y una gaviota en el puerto']];
-const titulo = lang === 'en' ? 'Jose Adrianzen | Peruvian film director' : 'Jose Adrianzen | Director de cine peruano';
-const desc = lang === 'en'
-  ? 'Jose Adrianzen, Peruvian film director and producer. Award winning documentary Between Dust and Dreams and the short film ECO.'
-  : 'Jose Adrianzen, director y productor de cine peruano. Documental premiado Entre polvo y sueños y cortometraje ECO.';
+const HOJA = [['fot-puerto', 'an', w('Grúas del puerto del Callao bajo un cielo naranja', 'Cranes at the port of Callao under an orange sky')], ['jose-shipibo', 'md', w('Jose con amigos shipibo en la calle', 'Jose with Shipibo friends in the street')], ['fot-mar', 'an', w('Mar abierto al amanecer', 'Open sea at dawn')], ['fot-barcelona', 'ch', w('Fachadas con balcones en Barcelona', 'Facades with balconies in Barcelona')], ['fot-gaviota', 'md', w('Proa de un buque y una gaviota en el puerto', 'A ship’s bow and a seagull in the port')]];
+const titulo = w('Jose Adrianzen | Director de cine peruano', 'Jose Adrianzen | Peruvian film director');
+const desc = w('Jose Adrianzen, director y productor de cine peruano. Documental premiado Entre polvo y sueños y cortometraje ECO.', 'Jose Adrianzen, Peruvian film director and producer. Award winning documentary Between Dust and Dreams and the short film ECO.');
 const ld = { '@context': 'https://schema.org', '@type': 'WebSite', name: 'Jose Adrianzen', url: 'https://joseadrianzen.com/', inLanguage: lang };
 ---
 <Base titulo={titulo} descripcion={desc} lang={lang} intro jsonLd={ld}>
   <section class="hero oscuro">
-    <Image class="fondo" src={img('doc-noche')} alt={lang === 'en' ? 'A woman miner carries a sack of ore at night under her helmet light' : 'Una minera carga un saco de mineral de noche, bajo la luz de su casco'} widths={[800, 1200]} sizes="100vw" loading="eager" fetchpriority="high" />
+    <Image class="fondo" src={img('doc-noche')} alt={w('Una minera carga un saco de mineral de noche, bajo la luz de su casco', 'A woman miner carries a sack of ore at night under her helmet light')} widths={[800, 1200]} sizes="100vw" loading="eager" fetchpriority="high" />
     <div class="velo"></div>
     <div class="hero-pie">
-      <h1 class="hero-logo"><span class="mascara"><Logo variante="portada" armar titulo="Jose Adrianzen" /></span></h1>
-      <div class="hero-acc"><p class="rol">{persona.rol[lang]}</p><a class="btn" href={ruta(D.slug, lang) + '#sala'}>{x.verDoc}</a></div>
+      <h1 class="hero-logo"><span class="mascara"><Logo variante="portada" armar titulo="Jose Adrianzen" lang={lang} /></span></h1>
+      <div class="hero-acc"><p class="rol">{tr(persona.rol, lang)}</p><a class="btn" href={ruta(D.slug, lang) + '#sala'}>{x.verDoc}</a></div>
     </div>
     <button class="pausa" type="button" aria-pressed="false">{x.pausa}</button>
   </section>
@@ -34,10 +33,10 @@ const ld = { '@context': 'https://schema.org', '@type': 'WebSite', name: 'Jose A
   <section class="idea papel grano">
     <Enc n="01" t={x.laIdea} d="JA 35 · cuadro 01" />
     <div class="idea-caja">
-      <h2 class="gigante" data-letras="gigante"><span>{idea.lineas[lang][0]}</span><span class="s2">{idea.lineas[lang][1]}</span><span class="s3">{idea.lineas[lang][2]}</span></h2>
+      <h2 class="gigante" data-letras="gigante"><span>{tr(idea.lineas, lang).split('|')[0]}</span><span class="s2">{tr(idea.lineas, lang).split('|')[1]}</span><span class="s3">{tr(idea.lineas, lang).split('|')[2]}</span></h2>
       <div class="idea-der">
-        <Foto n="doc-casco" clase="idea-foto" alt={lang === 'en' ? 'A woman miner in a yellow helmet looks into the camera' : 'Una minera con casco amarillo mira a cámara'} paralaje cursor={x.cursor.ver} sizes="(max-width: 860px) 80vw, 40vw" />
-        <p class="idea-txt" data-lineas>{idea.texto[lang]}</p>
+        <Foto n="doc-casco" clase="idea-foto" alt={w('Una minera con casco amarillo mira a cámara', 'A woman miner in a yellow helmet looks into the camera')} paralaje cursor={x.cursor.ver} sizes="(max-width: 860px) 80vw, 40vw" />
+        <p class="idea-txt" data-lineas>{tr(idea.texto, lang)}</p>
       </div>
     </div>
   </section>
@@ -45,16 +44,16 @@ const ld = { '@context': 'https://schema.org', '@type': 'WebSite', name: 'Jose A
   <section class="peli oscuro grano" id="peliculas">
     <Enc n="02" t={x.peliculas} d="1 / 2" osc />
     <div class="peli-caja">
-      <a href={ruta(D.slug, lang)} class="peli-enlace" aria-label={D.titulo}><Foto n="doc-mineras" clase="peli-foto" alt={D.fotogramas[1][lang === 'en' ? 2 : 1]} cursor={x.cursor.ver} sizes="(max-width: 860px) 100vw, 56vw" /></a>
+      <a href={ruta(D.slug, lang)} class="peli-enlace" aria-label={D.titulo}><Foto n="doc-mineras" clase="peli-foto" alt={w(D.fotogramas[1][1], D.fotogramas[1][2])} cursor={x.cursor.ver} sizes="(max-width: 860px) 100vw, 56vw" /></a>
       <div class="peli-txt">
         <h2 class="titulo" data-letras="titulo">{D.titulo}</h2>
-        <p class="cod" data-aparece>{lang === 'en' ? 'Documentary · Peru' : 'Documental · Perú'} · {D.anio} · {D.duracion} · {D.formato}</p>
-        <p class="golpe" data-lineas>“{D.golpe[lang]}”</p>
-        <p class="lect" data-lineas>{D.sinopsis[lang][0]}</p>
+        <p class="cod" data-aparece>{w('Documental · Perú', 'Documentary · Peru')} · {D.anio} · {D.duracion} · {D.formato}</p>
+        <p class="golpe" data-lineas>“{tr(D.golpe, lang)}”</p>
+        <p class="lect" data-lineas>{tr(D.sinopsis, lang)[0]}</p>
         <a class="lnk" href={ruta(D.slug, lang)} data-aparece>{x.verPelicula}</a>
       </div>
     </div>
-    <div class="premios" data-cascada>{premios.slice(0, 3).map((p) => <div><b data-descifra>{p.corto}</b><span>{p.k[lang]}</span></div>)}</div>
+    <div class="premios" data-cascada>{premios.slice(0, 3).map((p) => <div><b data-descifra>{p.corto}</b><span>{tr(p.k, lang)}</span></div>)}</div>
     <div class="franja-ctl"><button type="button" aria-pressed="false">{x.detener}</button></div>
     <div class="franja" aria-label={x.selecciones}><p>{[...selecciones, ...selecciones].map((s) => s.n).join(' · ')} · </p></div>
   </section>
@@ -74,12 +73,12 @@ const ld = { '@context': 'https://schema.org', '@type': 'WebSite', name: 'Jose A
     <div class="eco-caja">
       <div class="eco-txt">
         <h2 class="eco-t" data-letras="eco">ECO</h2>
-        <p class="sello" data-aparece>{E.sello[lang]}</p>
-        <p class="cod" data-aparece>{lang === 'en' ? 'Short film · psychological thriller' : 'Cortometraje · thriller psicológico'} · {E.duracion} · {E.formato}</p>
-        <p class="golpe" data-lineas>“{E.golpe[lang]}”</p>
+        <p class="sello" data-aparece>{tr(E.sello, lang)}</p>
+        <p class="cod" data-aparece>{w('Cortometraje · thriller psicológico', 'Short film · psychological thriller')} · {E.duracion} · {E.formato}</p>
+        <p class="golpe" data-lineas>“{tr(E.golpe, lang)}”</p>
         <a class="lnk eco-l" href={ruta(E.slug, lang)} data-aparece>{x.conocerEco}</a>
       </div>
-      <Foto n="eco-madre" clase="eco-foto" alt={lang === 'en' ? 'An older woman seated on a sofa in half light' : 'Una mujer mayor sentada en un sofá, en penumbra'} cursor={x.cursor.ver} sizes="(max-width: 860px) 100vw, 60vw" />
+      <Foto n="eco-madre" clase="eco-foto" alt={w('Una mujer mayor sentada en un sofá, en penumbra', 'An older woman seated on a sofa in half light')} cursor={x.cursor.ver} sizes="(max-width: 860px) 100vw, 60vw" />
     </div>
     <div class="luz">{E.luz.map((n, k) => <figure><Image src={img(n)} alt="" widths={[260]} /><figcaption>0{k + 1}{k === 0 ? ` · ${x.claveAlta}` : k === 4 ? ` · ${x.claveBaja}` : ''}</figcaption></figure>)}</div>
   </section>

@@ -10,10 +10,9 @@ export const persona = {
   nacimiento: '22.09.1989',
 };
 
-/* La idea de la portada. Reemplaza "Hasta el último rincón" (pedido de Jose, 30 set 2026).
-   "Revelar" es a la vez sacar a la luz y revelar película, y es el hilo conductor del movimiento de la web. */
+/* La idea de la portada. "Contado desde adentro", elegida por Jose el 30 set 2026. Reemplaza "Hasta el último rincón". */
 export const idea = {
-  lineas: { es: ['Revelar', 'lo que', 'no se ve'], en: ['Reveal', 'what', 'stays unseen'] },
+  lineas: { es: 'Contado|desde|adentro', en: 'Told|from|within' },
   texto: {
     es: 'Cine sobre lo que queda oculto, hasta donde esté. Historias de gente que casi nadie filma, contadas desde adentro.',
     en: 'Films about what stays hidden, wherever it is. Stories of people almost no one films, told from the inside.',
@@ -28,28 +27,30 @@ export const premios = [
 ];
 
 export const selecciones = [
-  { n: '21.º International Labour Film Festival', d: 'Türkiye · 2026' },
-  { n: 'The Workers Unite Film Festival', d: 'Nueva York, EE. UU. · 2025' },
-  { n: 'London Vision Film Festival', d: 'Londres, Reino Unido · 2025' },
-  { n: 'LISBIFF Lisboa Indie Film Festival', d: 'Lisboa, Portugal · 2025' },
-  { n: 'Cine Invisible “Film Sozialak”', d: 'Bilbao, España · 2026' },
-  { n: 'FIMMER · Festival Internacional de Mediometrajes', d: 'Manzanares El Real, España · 2025' },
-  { n: 'ImoIFF Creatives International Film Festival', d: 'Imo, Nigeria · 2025' },
-  { n: 'Cinego Shorts · Shorts on the Move', d: 'Karachi, Pakistán' },
-  { n: 'Film Hour · Bodhak Studio', d: 'India' },
-  { n: 'Cinematic Luxe Indie Showcase', d: 'Winter Fest 26 · Cincinnati, EE. UU.' },
-  { n: '20.ª Muestra Cine + Video Indígena', d: 'Chile · 2026' },
+  { n: '21.º International Labour Film Festival', d: { es: 'Türkiye · 2026', en: 'Türkiye · 2026' } },
+  { n: 'The Workers Unite Film Festival', d: { es: 'Nueva York, EE. UU. · 2025', en: 'New York, USA · 2025' } },
+  { n: 'London Vision Film Festival', d: { es: 'Londres, Reino Unido · 2025', en: 'London, United Kingdom · 2025' } },
+  { n: 'LISBIFF Lisboa Indie Film Festival', d: { es: 'Lisboa, Portugal · 2025', en: 'Lisbon, Portugal · 2025' } },
+  { n: 'Cine Invisible “Film Sozialak”', d: { es: 'Bilbao, España · 2026', en: 'Bilbao, Spain · 2026' } },
+  { n: 'FIMMER · Festival Internacional de Mediometrajes', d: { es: 'Manzanares El Real, España · 2025', en: 'Manzanares El Real, Spain · 2025' } },
+  { n: 'ImoIFF Creatives International Film Festival', d: { es: 'Imo, Nigeria · 2025', en: 'Imo, Nigeria · 2025' } },
+  { n: 'Cinego Shorts · Shorts on the Move', d: { es: 'Karachi, Pakistán', en: 'Karachi, Pakistan' } },
+  { n: 'Film Hour · Bodhak Studio', d: { es: 'India', en: 'India' } },
+  { n: 'Cinematic Luxe Indie Showcase', d: { es: 'Winter Fest 26 · Cincinnati, EE. UU.', en: 'Winter Fest 26 · Cincinnati, USA' } },
+  { n: '20.ª Muestra Cine + Video Indígena', d: { es: 'Chile · 2026', en: 'Chile · 2026' } },
 ];
 
 /* Sinopsis del documental.
    Fuente de los hechos: nota de prensa de Solidaridad, coproductora, "Entre Polvo y Sueños: New Documentary on the Strength
    and Collective Power of Women Miners", publicada el 14 ago 2025, consultada el 30 set 2026:
    https://www.solidaridadnetwork.org/news/entre-polvo-y-suenos-new-documentary-on-the-strength-and-collective-power-of-women-miners/
-   "Tres años" sale de la bio de Jose. Redacción propuesta por Claude, pendiente del OK de Jose como sinopsis oficial. */
+   "Tres años" sale de la bio de Jose. Redactada por Claude y aprobada por Jose como sinopsis oficial el 30 set 2026. */
 export const documental = {
   slug: 'entre-polvo-y-suenos',
   titulo: 'Entre polvo y sueños',
   tituloEn: 'Between Dust and Dreams',
+  // Títulos que existen de verdad: inglés (nota de Solidaridad) y turco (título del tráiler en Vimeo). Los demás idiomas muestran el título original.
+  titulosOficiales: { en: 'Between Dust and Dreams', tr: 'Toz ve Düşler Arasında' },
   anio: '2025',
   duracion: '37:02',
   formato: '2K',
@@ -61,19 +62,19 @@ export const documental = {
     ],
     en: [
       'In Arequipa, María Reyes is a pallaquera, sifting for ore in the rock others have already discarded. In Puno, Julia Pomalique faces the barriers of a culture that cannot picture a woman in the mine. In Madre de Dios, Vilma Contreras defied the stereotypes and is still standing.',
-      'Between Dust and Dreams follows three women in Peru’s artisanal and small scale mining, an issue now on the public agenda that rarely listens to them. Three years of shooting in tunnels and open pits so their voice can travel far.',
+      'Between Dust and Dreams follows three women in Peru’s artisanal and small scale mining, an issue now on the public agenda that rarely listens to them. Three years of shooting in tunnels and on the plains so their voice can travel far.',
     ],
   },
   ficha: [
     [{ es: 'Dirección', en: 'Director' }, 'Jose Adrianzen'],
     [{ es: 'Guion', en: 'Screenplay' }, 'Jose Adrianzen'],
-    [{ es: 'Producción general', en: 'Executive production' }, 'Jose Adrianzen y Solidaridad'],
+    [{ es: 'Producción general', en: 'Executive production' }, { es: 'Jose Adrianzen y Solidaridad', en: 'Jose Adrianzen and Solidaridad' }],
     [{ es: 'Producido por', en: 'Produced by' }, 'BÁLU · Solidaridad'],
     [{ es: 'Programa', en: 'Programme' }, 'RECLAIM Sustainability!'],
-    [{ es: 'País', en: 'Country' }, 'Perú'],
+    [{ es: 'País', en: 'Country' }, { es: 'Perú', en: 'Peru' }],
     [{ es: 'Formato', en: 'Format' }, 'Digital 2K'],
     [{ es: 'Duración', en: 'Running time' }, '37:02'],
-    [{ es: 'Idioma', en: 'Language' }, 'Español'],
+    [{ es: 'Idioma', en: 'Language' }, { es: 'Español', en: 'Spanish' }],
     [{ es: 'Subtítulos', en: 'Subtitles' }, 'Français · English · Türkçe'],
   ],
   // Vimeo. Fuente: ficha pública de cada video (oEmbed), consultada el 30 set 2026. Ver segundo cerebro.
@@ -91,14 +92,14 @@ export const documental = {
     ['doc-entrevista', 'Mujer entrevistada en el interior de su vivienda', 'A woman interviewed inside her home'],
   ],
   rodaje: [
-    ['bts-doc-2', 'Jose Adrianzen dirige en la calle del asentamiento minero'],
-    ['bts-doc-1', 'Ajustando la cámara sobre el trípode en la pampa'],
-    ['bts-doc-5', 'Cámara y microfonista durante una entrevista'],
-    ['bts-doc-3', 'Jose conversa con las mineras en la plaza del pueblo'],
-    ['bts-doc-4', 'Jose explica una escena dentro de una tienda'],
-    ['bts-doc-8', 'Entrevista iluminada con rebotador y caña de sonido'],
-    ['bts-doc-7', 'Niños del pueblo miran el monitor de la cámara'],
-    ['bts-doc-6', 'Jose maneja el control del dron dentro del auto de noche'],
+    ['bts-doc-2', { es: 'Jose Adrianzen dirige en la calle del asentamiento minero', en: 'Jose Adrianzen directs on a street in the mining settlement' }],
+    ['bts-doc-1', { es: 'Ajustando la cámara sobre el trípode en la pampa', en: 'Setting the camera on the tripod on the plains' }],
+    ['bts-doc-5', { es: 'Cámara y microfonista durante una entrevista', en: 'Camera operator and boom operator during an interview' }],
+    ['bts-doc-3', { es: 'Jose conversa con las mineras en la plaza del pueblo', en: 'Jose talks with the women miners in the town square' }],
+    ['bts-doc-4', { es: 'Jose explica una escena dentro de una tienda', en: 'Jose explains a scene inside a shop' }],
+    ['bts-doc-8', { es: 'Entrevista iluminada con rebotador y caña de sonido', en: 'An interview lit with a bounce board and a boom pole' }],
+    ['bts-doc-7', { es: 'Niños del pueblo miran el monitor de la cámara', en: 'Village children look at the camera monitor' }],
+    ['bts-doc-6', { es: 'Jose maneja el control del dron dentro del auto de noche', en: 'Jose flies the drone from inside the car at night' }],
   ],
   fuenteSinopsis: 'https://www.solidaridadnetwork.org/news/entre-polvo-y-suenos-new-documentary-on-the-strength-and-collective-power-of-women-miners/',
 };
@@ -122,7 +123,7 @@ export const eco = {
   },
   ficha: [
     [{ es: 'Dirección', en: 'Director' }, 'Jose Adrianzen'],
-    [{ es: 'Guion', en: 'Screenplay' }, 'Jose Adrianzen y Matilde Carrión'],
+    [{ es: 'Guion', en: 'Screenplay' }, { es: 'Jose Adrianzen y Matilde Carrión', en: 'Jose Adrianzen and Matilde Carrión' }],
     [{ es: 'Producción', en: 'Producer' }, 'Jose Adrianzen'],
     [{ es: 'Fotografía', en: 'Cinematography' }, 'Fabricio Raciti'],
     [{ es: 'Arte', en: 'Production design' }, 'Gonzalo Veratudela'],
@@ -142,12 +143,12 @@ export const eco = {
   // Cinco fotogramas ordenados por brillo medido (gris promedio 106, 99, 67, 48 y 26): de clave alta a clave baja.
   luz: ['eco-luz-1', 'eco-luz-5', 'eco-luz-2', 'eco-luz-3', 'eco-luz-4'],
   rodaje: [
-    ['eco-bts-set', 'El equipo ilumina el set mientras se prepara la escena'],
-    ['eco-bts-cama', 'Rodaje de la escena del dormitorio con luces cálidas y frías'],
-    ['eco-bts-yamile', 'Jose Adrianzen junto a Yamile Caparó con la claqueta'],
-    ['eco-bts-locacion', 'La sala de la casa vacía, antes de vestir el set'],
-    ['eco-bts-ensayo', 'Jose Adrianzen da indicaciones al equipo con la caña de sonido sobre la escena'],
-    ['eco-bts-reparto', 'Jose Adrianzen con Matilde Carrión y el reparto sobre la cama del set'],
+    ['eco-bts-set', { es: 'El equipo ilumina el set mientras se prepara la escena', en: 'The crew lights the set while the scene is prepared' }],
+    ['eco-bts-cama', { es: 'Rodaje de la escena del dormitorio con luces cálidas y frías', en: 'Shooting the bedroom scene with warm and cool lights' }],
+    ['eco-bts-yamile', { es: 'Jose Adrianzen junto a Yamile Caparó con la claqueta', en: 'Jose Adrianzen with Yamile Caparó holding the slate' }],
+    ['eco-bts-locacion', { es: 'La sala de la casa vacía, antes de vestir el set', en: 'The empty living room before the set was dressed' }],
+    ['eco-bts-ensayo', { es: 'Jose Adrianzen da indicaciones al equipo con la caña de sonido sobre la escena', en: 'Jose Adrianzen gives directions to the crew with the boom pole over the scene' }],
+    ['eco-bts-reparto', { es: 'Jose Adrianzen con Matilde Carrión y el reparto sobre la cama del set', en: 'Jose Adrianzen with Matilde Carrión and the cast on the bed of the set' }],
   ],
 };
 
@@ -158,7 +159,7 @@ export const fotografia = [
   ['fot-barcelona', { es: 'Fachadas con balcones en Barcelona', en: 'Facades with balconies in Barcelona' }, 'viajes'],
   ['jose-shipibo', { es: 'Jose Adrianzen junto a músicos shipibo, en blanco y negro', en: 'Jose Adrianzen with Shipibo musicians, black and white' }, 'retratos'],
   ['fot-gaviota', { es: 'Proa de un buque, una gaviota y un remolcador en el puerto', en: 'A ship’s bow, a seagull and a tugboat in the port' }, 'viajes'],
-  ['bts-doc-1', { es: 'Rodaje de Entre polvo y sueños en la pampa', en: 'Shooting Between Dust and Dreams in the open pit' }, 'rodajes'],
+  ['bts-doc-1', { es: 'Rodaje de Entre polvo y sueños en la pampa', en: 'Shooting Between Dust and Dreams on the plains' }, 'rodajes'],
   ['fot-louvre', { es: 'Pirámide del Museo del Louvre contra las nubes', en: 'The Louvre pyramid against the clouds' }, 'viajes'],
   ['jose-teatro', { es: 'Jose Adrianzen en escena durante una obra de teatro', en: 'Jose Adrianzen on stage during a play' }, 'retratos'],
   ['fot-muelle', { es: 'Muelle de madera sobre un mar turquesa', en: 'Wooden pier over a turquoise sea' }, 'viajes'],
@@ -200,15 +201,15 @@ export const sobreMi = {
     { es: 'Ingeniería empresarial, UTP', en: 'Business engineering, UTP' },
   ],
   muro: [
-    ['jose-calavera', 'Jose Adrianzen actuando, encapuchado y con una calavera y una vela'],
-    ['jose-shipibo', 'Jose Adrianzen junto a músicos shipibo, en blanco y negro'],
-    ['jose-escenario', 'Jose Adrianzen sobre un escenario'],
-    ['jose-naipes', 'Claqueta de rodaje sobre una mesa de juego'],
+    ['jose-calavera', { es: 'Jose Adrianzen actuando, encapuchado y con una calavera y una vela', en: 'Jose Adrianzen acting, hooded, with a skull and a candle' }],
+    ['jose-shipibo', { es: 'Jose Adrianzen junto a músicos shipibo, en blanco y negro', en: 'Jose Adrianzen with Shipibo musicians, black and white' }],
+    ['jose-escenario', { es: 'Jose Adrianzen sobre un escenario', en: 'Jose Adrianzen on a stage' }],
+    ['jose-naipes', { es: 'Claqueta de rodaje sobre una mesa de juego', en: 'A film slate on a card table' }],
   ],
 };
 
 export const vias = [
-  { t: 'Correo', v: 'yo@joseadrianzen.com', href: 'mailto:yo@joseadrianzen.com?subject=Desde%20la%20web', ext: false },
+  { t: { es: 'Correo', en: 'Email' }, v: 'yo@joseadrianzen.com', href: 'mailto:yo@joseadrianzen.com?subject=Desde%20la%20web', ext: false },
   { t: 'WhatsApp', v: '+51 984 323 201', href: 'https://wa.me/51984323201', ext: true },
   { t: 'Instagram', v: '@jadrianzens', href: 'https://www.instagram.com/jadrianzens/', ext: true },
   { t: 'LinkedIn', v: 'in/joseadrianzens', href: 'https://www.linkedin.com/in/joseadrianzens/', ext: true },

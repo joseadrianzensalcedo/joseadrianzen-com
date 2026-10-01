@@ -1,9 +1,10 @@
 ---
 import Base from '../layouts/Base.astro';
 import Foto from '../components/Foto.astro';
-import { t } from '../data/textos.js';
+import { t, tr } from '../data/textos.js';
 import { ruta, fechaLegible, minutos } from '../utils.js';
 const { art, lang = 'es', numero } = Astro.props;
+const w = (es, en) => tr({ es, en }, lang);
 const x = t(lang);
 const url = 'https://joseadrianzen.com' + ruta('blog/' + art.slug, 'es');
 const ld = { '@context': 'https://schema.org', '@type': 'BlogPosting', headline: art.titulo, description: art.descripcion, datePublished: art.fecha, dateModified: art.fecha, inLanguage: 'es',
@@ -13,7 +14,7 @@ const ld = { '@context': 'https://schema.org', '@type': 'BlogPosting', headline:
   <div class="barra-lectura" aria-hidden="true"><i></i></div>
   <article class="post papel grano">
     <header class="post-cab">
-      <p class="cod" data-aparece><a href={ruta('blog', lang)}>{x.volverBlog}</a><span>{lang === 'en' ? 'Article' : 'Artículo'} {numero}</span><span>{fechaLegible(art.fecha, 'es')}</span><span>{minutos(art)} {x.leer}</span></p>
+      <p class="cod" data-aparece><a href={ruta('blog', lang)}>{x.volverBlog}</a><span>{w('Artículo', 'Article')} {numero}</span><span>{fechaLegible(art.fecha, 'es')}</span><span>{minutos(art)} {x.leer}</span></p>
       {art.estado !== 'publicado' && <p class="sello-borrador">{x.borrador}</p>}
       <h1 class="art-titulo" data-letras="titulo">{art.titulo}</h1>
     </header>

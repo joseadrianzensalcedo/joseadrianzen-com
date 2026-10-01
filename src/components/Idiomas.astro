@@ -1,0 +1,14 @@
+---
+// Selector de idioma: lleva a la misma página en el idioma elegido. Funciona sin JavaScript.
+import { IDIOMAS } from '../data/idiomas.js';
+import { t } from '../data/textos.js';
+import { ruta } from '../utils.js';
+const { lang = 'es', camino = '', clase = '' } = Astro.props;
+const x = t(lang);
+---
+<details class:list={['sel-idioma', clase]}>
+  <summary aria-label={x.idioma}><span>{lang.toUpperCase()}</span><i aria-hidden="true">▾</i></summary>
+  <ul>
+    {IDIOMAS.map((i) => <li><a href={ruta(camino, i.c)} hreflang={i.c} lang={i.c} aria-current={i.c === lang ? 'true' : undefined}><b>{i.c.toUpperCase()}</b>{i.n}</a></li>)}
+  </ul>
+</details>

@@ -10,8 +10,7 @@ export default defineConfig({
   site: staging ? 'https://joseadrianzensalcedo.github.io' : 'https://joseadrianzen.com',
   base: staging ? '/joseadrianzen-com' : '/',
   trailingSlash: 'ignore',
-  i18n: { locales: ['es', 'en'], defaultLocale: 'es', routing: { prefixDefaultLocale: false } },
-  integrations: [sitemap({ i18n: { defaultLocale: 'es', locales: { es: 'es-PE', en: 'en' } } })],
+  integrations: [sitemap()],
   build: { format: 'directory', inlineStylesheets: 'auto' },
   compressHTML: true,
 });

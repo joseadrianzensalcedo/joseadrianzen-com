@@ -1,13 +1,16 @@
 ---
-import { t } from '../data/textos.js';
-import { ruta, rutaOtroIdioma } from '../utils.js';
+import { t, tr } from '../data/textos.js';
+import { ruta } from '../utils.js';
+import { IDIOMAS } from '../data/idiomas.js';
 import { persona } from '../data/sitio.js';
 const { lang = 'es', actual = '', camino = '' } = Astro.props;
+const w = (es, en) => tr({ es, en }, lang);
 const x = t(lang);
 ---
 <div class="menu-capa" id="menu" role="dialog" aria-modal="true" aria-label={x.menu} hidden>
   <nav aria-label={x.menu}>
     {x.nav.map(([p, txt], i) => <a href={ruta(p, lang)} aria-current={actual === p ? 'page' : undefined}><b>0{i + 1}</b><span class="mascara"><span>{txt}</span></span></a>)}
   </nav>
-  <div class="menu-pie"><span>{persona.base[lang]}</span><a href={rutaOtroIdioma(camino, lang)} lang={lang === 'en' ? 'es' : 'en'}>{x.idiomaOtroLabel}</a></div>
+  <ul class="menu-idiomas" aria-label={x.idioma}>{IDIOMAS.map((i) => <li><a href={ruta(camino, i.c)} hreflang={i.c} lang={i.c} aria-current={i.c === lang ? 'true' : undefined}>{i.n}</a></li>)}</ul>
+  <div class="menu-pie"><span>{tr(persona.base, lang)}</span><span>{x.idioma}</span></div>
 </div>

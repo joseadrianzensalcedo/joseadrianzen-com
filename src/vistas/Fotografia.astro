@@ -4,18 +4,19 @@ import Foto from '../components/Foto.astro';
 import { t, tr } from '../data/textos.js';
 import { fotografia } from '../data/sitio.js';
 const { lang = 'es' } = Astro.props;
+const w = (es, en) => tr({ es, en }, lang);
 const x = t(lang), en = lang === 'en';
 const fotos = import.meta.glob('/src/assets/img/*.webp', { eager: true });
-const titulo = en ? 'Photography | Jose Adrianzen' : 'Fotografía | Jose Adrianzen';
-const desc = en ? 'Photography by Jose Adrianzen, travel, portraits and film sets.' : 'Fotografía de Jose Adrianzen, viajes, retratos y rodajes.';
+const titulo = w('Fotografía | Jose Adrianzen', 'Photography | Jose Adrianzen');
+const desc = w('Fotografía de Jose Adrianzen, viajes, retratos y rodajes.', 'Photography by Jose Adrianzen, travel, portraits and film sets.');
 const forma = (n) => { const m = fotos[`/src/assets/img/${n}.webp`].default; const r = m.width / m.height; return r > 1.25 ? 'an' : r < 0.9 ? 'al' : 'cu'; };
 ---
 <Base titulo={titulo} descripcion={desc} lang={lang} camino="fotografia" actual="fotografia" navClara>
   <section class="foto-cab papel grano">
     <h1 class="gigante" data-letras="gigante"><span>{x.fotografia}</span></h1>
-    <div class="filtros" role="group" aria-label={en ? 'Filter photos' : 'Filtrar fotos'}>
+    <div class="filtros" role="group" aria-label={w('Filtrar fotos', 'Filter photos')}>
       {x.filtros.map(([k, v], i) => <button type="button" data-ver={k} aria-pressed={i === 0 ? 'true' : 'false'}>{v}</button>)}
-      <span class="cuenta">{fotografia.length} {en ? 'frames' : 'cuadros'}</span>
+      <span class="cuenta">{fotografia.length} {w('cuadros', 'frames')}</span>
     </div>
   </section>
   <section class="hoja-grande papel grano">
@@ -30,8 +31,8 @@ const forma = (n) => { const m = fotos[`/src/assets/img/${n}.webp`].default; con
     <img alt="">
     <p class="visor-pie"></p>
     <button type="button" class="v-cerrar" aria-label={x.cerrar}>{x.cerrar} ✕</button>
-    <button type="button" class="v-ant" aria-label={en ? 'Previous' : 'Anterior'}>←</button>
-    <button type="button" class="v-sig" aria-label={en ? 'Next' : 'Siguiente'}>→</button>
+    <button type="button" class="v-ant" aria-label={w('Anterior', 'Previous')}>←</button>
+    <button type="button" class="v-sig" aria-label={w('Siguiente', 'Next')}>→</button>
   </div>
   <script>
     // Visor ampliado: se abre al tocar una foto, flechas o deslizar para pasar, Escape para cerrar. Filtros por palabra.
