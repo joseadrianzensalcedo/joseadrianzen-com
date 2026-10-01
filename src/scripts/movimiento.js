@@ -180,14 +180,17 @@ if (!R) {
         return tl;
       } });
       if (FINO) el.addEventListener('pointerenter', () => el._partes && brillo(el._partes, 0.9, 0.03));
+      // Con el dedo también hay respuesta: al tocar el título cruza el reflejo.
+      if (!FINO) el.addEventListener('touchstart', () => el._partes && brillo(el._partes, 0.9, 0.03), { passive: true });
       /* Título de la película: con el cursor encima, las letras pasan de AWAKENNING a AWAKENNING STEEL una por una, en
          desorden y en un tercio de segundo, y vuelven igual al salir. Las dos letras miden lo mismo, así nada se mueve. */
-      if (FINO && el.classList.contains('titulo-pelicula')) {
+      if (el.classList.contains('titulo-pelicula')) {
         let relojes = [];
         const cambiar = (poner) => { if (!el._partes) return; relojes.forEach(clearTimeout);
           relojes = el._partes.map((c) => setTimeout(() => c.classList.toggle('acero', poner), gsap.utils.random(0, 320))); };
         el.addEventListener('pointerenter', () => cambiar(true));
         el.addEventListener('pointerleave', () => cambiar(false));
+        el.addEventListener('touchstart', () => { cambiar(true); setTimeout(() => cambiar(false), 1400); }, { passive: true });
       }
     });
     $$('[data-lineas]').forEach((el) => {
@@ -227,7 +230,8 @@ const NP = 28;
    amontonan en grumos de formas irregulares, no cuadrados. En película vieja o forzada se ven gruesos, cambian en cada
    cuadro (24 veces por segundo) y se notan más en los tonos medios que en el blanco o el negro puro.
    Técnico: ruido de valor en dos tamaños (grumo grueso y grano fino) sobre gl_FragCoord, con semilla nueva por cuadro.
-   Donde el grano es fuerte la imagen pierde contraste y color, como una copia gastada. */
+   Donde el grano es fuerte la imagen pierde contraste y color, como una copia gastada. En lo oscuro el grano sale
+   claro y en lo claro sale oscuro, como la plata de la película (ver la nota de la sección 17). */
 const PIX_FS = 'precision highp float;varying vec2 u;uniform sampler2D t;uniform vec2 px,cov,op;uniform vec3 pt[' + NP + '];uniform float fz,ue,tm;' +
   'vec3 foto(vec2 q){vec2 c=(q-.5)*cov+op;c.y=1.-c.y;return texture2D(t,c).rgb;}' +
   'float est(vec2 q){float k=0.;float asp=px.x/px.y;for(int i=0;i<' + NP + ';i++){vec2 d=(q-pt[i].xy)*vec2(asp,1.);k+=pt[i].z*exp(-dot(d,d)/.010);}return k;}' +
@@ -239,9 +243,10 @@ const PIX_FS = 'precision highp float;varying vec2 u;uniform sampler2D t;uniform
   'if(k>.01){vec2 sd=vec2(mod(tm*17.31,97.),mod(tm*9.71,89.));vec2 fc=gl_FragCoord.xy;' +
   'float gg=vn(fc/(3.4*s)+sd)*.62+vn(fc/(1.3*s)+sd*1.7)*.38-.5;' +
   'vec2 mv=vec2(vn(fc/(9.*s)+sd*.3)-.5,vn(fc/(9.*s)+sd*.6+7.)-.5)*.006*k;vec3 c2=foto(u+mv);' +
-  'float l=dot(c2,vec3(.299,.587,.114));float am=k*(.35+1.8*l*(1.-l));' +
+  'float l=dot(c2,vec3(.299,.587,.114));float am=k*(.45+1.4*l*(1.-l));' +
   'vec3 viejo=mix(c2,vec3(l),.35*k);viejo=mix(viejo,vec3(.5),.18*k);' +
-  'col=clamp(viejo+gg*am*vec3(1.,.97,.92),0.,1.);}' +
+  'float pol=clamp((.5-l)*4.,-1.,1.);float g2=pol*abs(gg)*1.6+gg*(1.-abs(pol));' +
+  'col=clamp(viejo+g2*am*vec3(1.,.97,.92),0.,1.);}' +
   'gl_FragColor=vec4(col,1.);}';
 
 function crearPix(fig) {
@@ -540,17 +545,28 @@ const PX = (() => {
      oscuros, de tamaños distintos y sueltos (no en rejilla). Se sortean de nuevo 24 veces por segundo, como el grano de
      la película, que cambia en cada cuadro. El sorteo depende del cuadro, así entre cuadro y cuadro no tiembla. */
   const az = (a, b, c) => { const x = Math.sin(a * 127.1 + b * 311.7 + c * 74.7) * 43758.5453; return x - Math.floor(x); };
-  const gris = (b, k) => `rgb(${Math.min(255, b[0] * k) | 0},${Math.min(255, b[1] * k) | 0},${Math.min(255, b[2] * k) | 0})`;
-  const GR = FINO ? 18 : 12, TAM = FINO ? [1.2, 3.4] : [1.6, 4.2];
+  /* Cómo se porta el grano de verdad (Newson y otros, "Realistic Film Grain Rendering", IPOL 2017). La imagen de la
+     película son granitos de plata repartidos al azar, de tamaños distintos (radio con distribución log normal), y en
+     cada punto hay tantos granos como oscuro es ese punto. En lo blanco casi no hay plata, así que lo que se ve son
+     granos sueltos, oscuros. En lo negro la plata lo cubre todo, y lo que se ve son los huecos entre granos, claros.
+     En los tonos medios se ve de los dos. Eso se dibuja aquí: el color de debajo decide si el grano es oscuro o claro
+     y cuántos granos caen. */
+  const lumDe = (b) => (0.2126 * b[0] + 0.7152 * b[1] + 0.0722 * b[2]) / 255;
+  const mezcla = (b, a, t) => `rgb(${b[0] + (a[0] - b[0]) * t | 0},${b[1] + (a[1] - b[1]) * t | 0},${b[2] + (a[2] - b[2]) * t | 0})`;
+  const PLATA = [14, 12, 10], HUECO = [240, 234, 222];
+  const GR = FINO ? 18 : 12, TAM = FINO ? [1, 3.4] : [1.4, 4.2];
   function granos(x0, y0, lado, b, sem, n) {
-    for (let i = 0; i < n; i++) {
+    const L = lumDe(b), medio = 4 * L * (1 - L), cuantos = Math.round(n * (0.55 + 0.45 * medio));
+    for (let i = 0; i < cuantos; i++) {
       const gx = x0 + (az(sem, i, 1.3) * 1.5 - 0.25) * lado, gy = y0 + (az(sem, i, 2.9) * 1.5 - 0.25) * lado;
-      const t = TAM[0] + az(sem, i, 4.1) * az(sem, i, 5.7) * (TAM[1] - TAM[0]), lum = az(sem, i, 6.3);
-      // Los granos de plata son oscuros sobre lo claro y claros sobre lo oscuro: así se ve grano y no manchas.
-      const brillo = (b[0] + b[1] + b[2]) / 765, k = lum < 0.5 ? 0.35 + lum * 0.7 : 1 + (lum - 0.5) * (brillo < 0.35 ? 2.6 : 0.9);
-      cx.fillStyle = gris(b, k); cx.fillRect(gx, gy, t, t * (0.7 + az(sem, i, 7.9) * 0.6));
+      const r = az(sem, i, 4.1), t = TAM[0] + r * r * (TAM[1] - TAM[0]), u = az(sem, i, 6.3);
+      // En fondo oscuro, hueco claro. En fondo claro, grano oscuro. En los medios, a veces uno y a veces otro.
+      const claro = L < 0.35 ? true : L > 0.65 ? false : u < 1 - L;
+      cx.fillStyle = mezcla(b, claro ? HUECO : PLATA, 0.45 + az(sem, i, 8.7) * 0.45);
+      cx.fillRect(gx, gy, t, t * (0.7 + az(sem, i, 7.9) * 0.6));
     }
   }
+
   /* Un círculo de grano alrededor del cursor, como el de las fotos (pedido de Jose, 1 oct 2026): denso al centro y
      suelto en el borde. Va donde está el cursor y se apaga en un instante, sin dejar estela detrás. */
   const RAD = FINO ? 6 : 5;
