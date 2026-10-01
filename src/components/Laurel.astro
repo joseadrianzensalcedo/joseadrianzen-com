@@ -1,0 +1,17 @@
+---
+// Laurel de festival dibujado con el código, con el texto del premio en la letra de la web.
+// Las hojas son del mismo color del texto y se ven igual en todos los tamaños.
+const { arriba, medio, abajo } = Astro.props;
+const hojas = Array.from({ length: 7 }, (_, i) => i);
+---
+<li class="laurel">
+  <svg class="rama" viewBox="0 0 30 100" aria-hidden="true">
+    <path d="M24 96 Q6 60 20 6" fill="none" stroke="currentColor" stroke-width="1.4"/>
+    {hojas.map((i) => { const t = i / 6, y = 90 - t * 80, x = 22 - Math.sin(t * Math.PI) * 9 - t * 2; return <ellipse cx={x - 6} cy={y} rx="6.5" ry="2.6" transform={`rotate(${-40 + t * 20} ${x - 6} ${y})`} fill="currentColor" />; })}
+  </svg>
+  <span class="laurel-txt"><b>{arriba}</b><span>{medio}</span><i>{abajo}</i></span>
+  <svg class="rama der" viewBox="0 0 30 100" aria-hidden="true">
+    <path d="M24 96 Q6 60 20 6" fill="none" stroke="currentColor" stroke-width="1.4"/>
+    {hojas.map((i) => { const t = i / 6, y = 90 - t * 80, x = 22 - Math.sin(t * Math.PI) * 9 - t * 2; return <ellipse cx={x - 6} cy={y} rx="6.5" ry="2.6" transform={`rotate(${-40 + t * 20} ${x - 6} ${y})`} fill="currentColor" />; })}
+  </svg>
+</li>

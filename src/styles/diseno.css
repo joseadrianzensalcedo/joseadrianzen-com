@@ -1,25 +1,36 @@
-/* Ajustes de la diseñadora, 1 oct 2026.
-   Márgenes iguales en los cuatro lados de la cabecera: el mismo --m arriba, abajo, a la izquierda y a la derecha. */
+/* Ajustes de la diseñadora, 1 oct 2026. Peras y manzanas: el mismo margen (--m) en los cuatro lados, y cada cosa en su lugar.
+   Arriba a la izquierda el nombre como logo con el oficio debajo. Arriba a la derecha el menú. Abajo a la izquierda la película
+   (premios, título, una línea y sus datos). Abajo a la derecha la sinopsis y el botón. */
 .nav:not(.solido){padding-top:var(--m)}
+.nav-logo{display:flex;flex-direction:column;gap:7px;text-decoration:none}
+.nav-rol{font:500 9.5px var(--mono);letter-spacing:.42em;text-transform:uppercase;color:var(--papel);opacity:.85;white-space:nowrap}
+.nav.solido .nav-rol{display:none}
+.pausa{top:calc(var(--m) + 74px);right:var(--m)}
 .hero-pie{bottom:var(--m);left:var(--m);right:var(--m)}
-.pausa{top:calc(var(--m) + 64px);right:var(--m)}
-/* Portada: a la izquierda quién (nombre y oficio), a la derecha qué ver (película y botón). */
-.hero-quien{display:flex;flex-direction:column;gap:14px;min-width:0}
-.hero-quien .rol{margin:0}
-.hero-logo svg{width:min(760px,54vw)}
-.hero-acc{display:flex;flex-direction:column;align-items:flex-end;gap:12px}
-.hero-acc .btn{margin-top:0}
-.hero-peli{margin:0;font:400 clamp(26px,2.6vw,40px)/1 var(--disp);letter-spacing:.02em;text-transform:uppercase;color:var(--papel)}
-.nav-logo svg{height:clamp(28px,2.8vw,40px);width:auto}
-/* Documental: debajo del título, una línea y los datos de la película. El bloque toma el ancho del título. */
-.titulo-bloque{display:inline-block;max-width:100%}
-.peli-datos{display:flex;justify-content:space-between;gap:24px;margin:18px 0 0;padding-top:14px;border-top:1.5px solid var(--papel);font:500 clamp(11px,1vw,14px) var(--mono);letter-spacing:.2em;text-transform:uppercase;color:var(--papel)}
-@media (max-width:860px),(orientation:portrait) and (max-width:1100px){
- .hero-quien{align-items:center}.hero-logo svg{width:min(100%,560px)}
- .hero-acc{align-items:center}
- .peli-datos{gap:12px}
-}
 .hero-acc{margin-left:auto}
-/* El código de tiempo de abajo no aparece mientras se ve la cabecera: ahí solo va el nombre (pedido de Jose, 1 oct 2026). */
+/* Portada de la película */
+.hero-peli .velo-peli{background:linear-gradient(90deg,rgba(12,11,10,.62) 0%,rgba(12,11,10,.2) 55%,rgba(12,11,10,.35) 100%),linear-gradient(180deg,rgba(12,11,10,.5) 0%,rgba(12,11,10,0) 26%,rgba(12,11,10,0) 55%,rgba(12,11,10,.75) 100%)}
+.hero-marco{position:absolute;left:var(--m);right:var(--m);bottom:var(--m);z-index:4;display:flex;justify-content:space-between;align-items:flex-end;gap:40px}
+.hero-izq{min-width:0;display:inline-flex;flex-direction:column;align-items:stretch;max-width:66%}
+.hero-peli .gigante{font-size:clamp(72px,11.5vw,200px);line-height:.9;margin:0}
+.hero-peli .gigante span{padding-left:0}
+.laureles{list-style:none;margin:0 0 clamp(18px,3vh,34px);padding:0;display:flex;flex-wrap:wrap;gap:clamp(10px,1.6vw,26px);color:var(--papel)}
+.laurel{display:flex;align-items:center;gap:2px}
+.laurel .rama{width:clamp(16px,1.6vw,22px);height:auto;flex:none}.laurel .rama.der{transform:scaleX(-1)}
+.laurel-txt{display:flex;flex-direction:column;align-items:center;text-align:center;font:500 clamp(8px,.68vw,10px)/1.3 var(--mono);letter-spacing:.06em;text-transform:uppercase;max-width:13ch}
+.laurel-txt b{font-weight:600;color:var(--ambar)}.laurel-txt i{font-style:normal;opacity:.75}
+.peli-datos{display:flex;justify-content:space-between;gap:24px;margin:clamp(14px,2vh,22px) 0 0;padding-block:clamp(8px,1.2vh,12px);border-top:1.5px solid var(--papel);border-bottom:1.5px solid var(--papel);font:400 clamp(20px,2.3vw,38px)/1 var(--disp);letter-spacing:.03em;text-transform:uppercase;color:var(--papel)}
+.hero-acc{display:flex;flex-direction:column;align-items:flex-end;gap:18px;flex:none}
+.hero-acc .btn{margin-top:0}
+.hero-sinopsis{margin:0;max-width:34ch;text-align:right;font:400 clamp(14px,1.05vw,16px)/1.45 var(--lectura);color:var(--papel)}
+/* Documental: el título con su línea y sus datos debajo. El bloque toma el ancho del título. */
+.titulo-bloque{display:inline-flex;flex-direction:column;max-width:100%}
 .tc{transition:opacity .4s}html.en-cabecera .tc{opacity:0}
-@media (max-width:860px),(orientation:portrait) and (max-width:1100px){.hero-acc{margin-left:0}}
+@media (max-width:860px),(orientation:portrait) and (max-width:1100px){
+ .hero-marco{flex-direction:column;align-items:stretch;gap:22px}
+ .hero-izq{max-width:100%}
+ .hero-acc{align-items:flex-start;margin-left:0}.hero-sinopsis{text-align:left}
+ .laureles{display:grid;grid-template-columns:1fr 1fr;gap:10px 8px;justify-items:start}
+ .peli-datos{gap:12px}
+ .nav-rol{letter-spacing:.3em;font-size:8.5px}
+}

@@ -2,6 +2,7 @@
 import Logo from './Logo.astro';
 import { t, tr } from '../data/textos.js';
 import { ruta } from '../utils.js';
+import { persona } from '../data/sitio.js';
 import Idiomas from './Idiomas.astro';
 const { lang = 'es', actual = '', camino = '', caminoOtros = camino, corto = false } = Astro.props;
 // En la portada el nombre ya va grande abajo, así que arriba va el logo corto JA (pedido de la diseñadora, 1 oct 2026).
@@ -11,7 +12,7 @@ const w = (es, en) => tr({ es, en }, lang);
 const x = t(lang);
 ---
 <header class="nav">
-  <a class="nav-logo" href={ruta('', lang)} aria-label={w('Jose Adrianzen, inicio', 'Jose Adrianzen, home')}><Logo variante={corto && LATINO ? 'ja' : 'nav'} lang={lang} /></a>
+  <a class="nav-logo" href={ruta('', lang)} aria-label={w('Jose Adrianzen, inicio', 'Jose Adrianzen, home')}><Logo variante={corto && LATINO ? 'ja' : 'nav'} lang={lang} /><span class="nav-rol">{tr(persona.rol, lang)}</span></a>
   <nav aria-label={w('Principal', 'Main')}>
     {x.nav.map(([p, txt]) => <a href={ruta(p, lang)} aria-current={actual === p ? 'page' : undefined}>{txt}</a>)}
     <Idiomas lang={lang} camino={camino} caminoOtros={caminoOtros} />
