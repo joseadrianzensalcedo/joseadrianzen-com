@@ -62,5 +62,5 @@
 /* Letras cortadas (reporte de Jose, 1 oct 2026). El reflejo que cruza los títulos pinta las letras con un fondo recortado
    a su forma, y ese fondo solo cubría la caja de la línea: lo que sobresale arriba y abajo quedaba transparente.
    Ahora la caja del reflejo crece hacia arriba y abajo sin mover nada, y las máscaras de línea dejan ese mismo aire. */
-.brillo{padding-block:.28em;margin-block:-.28em}
+
 .linea-mask{padding-block:.14em;margin-block:-.14em}

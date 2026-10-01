@@ -123,12 +123,43 @@ if (pausa) {
 }
 
 /* 7. Textos. Cada línea sube desde detrás de su máscara, así nada se pisa. Los títulos entran letra por letra en desorden,
-      con parpadeo en pasos, y al final una luz cruza las letras como un reflejo sobre el celuloide. */
-function brillo(nodos, dur, esc) {
-  nodos = [...nodos]; if (!nodos.length || nodos[0]._brilla) return;
-  nodos.forEach((n) => { n._brilla = true; n.style.setProperty('--c', getComputedStyle(n).color); n.classList.add('brillo'); });
-  gsap.fromTo(nodos, { '--bx': '88%' }, { '--bx': '12%', duration: dur, ease: 'power2.inOut', stagger: esc,
-    onComplete: () => nodos.forEach((n) => { n.classList.remove('brillo'); n._brilla = false; }) });
+      con parpadeo en pasos.
+      Con el cursor o el dedo encima, las letras se gastan una por una, como el título de la película en AWAKENNING
+      STEEL: se descascaran en los bordes, salen manchas de polvo y rayas finas, y al salir vuelven a quedar limpias
+      (pedido de Jose, 1 oct 2026, en vez del reflejo de luz).
+      Técnico: cuatro filtros SVG con ruido (feTurbulence) que sacan pedazos de la letra. Cuatro semillas distintas para
+      que dos letras iguales no se gasten igual. */
+const DESGASTE = 4;
+(() => {
+  const M = (a, b) => '0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -' + b + ' 0 0 0 ' + a;
+  const f = (i) => { const s = 3 + i * 5; return '<filter id="desgaste-' + i + '" x="-10%" y="-10%" width="120%" height="120%" color-interpolation-filters="sRGB">' +
+    // bordes mordidos
+    '<feTurbulence type="fractalNoise" baseFrequency="0.09" numOctaves="2" seed="' + (s + 2) + '" result="nb"/>' +
+    '<feDisplacementMap in="SourceGraphic" in2="nb" scale="3" xChannelSelector="R" yChannelSelector="G" result="src"/>' +
+    // pedazos saltados
+    '<feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="4" seed="' + s + '" result="n1"/>' +
+    '<feColorMatrix in="n1" type="matrix" values="' + M(10, 15) + '" result="m1"/>' +
+    // manchas de polvo fino, solo en algunas zonas
+    '<feTurbulence type="fractalNoise" baseFrequency="0.02" numOctaves="2" seed="' + (s + 5) + '" result="np"/>' +
+    '<feColorMatrix in="np" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 11 0 0 0 -6" result="mp"/>' +
+    '<feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="2" seed="' + (s + 7) + '" result="n2"/>' +
+    '<feColorMatrix in="n2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -14 0 0 0 7.8" result="m2"/>' +
+    '<feComposite in="m2" in2="mp" operator="in" result="huecos"/>' +
+    // rayas finas a lo ancho
+    '<feTurbulence type="fractalNoise" baseFrequency="0.01 0.22" numOctaves="3" seed="' + (s + 13) + '" result="n3"/>' +
+    '<feColorMatrix in="n3" type="matrix" values="' + M(17, 21) + '" result="m3"/>' +
+    '<feComposite in="m1" in2="m3" operator="in" result="m13"/>' +
+    '<feComposite in="m13" in2="huecos" operator="out" result="m"/>' +
+    '<feComposite in="src" in2="m" operator="in"/></filter>'; };
+  const d = document.createElement('div'); d.setAttribute('aria-hidden', 'true');
+  d.innerHTML = '<svg width="0" height="0" style="position:absolute;width:0;height:0;overflow:hidden" focusable="false">' + Array.from({ length: DESGASTE }, (_, i) => f(i)).join('') + '</svg>';
+  document.body.appendChild(d);
+})();
+function gastar(el, poner) {
+  if (!el._partes) return; (el._relojes || []).forEach(clearTimeout);
+  el._relojes = el._partes.map((c, i) => setTimeout(() => {
+    if (poner) c.style.filter = 'url(#desgaste-' + ((i * 7 + (el._semilla || 0)) % DESGASTE) + ')'; else c.style.filter = '';
+  }, gsap.utils.random(0, 320)));
 }
 const ESTILOS = {
   gigante: { desde: { yPercent: 115, rotate: 7, transformOrigin: '0% 100%' }, hasta: { yPercent: 0, rotate: 0, duration: 1.5, ease: SALE }, esc: 0.03, pasos: true },
@@ -177,22 +208,20 @@ if (!R) {
         const tl = gsap.timeline({ scrollTrigger: { trigger: el, start: 'top 88%', once: true } })
           .fromTo(partes, E.desde, { ...E.hasta, stagger: { each: E.esc, from: 'random' } }, 0);
         if (E.pasos) tl.fromTo(partes, { opacity: 0 }, { opacity: 1, duration: 0.5, ease: 'steps(4)', stagger: { each: E.esc, from: 'random' } }, 0);
-        tl.add(() => brillo(partes, 0.9, 0.035), '-=0.5');
         return tl;
       } });
-      if (FINO) el.addEventListener('pointerenter', () => el._partes && brillo(el._partes, 0.9, 0.03));
-      // Con el dedo también hay respuesta: al tocar el título cruza el reflejo.
-      if (!FINO) el.addEventListener('touchstart', () => el._partes && brillo(el._partes, 0.9, 0.03), { passive: true });
+      el._semilla = Math.floor(Math.random() * DESGASTE);
       /* Título de la película: con el cursor encima, las letras pasan de AWAKENNING a AWAKENNING STEEL una por una, en
-         desorden y en un tercio de segundo, y vuelven igual al salir. Las dos letras miden lo mismo, así nada se mueve. */
-      if (el.classList.contains('titulo-pelicula')) {
-        let relojes = [];
-        const cambiar = (poner) => { if (!el._partes) return; relojes.forEach(clearTimeout);
-          relojes = el._partes.map((c) => setTimeout(() => c.classList.toggle('acero', poner), gsap.utils.random(0, 320))); };
-        el.addEventListener('pointerenter', () => cambiar(true));
-        el.addEventListener('pointerleave', () => cambiar(false));
-        el.addEventListener('touchstart', () => { cambiar(true); setTimeout(() => cambiar(false), 1400); }, { passive: true });
-      }
+         desorden y en un tercio de segundo, y vuelven igual al salir. Las dos letras miden lo mismo, así nada se mueve.
+         Los demás títulos se gastan con el filtro de arriba, con el mismo ritmo. */
+      const pelicula = el.classList.contains('titulo-pelicula');
+      const cambiar = (poner) => {
+        if (!pelicula) return gastar(el, poner);
+        if (!el._partes) return; (el._relojes || []).forEach(clearTimeout);
+        el._relojes = el._partes.map((c) => setTimeout(() => c.classList.toggle('acero', poner), gsap.utils.random(0, 320)));
+      };
+      if (FINO) { el.addEventListener('pointerenter', () => cambiar(true)); el.addEventListener('pointerleave', () => cambiar(false)); }
+      else el.addEventListener('touchstart', () => { cambiar(true); clearTimeout(el._vuelta); el._vuelta = setTimeout(() => cambiar(false), 1400); }, { passive: true });
     });
     $$('[data-lineas]').forEach((el) => {
       SplitText.create(el, { type: 'lines', mask: 'lines', linesClass: 'linea', autoSplit: true, aria: 'none', onSplit: (s) => {
