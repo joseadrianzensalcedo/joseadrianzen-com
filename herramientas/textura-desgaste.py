@@ -8,7 +8,7 @@ import numpy as np, sys, json
 from PIL import Image
 P = dict(semilla=7, T=1024, CAP=256, celdas=60, L=0.42, W=0.11, curva=0.35, vis0=0.35, vis1=1.0, ancho0=0.45, ancho1=1.5,
          estira=1.2, gasto_esc=0.8, contraste=1.5, sesgo=0.0, tuerce=0.12, onda=0.08, aspero=0.35,
-         astilla=0.0, astilla_tam=0.03, cadena=0.6, rotura=0.0, banda=1.0, polvo=0.0, polvo_tam=0.006, SS=2)
+         astilla=0.0, astilla_tam=0.03, cadena=0.6, rotura=0.0, banda=1.0, raspa=0.0, raspa_largo=0.08, polvo=0.0, polvo_tam=0.006, SS=2)
 for kv in sys.argv[2:]: k, v = kv.split('='); P[k] = float(v)
 rng = np.random.default_rng(int(P['semilla']))
 SS = int(P.get('SS', 2)); T = int(P['T']); N = T * SS; CAP = P['CAP'] * SS; C = int(P['celdas']); a = N / C
@@ -59,6 +59,11 @@ for off, sg in ((0.0, 1.0), (0.5, -1.0)):
 if P['rotura'] > 0:   # la lenteja no sale entera: se corta en pedazos
     hueco_l &= ruido(0.012 * CAP, 1) > (P['rotura'] * 2 - 1) * 1.2
 hueco = hueco_l
+if P['raspa'] > 0:   # raspones a lo ancho dentro de las zonas gastadas: vetas horizontales cortas y quebradas
+    fy = np.fft.fftfreq(N)[:, None]; fx = np.fft.fftfreq(N)[None, :]
+    z = np.real(np.fft.ifft2(np.fft.fft2(rng.standard_normal((N, N))) * np.exp(-(np.pi**2) * ((P['raspa_largo'] * CAP * fx)**2 + (0.012 * CAP * fy)**2))))
+    z /= z.std()
+    hueco |= (z > 2.4 - 1.6 * P['raspa'] * gasto) & (gasto > 0.35)
 if P['polvo'] > 0:   # polvo anguloso solo donde está gastado (no en lo limpio, así no parece perdigón)
     pv = ruido(P['polvo_tam'] * CAP, 1) + ruido(P['polvo_tam'] * 0.5 * CAP, 1) * 0.6
     hueco |= (pv > 2.6 - 2.0 * P['polvo'] * gasto)

@@ -140,8 +140,10 @@ if (pausa) {
       (herramientas/desgaste-busca.py) dejó la textura con las mismas medidas (herramientas/desgaste-metricas.py).
       Se descartaron dos caminos: tajos sueltos en red perfecta ("una reja") y lentejas curvas todas iguales (escamas).
       La versión final copia también otro rasgo de STEEL: el gasto corre en bandas a lo ancho, como raspado.
-      Hueco medido sobre AWAKENNING con las mismas letras: cerca de 20 % (STEEL 22 %), según qué pedazo toque a cada letra.
-      Parámetros en herramientas/desgaste-parametros.txt: celdas=72 onda=0.08 vis0=0.5 ancho0=0.754 ancho1=1.34 rotura=0.093 polvo=0.354 contraste=1.5 gasto_esc=0.991 sesgo=-0.359 L=0.436 W=0.14 estira=0.702 aspero=0.411 tuerce=0.195 ancho0=0.5 sesgo=-0.8 aspero=0.2 polvo=0.25 rotura=0.04 banda=1.8 (SS=1). */
+      Intensidad: un poco menos que STEEL (en la página, Bebas a 140 px: 16 % de hueco; la versión idéntica a STEEL
+      da 20 %), porque Jose vio "exagerado" el desgaste completo. Para volver a la intensidad exacta de STEEL basta
+      generar con sesgo=-0.8 vis0=0.5 (herramientas/textura-desgaste.py).
+      Parámetros en herramientas/desgaste-parametros.txt (SS=1). */
 const bordes = new Map();
 const svgBordes = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
 svgBordes.setAttribute('aria-hidden', 'true'); svgBordes.style.cssText = 'position:absolute;width:0;height:0;overflow:hidden';
