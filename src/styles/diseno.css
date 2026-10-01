@@ -64,3 +64,8 @@
    Ahora la caja del reflejo crece hacia arriba y abajo sin mover nada, y las máscaras de línea dejan ese mismo aire. */
 
 .linea-mask{padding-block:.14em;margin-block:-.14em}
+/* letras que se gastan con el cursor (ver movimiento.js, sección 7) */
+g-l,.letra-g{display:inline-block}
+/* el nombre de la película dentro de un rótulo chico va un poco más grande, para que se lea en su letra */
+.cod .titulo-pelicula,.tira-vida span.titulo-pelicula{letter-spacing:.03em}
+.cod .titulo-pelicula{font-size:1.35em;line-height:1}

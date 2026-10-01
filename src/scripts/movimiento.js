@@ -126,7 +126,7 @@ if (pausa) {
       con parpadeo en pasos.
       Con el cursor o el dedo encima, las letras se gastan una por una, como el título de la película en AWAKENNING
       STEEL: se descascaran en los bordes, salen manchas de polvo y rayas finas, y al salir vuelven a quedar limpias
-      (pedido de Jose, 1 oct 2026, en vez del reflejo de luz).
+      (pedido de Jose, 1 oct 2026, en vez del reflejo de luz). Desgaste bajado el mismo día: "has exagerado".
       Técnico: cuatro filtros SVG con ruido (feTurbulence) que sacan pedazos de la letra. Cuatro semillas distintas para
       que dos letras iguales no se gasten igual. */
 const DESGASTE = 4;
@@ -135,19 +135,19 @@ const DESGASTE = 4;
   const f = (i) => { const s = 3 + i * 5; return '<filter id="desgaste-' + i + '" x="-10%" y="-10%" width="120%" height="120%" color-interpolation-filters="sRGB">' +
     // bordes mordidos
     '<feTurbulence type="fractalNoise" baseFrequency="0.09" numOctaves="2" seed="' + (s + 2) + '" result="nb"/>' +
-    '<feDisplacementMap in="SourceGraphic" in2="nb" scale="3" xChannelSelector="R" yChannelSelector="G" result="src"/>' +
+    '<feDisplacementMap in="SourceGraphic" in2="nb" scale="1.6" xChannelSelector="R" yChannelSelector="G" result="src"/>' +
     // pedazos saltados
     '<feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="4" seed="' + s + '" result="n1"/>' +
-    '<feColorMatrix in="n1" type="matrix" values="' + M(10, 15) + '" result="m1"/>' +
+    '<feColorMatrix in="n1" type="matrix" values="' + M(13, 17) + '" result="m1"/>' +
     // manchas de polvo fino, solo en algunas zonas
     '<feTurbulence type="fractalNoise" baseFrequency="0.02" numOctaves="2" seed="' + (s + 5) + '" result="np"/>' +
-    '<feColorMatrix in="np" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 11 0 0 0 -6" result="mp"/>' +
+    '<feColorMatrix in="np" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 12 0 0 0 -8" result="mp"/>' +
     '<feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="2" seed="' + (s + 7) + '" result="n2"/>' +
-    '<feColorMatrix in="n2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -14 0 0 0 7.8" result="m2"/>' +
+    '<feColorMatrix in="n2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -14 0 0 0 8.6" result="m2"/>' +
     '<feComposite in="m2" in2="mp" operator="in" result="huecos"/>' +
     // rayas finas a lo ancho
     '<feTurbulence type="fractalNoise" baseFrequency="0.01 0.22" numOctaves="3" seed="' + (s + 13) + '" result="n3"/>' +
-    '<feColorMatrix in="n3" type="matrix" values="' + M(17, 21) + '" result="m3"/>' +
+    '<feColorMatrix in="n3" type="matrix" values="' + M(19, 22) + '" result="m3"/>' +
     '<feComposite in="m1" in2="m3" operator="in" result="m13"/>' +
     '<feComposite in="m13" in2="huecos" operator="out" result="m"/>' +
     '<feComposite in="src" in2="m" operator="in"/></filter>'; };
@@ -155,9 +155,28 @@ const DESGASTE = 4;
   d.innerHTML = '<svg width="0" height="0" style="position:absolute;width:0;height:0;overflow:hidden" focusable="false">' + Array.from({ length: DESGASTE }, (_, i) => f(i)).join('') + '</svg>';
   document.body.appendChild(d);
 })();
+/* El nombre de la película va siempre en su letra, AWAKENNING, en títulos y rótulos (no dentro de textos largos como la
+   sinopsis o la biografía). Si el elemento es solo el nombre, toma la letra entero. Si el nombre está dentro de un rótulo,
+   se envuelve esa parte. Pedido de Jose, 1 oct 2026. */
+const NOMBRES_PELI = /(Entre polvo y sueños|Between Dust and Dreams)/i, LARGO = 90;
+const textoCorto = (el) => { const b = el.closest('p,li,h1,h2,h3,h4,h5,h6,div,figcaption,blockquote') || el; return b.textContent.trim().length <= LARGO; };
+(() => {
+  const w = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT), nodos = [];
+  for (let n = w.nextNode(); n; n = w.nextNode()) if (NOMBRES_PELI.test(n.data)) nodos.push(n);
+  nodos.forEach((n) => {
+    const el = n.parentElement; if (!el || el.closest('script,style,title,.titulo-pelicula,[aria-hidden="true"],.nav,.menu-capa') || !textoCorto(el)) return;
+    const solo = n.data.trim().replace(/\s+/g, ' ');
+    if (el.childNodes.length === 1 && NOMBRES_PELI.test(solo) && solo.replace(NOMBRES_PELI, '') === '') { el.classList.add('titulo-pelicula'); return; }
+    const partes = n.data.split(NOMBRES_PELI), f = document.createDocumentFragment();
+    partes.forEach((t, i) => { if (!t) return; if (i % 2) { const sp = document.createElement('span'); sp.className = 'titulo-pelicula'; sp.textContent = t; f.appendChild(sp); } else f.appendChild(document.createTextNode(t)); });
+    n.replaceWith(f);
+  });
+})();
 function gastar(el, poner) {
   if (!el._partes) return; (el._relojes || []).forEach(clearTimeout);
   el._relojes = el._partes.map((c, i) => setTimeout(() => {
+    // Las letras del nombre de la película no se gastan con el filtro: cambian a AWAKENNING STEEL, como en la portada.
+    if (c.closest('.titulo-pelicula')) { c.classList.toggle('acero', poner); return; }
     if (poner) c.style.filter = 'url(#desgaste-' + ((i * 7 + (el._semilla || 0)) % DESGASTE) + ')'; else c.style.filter = '';
   }, gsap.utils.random(0, 320)));
 }
@@ -246,6 +265,41 @@ if (!R) {
         el.textContent = s;
       }, onComplete: () => { el.textContent = final; } });
     } });
+  });
+
+  /* Todo lo que no es texto largo también se gasta con el cursor o el dedo: títulos, rótulos de sección, premios, la
+     franja de festivales, datos de la película. Se reconocen por su letra (Bebas, AWAKENNING o la de máquina en
+     mayúsculas) y por ser cortos. No se tocan la barra de arriba, el menú, los botones ni el logo, cuyas letras van
+     siempre completas. Las letras se separan recién la primera vez que pasas encima. */
+  fuentesListas.then(() => {
+    const FUERA = '.nav,.menu-capa,button,input,select,textarea,label,[data-armar],.rp,.reproductor,.pausa,[data-letras],script,style';
+    const vistos = new Set();
+    const directo = (el) => [...el.childNodes].some((n) => n.nodeType === 3 && n.data.trim());
+    $$('main *, footer *').forEach((el) => {
+      if (!directo(el) || el.closest(FUERA)) return;
+      const cs = getComputedStyle(el), f = cs.fontFamily;
+      const pantalla = /Bebas|Awakenning|Oswald/i.test(f) || (/Plex Mono/i.test(f) && cs.textTransform === 'uppercase');
+      if (!pantalla || (!textoCorto(el) && !el.closest('.franja'))) return;
+      // Se toma el bloque corto más grande que lo contiene (así "02 PELÍCULAS" se gasta junto).
+      let t = el; while (t.parentElement && t.parentElement.matches('span,b,em,strong,a,i,small') && textoCorto(t.parentElement) && !t.parentElement.closest(FUERA)) t = t.parentElement;
+      const enc = t.closest('.enc'); if (enc && textoCorto(enc)) t = enc; // el rótulo de sección ("02 PELÍCULAS") se gasta entero
+      vistos.add(t.closest('.franja') || t); // la franja se gasta entera: su texto corre y es muy largo para partirlo
+    });
+    [...vistos].filter((t) => ![...vistos].some((o) => o !== t && o.contains(t))).forEach((t) => {
+      const larga = t.textContent.trim().length > 60 || t.closest('.franja') || t.hasAttribute('data-lineas');
+      const partir = () => {
+        if (larga) return;
+        if (t._partes && t._partes.every((c) => c.isConnected)) return;
+        if (t._split) t._split.revert();
+        t._split = SplitText.create(t, { type: 'chars', tag: 'g-l', charsClass: 'letra-g' }); t._partes = t._split.chars;
+      };
+      const cambiar = (poner) => {
+        if (larga) { t.style.filter = poner ? 'url(#desgaste-' + (t.textContent.length % DESGASTE) + ')' : ''; return; }
+        partir(); gastar(t, poner);
+      };
+      if (FINO) { t.addEventListener('pointerenter', () => cambiar(true)); t.addEventListener('pointerleave', () => cambiar(false)); }
+      else t.addEventListener('touchstart', () => { cambiar(true); clearTimeout(t._vuelta); t._vuelta = setTimeout(() => cambiar(false), 1400); }, { passive: true });
+    });
   });
 }
 
