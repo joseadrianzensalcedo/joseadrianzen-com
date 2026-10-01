@@ -125,36 +125,37 @@ if (pausa) {
 /* 7. Textos. Cada línea sube desde detrás de su máscara, así nada se pisa. Los títulos entran letra por letra en desorden,
       con parpadeo en pasos.
       Con el cursor o el dedo encima, las letras se gastan una por una, como el título de la película en AWAKENNING
-      STEEL: se descascaran en los bordes, salen manchas de polvo y rayas finas, y al salir vuelven a quedar limpias
-      (pedido de Jose, 1 oct 2026, en vez del reflejo de luz). Desgaste bajado el mismo día: "has exagerado".
-      Técnico: cuatro filtros SVG con ruido (feTurbulence) que sacan pedazos de la letra. Cuatro semillas distintas para
-      que dos letras iguales no se gasten igual. */
-const DESGASTE = 4;
-(() => {
-  const M = (a, b) => '0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -' + b + ' 0 0 0 ' + a;
-  const f = (i) => { const s = 3 + i * 5; return '<filter id="desgaste-' + i + '" x="-10%" y="-10%" width="120%" height="120%" color-interpolation-filters="sRGB">' +
-    // bordes mordidos
-    '<feTurbulence type="fractalNoise" baseFrequency="0.09" numOctaves="2" seed="' + (s + 2) + '" result="nb"/>' +
-    '<feDisplacementMap in="SourceGraphic" in2="nb" scale="1.6" xChannelSelector="R" yChannelSelector="G" result="src"/>' +
-    // pedazos saltados
-    '<feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="4" seed="' + s + '" result="n1"/>' +
-    '<feColorMatrix in="n1" type="matrix" values="' + M(13, 17) + '" result="m1"/>' +
-    // manchas de polvo fino, solo en algunas zonas
-    '<feTurbulence type="fractalNoise" baseFrequency="0.02" numOctaves="2" seed="' + (s + 5) + '" result="np"/>' +
-    '<feColorMatrix in="np" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 12 0 0 0 -8" result="mp"/>' +
-    '<feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="2" seed="' + (s + 7) + '" result="n2"/>' +
-    '<feColorMatrix in="n2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -14 0 0 0 8.6" result="m2"/>' +
-    '<feComposite in="m2" in2="mp" operator="in" result="huecos"/>' +
-    // rayas finas a lo ancho
-    '<feTurbulence type="fractalNoise" baseFrequency="0.01 0.22" numOctaves="3" seed="' + (s + 13) + '" result="n3"/>' +
-    '<feColorMatrix in="n3" type="matrix" values="' + M(19, 22) + '" result="m3"/>' +
-    '<feComposite in="m1" in2="m3" operator="in" result="m13"/>' +
-    '<feComposite in="m13" in2="huecos" operator="out" result="m"/>' +
-    '<feComposite in="src" in2="m" operator="in"/></filter>'; };
-  const d = document.createElement('div'); d.setAttribute('aria-hidden', 'true');
-  d.innerHTML = '<svg width="0" height="0" style="position:absolute;width:0;height:0;overflow:hidden" focusable="false">' + Array.from({ length: DESGASTE }, (_, i) => f(i)).join('') + '</svg>';
-  document.body.appendChild(d);
-})();
+      STEEL (pedido de Jose, 1 oct 2026, en vez del reflejo de luz).
+      Cómo es ese desgaste, mirado de cerca: la letra está estampada sobre una chapa de acero estriada. Se ven granos
+      finos en forma de lenteja con puntas, inclinados a 45 grados hacia un lado y hacia el otro, en una red en diamante.
+      Donde la chapa está limpia salen pocas lentejas, finas y rotas. Donde está gastada se agrandan, se juntan y dejan
+      parches blancos de borde quebrado con islas de tinta. Los bordes de la letra quedan apenas mordidos.
+      Técnico: una textura propia (public/texturas/desgaste.png, hecha con herramientas/textura-desgaste.py, sin copiar
+      nada de la fuente) que se usa como máscara: donde la textura es transparente, la letra tiene un hueco. Se repite
+      cada 2,8 em, así escala con el tamaño de la letra, y cada letra toma un pedazo distinto. Un filtro SVG chico mueve
+      el borde 1 % del tamaño de la letra para que no quede liso. Hueco medido en la textura: 24 %, cerca del 26 % que
+      quita AWAKENNING STEEL frente a AWAKENNING. */
+const bordes = new Map();
+const svgBordes = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+svgBordes.setAttribute('aria-hidden', 'true'); svgBordes.style.cssText = 'position:absolute;width:0;height:0;overflow:hidden';
+document.body.appendChild(svgBordes);
+function filtroBorde(fs) {
+  // un filtro por tamaño de letra (redondeado), porque el filtro trabaja en píxeles y no en em
+  const t = Math.max(12, Math.round(fs / 8) * 8); if (bordes.has(t)) return bordes.get(t);
+  const id = 'borde-' + t, f = document.createElementNS('http://www.w3.org/2000/svg', 'filter');
+  f.setAttribute('id', id); f.setAttribute('x', '-5%'); f.setAttribute('y', '-5%'); f.setAttribute('width', '110%'); f.setAttribute('height', '110%');
+  f.innerHTML = '<feTurbulence type="fractalNoise" baseFrequency="' + (1 / (0.035 * t)).toFixed(4) + '" numOctaves="2" seed="' + (t % 97) + '" result="r"/>' +
+    '<feDisplacementMap in="SourceGraphic" in2="r" scale="' + (0.012 * t).toFixed(2) + '" xChannelSelector="R" yChannelSelector="G"/>';
+  svgBordes.appendChild(f); const url = 'url(#' + id + ')'; bordes.set(t, url); return url;
+}
+// La textura se pide al abrir la página (sin mostrarse), así la primera pasada del cursor ya la tiene.
+addEventListener('load', () => { const d = document.createElement('div'); d.className = 'gastada precarga'; d.setAttribute('aria-hidden', 'true'); document.body.appendChild(d); });
+function ponerGasto(c, poner, sinBorde) {
+  if (poner) {
+    if (!c.style.getPropertyValue('--mx')) { c.style.setProperty('--mx', (Math.random() * 2.8).toFixed(2) + 'em'); c.style.setProperty('--my', (Math.random() * 2.8).toFixed(2) + 'em'); }
+    c.classList.add('gastada'); if (!sinBorde) c.style.filter = filtroBorde(parseFloat(getComputedStyle(c).fontSize) || 16);
+  } else { c.classList.remove('gastada'); c.style.filter = ''; }
+}
 /* El nombre de la película va siempre en su letra, AWAKENNING, en títulos y rótulos (no dentro de textos largos como la
    sinopsis o la biografía). Si el elemento es solo el nombre, toma la letra entero. Si el nombre está dentro de un rótulo,
    se envuelve esa parte. Pedido de Jose, 1 oct 2026. */
@@ -177,7 +178,7 @@ function gastar(el, poner) {
   el._relojes = el._partes.map((c, i) => setTimeout(() => {
     // Las letras del nombre de la película no se gastan con el filtro: cambian a AWAKENNING STEEL, como en la portada.
     if (c.closest('.titulo-pelicula')) { c.classList.toggle('acero', poner); return; }
-    if (poner) c.style.filter = 'url(#desgaste-' + ((i * 7 + (el._semilla || 0)) % DESGASTE) + ')'; else c.style.filter = '';
+    ponerGasto(c, poner);
   }, gsap.utils.random(0, 320)));
 }
 const ESTILOS = {
@@ -229,7 +230,6 @@ if (!R) {
         if (E.pasos) tl.fromTo(partes, { opacity: 0 }, { opacity: 1, duration: 0.5, ease: 'steps(4)', stagger: { each: E.esc, from: 'random' } }, 0);
         return tl;
       } });
-      el._semilla = Math.floor(Math.random() * DESGASTE);
       /* Título de la película: con el cursor encima, las letras pasan de AWAKENNING a AWAKENNING STEEL una por una, en
          desorden y en un tercio de segundo, y vuelven igual al salir. Las dos letras miden lo mismo, así nada se mueve.
          Los demás títulos se gastan con el filtro de arriba, con el mismo ritmo. */
@@ -294,7 +294,7 @@ if (!R) {
         t._split = SplitText.create(t, { type: 'chars', tag: 'g-l', charsClass: 'letra-g' }); t._partes = t._split.chars;
       };
       const cambiar = (poner) => {
-        if (larga) { t.style.filter = poner ? 'url(#desgaste-' + (t.textContent.length % DESGASTE) + ')' : ''; return; }
+        if (larga) { ponerGasto(t.matches(".franja") ? $("p", t) : t, poner, true); return; } // la franja es muy ancha para el filtro de borde
         partir(); gastar(t, poner);
       };
       if (FINO) { t.addEventListener('pointerenter', () => cambiar(true)); t.addEventListener('pointerleave', () => cambiar(false)); }

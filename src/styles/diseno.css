@@ -69,3 +69,6 @@ g-l,.letra-g{display:inline-block}
 /* el nombre de la película dentro de un rótulo chico va un poco más grande, para que se lea en su letra */
 .cod .titulo-pelicula,.tira-vida span.titulo-pelicula{letter-spacing:.03em}
 .cod .titulo-pelicula{font-size:1.35em;line-height:1}
+/* desgaste de acero al pasar el cursor: la textura es una máscara (ver movimiento.js, sección 7) */
+.gastada{-webkit-mask-image:url(/texturas/desgaste.png);mask-image:url(/texturas/desgaste.png);-webkit-mask-size:2.8em 2.8em;mask-size:2.8em 2.8em;-webkit-mask-repeat:repeat;mask-repeat:repeat;-webkit-mask-position:var(--mx,0) var(--my,0);mask-position:var(--mx,0) var(--my,0)}
+.gastada.precarga{position:fixed;left:-10px;top:-10px;width:1px;height:1px;pointer-events:none}
