@@ -27,7 +27,7 @@ const ld = { '@context': 'https://schema.org', '@type': 'Movie', name: D.titulo,
   <section class="hero alto oscuro">
     <Image class="fondo" src={fotos['/src/assets/img/doc-tunel.webp'].default} alt={w(D.fotogramas[0][1], D.fotogramas[0][2])} widths={[800, 1200]} sizes="100vw" loading="eager" fetchpriority="high" />
     <div class="velo"></div>
-    <div class="titulo-fijo"><div class="titulo-bloque"><h1 class="gigante claro" data-letras="gigante"><span>Entre polvo</span><span>y sueños</span></h1><p class="peli-datos" data-aparece><span>{x.documental}</span><span>{D.duracion}</span><span>{D.formato}</span><span>{w('Perú', 'Peru')}, {D.anio}</span></p></div>{D.titulosOficiales[lang] && <p class="cod" data-aparece lang={lang}>{D.titulosOficiales[lang]}</p>}</div>
+    <div class="titulo-fijo"><div class="titulo-bloque"><h1 class="gigante claro titulo-pelicula" data-letras="gigante"><span>Entre polvo</span><span>y sueños</span></h1><p class="peli-datos" data-aparece><span>{x.documental}</span><span>{D.duracion}</span><span>{D.formato}</span><span>{w('Perú', 'Peru')}, {D.anio}</span></p></div>{D.titulosOficiales[lang] && <p class="cod" data-aparece lang={lang}>{D.titulosOficiales[lang]}</p>}</div>
     <div class="hero-pie">
       <div class="hero-acc"><p class="rol">{x.rolDoc}</p><a class="btn" href="#sala">{x.verPelicula}</a></div>
     </div>
@@ -56,9 +56,10 @@ const ld = { '@context': 'https://schema.org', '@type': 'Movie', name: D.titulo,
   </section>
 
   <section class="creditos oscuro">
-    <Enc n="03" t={x.premios} d={w(`${premios.length} premios · ${selecciones.length} selecciones`, `${premios.length} awards · ${selecciones.length} selections`)} osc />
-    <ul class="laureles laureles-grandes" data-cascada>{premios.map((p) => <Laurel arriba={tr(p.k, lang)} medio={p.v} abajo={tr(p.d, lang)} />)}</ul>
-    <ul class="laureles laureles-sel" data-cascada>{selecciones.map((s) => <Laurel arriba={w('Selección oficial', 'Official selection')} medio={s.n} abajo={tr(s.d, lang)} chico />)}</ul>
+    <Enc n="03" t={x.premios} d={w(`${premios.length} premios · ${selecciones.length} selecciones oficiales`, `${premios.length} awards · ${selecciones.length} official selections`)} osc />
+    <ul class="laureles laureles-grandes" data-cascada>{premios.map((p) => <Laurel laurel={p.laurel} alt={`${tr(p.k, lang)}, ${p.v}, ${tr(p.d, lang)}`} alto={130} />)}</ul>
+    <ul class="laureles laureles-sel" data-cascada>{selecciones.filter((s) => s.laurel).map((s) => <Laurel laurel={s.laurel} alt={`${w('Selección oficial', 'Official selection')}, ${s.n}, ${tr(s.d, lang)}`} alto={96} />)}</ul>
+    {selecciones.some((s) => !s.laurel) && <p class="sel-sin-laurel">{w('También en', 'Also at')} {selecciones.filter((s) => !s.laurel).map((s) => `${s.n} (${tr(s.d, lang)})`).join(' · ')}</p>}
   </section>
 
   <section class="rodaje oscuro grano">

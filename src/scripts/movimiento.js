@@ -180,6 +180,15 @@ if (!R) {
         return tl;
       } });
       if (FINO) el.addEventListener('pointerenter', () => el._partes && brillo(el._partes, 0.9, 0.03));
+      /* Título de la película: con el cursor encima, las letras pasan de AWAKENNING a AWAKENNING STEEL una por una, en
+         desorden y en un tercio de segundo, y vuelven igual al salir. Las dos letras miden lo mismo, así nada se mueve. */
+      if (FINO && el.classList.contains('titulo-pelicula')) {
+        let relojes = [];
+        const cambiar = (poner) => { if (!el._partes) return; relojes.forEach(clearTimeout);
+          relojes = el._partes.map((c) => setTimeout(() => c.classList.toggle('acero', poner), gsap.utils.random(0, 320))); };
+        el.addEventListener('pointerenter', () => cambiar(true));
+        el.addEventListener('pointerleave', () => cambiar(false));
+      }
     });
     $$('[data-lineas]').forEach((el) => {
       SplitText.create(el, { type: 'lines', mask: 'lines', linesClass: 'linea', autoSplit: true, aria: 'none', onSplit: (s) => {
@@ -467,7 +476,7 @@ if (FINO && !R) {
 
 /* 15. Código de tiempo de película abajo a la izquierda: el avance de la página leído sobre los 37:02 de Entre polvo y sueños a 24 cuadros. Es un guiño, no un dato. */
 const tc = $('.tc span');
-if (hero) { html.classList.add('en-cabecera'); ScrollTrigger.create({ trigger: hero, start: 'top top', end: 'bottom 40%', onToggle: (st) => html.classList.toggle('en-cabecera', st.isActive) }); }
+if (hero) { html.classList.add('en-cabecera'); ScrollTrigger.create({ trigger: hero, start: 'top top', end: 'bottom 40%', onToggle: (st) => html.classList.toggle('en-cabecera', st.isActive), onRefresh: (st) => html.classList.toggle('en-cabecera', st.isActive || scrollY < 10) }); }
 if (tc) ScrollTrigger.create({ start: 0, end: 'max', onUpdate: (s) => {
   const cuadros = Math.round(s.progress * (37 * 60 + 2) * 24), f = cuadros % 24, seg = Math.floor(cuadros / 24), d = (n) => String(n).padStart(2, '0');
   tc.textContent = '00:' + d(Math.floor(seg / 60)) + ':' + d(seg % 60) + ':' + d(f);

@@ -1,11 +1,9 @@
 ---
-// Laurel de festival dibujado con el código, con el texto del premio en la letra de la web.
-const { arriba, medio, abajo, chico = false } = Astro.props;
-const hojas = Array.from({ length: 7 }, (_, i) => i);
-const rama = hojas.map((i) => { const t = i / 6, y = 90 - t * 80, x = 22 - Math.sin(t * Math.PI) * 9 - t * 2; return { x: x - 6, y, r: -40 + t * 20 }; });
+// Laurel original del festival (los archivos que mandó Jose, carpeta Laureles, 1 oct 2026), blanco sobre transparente.
+// Sin archivo original no se dibuja ningún laurel inventado.
+import { Image } from 'astro:assets';
+const laureles = import.meta.glob('/src/assets/laureles/*.webp', { eager: true });
+const { laurel, alt, alto = 120 } = Astro.props;
+const src = laureles[`/src/assets/laureles/${laurel}.webp`]?.default;
 ---
-<li class:list={['laurel', { chico }]}>
-  <svg class="rama" viewBox="0 0 30 100" aria-hidden="true"><path d="M24 96 Q6 60 20 6" fill="none" stroke="currentColor" stroke-width="1.4"/>{rama.map((h) => <ellipse cx={h.x} cy={h.y} rx="6.5" ry="2.6" transform={`rotate(${h.r} ${h.x} ${h.y})`} fill="currentColor" />)}</svg>
-  <span class="laurel-txt">{arriba && <b>{arriba}</b>}<span>{medio}</span>{abajo && <i>{abajo}</i>}</span>
-  <svg class="rama der" viewBox="0 0 30 100" aria-hidden="true"><path d="M24 96 Q6 60 20 6" fill="none" stroke="currentColor" stroke-width="1.4"/>{rama.map((h) => <ellipse cx={h.x} cy={h.y} rx="6.5" ry="2.6" transform={`rotate(${h.r} ${h.x} ${h.y})`} fill="currentColor" />)}</svg>
-</li>
+{src && <li class="laurel"><Image src={src} alt={alt} height={alto * 2} widths={[Math.round(src.width * alto / src.height), Math.round(src.width * alto * 2 / src.height)]} sizes={`${Math.round(src.width * alto / src.height)}px`} style={`height:var(--lau,${alto}px)`} /></li>}

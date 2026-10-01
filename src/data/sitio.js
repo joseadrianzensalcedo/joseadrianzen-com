@@ -20,23 +20,23 @@ export const idea = {
 };
 
 export const premios = [
-  { k: { es: 'Mejor documental', en: 'Best Documentary' }, v: 'TITAN International Film Festival', d: { es: 'Sídney, Australia · 3.ª edición · 2025', en: 'Sydney, Australia · 3rd edition · 2025' }, corto: 'TITAN 2025' },
-  { k: { es: 'Mejor guion', en: 'Best Screenplay' }, v: '13.º Noida International Film Festival', d: { es: 'Noida, India · 2026', en: 'Noida, India · 2026' }, corto: 'Noida 2026' },
-  { k: { es: 'Best of Festival', en: 'Best of Festival' }, v: 'Docuvision International Film Festival', d: { es: 'Lewes, Delaware, EE. UU. · 2026', en: 'Lewes, Delaware, USA · 2026' }, corto: 'Docuvision 2026' },
-  { k: { es: 'Mención especial', en: 'Special Mention' }, v: '13.º Noida International Film Festival', d: { es: 'Noida, India · 2026', en: 'Noida, India · 2026' }, corto: 'Noida 2026' },
+  { k: { es: 'Mejor documental', en: 'Best Documentary' }, v: 'TITAN International Film Festival', d: { es: 'Sídney, Australia · 3.ª edición · 2025', en: 'Sydney, Australia · 3rd edition · 2025' }, corto: 'TITAN 2025' , laurel: 'titan' },
+  { k: { es: 'Mejor guion', en: 'Best Screenplay' }, v: '13.º Noida International Film Festival', d: { es: 'Noida, India · 2026', en: 'Noida, India · 2026' }, corto: 'Noida 2026' , laurel: 'noida-guion' },
+  { k: { es: 'Best of Festival', en: 'Best of Festival' }, v: 'Docuvision International Film Festival', d: { es: 'Lewes, Delaware, EE. UU. · 2026', en: 'Lewes, Delaware, USA · 2026' }, corto: 'Docuvision 2026' , laurel: 'docuvision' },
+  { k: { es: 'Mención especial', en: 'Special Mention' }, v: '13.º Noida International Film Festival', d: { es: 'Noida, India · 2026', en: 'Noida, India · 2026' }, corto: 'Noida 2026' , laurel: 'noida-mencion' },
 ];
 
 export const selecciones = [
-  { n: '21.º International Labour Film Festival', d: { es: 'Türkiye · 2026', en: 'Türkiye · 2026' } },
-  { n: 'The Workers Unite Film Festival', d: { es: 'Nueva York, EE. UU. · 2025', en: 'New York, USA · 2025' } },
-  { n: 'London Vision Film Festival', d: { es: 'Londres, Reino Unido · 2025', en: 'London, United Kingdom · 2025' } },
-  { n: 'LISBIFF Lisboa Indie Film Festival', d: { es: 'Lisboa, Portugal · 2025', en: 'Lisbon, Portugal · 2025' } },
-  { n: 'Cine Invisible “Film Sozialak”', d: { es: 'Bilbao, España · 2026', en: 'Bilbao, Spain · 2026' } },
-  { n: 'FIMMER · Festival Internacional de Mediometrajes', d: { es: 'Manzanares El Real, España · 2025', en: 'Manzanares El Real, Spain · 2025' } },
-  { n: 'ImoIFF Creatives International Film Festival', d: { es: 'Imo, Nigeria · 2025', en: 'Imo, Nigeria · 2025' } },
-  { n: 'Cinego Shorts · Shorts on the Move', d: { es: 'Karachi, Pakistán', en: 'Karachi, Pakistan' } },
-  { n: 'Film Hour · Bodhak Studio', d: { es: 'India', en: 'India' } },
-  { n: 'Cinematic Luxe Indie Showcase', d: { es: 'Winter Fest 26 · Cincinnati, EE. UU.', en: 'Winter Fest 26 · Cincinnati, USA' } },
+  { n: '21.º International Labour Film Festival', d: { es: 'Türkiye · 2026', en: 'Türkiye · 2026' } , laurel: 'labour' },
+  { n: 'The Workers Unite Film Festival', d: { es: 'Nueva York, EE. UU. · 2025', en: 'New York, USA · 2025' } , laurel: 'workers-unite' },
+  { n: 'London Vision Film Festival', d: { es: 'Londres, Reino Unido · 2025', en: 'London, United Kingdom · 2025' } , laurel: 'london-vision' },
+  { n: 'LISBIFF Lisboa Indie Film Festival', d: { es: 'Lisboa, Portugal · 2025', en: 'Lisbon, Portugal · 2025' } , laurel: 'lisbiff' },
+  { n: 'Cine Invisible “Film Sozialak”', d: { es: 'Bilbao, España · 2026', en: 'Bilbao, Spain · 2026' } , laurel: 'cine-invisible' },
+  { n: 'FIMMER · Festival Internacional de Mediometrajes', d: { es: 'Manzanares El Real, España · 2025', en: 'Manzanares El Real, Spain · 2025' } , laurel: 'fimmer' },
+  { n: 'ImoIFF Creatives International Film Festival', d: { es: 'Imo, Nigeria · 2025', en: 'Imo, Nigeria · 2025' } , laurel: 'imoiff' },
+  { n: 'Cinego Shorts · Shorts on the Move', d: { es: 'Karachi, Pakistán', en: 'Karachi, Pakistan' } , laurel: 'cinegoshorts' },
+  { n: 'Film Hour · Bodhak Studio', d: { es: 'India', en: 'India' } , laurel: 'film-hour' },
+  { n: 'Cinematic Luxe Indie Showcase', d: { es: 'Winter Fest 26 · Cincinnati, EE. UU.', en: 'Winter Fest 26 · Cincinnati, USA' } , laurel: 'cinematic-luxe' },
   { n: '20.ª Muestra Cine + Video Indígena', d: { es: 'Chile · 2026', en: 'Chile · 2026' } },
 ];
 
