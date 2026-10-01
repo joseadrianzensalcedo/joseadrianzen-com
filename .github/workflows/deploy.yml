@@ -33,6 +33,8 @@ jobs:
           username: ${{ secrets.HOSTINGER_FTP_USERNAME }}
           password: ${{ secrets.HOSTINGER_FTP_PASSWORD }}
           local-dir: ./dist/
-          server-dir: ./public_html/
+          # La cuenta FTP de este sitio entra directo a domains/joseadrianzen.com/public_html,
+          # la carpeta que sirve joseadrianzen.com. Por eso se sube a la raíz de la cuenta.
+          server-dir: ./
           exclude: |
             **/correo/**

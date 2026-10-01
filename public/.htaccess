@@ -15,6 +15,8 @@ ServerSignature Off
 
   # Rediseño 2026: el mapa del sitio ahora lo genera Astro. Los buscadores que pidan el viejo van al nuevo.
   RewriteRule ^sitemap\.xml$ /sitemap-index.xml [R=301,L]
+  # Dirección vieja de un artículo del blog anterior.
+  RewriteRule ^blog/cine-peruano-no-esta-donde-lo-buscan/?$ /blog/el-cine-peruano-no-esta-donde-lo-buscan/ [R=301,L]
 </IfModule>
 
 <IfModule mod_headers.c>
