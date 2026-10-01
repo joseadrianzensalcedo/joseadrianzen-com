@@ -99,7 +99,7 @@ html.menu-abierto .nav{color:var(--papel)}html.menu-abierto .nav .menu{border-co
 .escalera{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:16px;padding:0 var(--m);align-items:start}
 .escalera .e{aspect-ratio:4/5}
 .escalera .e1{margin-top:clamp(40px,8vw,120px)}.escalera .e2{margin-top:clamp(20px,3.5vw,50px)}
-.muro .escalera{grid-template-columns:repeat(4,minmax(0,1fr))}
+.muro .escalera{grid-template-columns:repeat(3,minmax(0,1fr))}
 .muro{padding:clamp(80px,9vw,120px) 0}
 
 /* siguiente película */
@@ -216,6 +216,7 @@ html.visor-abierto{overflow:hidden}
   .sin-caja,.yo,.dos-bloques{grid-template-columns:1fr}
   .yo-foto{min-height:0;aspect-ratio:4/5}
   .cuadros{grid-template-columns:1fr 1fr}.cuadro.c0,.cuadro.c1,.cuadro.c2,.cuadro.c3{grid-column:auto;margin-top:0}.cuadro.c0{grid-column:1/-1}
+  .muro .escalera .e:nth-child(3){grid-column:1/-1;aspect-ratio:16/10;margin-top:0}
   .escalera,.muro .escalera{grid-template-columns:1fr 1fr}.escalera .e:nth-child(5){display:none}.escalera .e1{margin-top:40px}.escalera .e2{margin-top:0}
   .rep{grid-template-columns:1fr 1fr}
   .tira-vida{grid-template-columns:1fr 1fr}.tira-vida>div:nth-child(3){border-left:0;padding-left:0}.tira-vida>div{border-top:1px solid #cfcbc2}

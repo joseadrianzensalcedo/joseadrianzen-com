@@ -269,7 +269,7 @@ function crearPix(fig) {
   function paso() {
     const dx = m.x - m.sx, dy = m.y - m.sy; m.sx += dx * 0.35; m.sy += dy * 0.35;
     const vel = Math.min(1, Math.hypot(dx, dy) * 9);
-    if (m.dentro && vel > 0.03) { pts[cab * 3] = m.sx; pts[cab * 3 + 1] = m.sy; pts[cab * 3 + 2] = 0.25 + vel * 0.75; cab = (cab + 1) % NP; }
+    if (m.dentro && vel > 0.03) { pts[cab * 3] = m.sx; pts[cab * 3 + 1] = m.sy; pts[cab * 3 + 2] = (0.25 + vel * 0.75) * (FINO ? 1 : 0.4); cab = (cab + 1) % NP; }
     let vida = 0; for (let i = 0; i < NP; i++) { pts[i * 3 + 2] *= 0.93; vida += pts[i * 3 + 2]; }
     dibujar();
     if (!m.dentro && vida < 0.02) { activo = false; gsap.ticker.remove(paso); gsap.to(cv, { opacity: 0, duration: 0.2 }); }
@@ -390,7 +390,11 @@ const flota = $('.flota'), filas = $$('.fila[data-img]');
 if (!R && flota && filas.length) {
   const fxq = gsap.quickTo(flota, 'x', { duration: 0.75, ease: 'power3' }), fyq = gsap.quickTo(flota, 'y', { duration: 0.75, ease: 'power3' }),
     frq = gsap.quickTo(flota, 'rotate', { duration: 0.9, ease: 'power3' });
-  let ux = 0, actual = null, presion = null, reloj = 0, t0 = null; const ALTO = 140;
+  let ux = 0, actual = null, presion = null, reloj = 0, t0 = null;
+  /* En el teléfono la miniatura sube bastante por encima del dedo (la mano tapa todo lo que está debajo)
+     y no se sale por los costados. */
+  const arriba = (y) => y - (flota.offsetHeight * 0.42 + 64);
+  const dentro = (x) => { const m = flota.offsetWidth / 2 + 12; return Math.min(innerWidth - m, Math.max(m, x)); };
   const mostrar = (a, x, y) => {
     if (!actual) { gsap.set(flota, { x, y }); flota.src = a.dataset.img; }
     else if (actual !== a) gsap.to(flota, { opacity: 0.35, duration: 0.12, overwrite: 'auto', onComplete: () => { flota.src = a.dataset.img; gsap.to(flota, { opacity: 1, duration: 0.3 }); } });
@@ -404,12 +408,12 @@ if (!R && flota && filas.length) {
     a.addEventListener('pointerleave', (e) => { if (e.pointerType === 'touch') return; if (!e.relatedTarget?.closest?.('.fila')) ocultar(); });
     a.addEventListener('pointermove', (e) => { if (e.pointerType !== 'touch') seguir(e.clientX, e.clientY); });
     a.addEventListener('touchstart', (e) => { const t = e.touches[0]; t0 = { x: t.clientX, y: t.clientY };
-      clearTimeout(reloj); reloj = setTimeout(() => { presion = a; mostrar(a, t0.x, t0.y - ALTO); a.classList.add('presionada'); try { navigator.vibrate?.(8); } catch (er) {} }, 260); }, { passive: true });
+      clearTimeout(reloj); reloj = setTimeout(() => { presion = a; mostrar(a, dentro(t0.x), arriba(t0.y)); a.classList.add('presionada'); try { navigator.vibrate?.(8); } catch (er) {} }, 260); }, { passive: true });
     a.addEventListener('touchmove', (e) => { const t = e.touches[0];
       if (!presion) { if (t0 && Math.hypot(t.clientX - t0.x, t.clientY - t0.y) > 10) clearTimeout(reloj); return; }
-      e.preventDefault(); seguir(t.clientX, t.clientY - ALTO);
+      e.preventDefault(); seguir(dentro(t.clientX), arriba(t.clientY));
       const f = document.elementFromPoint(t.clientX, t.clientY)?.closest?.('.fila[data-img]');
-      if (f && f !== actual) { limpiar(); f.classList.add('presionada'); mostrar(f, t.clientX, t.clientY - ALTO); } }, { passive: false });
+      if (f && f !== actual) { limpiar(); f.classList.add('presionada'); mostrar(f, dentro(t.clientX), arriba(t.clientY)); } }, { passive: false });
     const soltar = (e) => { clearTimeout(reloj); if (!presion) return; if (e.cancelable) e.preventDefault(); presion = null; ocultar(); limpiar(); a._sinClic = true; setTimeout(() => { a._sinClic = false; }, 400); };
     a.addEventListener('touchend', soltar); a.addEventListener('touchcancel', soltar);
     a.addEventListener('contextmenu', (e) => { if (matchMedia('(pointer: coarse)').matches) e.preventDefault(); });
@@ -507,7 +511,7 @@ const PX = (() => {
     for (let i = 1; i <= n; i++) punto(ult.x + dx * i / n, ult.y + dy * i / n, f); } else punto(x, y, f); ult = { x, y }; arrancar(); }
   function arrancar() { if (!vivo) { vivo = true; gsap.ticker.add(paso); } }
   function paso(t, dt) { const f = Math.min(3, dt / 16.7); cx.clearRect(0, 0, W, H);
-    celdas.forEach((c, k) => { c.v -= 0.022 * f; if (c.v <= 0) { celdas.delete(k); return; } cx.globalAlpha = Math.min(1, c.v * 1.8); cx.fillStyle = c.c; cx.fillRect(c.x * C, c.y * C, C, C); });
+    celdas.forEach((c, k) => { c.v -= (FINO ? 0.022 : 0.04) * f; if (c.v <= 0) { celdas.delete(k); return; } cx.globalAlpha = Math.min(FINO ? 1 : 0.32, c.v * 1.8); cx.fillStyle = c.c; cx.fillRect(c.x * C, c.y * C, C, C); });
     for (let i = bloques.length - 1; i >= 0; i--) { const B = bloques[i]; if (B.a <= 0) { bloques.splice(i, 1); continue; } cx.globalAlpha = B.a;
       for (const p of B.p) { cx.fillStyle = p[2]; cx.fillRect(p[0], p[1], B.s, B.s); } }
     cx.globalAlpha = 1; if (!celdas.size && !bloques.length) { vivo = false; gsap.ticker.remove(paso); cx.clearRect(0, 0, W, H); } }
@@ -531,8 +535,9 @@ const PX = (() => {
       const v = Math.min(1, Math.hypot(e.movementX || 0, e.movementY || 0) / 18);
       if (!figEn(e.clientX, e.clientY) && v < 0.08) { ult = { x: e.clientX, y: e.clientY }; if (figAct) { figAct._pix?.fuera(); figAct = null; } return; }
       mover(e.clientX, e.clientY, 0.35 + v * 0.65, false); }, { passive: true });
-    addEventListener('touchstart', (e) => { const t = e.touches[0]; ult = null; mover(t.clientX, t.clientY, 0.9, true); }, { passive: true });
-    addEventListener('touchmove', (e) => { const t = e.touches[0]; mover(t.clientX, t.clientY, 0.9, false); }, { passive: true });
+    // En el dedo la estela es apenas un rastro: menos intensa, más corta y sin golpe, para no confundir al navegar.
+    addEventListener('touchstart', (e) => { const t = e.touches[0]; ult = null; mover(t.clientX, t.clientY, 0.25, false); }, { passive: true });
+    addEventListener('touchmove', (e) => { const t = e.touches[0]; mover(t.clientX, t.clientY, 0.25, false); }, { passive: true });
     addEventListener('touchend', soltarTodo, { passive: true }); addEventListener('touchcancel', soltarTodo, { passive: true });
     document.documentElement.addEventListener('pointerleave', soltarTodo);
   }

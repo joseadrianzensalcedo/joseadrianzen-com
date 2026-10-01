@@ -154,7 +154,6 @@ export const eco = {
 
 export const fotografia = [
   ['fot-puerto', { es: 'Grúas del puerto del Callao bajo un cielo naranja', en: 'Cranes at the port of Callao under an orange sky' }, 'viajes'],
-  ['jose-retrato', { es: 'Retrato de Jose Adrianzen', en: 'Portrait of Jose Adrianzen' }, 'retratos'],
   ['fot-mar', { es: 'Mar abierto con barcos en el horizonte al amanecer', en: 'Open sea with boats on the horizon at dawn' }, 'viajes'],
   ['fot-barcelona', { es: 'Fachadas con balcones en Barcelona', en: 'Facades with balconies in Barcelona' }, 'viajes'],
   ['jose-shipibo', { es: 'Jose Adrianzen junto a músicos shipibo, en blanco y negro', en: 'Jose Adrianzen with Shipibo musicians, black and white' }, 'retratos'],
@@ -170,7 +169,7 @@ export const fotografia = [
 ];
 
 export const sobreMi = {
-  retrato: 'jose-retrato-b',
+  retrato: 'jose-escenario',
   bio: {
     es: [
       'Desde pequeño, el cine y la política fueron mis dos grandes pasiones. Al inicio quería ser presidente, así que estudié derecho para entender a fondo las leyes y el funcionamiento del Estado. La vida me llevó por otro camino. En el cine encontré una forma más poderosa de generar impacto y de contar las historias que merecen ser escuchadas.',
@@ -203,7 +202,6 @@ export const sobreMi = {
   muro: [
     ['jose-calavera', { es: 'Jose Adrianzen actuando, encapuchado y con una calavera y una vela', en: 'Jose Adrianzen acting, hooded, with a skull and a candle' }],
     ['jose-shipibo', { es: 'Jose Adrianzen junto a músicos shipibo, en blanco y negro', en: 'Jose Adrianzen with Shipibo musicians, black and white' }],
-    ['jose-escenario', { es: 'Jose Adrianzen sobre un escenario', en: 'Jose Adrianzen on a stage' }],
     ['jose-naipes', { es: 'Claqueta de rodaje sobre una mesa de juego', en: 'A film slate on a card table' }],
   ],
 };
