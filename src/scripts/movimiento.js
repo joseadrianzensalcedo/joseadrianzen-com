@@ -502,16 +502,16 @@ const PX = (() => {
     return fondoDe(el);
   }
   const tono = (c) => { const k = 1 + (Math.random() - 0.5) * 0.26, q = 20, p = (v) => Math.max(0, Math.min(255, Math.round(v * k / q) * q)); return `rgb(${p(c[0])},${p(c[1])},${p(c[2])})`; };
-  const C = FINO ? 16 : 18, celdas = new Map(), bloques = []; let vivo = false, ult = null;
+  const C = FINO ? 10 : 18, celdas = new Map(), bloques = []; let vivo = false, ult = null;
   const encender = (gx, gy, v) => { const k = gx + ',' + gy, c = celdas.get(k); if (!c) celdas.set(k, { x: gx, y: gy, v, c: tono(color(gx * C + C / 2, gy * C + C / 2)) }); else c.v = Math.max(c.v, v); };
-  function punto(x, y, f) { const gx = Math.floor(x / C), gy = Math.floor(y / C), r = f > 0.5 ? 2 : 1;
+  function punto(x, y, f) { const gx = Math.floor(x / C), gy = Math.floor(y / C), r = FINO ? (f > 0.75 ? 1 : 0) : (f > 0.5 ? 2 : 1);
     for (let dx = -r; dx <= r; dx++) for (let dy = -r; dy <= r; dy++) { const d = Math.hypot(dx, dy); if (d > r + 0.2) continue;
       if (Math.random() < 0.45 + (1 - d / (r + 1)) * 0.55) encender(gx + dx, gy + dy, f * (1 - d / (r + 1.8)) + 0.25); } }
   function trazo(x, y, f) { if (ult) { const dx = x - ult.x, dy = y - ult.y, n = Math.max(1, Math.ceil(Math.hypot(dx, dy) / (C * 0.8)));
     for (let i = 1; i <= n; i++) punto(ult.x + dx * i / n, ult.y + dy * i / n, f); } else punto(x, y, f); ult = { x, y }; arrancar(); }
   function arrancar() { if (!vivo) { vivo = true; gsap.ticker.add(paso); } }
   function paso(t, dt) { const f = Math.min(3, dt / 16.7); cx.clearRect(0, 0, W, H);
-    celdas.forEach((c, k) => { c.v -= (FINO ? 0.022 : 0.04) * f; if (c.v <= 0) { celdas.delete(k); return; } cx.globalAlpha = Math.min(FINO ? 1 : 0.32, c.v * 1.8); cx.fillStyle = c.c; cx.fillRect(c.x * C, c.y * C, C, C); });
+    celdas.forEach((c, k) => { c.v -= (FINO ? 0.022 : 0.04) * f; if (c.v <= 0) { celdas.delete(k); return; } cx.globalAlpha = Math.min(FINO ? 0.7 : 0.32, c.v * 1.8); cx.fillStyle = c.c; cx.fillRect(c.x * C, c.y * C, C, C); });
     for (let i = bloques.length - 1; i >= 0; i--) { const B = bloques[i]; if (B.a <= 0) { bloques.splice(i, 1); continue; } cx.globalAlpha = B.a;
       for (const p of B.p) { cx.fillStyle = p[2]; cx.fillRect(p[0], p[1], B.s, B.s); } }
     cx.globalAlpha = 1; if (!celdas.size && !bloques.length) { vivo = false; gsap.ticker.remove(paso); cx.clearRect(0, 0, W, H); } }
@@ -526,7 +526,11 @@ const PX = (() => {
   }
   let figAct = null;
   const figEn = (x, y) => figuras.find((f) => { if (!f._pix?.punto) return false; const r = f.getBoundingClientRect(); return x >= r.left && x <= r.right && y >= r.top && y <= r.bottom; }) || null;
-  function mover(x, y, f, golpe) { const fg = figEn(x, y);
+  /* Sobre la barra de arriba y los controles del video el rastro estorba: ahí no se dibuja. */
+  const ZONA_QUIETA = '.nav,.menu-capa,.sel-idioma,.rp,.rp-opciones,.pausa,button,input';
+  function mover(x, y, f, golpe) { const en = document.elementFromPoint(x, y);
+    if (en?.closest?.(ZONA_QUIETA)) { ult = null; if (figAct) { figAct._pix?.fuera(); figAct = null; } return; }
+    const fg = figEn(x, y);
     if (fg !== figAct) { figAct?._pix?.fuera(); figAct = fg; ult = null; }
     if (fg) { fg._pix.punto(x, y, golpe); return; } trazo(x, y, f); }
   const soltarTodo = () => { figAct?._pix?.fuera(); figAct = null; ult = null; };

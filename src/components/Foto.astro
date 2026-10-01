@@ -1,17 +1,30 @@
 ---
 // Foto con su tamaño justo para cada pantalla, en WebP de 480 a 3200 px de ancho (nunca más que el original).
 // Las pantallas retina piden el doble de píxeles que su ancho, por eso hacen falta los tamaños grandes.
+// Dirección de arte: si existe una versión "<nombre>-m" (recorte vertical pensado para el celular), el celular
+// recibe esa y no un recorte automático de la horizontal. Así baja menos peso y el encuadre lo decide una persona.
 // pix: entra en píxeles y se pixela bajo el cursor o el dedo. paralaje: se mueve más lento que la página.
-import { Image } from 'astro:assets';
+import { Image, getImage } from 'astro:assets';
 const fotos = import.meta.glob('/src/assets/img/*.{webp,jpg,png}', { eager: true });
 const { n, alt = '', clase = '', pix = true, paralaje = false, cursor, eager = false, sizes = '(max-width: 860px) 100vw, 50vw', pos, pie, filtro } = Astro.props;
-const meta = (Object.entries(fotos).find(([k]) => k.split('/').pop().replace(/\.\w+$/, '') === n) || [])[1]?.default;
+const buscar = (nombre) => (Object.entries(fotos).find(([k]) => k.split('/').pop().replace(/\.\w+$/, '') === nombre) || [])[1]?.default;
+const meta = buscar(n);
 if (!meta) throw new Error('Falta la foto ' + n);
-const anchos = [480, 800, 1200, 1800, 2400, 3200].filter((w) => w <= meta.width).concat(meta.width < 3200 ? [meta.width] : []);
+const medidas = (m) => [...new Set([480, 800, 1200, 1800, 2400, 3200].filter((w) => w <= m.width).concat(m.width < 3200 ? [m.width] : []))];
+const movil = buscar(n + '-m');
+const fuenteMovil = movil ? await getImage({ src: movil, widths: medidas(movil), format: 'webp', quality: 84 }) : null;
+const estilo = pos ? `--pos:${pos}` : undefined;
 ---
-<figure class:list={['foto', clase]} data-pix={pix ? '' : undefined} data-paralaje={paralaje ? '' : undefined} data-cursor={cursor} data-filtro={filtro}>
-  <span class:list={['encuadre', { 'con-paralaje': paralaje }]}>
-    <Image src={meta} alt={alt} widths={[...new Set(anchos)]} sizes={sizes} quality={84} loading={eager ? 'eager' : 'lazy'} fetchpriority={eager ? 'high' : undefined} decoding="async" style={pos ? `object-position:${pos}` : undefined} />
+<figure class:list={['foto', clase, { 'con-movil': movil }]} data-pix={pix ? '' : undefined} data-paralaje={paralaje ? '' : undefined} data-cursor={cursor} data-filtro={filtro}>
+  <span class:list={['encuadre', { 'con-paralaje': paralaje }]} style={estilo}>
+    {fuenteMovil ? (
+      <picture>
+        <source media="(max-width: 860px)" srcset={fuenteMovil.srcSet.attribute} sizes="100vw" type="image/webp" />
+        <Image src={meta} alt={alt} widths={medidas(meta)} sizes={sizes} quality={84} loading={eager ? 'eager' : 'lazy'} fetchpriority={eager ? 'high' : undefined} decoding="async" />
+      </picture>
+    ) : (
+      <Image src={meta} alt={alt} widths={medidas(meta)} sizes={sizes} quality={84} loading={eager ? 'eager' : 'lazy'} fetchpriority={eager ? 'high' : undefined} decoding="async" />
+    )}
   </span>
   {pie && <figcaption>{pie}</figcaption>}
 </figure>
