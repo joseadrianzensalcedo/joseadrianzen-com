@@ -3,6 +3,8 @@ import Base from '../layouts/Base.astro';
 import Logo from '../components/Logo.astro';
 import Foto from '../components/Foto.astro';
 import Enc from '../components/Enc.astro';
+import Rotativo from '../components/Rotativo.astro';
+import Laurel from '../components/Laurel.astro';
 import Reproductor from '../components/Reproductor.astro';
 import { Image } from 'astro:assets';
 import { t, tr } from '../data/textos.js';
@@ -12,6 +14,8 @@ const { lang = 'es' } = Astro.props;
 const w = (es, en) => tr({ es, en }, lang);
 const x = t(lang), en = lang === 'en';
 const fotos = import.meta.glob('/src/assets/img/*.webp', { eager: true });
+// Fotogramas que rotan en la sección 02: los de la película más los sacados del tráiler en 2K (1 oct 2026).
+const FOTOGRAMAS = [...D.fotogramas, ['doc-lago', 'Mineras con casco rojo en la ladera, con una laguna al fondo', 'Women miners in red helmets on the slope, with a lagoon behind'], ['doc-cascos-verdes', 'Mineras con cascos celestes escuchan una charla', 'Women miners in light blue helmets listen to a talk'], ['doc-dron', 'Vista aérea de un pueblo minero entre nevados', 'Aerial view of a mining town among snowy peaks'], ['doc-ladera', 'Mineras trabajan en la ladera junto a un camión de carga', 'Women miners work on the slope next to a dump truck'], ['doc-cuarto-rojo', 'Una minera habla en su casa de paredes de totora', 'A woman miner speaks in her reed walled home']];
 const titulo = w(`${D.titulo} | Documental de Jose Adrianzen`, `${D.tituloEn} | Documentary by Jose Adrianzen`);
 const desc = tr(D.sinopsis, lang)[0];
 const ld = { '@context': 'https://schema.org', '@type': 'Movie', name: D.titulo, alternateName: D.tituloEn, dateCreated: D.anio, duration: 'PT37M2S', countryOfOrigin: 'PE', inLanguage: 'es',
@@ -48,23 +52,18 @@ const ld = { '@context': 'https://schema.org', '@type': 'Movie', name: D.titulo,
 
   <section class="fotogramas oscuro grano">
     <Enc n="02" t={w('Fotogramas', 'Frames')} d={w('de la película', 'from the film')} osc />
-    <div class="cuadros">
-      {D.fotogramas.slice(1).map(([n, es, enAlt], i) => <Foto n={n} clase={`cuadro c${i}`} alt={w(es, enAlt)} cursor={x.cursor.ver} sizes="(max-width: 860px) 100vw, 50vw" />)}
-    </div>
+    <Rotativo items={FOTOGRAMAS.map(([n, es, en]) => [n, w(es, en)])} />
   </section>
 
   <section class="creditos oscuro">
-    <p class="cr-cat" data-aparece>{x.premios}</p>
-    {premios.map((p) => <div class="cr-bloque" data-cascada><p class="cr-nom"><span data-descifra>{tr(p.k, lang)}</span></p><p class="cr-det">{p.v} · {tr(p.d, lang)}</p></div>)}
-    <p class="cr-cat" data-aparece>{x.selecciones}</p>
-    <ul class="cr-lista" data-cascada>{selecciones.map((s) => <li><b>{s.n}</b><span>{tr(s.d, lang)}</span></li>)}</ul>
+    <Enc n="03" t={x.premios} d={w(`${premios.length} premios · ${selecciones.length} selecciones`, `${premios.length} awards · ${selecciones.length} selections`)} osc />
+    <ul class="laureles laureles-grandes" data-cascada>{premios.map((p) => <Laurel arriba={tr(p.k, lang)} medio={p.v} abajo={tr(p.d, lang)} />)}</ul>
+    <ul class="laureles laureles-sel" data-cascada>{selecciones.map((s) => <Laurel arriba={w('Selección oficial', 'Official selection')} medio={s.n} abajo={tr(s.d, lang)} chico />)}</ul>
   </section>
 
-  <section class="rodaje papel grano">
-    <Enc n="03" t={x.rodaje} d={w('sin pies de foto', 'no captions')} />
-    <div class="escalera">
-      {D.rodaje.slice(0, 5).map(([n, a], k) => <Foto n={n} clase={`e e${k % 3}`} alt={tr(a, lang)} cursor={x.cursor.ver} sizes="(max-width: 860px) 50vw, 20vw" />)}
-    </div>
+  <section class="rodaje oscuro grano">
+    <Enc n="04" t={x.rodaje} d={w('detrás de cámaras', 'behind the scenes')} osc />
+    <Rotativo items={D.rodaje.map(([n, a]) => [n, tr(a, lang)])} />
   </section>
 
   <section class="siguiente oscuro">

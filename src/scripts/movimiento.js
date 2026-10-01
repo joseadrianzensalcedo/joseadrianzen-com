@@ -345,6 +345,19 @@ if (!R && figuras.length) {
   $$('[data-paralaje]').forEach((f) => gsap.to($('.encuadre', f) || $('img', f), { yPercent: 6, ease: 'none', scrollTrigger: { trigger: f, start: 'top bottom', end: 'bottom top', scrub: 1 } }));
 }
 
+/* 8b. Cuadros que cambian solos (fotogramas y rodaje del documental). Cada cuadro corta a su siguiente imagen cada
+       2,4 s, desfasado de los demás para que no cambien todos a la vez. Solo corre mientras se ve en pantalla. */
+$$('[data-rotativo]').forEach((r) => {
+  if (R) return;
+  const cuadros = $$('.rot-cuadro', r).filter((c) => c.children.length > 1); let reloj = 0;
+  const pasar = (c) => { const imgs = [...c.children], i = imgs.findIndex((x) => x.classList.contains('on')); imgs[i].classList.remove('on'); imgs[(i + 1) % imgs.length].classList.add('on'); };
+  let turno = 0;
+  const latir = () => { if (!cuadros.length) return; pasar(cuadros[turno % cuadros.length]); turno += 1 + (Math.random() < 0.3 ? 1 : 0); };
+  new IntersectionObserver((e) => { clearInterval(reloj); if (e[0].isIntersecting) reloj = setInterval(latir, 600); }).observe(r);
+  // Las imágenes que esperan su turno se cargan cuando el cuadro aparece, no al abrir la página.
+  r.querySelectorAll('img').forEach((im) => { im.loading = 'lazy'; });
+});
+
 /* 9. Franja de festivales: corre sola y acelera con la velocidad del scroll. Se detiene con el cursor o el botón. */
 const franja = $('.franja p'), fbtn = $('.franja-ctl button');
 if (franja && fbtn) {

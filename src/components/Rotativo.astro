@@ -1,0 +1,16 @@
+---
+// Fila de cuadros que cambian de imagen solos, como en la referencia de Readymag que pasó la diseñadora.
+// Cada cuadro tiene su propio grupo de imágenes (sin repetirse entre cuadros) y corta a la siguiente cada pocos segundos,
+// en desorden, como un corte de montaje. Con "reducir movimiento" se queda quieto en la primera.
+import { Image } from 'astro:assets';
+const fotos = import.meta.glob('/src/assets/img/*.webp', { eager: true });
+const { items = [], cuadros = 4, clase = '' } = Astro.props; // items: [[nombre, alt], ...]
+const grupos = Array.from({ length: cuadros }, (_, k) => items.filter((_, i) => i % cuadros === k));
+---
+<div class:list={['rotativo', clase]} data-rotativo>
+  {grupos.map((g) => (
+    <figure class="rot-cuadro">
+      {g.map(([n, alt], j) => <Image src={fotos[`/src/assets/img/${n}.webp`].default} alt={alt} widths={[480, 800, 1200]} sizes="(max-width: 860px) 50vw, 25vw" quality={84} loading="lazy" class={j === 0 ? 'on' : undefined} />)}
+    </figure>
+  ))}
+</div>
