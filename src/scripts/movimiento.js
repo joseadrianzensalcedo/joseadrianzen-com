@@ -138,7 +138,9 @@ if (pausa) {
       midió STEEL contra AWAKENNING (hueco 22 %, tamaño, alargamiento, solidez e inclinación de cada hueco, cuánto
       cambia el gasto de zona a zona y qué tan ordenada se ve la red) y una búsqueda de parámetros
       (herramientas/desgaste-busca.py) dejó la textura con las mismas medidas (herramientas/desgaste-metricas.py).
-      Parámetros: celdas=72 onda=0.08 vis0=0.5 ancho0=0.754 ancho1=1.34 rotura=0.093 polvo=0.354 contraste=1.5 gasto_esc=0.991 sesgo=-0.359 L=0.436 W=0.14 estira=0.702 aspero=0.411 tuerce=0.195 (SS=1). */
+      Resultado medido sobre las mismas letras: hueco 19 % (STEEL 22 %), mitad de los huecos de 0,38 diezmilésimas
+      de cap² (STEEL 0,34), alargamiento 2,2 (STEEL 2,1), orden de red 0,027 (STEEL 0,034).
+      Parámetros: celdas=72 onda=0.08 vis0=0.5 ancho0=0.754 ancho1=1.34 rotura=0.093 polvo=0.354 contraste=1.5 gasto_esc=0.991 sesgo=-0.359 L=0.436 W=0.14 estira=0.702 aspero=0.411 tuerce=0.195 ancho0=0.5 sesgo=-0.8 (SS=1). */
 const bordes = new Map();
 const svgBordes = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
 svgBordes.setAttribute('aria-hidden', 'true'); svgBordes.style.cssText = 'position:absolute;width:0;height:0;overflow:hidden';
