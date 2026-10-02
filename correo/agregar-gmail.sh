@@ -20,6 +20,8 @@ set -euo pipefail
 
 DOMINIO="joseadrianzen.com"
 PLUGIN_VER="5.0.5"
+RAMA="${RAMA:-portada-diseno}"   # rama de GitHub de donde salen los archivos de la piel
+REPO="https://raw.githubusercontent.com/joseadrianzensalcedo/joseadrianzen-com/${RAMA}/correo"
 PLUGIN_URL="https://github.com/Gecka-Apps/roundcube-ident_switch/archive/refs/tags/${PLUGIN_VER}.tar.gz"
 
 rojo()  { printf '\033[31m%s\033[0m\n' "$*"; }
@@ -63,7 +65,7 @@ mv "$TMP"/roundcube-ident_switch-* "$RC/plugins/ident_switch"
 rm -rf "$TMP"
 echo "     en $RC/plugins/ident_switch"
 
-paso "5/7  Configuración del plugin (Gmail ya preconfigurado)"
+paso "5/7  Configuración del plugin (Gmail ya preconfigurado) y piel"
 cat > "$RC/plugins/ident_switch/config.inc.php" <<'PHP'
 <?php
 /* ident_switch en joseadrianzen.com/correo.
@@ -150,6 +152,17 @@ $labels['err.save'] = 'No se pudo guardar la cuenta (error de la base de datos).
 PHP
 php -l "$RC/plugins/ident_switch/localization/es_ES.inc" >/dev/null || fallo "La traducción quedó con error."
 echo "     listo"
+
+# La piel del sitio tiene que ubicar el selector (el plugin solo se ubica en las pieles de fábrica).
+# Se bajan sus dos archivos del repositorio y se guarda copia de los que había.
+for F in adrianzen.js styles/adrianzen.css; do
+  D="$RC/skins/adrianzen/$F"
+  [ -f "$D" ] && cp "$D" "$D.antes-de-gmail"
+  if [ -n "${PIEL_LOCAL:-}" ]; then cp "$PIEL_LOCAL/$F" "$D"   # solo para probar fuera del servidor
+  else curl -fsSL -o "$D" "$REPO/skins/adrianzen/$F" || fallo "No pude bajar skins/adrianzen/$F de $REPO (¿subiste la rama $RAMA a GitHub?)"; fi
+  grep -q "ident_switch" "$D" || fallo "skins/adrianzen/$F no trae el ajuste del selector. ¿Es la rama correcta?"
+done
+echo "     piel actualizada (copias en *.antes-de-gmail)"
 
 paso "6/7  Creando su tabla en la base de datos"
 cd "$RC"

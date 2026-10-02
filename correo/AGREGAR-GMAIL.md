@@ -16,10 +16,11 @@ los dos con SSL, que son los servidores que publica Google
 - `agregar-gmail.sh`: instala el plugin en la Roundcube que ya está en el servidor, crea su tabla, lo activa y deja
   el Gmail preconfigurado (los servidores se llenan solos). Hace una copia de la configuración antes de tocarla.
 - La piel `adrianzen` ubica el selector donde iba el nombre del buzón, con la letra de máquina del sitio. Sin esto
-  el selector quedaba escondido: el plugin solo se ubica solo en las pieles de fábrica.
+  el selector quedaba escondido: el plugin solo se ubica en las pieles de fábrica. El script baja estos dos archivos de
+  la piel desde GitHub y guarda copia de los que había.
 - La pantalla del plugin en español (el plugin no trae español).
 - Probado el 1 de octubre de 2026 en una copia local: Roundcube 1.7.2, PHP 8.4, SQLite, dos buzones de prueba.
-  Se entró al buzón de yo@, se agregó el segundo como cuenta aparte, se cambió de una a otra, se leyó el correo de
+  Se partió de la piel y la configuración que hay hoy en el servidor, se corrió el script, se entró al buzón de yo@, se agregó el segundo como cuenta aparte, se cambió de una a otra, se leyó el correo de
   cada una y se envió un correo desde la segunda (salió por su propio servidor de salida).
 
 ## Lo que haces tú (tres pasos, unos 15 minutos)
