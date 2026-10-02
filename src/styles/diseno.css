@@ -97,3 +97,9 @@ g-l,.letra-g{display:inline-block}
 .citas-marco{width:100%;background:#fff}
 .citas-marco iframe{display:block;width:100%;height:min(720px,80vh);border:0}
 .citas-fuera{font:500 12px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--ambar)}
+/* Disponibilidad: el calendario personal en modo libre/ocupado. Marco claro sobre la página oscura, como un monitor. */
+.dispo{margin-top:clamp(28px,5vw,56px);display:flex;flex-direction:column;gap:8px}
+.dispo .cod{margin:0}
+.dispo-nota{margin:0;font:400 15px/1.5 var(--lectura);color:var(--humo);max-width:62ch}
+.dispo-marco{width:100%;background:#fff;border:1px solid color-mix(in oklab,var(--papel) 18%,transparent)}
+.dispo-marco iframe{display:block;width:100%;height:min(620px,78vh);border:0}
