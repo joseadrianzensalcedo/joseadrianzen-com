@@ -48,3 +48,31 @@
   document.addEventListener('mouseleave', function () { cur.classList.remove('on'); });
   window.addEventListener('blur', function () { cur.classList.remove('on'); });
 })();
+
+/* Selector de cuentas (yo@joseadrianzen.com y Gmail), del plugin ident_switch.
+   El plugin solo sabe ubicarse en las pieles larry, classic y elastic, y mira
+   el nombre de la piel: con "adrianzen" se queda escondido aunque esta piel
+   herede de elastic (se comprobó el 1 de octubre de 2026 con ident_switch 5.0.5).
+   Aquí se hace el mismo paso que el plugin hace para elastic. Corre después de
+   todos los $(function) para no adelantarse al plugin. */
+(function () {
+  'use strict';
+  if (typeof jQuery === 'undefined' || window.self !== window.top) return;
+  jQuery(function ($) {
+    setTimeout(function () {
+      var $w = $('#ident-switch-wrapper');
+      if (!$w.length || !window.rcmail || rcmail.env.skin === 'elastic') return;
+      if ($w.closest('.header-title.username').length) return;          // ya ubicado
+      if (typeof plugin_switchIdent_addCbElastic !== 'function') return;
+      var $sw = $w.find('#plugin-ident_switch-account');
+      if (!plugin_switchIdent_addCbElastic($w, $sw)) return;
+      $sw.show();
+      $sw.find('option').each(function () { $(this).data('orig-text', $(this).text()); });
+      if (typeof ident_switch_updateCounts === 'function') {
+        rcmail.addEventListener('plugin.ident_switch.update_counts', ident_switch_updateCounts);
+        if (rcmail.env.ident_switch_initial_counts) ident_switch_updateCounts(rcmail.env.ident_switch_initial_counts);
+      }
+      if (typeof ident_switch_onNotify === 'function') rcmail.addEventListener('plugin.ident_switch.notify', ident_switch_onNotify);
+    }, 0);
+  });
+})();

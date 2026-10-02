@@ -572,3 +572,25 @@ html.dark-mode #login-footer{display:none}
 @media (max-width:480px){
   #acceso .acceso-marca{margin-bottom:1.6rem}
 }
+
+/* ───────── selector de cuentas (yo@ y Gmail, plugin ident_switch) ─────────
+   Va donde estaba el nombre del buzón, con la misma letra de máquina. La
+   flecha y la lista desplegada siguen la paleta del sitio. */
+html.dark-mode #plugin-ident_switch-account{
+  font-family:var(--maquina) !important;
+  font-size:.68rem !important;
+  font-weight:400 !important;
+  letter-spacing:.2em;
+  text-transform:uppercase;
+  color:var(--oro) !important;
+  cursor:pointer;
+  max-width:14rem;
+}
+html.dark-mode #plugin-ident_switch-account option{
+  background:var(--negro-2);
+  color:var(--blanco);
+  text-transform:none;
+  letter-spacing:0;
+}
+html.dark-mode #plugin-ident_switch-account:focus-visible{outline:1px solid var(--polvo);outline-offset:3px}
+html.dark-mode #ident-switch-badge{background:var(--polvo);color:var(--negro)}
