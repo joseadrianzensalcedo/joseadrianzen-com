@@ -214,3 +214,13 @@ export const vias = [
 ];
 
 export const correoUrl = 'https://joseadrianzen.com/correo/';
+
+/* Servicios de Google en la web. Mientras un enlace esté en null, la web no lo muestra (o deja el "pronto").
+   citas: la dirección para insertar tu agenda de citas de Google Calendar (Agenda de citas > Compartir >
+          Página de reservas o "Insertar en el sitio web", la que termina en ?gv=true).
+   dossier, fotosAlta: enlaces de Google Drive compartidos como "Cualquier persona con el enlace". */
+export const google = {
+  citas: null,
+  dossier: null,
+  fotosAlta: null,
+};

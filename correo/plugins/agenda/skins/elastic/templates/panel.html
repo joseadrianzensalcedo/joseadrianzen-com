@@ -1,0 +1,23 @@
+<roundcube:include file="includes/layout.html" />
+<roundcube:include file="includes/menu.html" />
+<h1 class="voice"><roundcube:label name="agenda.titulo" /></h1>
+<div id="layout-content" class="selected no-navbar" role="main">
+	<div class="header">
+		<a class="button icon task-menu-button" href="#menu"><span class="inner"><roundcube:label name="menu" /></span></a>
+		<span class="header-title"><roundcube:label name="agenda.titulo" /></span>
+	</div>
+	<div class="agenda-panel">
+		<div class="age-barra">
+			<div class="age-modos" role="group" aria-label="Vista">
+				<button type="button" data-modo="AGENDA" aria-pressed="true">Lista</button>
+				<button type="button" data-modo="WEEK" aria-pressed="false">Semana</button>
+				<button type="button" data-modo="MONTH" aria-pressed="false">Mes</button>
+			</div>
+			<div class="age-cals" id="age-cals"></div>
+			<a id="age-abrir" target="_blank" rel="noopener">Abrir Google Calendar</a>
+		</div>
+		<iframe id="age-marco" title="Agenda" referrerpolicy="no-referrer"></iframe>
+		<p class="age-nota">Si no ves tus eventos, abre Google con tu cuenta en este navegador y recarga.</p>
+	</div>
+</div>
+<roundcube:include file="includes/footer.html" />

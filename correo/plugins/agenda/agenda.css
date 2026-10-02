@@ -1,0 +1,12 @@
+html body .agenda-panel{--fondo:var(--negro,#050505);--panel:var(--negro-2,#0c0b0a);--texto:var(--blanco,#f2efe9);--suave:var(--humo,#8a837a);--acento:var(--polvo,#d68a2e);--raya:var(--linea,#232019);
+  display:flex;flex-direction:column;gap:12px;height:100%;box-sizing:border-box;padding:18px clamp(12px,2.4vw,32px) 14px;background:var(--fondo);color:var(--texto);font:400 14px/1.4 var(--cuerpo,Arial,sans-serif)}
+html body .agenda-panel .age-barra{display:flex;flex-wrap:wrap;gap:12px 20px;align-items:center}
+html body .agenda-panel .age-modos{display:flex}
+html body .agenda-panel .age-modos button{font:400 12px var(--maquina,monospace);letter-spacing:.1em;text-transform:uppercase;color:var(--texto);background:var(--panel);border:1px solid var(--raya);padding:8px 14px;cursor:pointer;border-radius:0;margin-right:-1px}
+html body .agenda-panel .age-modos button[aria-pressed="true"]{background:var(--acento);border-color:var(--acento);color:#0c0b0a}
+html body .agenda-panel .age-cals{display:flex;gap:14px;flex-wrap:wrap}
+html body .agenda-panel .age-cals label{display:flex;align-items:center;gap:6px;font-size:13px;cursor:pointer}
+html body .agenda-panel .age-cals span{width:10px;height:10px;display:inline-block}
+html body .agenda-panel #age-abrir{margin-left:auto;color:var(--acento);font:400 12px var(--maquina,monospace);letter-spacing:.08em;text-transform:uppercase}
+html body .agenda-panel iframe{flex:1;width:100%;min-height:420px;border:1px solid var(--raya);background:#fff}
+html body .agenda-panel .age-nota{margin:0;color:var(--suave);font-size:12px}

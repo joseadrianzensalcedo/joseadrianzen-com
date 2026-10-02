@@ -5,7 +5,7 @@ import Foto from '../components/Foto.astro';
 import Enc from '../components/Enc.astro';
 import { t, tr } from '../data/textos.js';
 import { ruta } from '../utils.js';
-import { sobreMi as S, persona } from '../data/sitio.js';
+import { sobreMi as S, persona, google } from '../data/sitio.js';
 const { lang = 'es' } = Astro.props;
 const w = (es, en) => tr({ es, en }, lang);
 const x = t(lang), en = lang === 'en';
@@ -44,8 +44,12 @@ const desc = tr(S.bio, lang)[0];
     </div>
     <div>
       <Enc n="04" t={x.prensa} d="" />
-      <p class="descarga" aria-disabled="true">{x.dossier} <span>{x.proximamente}</span></p>
-      <p class="descarga" aria-disabled="true">{x.fotosAlta} <span>{x.proximamente}</span></p>
+      {google.dossier
+        ? <a class="descarga" href={google.dossier} target="_blank" rel="noopener">{x.dossier} <span>↗</span></a>
+        : <p class="descarga" aria-disabled="true">{x.dossier} <span>{x.proximamente}</span></p>}
+      {google.fotosAlta
+        ? <a class="descarga" href={google.fotosAlta} target="_blank" rel="noopener">{x.fotosAlta} <span>↗</span></a>
+        : <p class="descarga" aria-disabled="true">{x.fotosAlta} <span>{x.proximamente}</span></p>}
       <a class="lnk" href={ruta('contacto', lang)} data-aparece>{x.escribeme}</a>
     </div>
   </section>

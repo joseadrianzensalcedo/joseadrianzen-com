@@ -20,7 +20,7 @@
   # 'unsafe-eval': Roundcube arma la lista de correos con codigo que llega en
   # cada respuesta y lo ejecuta con eval. Sin esto la lista sale vacia
   # (se vio el 2 de octubre de 2026: 'EvalError ... unsafe-eval' en la consola).
-  Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data: blob: https:; media-src 'self' data: blob:; frame-src 'self' blob:; connect-src 'self' blob:; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'; upgrade-insecure-requests"
+  Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data: blob: https:; media-src 'self' data: blob:; frame-src 'self' blob: https://calendar.google.com; connect-src 'self' blob:; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'; upgrade-insecure-requests"
 
   Header always set X-Robots-Tag "noindex, nofollow"
   Header always set Referrer-Policy "same-origin"

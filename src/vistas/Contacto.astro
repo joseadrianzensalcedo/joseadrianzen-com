@@ -1,7 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
 import { t, tr } from '../data/textos.js';
-import { vias, persona } from '../data/sitio.js';
+import { vias, persona, google } from '../data/sitio.js';
 const { lang = 'es' } = Astro.props;
 const w = (es, en) => tr({ es, en }, lang);
 const x = t(lang), en = lang === 'en';
@@ -17,6 +17,21 @@ const desc = w('Escríbele a Jose Adrianzen sobre proyectos, festivales y prensa
     <div class="canales" data-cascada>
       {vias.slice(1).map((v) => <a class="canal" href={v.href} target="_blank" rel="noopener"><b>{tr(v.t, lang)}</b><span>{v.v}</span><em aria-hidden="true">↗</em></a>)}
     </div>
+    {google.citas && (
+      <div class="citas">
+        <button type="button" class="citas-abrir" aria-expanded="false" aria-controls="citas-marco">{w('Agenda una llamada conmigo', 'Book a call with me')} <span aria-hidden="true">→</span></button>
+        <p class="cod">{w('Elige un horario libre. Te llega la invitación con el enlace de Meet.', 'Pick a free slot. You get the invite with the Meet link.')}</p>
+        <div class="citas-marco" id="citas-marco" hidden data-src={google.citas}></div>
+        <a class="citas-fuera" href={google.citas.replace('?gv=true', '')} target="_blank" rel="noopener">{w('Abrir la agenda en otra pestaña', 'Open the booking page in a new tab')} ↗</a>
+      </div>
+    )}
     <p class="cod base" data-aparece>{tr(persona.base, lang)}</p>
   </section>
+  <script>
+    document.querySelectorAll('.citas-abrir').forEach((b) => b.addEventListener('click', () => {
+      const m = document.getElementById('citas-marco');
+      if (!m.firstChild) { const f = document.createElement('iframe'); f.src = m.dataset.src; f.title = 'Agenda'; f.loading = 'lazy'; m.appendChild(f); }
+      m.hidden = !m.hidden; b.setAttribute('aria-expanded', String(!m.hidden));
+    }));
+  </script>
 </Base>
