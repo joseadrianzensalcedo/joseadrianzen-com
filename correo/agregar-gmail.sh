@@ -64,6 +64,9 @@ tar xzf "$TMP/p.tar.gz" -C "$TMP"
 mv "$TMP"/roundcube-ident_switch-* "$RC/plugins/ident_switch"
 rm -rf "$TMP"
 echo "     en $RC/plugins/ident_switch"
+# Arreglo de una línea: sin esto el plugin escribe un aviso de PHP en cada clic ("archive_mbox_default_iswitch").
+# Si el servidor muestra los avisos dentro de la respuesta, la lista de correos de la otra cuenta sale vacía (2 oct 2026).
+sed -i 's/\$val = \$_SESSION\[\$otherKey\] ?? \$_SESSION\[\$defaultKey\];/$val = $_SESSION[$otherKey] ?? $_SESSION[$defaultKey] ?? null;/' "$RC/plugins/ident_switch/ident_switch.php"
 
 paso "5/7  Configuración del plugin (Gmail ya preconfigurado) y piel"
 cat > "$RC/plugins/ident_switch/config.inc.php" <<'PHP'
