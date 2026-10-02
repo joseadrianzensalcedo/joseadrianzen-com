@@ -13,7 +13,7 @@ import '../styles/paginas.css';
 import '../styles/idiomas.css';
 import '../styles/diseno.css';
 
-const { titulo, descripcion, lang = 'es', camino = '', actual = '', navClara = false, intro = false, imagenOg = '/og.jpg', altOg = null, tipo = 'website', jsonLd = [], clase = '', soloEs = false, navCorto = false } = Astro.props;
+const { titulo, descripcion, lang = 'es', camino = '', actual = '', navClara = false, intro = false, imagenOg = '/og.jpg', altOg = null, tipo = 'website', jsonLd = [], clase = '', soloEs = false, navCorto = false, sinIndice = false } = Astro.props;
 // Los artículos del blog existen solo en español: en los otros idiomas el selector lleva a la lista del blog.
 const caminoOtros = soloEs ? 'blog' : camino;
 const w = (es, en) => tr({ es, en }, lang);
@@ -40,10 +40,10 @@ const textosMov = { menu: x.menu, cerrar: x.cerrar, pausa: x.pausa, seguir: x.se
   <script is:inline set:html={`(function(){var h=document.documentElement;if(matchMedia('(prefers-reduced-motion: reduce)').matches)return;h.classList.add('mov');var v=0;try{v=sessionStorage.getItem('ja-intro')==='1'}catch(e){}${intro ? "if(!v)h.classList.add('intro');" : ''}setTimeout(function(){if(!window.__mov)h.classList.remove('mov','intro')},4000)})()`} />
   <title>{titulo}</title>
   <meta name="description" content={descripcion}>
-  <link rel="canonical" href={url}>
-  {IDIOMAS.filter((i) => !soloEs || i.c === 'es').map((i) => <link rel="alternate" hreflang={i.c} href={sitio + ruta(camino, i.c)} />)}
-  <link rel="alternate" hreflang="x-default" href={urlEs}>
-  {PROTOTIPO && <meta name="robots" content="noindex, nofollow">}
+  {!sinIndice && <link rel="canonical" href={url}>}
+  {!sinIndice && IDIOMAS.filter((i) => !soloEs || i.c === 'es').map((i) => <link rel="alternate" hreflang={i.c} href={sitio + ruta(camino, i.c)} />)}
+  {!sinIndice && <link rel="alternate" hreflang="x-default" href={urlEs}>}
+  {(PROTOTIPO || sinIndice) && <meta name="robots" content="noindex, nofollow">}
   <meta name="theme-color" content="#0c0b0a">
   <meta name="color-scheme" content="dark light">
   <link rel="icon" href={ruta('favicon.svg').replace(/\/$/, '')} type="image/svg+xml">
