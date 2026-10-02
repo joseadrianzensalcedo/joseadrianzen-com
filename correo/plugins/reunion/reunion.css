@@ -25,3 +25,10 @@ html body .reunion-panel .reu-chip button{border:0;padding:0 6px;font-size:15px;
 html body #reu-aviso{display:block;color:var(--acento);font-size:13px}
 html body .reunion-panel .reu-chips input{border:0;background:transparent;box-shadow:none}
 html body .reunion-panel label{justify-content:flex-end}
+html body .reu-cuenta{display:flex;align-items:center;flex-wrap:wrap;gap:10px 16px;margin:0 0 22px;max-width:1200px}
+html body .reu-cuenta[hidden]{display:none}
+html body .reu-rotulo,html body .reu-quien{font:400 11px var(--maquina,'Courier New',monospace);letter-spacing:.1em;text-transform:uppercase;color:var(--suave)}
+html body .reu-quien{text-transform:none;letter-spacing:.02em}
+html body .reunion-panel .reu-cuentas{display:flex}
+html body .reunion-panel .reu-cuentas button{margin-right:-1px;background:var(--panel)}
+html body .reunion-panel .reu-cuentas button[aria-pressed="true"]{background:var(--acento);border-color:var(--acento);color:#0c0b0a}

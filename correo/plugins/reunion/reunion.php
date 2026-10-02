@@ -49,7 +49,9 @@ class reunion extends rcube_plugin
     {
         $rc = rcmail::get_instance();
         $rc->output->set_pagetitle($this->gettext('titulo'));
-        $rc->output->set_env('reunion_cuenta', (string) $rc->config->get('reunion_cuenta_google', ''));
+        $cuentas = (array) $rc->config->get('reunion_cuentas', []);
+        if (!$cuentas && ($una = (string) $rc->config->get('reunion_cuenta_google', ''))) $cuentas = [['nombre' => $una, 'correo' => $una]];
+        $rc->output->set_env('reunion_cuentas', array_values($cuentas));
         $rc->output->set_env('reunion_zona', (string) $rc->config->get('reunion_zona', 'America/Lima'));
         $this->include_stylesheet('reunion.css');
         $this->include_script('reunion.js');

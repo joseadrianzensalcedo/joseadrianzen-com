@@ -8,5 +8,9 @@ html body .agenda-panel .age-cals{display:flex;gap:14px;flex-wrap:wrap}
 html body .agenda-panel .age-cals label{display:flex;align-items:center;gap:6px;font-size:13px;cursor:pointer}
 html body .agenda-panel .age-cals span{width:10px;height:10px;display:inline-block}
 html body .agenda-panel #age-abrir{margin-left:auto;color:var(--acento);font:400 12px var(--maquina,monospace);letter-spacing:.08em;text-transform:uppercase}
+html body .agenda-panel .age-marcos{flex:1;display:grid;gap:12px;min-height:420px}
+@media (max-width:900px){html body .agenda-panel .age-marcos{grid-template-columns:1fr!important}}
+html body .agenda-panel .age-cuadro{display:flex;flex-direction:column;gap:6px;min-width:0;min-height:420px}
+html body .agenda-panel .age-rotulo{font:400 11px var(--maquina,monospace);letter-spacing:.1em;text-transform:uppercase;color:var(--suave);border-left:3px solid var(--raya);padding-left:8px}
 html body .agenda-panel iframe{flex:1;width:100%;min-height:420px;border:1px solid var(--raya);background:#fff}
 html body .agenda-panel .age-nota{margin:0;color:var(--suave);font-size:12px}

@@ -1,15 +1,31 @@
 /* Arma las direcciones de Meet y Calendar. No manda nada a ningún servidor propio. */
 (function () {
-  function cuenta() { var c = rcmail.env.reunion_cuenta; return c ? 'authuser=' + encodeURIComponent(c) : ''; }
+  var cuentas = rcmail.env.reunion_cuentas || [], elegida = cuentas[0] ? cuentas[0].correo : '';
+  try { var g = localStorage.getItem('reu-cuenta'); if (cuentas.some(function (c) { return c.correo === g; })) elegida = g; } catch (e) {}
+  function cuenta() { return elegida ? 'authuser=' + encodeURIComponent(elegida) : ''; }
   function abrir(u) { var w = window.open(u, '_blank'); if (w) w.opener = null; else location.href = u; }
   var dos = function (n) { return String(n).padStart(2, '0'); };
 
   document.addEventListener('DOMContentLoaded', function () {
     var f = document.getElementById('reu-programar');
     if (!f) return;
-    var q = cuenta();
-    document.getElementById('reu-meet').href = 'https://meet.google.com/' + (q ? '?' + q : '');
-    document.getElementById('reu-agenda').href = 'https://calendar.google.com/calendar/r/agenda' + (q ? '?' + q : '');
+    var q;
+    // Selector de cuenta: Personal o Hannah. Cambia con qué cuenta de Google se abre todo.
+    var caja = document.getElementById('reu-cuentas');
+    function enlaces() {
+      q = cuenta();
+      document.getElementById('reu-meet').href = 'https://meet.google.com/' + (q ? '?' + q : '');
+      document.getElementById('reu-agenda').href = 'https://calendar.google.com/calendar/r/agenda' + (q ? '?' + q : '');
+      caja.querySelectorAll('button').forEach(function (b) { b.setAttribute('aria-pressed', b.dataset.correo === elegida); });
+      document.getElementById('reu-quien').textContent = elegida;
+    }
+    if (cuentas.length > 1) cuentas.forEach(function (c) {
+      var b = document.createElement('button'); b.type = 'button'; b.dataset.correo = c.correo; b.textContent = c.nombre || c.correo; b.title = c.correo;
+      b.onclick = function () { elegida = c.correo; try { localStorage.setItem('reu-cuenta', elegida); } catch (e) {} enlaces(); };
+      caja.appendChild(b);
+    });
+    else caja.parentNode.hidden = !cuentas.length;
+    enlaces();
     document.getElementById('reu-ya').addEventListener('click', function () { abrir('https://meet.google.com/new' + (q ? '?' + q : '')); });
 
     document.getElementById('reu-unirse').addEventListener('submit', function (e) {
@@ -68,7 +84,7 @@
       if (f.lugar.value.trim()) p.set('location', f.lugar.value.trim());
       if (invitados.length) p.set('add', invitados.join(','));
       if (f.repite.value) p.set('recur', 'RRULE:FREQ=' + f.repite.value);
-      if (rcmail.env.reunion_cuenta) p.set('authuser', rcmail.env.reunion_cuenta);
+      if (elegida) p.set('authuser', elegida);
       abrir('https://calendar.google.com/calendar/render?' + p.toString());
       document.getElementById('reu-aviso').textContent = 'Listo: revisa la pestaña de Google Calendar y dale a Guardar.';
     });
