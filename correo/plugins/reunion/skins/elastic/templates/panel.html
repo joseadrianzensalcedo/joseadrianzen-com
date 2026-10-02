@@ -1,0 +1,73 @@
+<roundcube:include file="includes/layout.html" />
+<roundcube:include file="includes/menu.html" />
+
+<h1 class="voice"><roundcube:label name="reunion.titulo" /></h1>
+
+<div id="layout-content" class="selected no-navbar" role="main">
+	<div class="header">
+		<a class="button icon task-menu-button" href="#menu"><span class="inner"><roundcube:label name="menu" /></span></a>
+		<span class="header-title"><roundcube:label name="reunion.titulo" /></span>
+	</div>
+	<div class="reunion-panel scroller">
+		<div class="reu-columnas">
+			<section class="reu-bloque">
+				<h2>Ahora</h2>
+				<p class="reu-nota">Abre una videollamada nueva de Meet en otra pestaña. Copia el enlace que te da Meet y compártelo.</p>
+				<button type="button" id="reu-ya" class="reu-principal">Empezar reunión ahora</button>
+				<form id="reu-unirse" class="reu-fila">
+					<label>Entrar con un código o enlace
+						<input name="codigo" placeholder="abc-defg-hij o meet.google.com/abc-defg-hij" autocomplete="off" required>
+					</label>
+					<button type="submit">Entrar</button>
+				</form>
+				<p class="reu-enlaces">
+					<a id="reu-agenda" target="_blank" rel="noopener">Ver mis próximas reuniones</a>
+					<a id="reu-meet" target="_blank" rel="noopener">Abrir Meet</a>
+				</p>
+			</section>
+
+			<section class="reu-bloque">
+				<h2>Programar</h2>
+				<form id="reu-programar">
+					<label>Título<input name="titulo" required maxlength="200" placeholder="Reunión con…"></label>
+					<div class="reu-fila">
+						<label>Día<input type="date" name="dia" required></label>
+						<label>Hora<input type="time" name="hora" required step="300"></label>
+						<label>Duración
+							<select name="dura">
+								<option value="15">15 min</option><option value="30" selected>30 min</option><option value="45">45 min</option>
+								<option value="60">1 hora</option><option value="90">1 h 30</option><option value="120">2 horas</option><option value="180">3 horas</option>
+							</select>
+						</label>
+					</div>
+					<div class="reu-fila">
+						<label>Se repite
+							<select name="repite">
+								<option value="">No</option><option value="DAILY">Cada día</option><option value="WEEKLY">Cada semana</option><option value="MONTHLY">Cada mes</option>
+							</select>
+						</label>
+						<label>Zona horaria<input name="zona" list="reu-zonas" required></label>
+					</div>
+					<label>Invitados
+						<div class="reu-chips" id="reu-chips">
+							<input id="reu-invitado" list="reu-contactos" placeholder="Escribe un nombre o un correo y Enter" autocomplete="off">
+						</div>
+					</label>
+					<label>Lugar (opcional)<input name="lugar" maxlength="200"></label>
+					<label>Detalle<textarea name="detalle" rows="4" maxlength="4000" placeholder="De qué se trata, qué traer, enlaces…"></textarea></label>
+					<p class="reu-nota">Se abre Google Calendar con todo llenado y con el enlace de Meet ya puesto. Revisa y dale a <b>Guardar</b>: Google manda la invitación a cada invitado y la reunión queda en tu calendario.</p>
+					<button type="submit" class="reu-principal">Abrir en Google Calendar</button>
+					<output id="reu-aviso"></output>
+				</form>
+			</section>
+		</div>
+		<datalist id="reu-contactos"></datalist>
+		<datalist id="reu-zonas">
+			<option value="America/Lima"><option value="America/Bogota"><option value="America/Mexico_City"><option value="America/Santiago">
+			<option value="America/Argentina/Buenos_Aires"><option value="America/New_York"><option value="America/Los_Angeles">
+			<option value="Europe/Madrid"><option value="Europe/Paris"><option value="Europe/London"><option value="Europe/Berlin"><option value="Asia/Kolkata">
+		</datalist>
+	</div>
+</div>
+
+<roundcube:include file="includes/footer.html" />
