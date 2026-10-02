@@ -17,13 +17,13 @@ const desc = w('Escríbele a Jose Adrianzen sobre proyectos, festivales y prensa
     <div class="canales" data-cascada>
       {vias.slice(1).map((v) => <a class="canal" href={v.href} target="_blank" rel="noopener"><b>{tr(v.t, lang)}</b><span>{v.v}</span><em aria-hidden="true">↗</em></a>)}
     </div>
-    <form class="mensaje" id="escribeme" action="/escribe/" method="post" novalidate data-lang={lang}>
+    <form class="mensaje" id="escribeme" action="/escribe/" method="post" novalidate data-lang={lang} data-txt={JSON.stringify({ falta: w('Revisa los campos marcados.', 'Check the marked fields.'), manda: w('Enviando…', 'Sending…'), ok: w('Mensaje enviado. Te respondo pronto.', 'Message sent. I will reply soon.'), mal: w('No se pudo enviar. Escríbeme a yo@joseadrianzen.com.', 'It did not go through. Write to me at yo@joseadrianzen.com.') })}>
       <h2 class="mensaje-t">{w('Déjame un mensaje', 'Leave me a message')}</h2>
       <p class="cod">{w('Te respondo al correo o al teléfono que dejes.', 'I will reply to the email or phone you leave.')}</p>
       <div class="mensaje-filas">
         <label class="campo ancho"><span>{w('Nombre', 'Name')}</span><input name="nombre" autocomplete="name" required minlength="2" maxlength="120"></label>
         <label class="campo"><span>{w('Correo', 'Email')}</span><input name="correo" type="email" autocomplete="email" inputmode="email" required maxlength="200"></label>
-        <label class="campo"><span>{w('Teléfono o WhatsApp', 'Phone or WhatsApp')} <i>{w('(opcional)', '(optional)')}</i></span><input name="telefono" type="tel" autocomplete="tel" inputmode="tel" maxlength="25" placeholder="+51"></label>
+        <label class="campo"><span>{w('Teléfono o WhatsApp', 'Phone or WhatsApp')}</span><input name="telefono" type="tel" autocomplete="tel" inputmode="tel" required minlength="6" maxlength="25" pattern="[+0-9 ().\-]{6,25}" placeholder="+51"></label>
         <label class="campo ancho"><span>{w('Mensaje', 'Message')}</span><textarea name="mensaje" rows="5" required minlength="10" maxlength="4000"></textarea></label>
       </div>
       <label class="trampa" aria-hidden="true">Web<input name="web" tabindex="-1" autocomplete="off"></label>
@@ -70,9 +70,8 @@ const desc = w('Escríbele a Jose Adrianzen sobre proyectos, festivales y prensa
     // Formulario: se manda sin recargar. Sin JavaScript también funciona (el servidor vuelve a esta página).
     const fm = document.getElementById('escribeme');
     if (fm) {
-      const t0 = Date.now(), est = fm.querySelector('.mensaje-estado'), en = fm.dataset.lang !== 'es';
-      const txt = en ? { falta: 'Check the marked fields.', manda: 'Sending…', ok: 'Message sent. I will reply soon.', mal: 'It did not go through. Write to me at yo@joseadrianzen.com.' }
-                     : { falta: 'Revisa los campos marcados.', manda: 'Enviando…', ok: 'Mensaje enviado. Te respondo pronto.', mal: 'No se pudo enviar. Escríbeme a yo@joseadrianzen.com.' };
+      const t0 = Date.now(), est = fm.querySelector('.mensaje-estado');
+      const txt = JSON.parse(fm.dataset.txt);
       if (location.search.includes('enviado=1')) { est.textContent = txt.ok; est.dataset.tipo = 'ok'; }
       fm.addEventListener('input', (e) => e.target.closest('.campo, .acepto')?.classList.remove('mal'));
       fm.addEventListener('submit', async (e) => {

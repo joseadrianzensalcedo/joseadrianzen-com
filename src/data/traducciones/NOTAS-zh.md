@@ -13,3 +13,12 @@
 Criterio: los títulos de página (claves con " | ") dejan Jose Adrianzen en letras latinas por la marca en buscadores. Entre polvo y sueños, ECO, Solidaridad, EPIC, UTP y demás marcas quedan en latino.
 - Adrianzen: 阿德里安森 (z se lee s en Perú). Julia: 胡利娅. Manzanares El Real: 曼萨纳雷斯埃尔雷亚尔, sin guion aunque la forma de Xinhua lo lleva entre partes.
 - Madre de Dios: 马德雷德迪奥斯, transliterado, no hallé forma fija. Noida: 诺伊达.
+
+
+## Tanda del 2 oct 2026 (privacidad, formulario, descripciones)
+
+# Notas zh
+
+- "También en": sin ver el contexto de la página, se tradujo como "también en/ también seleccionado" (lista de festivales). Revisar si va seguido de nombres de festivales.
+- "paredes de totora": se tradujo como caña o junco genérico, la palabra totora no tiene equivalente directo.
+- Título de página con "| Jose Adrianzen" en escritura latina, igual que los demás títulos del archivo existente.

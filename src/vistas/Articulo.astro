@@ -10,7 +10,7 @@ const url = 'https://joseadrianzen.com' + ruta('blog/' + art.slug, 'es');
 const ld = { '@context': 'https://schema.org', '@type': 'BlogPosting', headline: art.titulo, description: art.descripcion, datePublished: art.fecha, dateModified: art.modificado ?? art.fecha, inLanguage: 'es',
   mainEntityOfPage: url, author: { '@id': 'https://joseadrianzen.com/#jose' }, publisher: { '@id': 'https://joseadrianzen.com/#jose' } };
 ---
-<Base titulo={`${art.titulo} | Jose Adrianzen`} descripcion={art.descripcion} lang={lang} camino={'blog/' + art.slug} actual="blog" tipo="article" jsonLd={ld} navClara altOg={art.alt} soloEs>
+<Base titulo={`${art.titulo} | Jose Adrianzen`} descripcion={art.descripcion} lang={lang} camino={'blog/' + art.slug} actual="blog" tipo="article" jsonLd={ld} navClara imagenOg={`/og/${art.slug}.jpg`} altOg={art.alt} soloEs>
   <div class="barra-lectura" aria-hidden="true"><i></i></div>
   <article class="post papel grano">
     <header class="post-cab">

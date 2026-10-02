@@ -10,7 +10,7 @@ export default defineConfig({
   site: staging ? 'https://joseadrianzensalcedo.github.io' : 'https://joseadrianzen.com',
   base: staging ? '/joseadrianzen-com' : '/',
   trailingSlash: 'ignore',
-  integrations: [sitemap()],
+  integrations: [sitemap({ lastmod: new Date(), filter: (p) => !p.includes('/404') })],
   build: { format: 'directory', inlineStylesheets: 'auto' },
   compressHTML: true,
 });

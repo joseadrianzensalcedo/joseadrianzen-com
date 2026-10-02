@@ -1,7 +1,7 @@
 <?php
 /* Formulario "Déjame un mensaje" de /contacto/.
  *
- * Peras y manzanas: recibe nombre, correo, teléfono y mensaje, guarda una copia en una base fuera de public_html
+ * Peras y manzanas: recibe nombre, correo, teléfono (obligatorio) y mensaje, guarda una copia en una base fuera de public_html
  * y te lo manda a yo@joseadrianzen.com. Al responder ese correo le contestas directo a la persona (Responder a).
  * No le manda nada a quien escribe, así nadie puede usar el formulario para mandar correos a terceros.
  * Frenos contra robots: campo trampa invisible, mínimo 3 segundos llenando, máximo 5 mensajes por hora por conexión.
@@ -50,7 +50,7 @@ if (isset($d['t']) && (int) $d['t'] < 3000) fin(200);
 
 if (mb_strlen($nombre) < 2) fin(422, 'nombre');
 if (!filter_var($correo, FILTER_VALIDATE_EMAIL) || preg_match('/[\r\n]/', $correo)) fin(422, 'correo');
-if ($telefono !== '' && !preg_match('/^\+?[0-9 ().\x2D]{6,25}$/', $telefono)) fin(422, 'telefono');
+if (!preg_match('/^\+?[0-9 ().\x2D]{6,25}$/', $telefono) || strlen(preg_replace('/\D/', '', $telefono)) < 6) fin(422, 'telefono');
 if (mb_strlen($mensaje) < 10) fin(422, 'mensaje');
 if (empty($d['acepto'])) fin(422, 'acepto');
 
@@ -81,7 +81,7 @@ try {
 // Correo a Jose. Responder a = la persona que escribió.
 $lima = new DateTime('now', new DateTimeZone('America/Lima'));
 $cuerpo = "Mensaje desde el formulario de " . DOMINIO . "\n\n"
-        . "Nombre: $nombre\nCorreo: $correo\n" . ($telefono !== '' ? "Teléfono: $telefono\n" : '')
+        . "Nombre: $nombre\nCorreo: $correo\n" . "Teléfono: $telefono\n"
         . "Idioma de la página: $idioma\nFecha: " . $lima->format('d/m/Y H:i') . " (Lima)\n\n"
         . "$mensaje\n";
 $asunto = '=?UTF-8?B?' . base64_encode('Web: mensaje de ' . $nombre) . '?=';

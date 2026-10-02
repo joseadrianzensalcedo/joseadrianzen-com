@@ -37,7 +37,7 @@ export const articulos = [
     titulo: 'La inteligencia artificial no sabe dónde poner la cámara',
     tema: 'IA como herramienta',
     fecha: '2026-09-02',
-    descripcion: 'Tres años filmando a las mujeres mineras del Perú me dejaron una certeza, la inteligencia artificial es una herramienta nueva para el problema de siempre, y ese problema no es técnico.',
+    descripcion: 'Tres años filmando a las mineras del Perú me dejaron una certeza. La inteligencia artificial es una herramienta nueva para un problema que no es técnico.',
     imagen: 'bts-doc-1',
     alt: 'Jose Adrianzen ajusta la cámara sobre el trípode en la pampa',
     pie: 'Ajustando la cámara sobre el trípode en la pampa',

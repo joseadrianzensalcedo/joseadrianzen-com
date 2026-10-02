@@ -11,3 +11,13 @@
 Criterio: los títulos de página (claves con " | ") dejan Jose Adrianzen en letras latinas por la marca en buscadores. Entre polvo y sueños, ECO, Solidaridad, EPIC, UTP y demás marcas quedan en latino.
 - Adrianzen: अद्रियानज़ेन. Jose: होसे. Noida: नोएडा (forma oficial india). Madre de Dios: माद्रे दे दियोस, transliterado.
 - Agregué guion corto en अलग-अलग, como pide la ortografía hindi para palabras repetidas.
+
+
+## Tanda del 2 oct 2026 (privacidad, formulario, descripciones)
+
+# Notas de traducción
+
+- "También en": se tradujo de forma literal y neutra, sin agregar "se proyectó". Revisar en contexto si va antes de una lista de festivales.
+- "Aviso de medición" / "Cómo se mide": se tradujo como "registro (o medición) de visitas" para que se entienda sin contexto.
+- Meta "Jose Adrianzen, director y productor...": 159 caracteres, en el límite. Si se edita, revisar el largo.
+- Frases en primera persona ("Te respondo...") usan forma masculina (दूँगा), porque habla Jose.

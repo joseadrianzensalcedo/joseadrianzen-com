@@ -62,3 +62,49 @@ película, blog, menú, festival, premio, documental, cortometraje, tráiler, sa
 - "calavera": "p'iqi ch'akha" (hueso de la cabeza). Revisar.
 - "mesa de juego": "anatañ mesa". Calco.
 - "antes de vestir el set": "janïr set wakicht'kipana". La forma verbal no es segura.
+
+
+## Tanda del 2 oct 2026 (privacidad, formulario, descripciones)
+
+# Dudas, aimara (ay), 52 frases nuevas
+
+Aviso general: igual que el resto de ay.json, NO está listo para publicar. Mi dominio del aimara es limitado, la morfología (sufijos, caída de vocal, vocal larga, -wa y -xa, personas verbales) puede tener errores que no detecto. Mismo criterio de préstamos (ortografía castellana más sufijo) y "Perú" sin adaptar.
+
+## Préstamos nuevos
+Privacidad, publicidad, dato (datonaka), web, empresa, correo, teléfono, semana, hora, bloque, minuto, celeste, carga camión, totora, premio, festival, cámara, rebotador, caña de sonido, entrevista, carro, dron, dueño, servidor, contratata, sección, enlace, clic, aparato, sistema, navegador, región, base, código, azar, píxel, redes, cookie, conexión, opción, derecho, Ley.
+
+## Claves con duda concreta
+- "Sin Google ni publicidad": "Janiw Googles, publicidadas utjkiti", mismo molde que "Sin rastreadores ni cookies" del diccionario existente.
+- "¿Te reconocemos cuando vuelvas?": "Kutt'anxäta ukhax uñt'apxsmati?". La forma 1.ª plural a 2.ª persona ("uñt'apxsma") es la de mayor riesgo del archivo.
+- "Cómo se mide" y títulos de la página: "Kunjams tupusi" / "Kunjams aka web tupusi". "tupuña" para medir y "jakhuña" para contar. Revisar si -si da el sentido pasivo que busco.
+- "Sí" / "No": "Jïsa" / "Janiwa".
+- "Déjame un mensaje": "Mä yatiyaw jaytita" (imperativo 2.ª a 1.ª, como "Qillqt'ita").
+- "Te respondo...": "jaysäma" (futuro 1.ª a 2.ª). No verificado.
+- "Acepto que se usen estos datos solo para responderme": "Iyaw sta, aka datonakax jaysañatakiki apnaqasiñapa." Frase de riesgo.
+- "Mi disponibilidad esta semana": "Aka semana qhispi horanakaja" (mis horas libres esta semana). "qhispi" para libre, revisar.
+- "La hora se muestra en la tuya": "Horax juman horamaruw uñacht'ayasi". Redundante, revisar.
+- Meta de ECO: "1980 maranakana" (en los años 1980). "6K ukan filmata" (filmado en 6K). "Janïr uñacht'ayatäkiti" (aún no mostrado). Revisar las tres formas.
+- "ladera": "qullu thiya" (borde del cerro). Aproximado.
+- "Vista aérea": "patxat uñjata" (visto desde arriba). "nevados": "khunu qullunaka".
+- "laguna andina": "qullu quta" (laguna de cerro).
+- "escuchan una charla": "mä arst'äw ist'apxi". "arst'äwi" para charla, revisar.
+- "4 premios · 11 selecciones oficiales": "4 premio · 11 festivalan ajllita". "Selección oficial": "Festivalan ajllitapa". Paráfrasis.
+- "También en": "Akanakansa" (también en estos).
+- "detrás de cámaras": "cámara qhipana", calco.
+- "maneja el control del dron": "dron sarnaqayi" (hace andar el dron). Se perdió "el control".
+- "Quién mide": "Khitis tupu". Revisar.
+- "hasta dónde bajas": "kawkkamas saraqta", literal, revisar si se entiende como scroll.
+- "haces clic": "clic lurta", préstamo.
+- "pausas": "samarayta", siguiendo "Samaraña" del diccionario existente. "adelantas": "nayraqatar sartayta". Aproximado.
+- "país, región, ciudad": "suyu, región, jach'a marka". "marka" ya se usa como país en "Perú marka", por eso ciudad quedó "jach'a marka". Revisar.
+- "la base gratuita": "jan qullqini base". "se descarta": "apanuqasi".
+- "Tu navegador... te reconoce": "uñt'tam" (3.ª a 2.ª). No verificado.
+- "Una visita de hoy no se puede unir con la de mañana": "mayachasirjamäkiti". Forma potencial no segura.
+- "Sin terceros": "Jan yaqhanakampi" (sin otros).
+- "con la opción de no rastreo activada": "jan arknaqañ opcionampi naktayata" (con la opción de no seguir encendida). Riesgo alto.
+- "Cuánto tiempo": "Qhawqha pacha", igual que "Duración" en el diccionario existente.
+- "Tus derechos": "Derechonakama", préstamo.
+- "Ley 29733 de protección de datos personales": "Ley 29733" más "jaqin datonakap jark'aqir kamachi" (norma que protege los datos de las personas).
+- Meta de Jose: "EPIC ukan cine yatiqäna" y "irpäna" (dirigió, como "Irpiri" del diccionario existente). Pasado narrativo -äna, revisar.
+
+- (2 oct 2026) Mensajes del formulario (Revisa los campos marcados, Enviando, Mensaje enviado, No se pudo enviar): traducción propia sin verificar, revisar con hablante nativo.

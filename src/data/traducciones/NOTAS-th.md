@@ -11,3 +11,12 @@
 Criterio: los títulos de página (claves con " | ") dejan Jose Adrianzen en letras latinas por la marca en buscadores. Entre polvo y sueños, ECO, Solidaridad, EPIC, UTP y demás marcas quedan en latino.
 - Jose: โฆเซ (regla del Real Instituto para José). Adrianzen: อาเดรียนเซน. Callao: กายาโอ. Victoria: บิกตอเรีย (regla española, b por v). Revisar si prefieren วิกตอเรีย, más común.
 - Madre de Dios, Manzanares El Real, Pomalique y Carrión transliterados, sin forma fija. También pasé a tailandés Shipibo (ชิปิโบ), Türkiye (ตุรกี) e Imo (อีโม), que seguían en latino.
+
+
+## Tanda del 2 oct 2026 (privacidad, formulario, descripciones)
+
+# Notas th
+
+- "También en": sin ver el contexto de la página, se tradujo como "también en/ también seleccionado" (lista de festivales). Revisar si va seguido de nombres de festivales.
+- "paredes de totora": se tradujo como caña o junco genérico, la palabra totora no tiene equivalente directo.
+- Título de página con "| Jose Adrianzen" en escritura latina, igual que los demás títulos del archivo existente.

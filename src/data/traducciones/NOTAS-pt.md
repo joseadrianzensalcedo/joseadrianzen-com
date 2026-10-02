@@ -4,3 +4,9 @@
 - Clave: Rodaje de Entre polvo y sueños en la pampa. Se dejó pampa (la versión inglesa dice open pit). Pampa se entiende como llanura, no como zona minera abierta.
 - Clave: Dirección y Realización de Cine y TV, EPIC (IES Peruano de Cine y Creatividad). El nombre del instituto entre paréntesis es una traducción descriptiva, no un nombre oficial en este idioma.
 - Clave: Ingeniería empresarial, UTP. Engenharia empresarial no es una carrera estándar en Brasil (lo más cercano es engenharia de produção). Se dejó literal.
+
+
+## Tanda del 2 oct 2026 (privacidad, formulario, descripciones)
+
+# Notas pt
+- "Entre polvo y sueños": meta acortada a "Assista aqui." (como el inglés) en vez de "completo".

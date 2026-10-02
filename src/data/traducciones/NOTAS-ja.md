@@ -13,3 +13,12 @@
 Criterio: los títulos de página (claves con " | ") dejan Jose Adrianzen en letras latinas por la marca en buscadores. Entre polvo y sueños, ECO, Solidaridad, EPIC, UTP y demás marcas quedan en latino.
 - Adrianzen: アドリアンセン. Arequipa: アレキパ (también circula アレキーパ). Julia: フリア. Callao: カヤオ.
 - Lima, Perú quedó ペルー・リマ y Noida, India quedó インド・ノイダ, con el punto medio como el resto del archivo.
+
+
+## Tanda del 2 oct 2026 (privacidad, formulario, descripciones)
+
+# Notas ja
+
+- "También en": sin ver el contexto de la página, se tradujo como "también en/ también seleccionado" (lista de festivales). Revisar si va seguido de nombres de festivales.
+- "paredes de totora": se tradujo como caña o junco genérico, la palabra totora no tiene equivalente directo.
+- Título de página con "| Jose Adrianzen" en escritura latina, igual que los demás títulos del archivo existente.

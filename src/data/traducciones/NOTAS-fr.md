@@ -4,3 +4,11 @@
 - Clave: Rodaje de Entre polvo y sueños en la pampa. Se dejó pampa (la versión inglesa dice open pit). Pampa se entiende como llanura, no como zona minera abierta.
 - Clave: Dirección y Realización de Cine y TV, EPIC (IES Peruano de Cine y Creatividad). El nombre del instituto entre paréntesis es una traducción descriptiva, no un nombre oficial en este idioma.
 - Clave: Ingeniería empresarial, UTP. Se usó Ingénierie de gestion, equivalente aproximado. No hay carrera con ese nombre exacto en Francia.
+
+
+## Tanda del 2 oct 2026 (privacidad, formulario, descripciones)
+
+# Notas fr
+- Tratamiento: se usó "vous" (el español usa tú). Para programadores y prensa en francés es lo normal.
+- "Aussi à": traduce "También en" (lista de festivales). Si el contexto no es festivales, cambiar.
+- Se usó espacio no separable antes de "?" y ":" según tipografía francesa.
