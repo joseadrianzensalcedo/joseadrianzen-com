@@ -119,3 +119,6 @@ g-l,.letra-g{display:inline-block}
 /* Pie: enlaces con al menos 32 px de alto para el dedo. */
 .pie-mapa a{display:inline-block;padding-block:9px}
 @media (max-width:860px){.pie-mapa{gap:4px 22px}}
+/* La Ñ de AWAKENNING lleva la virgulilla muy arriba (casi una letra entera sobre la línea). En Safari y Chrome de Mac
+   la máscara de cada línea la cortaba y salía SUENOS. La máscara del título tiene más aire arriba. */
+.titulo-pelicula .linea-mask{padding-top:.42em!important;margin-top:-.42em!important}
