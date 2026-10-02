@@ -31,11 +31,11 @@ Entra por SSH a Hostinger y corre:
 
 ```
 cd ~
-curl -fsSLO https://raw.githubusercontent.com/joseadrianzensalcedo/joseadrianzen-com/portada-diseno/correo/agregar-gmail.sh
+curl -fsSLO https://raw.githubusercontent.com/joseadrianzensalcedo/joseadrianzen-com/correo-gmail/correo/agregar-gmail.sh
 bash agregar-gmail.sh
 ```
 
-(La rama `portada-diseno` tiene que estar subida a GitHub antes. Si cambias de rama, cambia esa palabra en la dirección.)
+(La rama `correo-gmail` tiene que estar subida a GitHub antes. Si cambias de rama, cambia esa palabra en la dirección.)
 
 El script se detiene y dice qué pasa si algo falta. Los dos frenos más probables:
 

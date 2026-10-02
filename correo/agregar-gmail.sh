@@ -20,7 +20,7 @@ set -euo pipefail
 
 DOMINIO="joseadrianzen.com"
 PLUGIN_VER="5.0.5"
-RAMA="${RAMA:-portada-diseno}"   # rama de GitHub de donde salen los archivos de la piel
+RAMA="${RAMA:-correo-gmail}"   # rama de GitHub de donde salen los archivos de la piel
 REPO="https://raw.githubusercontent.com/joseadrianzensalcedo/joseadrianzen-com/${RAMA}/correo"
 PLUGIN_URL="https://github.com/Gecka-Apps/roundcube-ident_switch/archive/refs/tags/${PLUGIN_VER}.tar.gz"
 
