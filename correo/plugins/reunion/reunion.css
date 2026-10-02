@@ -2,7 +2,7 @@
 html body .reunion-panel{--fondo:var(--negro,#050505);--panel:var(--negro-2,#0c0b0a);--texto:var(--blanco,#f2efe9);--suave:var(--humo,#8a837a);--acento:var(--polvo,#d68a2e);--raya:var(--linea,#232019);
   background:var(--fondo);color:var(--texto);padding:28px clamp(16px,3vw,40px) 48px;overflow:auto;height:100%;box-sizing:border-box;font:400 14px/1.5 var(--cuerpo,'Archivo',Arial,sans-serif)}
 html body .reu-columnas{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.4fr);gap:28px;max-width:1200px}
-@media (max-width:900px){.reu-columnas{grid-template-columns:1fr}}
+@media (max-width:900px){html body .reu-columnas{grid-template-columns:1fr}}
 html body .reu-bloque{background:var(--panel);border:1px solid var(--raya);padding:22px 22px 26px;min-width:0}
 html body .reu-bloque h2{font:400 34px/1 var(--display,'Anton',Impact,sans-serif);margin:0 0 14px;letter-spacing:.01em;text-transform:none;color:var(--texto)}
 html body .reu-nota{color:var(--suave);font-size:13px;margin:0 0 16px;max-width:60ch}

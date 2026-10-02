@@ -595,3 +595,9 @@ html.dark-mode #plugin-ident_switch-account option{
 }
 html.dark-mode #plugin-ident_switch-account:focus-visible{outline:1px solid var(--polvo);outline-offset:3px}
 html.dark-mode #ident-switch-badge{background:var(--polvo);color:var(--negro)}
+
+/* Auditoría 2 oct 2026: en el celular quedaban tres cosas en el azul de Roundcube. */
+html.dark-mode .btn-primary:not(:disabled):active,html.dark-mode .btn-primary:not(:disabled).active,
+html.dark-mode .btn-primary:not(:disabled):active:focus{background-color:var(--polvo)!important;border-color:var(--polvo)!important;color:var(--negro)!important;box-shadow:none!important}
+html.dark-mode .floating-action-buttons a.button,html.dark-mode .floating-action-buttons button{background-color:var(--polvo)!important;color:var(--negro)!important;box-shadow:0 2px 10px rgba(0,0,0,.5)}
+html.dark-mode .floating-action-buttons a.button:before{color:var(--negro)!important}
