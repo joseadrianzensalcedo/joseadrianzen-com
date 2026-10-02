@@ -1,5 +1,7 @@
 # Correo propio en joseadrianzen.com/correo
 
+> **Gmail en el mismo correo:** ver `AGREGAR-GMAIL.md` (1 de octubre de 2026).
+
 > **Ya esta instalado y funcionando** (26 de agosto de 2026). Esta guia queda
 > como referencia para reinstalar, mover el correo a otro hosting o entender
 > que hay montado. Para el dia a dia no hace falta abrirla.

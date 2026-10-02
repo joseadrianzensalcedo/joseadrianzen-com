@@ -67,12 +67,12 @@ $config['htmleditor']         = 1;    // redactar con formato (0 = texto plano)
 $config['draft_autosave']     = 120;  // guardar borrador cada 2 min
 $config['refresh_interval']   = 60;
 $config['check_all_folders']  = false;
-$config['identities_level']   = 1;    // una identidad, con nombre editable
+$config['identities_level']   = 0;    // varias identidades, todo editable: lo necesita el Gmail (ident_switch)
 $config['message_show_email'] = true; // ver la direccion, no solo el nombre
 
 /* Complementos que ya vienen con Roundcube: archivar, descargar adjuntos en
    zip y avisar de correo nuevo. */
-$config['plugins'] = ['archive', 'zipdownload', 'newmail_notifier'];
+$config['plugins'] = ['ident_switch', 'archive', 'zipdownload', 'newmail_notifier'];  // ident_switch: Gmail en el mismo correo (ver AGREGAR-GMAIL.md)
 
 /* ── carpetas ────────────────────────────────────────────────────────────
    Se dejan los nombres de fabrica a proposito. Cada servidor IMAP las llama
