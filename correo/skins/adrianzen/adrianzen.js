@@ -21,6 +21,9 @@
     return;
   }
 
+  // Solo aquí, en la ventana de arriba y con el círculo activo, se esconde la flecha del sistema (ver adrianzen.css).
+  document.documentElement.classList.add('cur-propio');
+
   var cx = 0, cy = 0, tx = 0, ty = 0, raf = null;
 
   function loop() {
@@ -75,4 +78,28 @@
       if (typeof ident_switch_onNotify === 'function') rcmail.addEventListener('plugin.ident_switch.notify', ident_switch_onNotify);
     }, 0);
   });
+})();
+
+/* Cursor visible al escribir. El cuerpo del correo se escribe dentro de una ventana aparte (el editor, un iframe).
+   Ahí no llega la regla de la piel, y con el modo oscuro el cursor de texto podía quedar del mismo color que el
+   fondo. Aquí se le pone al editor, cada vez que aparece, la flecha de escribir y un cursor de texto del color
+   de la letra, que siempre se ve contra su fondo (2 de octubre de 2026). */
+(function () {
+  'use strict';
+  var CSS = 'html,body,body *{cursor:text!important}body{caret-color:currentColor!important}a,a *{cursor:pointer!important}';
+  function arreglar(f) {
+    try {
+      var d = f.contentDocument;
+      if (!d || !d.head || d.getElementById('adrianzen-cursor')) return;
+      var s = d.createElement('style'); s.id = 'adrianzen-cursor'; s.textContent = CSS; d.head.appendChild(s);
+    } catch (e) {}
+  }
+  function buscar() {
+    document.querySelectorAll('.tox-edit-area iframe, iframe[id$="_ifr"]').forEach(function (f) {
+      arreglar(f);
+      if (!f.dataset.cursorOk) { f.dataset.cursorOk = '1'; f.addEventListener('load', function () { arreglar(f); }); }
+    });
+  }
+  if (window.MutationObserver) new MutationObserver(buscar).observe(document.documentElement, { childList: true, subtree: true });
+  document.addEventListener('DOMContentLoaded', buscar);
 })();

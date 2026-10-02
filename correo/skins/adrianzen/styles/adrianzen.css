@@ -171,22 +171,23 @@ html.dark-mode .formcontent legend{
    flecha se esconde en la interfaz, pero vuelve donde se escribe o se
    selecciona. Para volver a la regla estricta del sitio, borrar el segundo
    bloque; para recuperar la flecha en todo, borrar los dos. */
+/* La flecha se esconde solo en la ventana de arriba, donde se dibuja el círculo (clase cur-propio, la pone
+   adrianzen.js). Dentro del cuerpo del correo y del editor, que son ventanas aparte (iframes), el círculo no
+   existe: ahí la flecha y el cursor de texto se ven siempre. Antes la regla alcanzaba también esas ventanas y
+   el cursor desaparecía al escribir y al leer (se arregló el 2 de octubre de 2026). */
 @media (hover:hover) and (pointer:fine){
-  html.dark-mode,html.dark-mode *{cursor:none}
-  html.dark-mode input,
-  html.dark-mode textarea,
-  html.dark-mode select,
-  html.dark-mode iframe,
-  html.dark-mode [contenteditable],
-  html.dark-mode .mce-content-body,
-  html.dark-mode #messagebody,
-  html.dark-mode .ui-resizable-handle,
-  html.dark-mode .splitter{cursor:auto}
+  html.dark-mode.cur-propio,html.dark-mode.cur-propio *{cursor:none}
+  html.dark-mode.cur-propio :is(input,textarea,select,iframe,[contenteditable],.mce-content-body,#messagebody,.ui-resizable-handle,.splitter),
+  html.dark-mode.cur-propio :is([contenteditable],.mce-content-body,#messagebody,textarea) *{cursor:auto}
+  html.dark-mode.cur-propio :is(input[type=text],input[type=email],input[type=search],input[type=password],textarea,[contenteditable]),
+  html.dark-mode.cur-propio :is([contenteditable],.mce-content-body) *{cursor:text}
 }
+/* El cursor de texto toma el color de la letra: así se ve en cualquier fondo, claro u oscuro. */
+html.dark-mode :is(input,textarea,[contenteditable]){caret-color:currentColor}
 @media (prefers-reduced-motion:reduce){
   .grano{animation:none}
   .cur{display:none}
-  html.dark-mode,html.dark-mode *{cursor:auto}
+  html.dark-mode.cur-propio,html.dark-mode.cur-propio *{cursor:auto}
 }
 
 /* ───────── superficies ─────────
