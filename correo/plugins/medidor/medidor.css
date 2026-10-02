@@ -1,0 +1,51 @@
+/* Panel del medidor. Toma los colores y letras de la piel adrianzen; si la piel cambia, quedan los de respaldo. */
+.medidor-panel{--fondo:var(--negro,#050505);--panel:var(--negro-2,#0c0b0a);--texto:var(--blanco,#f2efe9);--suave:var(--humo,#8a837a);--acento:var(--polvo,#d68a2e);--raya:var(--linea,#232019);
+  background:var(--fondo);color:var(--texto);padding:24px clamp(16px,3vw,40px) 40px;overflow:auto;height:100%;box-sizing:border-box;font:400 14px/1.5 var(--cuerpo,'Archivo',Arial,sans-serif)}
+.medidor-panel h3{font:400 24px/1 var(--display,'Anton',Impact,sans-serif);letter-spacing:.02em;margin:36px 0 12px;text-transform:none}
+.med-pestanas{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}
+.med-pestanas button,.med-periodo select,.medidor-panel button,.med-form input{font:400 12px var(--maquina,'Courier New',monospace);letter-spacing:.08em;color:var(--texto);background:var(--panel);border:1px solid var(--raya);padding:8px 12px;cursor:pointer;border-radius:0}
+.med-pestanas button[aria-pressed="true"]{background:var(--acento);border-color:var(--acento);color:#0c0b0a}
+.med-periodo label{display:flex;align-items:center;gap:10px}
+.med-periodo{margin:6px 0 18px;font:400 12px var(--maquina,monospace);color:var(--suave);letter-spacing:.08em}
+.med-periodo select{margin-left:8px}
+.med-datos{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:8px;margin:8px 0 24px}
+.med-dato{background:var(--panel);border:1px solid var(--raya);padding:14px 16px;display:flex;flex-direction:column;gap:4px;min-width:0}
+.med-dato b{font:400 30px/1 var(--display,'Anton',sans-serif);color:var(--texto);font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
+.med-dato span{font:400 11px var(--maquina,monospace);letter-spacing:.1em;text-transform:uppercase;color:var(--acento)}
+.med-dato em{font-style:normal;font-size:12px;color:var(--suave)}
+.med-tabla{overflow-x:auto;border:1px solid var(--raya)}
+.med-tabla table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}
+.med-tabla th{font:400 11px var(--maquina,monospace);letter-spacing:.1em;text-transform:uppercase;color:var(--suave);text-align:left;padding:8px 10px;border-bottom:1px solid var(--raya);white-space:nowrap}
+.med-tabla td{padding:8px 10px;border-bottom:1px solid var(--raya);vertical-align:top;position:relative}
+.med-tabla .n{text-align:right;white-space:nowrap}
+.med-tabla small{display:block;color:var(--suave);font-size:12px}
+.med-tabla tr[data-id]{cursor:pointer}.med-tabla tr[data-id]:hover td{background:var(--carbon,#15130f)}
+.med-barra{position:absolute;inset:auto auto 0 0;height:2px;width:var(--p);background:var(--acento);opacity:.8}
+.med-nombre{color:var(--acento)}
+.med-rejilla{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,420px),1fr));gap:0 28px}
+.med-graf{margin:18px 0 8px}
+.med-graf figcaption{font:400 11px var(--maquina,monospace);letter-spacing:.1em;text-transform:uppercase;color:var(--suave);margin-bottom:6px}
+.med-svg{overflow-x:auto}
+.med-svg svg{max-width:100%;height:auto;display:block}
+.med-svg rect{fill:var(--acento)}.med-svg rect.toque{fill:transparent}.med-svg rect.toque:hover{fill:rgba(242,239,233,.08)}
+.med-svg .eje{fill:var(--suave);font:10px var(--maquina,monospace)}
+.med-svg .base,.med-svg .guia{stroke:var(--raya);stroke-width:1}
+.med-svg .linea{fill:none;stroke:var(--acento);stroke-width:2}
+.med-svg .area{fill:var(--acento);opacity:.18}
+.med-nota,.med-vacio,.med-pie{color:var(--suave);font-size:13px;max-width:80ch}
+.med-pie{margin-top:40px;border-top:1px solid var(--raya);padding-top:12px}
+.med-pie a,.medidor-panel a{color:var(--acento)}
+.med-linea{list-style:none;margin:0;padding:0;border-left:1px solid var(--raya)}
+.med-linea li{padding:6px 0 6px 16px;position:relative}
+.med-linea li:before{content:"";position:absolute;left:-4px;top:13px;width:7px;height:7px;background:var(--acento)}
+.med-linea time{font:400 12px var(--maquina,monospace);color:var(--suave);margin-right:10px}
+.med-linea small{color:var(--suave)}
+.med-form{display:flex;flex-wrap:wrap;gap:10px;align-items:end;margin:12px 0 20px}
+.med-form label{display:flex;flex-direction:column;gap:4px;font:400 11px var(--maquina,monospace);letter-spacing:.1em;text-transform:uppercase;color:var(--suave)}
+.med-form input{cursor:text;text-transform:none;min-width:0}
+.med-form button[type=submit]{background:var(--acento);color:#0c0b0a;border-color:var(--acento)}
+.med-form output{color:var(--acento)}
+.medidor-panel code{font:12px var(--maquina,monospace);overflow-wrap:anywhere}
+.medidor-panel details summary{cursor:pointer;color:var(--suave)}
+.med-periodo select{width:auto}
+.med-detalle .med-dato b{font-size:22px;line-height:1.1}

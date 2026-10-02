@@ -65,6 +65,10 @@ const en = lang === 'en';
   function embed(u){var m=u.match(/vimeo\.com\/(\d+)(?:\/([0-9a-f]+))?/);return 'https://player.vimeo.com/video/'+m[1]+'?'+(m[2]?'h='+m[2]+'&':'');}
   function marca(){document.querySelectorAll('[data-idioma]').forEach(function(x){x.setAttribute('aria-pressed',x.dataset.idioma===idioma);});}
   marca();
+  // Avisa al medidor de visitas (src/scripts/medidor.js) qué pasa con el video. Si el medidor no está, no pasa nada.
+  var ultS=0;
+  function avisa(a,d){d=d||{};d.a=a;d.f=fuente;d.i=idioma;document.dispatchEvent(new CustomEvent('medida',{detail:d}));}
+  function salta(t){avisa('salto',{de:ultS,a2:t});ultS=t;player.setCurrentTime(t);}
 
   function fmt(s){s=Math.max(0,Math.floor(s||0));var h=Math.floor(s/3600),m=Math.floor(s%3600/60),x=s%60;return (h?h+':'+String(m).padStart(2,'0'):m)+':'+String(x).padStart(2,'0');}
   function pinta(r,v){r.style.setProperty('--p',(v/r.max*100)+'%');}
@@ -76,7 +80,7 @@ const en = lang === 'en';
     bPlay.querySelector('.i-play').toggleAttribute('hidden',!pausado);bPlay.querySelector('.i-pausa').toggleAttribute('hidden',pausado);bPlay.setAttribute('aria-label',pausado?'Reproducir':'Pausar');}
 
   function inicia(){
-    rp.classList.add('listo','cargando');rp.classList.remove('error');
+    rp.classList.add('listo','cargando');rp.classList.remove('error');avisa('abre');
     cargaSdk().then(function(){
       var f=document.createElement('iframe');
       f.src=src(url());f.allow='autoplay; fullscreen';f.title=TITULO;f.setAttribute('tabindex','-1');
@@ -85,12 +89,12 @@ const en = lang === 'en';
       player.on('loaded',function(){rp.classList.remove('cargando');player.getDuration().then(function(d){dur=d;tTot.textContent=fmt(d);});});
       player.on('bufferstart',function(){rp.classList.add('cargando');});
       player.on('bufferend',function(){rp.classList.remove('cargando');});
-      player.on('play',function(){rp.classList.remove('cargando');estado(false);despierta();});
-      player.on('pause',function(){estado(true);});
-      player.on('ended',function(){estado(true);});
-      player.on('timeupdate',function(e){if(arrastrando)return;var v=Math.round(e.percent*1000);avance.value=v;pinta(avance,v);tAct.textContent=fmt(e.seconds);avance.setAttribute('aria-valuetext',fmt(e.seconds)+' de '+fmt(dur));});
+      player.on('play',function(e){avisa('play',{s:e&&e.seconds});rp.classList.remove('cargando');estado(false);despierta();});
+      player.on('pause',function(e){avisa('pausa',{s:e&&e.seconds});estado(true);});
+      player.on('ended',function(){avisa('fin',{s:dur});estado(true);});
+      player.on('timeupdate',function(e){if(arrastrando)return;ultS=e.seconds;avisa('t',{s:e.seconds,d:e.duration});var v=Math.round(e.percent*1000);avance.value=v;pinta(avance,v);tAct.textContent=fmt(e.seconds);avance.setAttribute('aria-valuetext',fmt(e.seconds)+' de '+fmt(dur));});
       player.on('volumechange',function(e){var v=Math.round(e.volume*100);volumen.value=v;pinta(volumen,v);});
-      player.on('error',function(){rp.classList.add('error');rp.classList.remove('cargando');});
+      player.on('error',function(){avisa('error');rp.classList.add('error');rp.classList.remove('cargando');});
       player.play().catch(function(){estado(true);rp.classList.remove('cargando');});
       bPlay.focus({preventScroll:true});
     }).catch(function(){rp.classList.add('error');rp.classList.remove('cargando');});
@@ -101,17 +105,17 @@ const en = lang === 'en';
   rp.querySelector('.capa').addEventListener('click',function(){alterna();despierta();});
   rp.querySelector('.capa').addEventListener('dblclick',function(){pantalla();});
   bPlay.addEventListener('click',alterna);
-  bMute.addEventListener('click',function(){if(!player)return;player.getMuted().then(function(m){player.setMuted(!m);bMute.querySelector('.i-son').toggleAttribute('hidden',!m);bMute.querySelector('.i-mudo').toggleAttribute('hidden',m);bMute.setAttribute('aria-label',m?'Silenciar':'Activar sonido');});});
+  bMute.addEventListener('click',function(){if(!player)return;player.getMuted().then(function(m){avisa(m?'sonido':'mudo');player.setMuted(!m);bMute.querySelector('.i-son').toggleAttribute('hidden',!m);bMute.querySelector('.i-mudo').toggleAttribute('hidden',m);bMute.setAttribute('aria-label',m?'Silenciar':'Activar sonido');});});
   volumen.addEventListener('input',function(){pinta(volumen,volumen.value);if(player)player.setVolume(volumen.value/100);});
   avance.addEventListener('input',function(){arrastrando=true;pinta(avance,avance.value);tAct.textContent=fmt(avance.value/1000*dur);});
-  avance.addEventListener('change',function(){arrastrando=false;if(player)player.setCurrentTime(avance.value/1000*dur);});
-  function pantalla(){if(document.fullscreenElement)document.exitFullscreen();else if(rp.requestFullscreen)rp.requestFullscreen();else if(player)player.requestFullscreen();}
+  avance.addEventListener('change',function(){arrastrando=false;if(player)salta(avance.value/1000*dur);});
+  function pantalla(){avisa(document.fullscreenElement?'sale-pantalla':'pantalla');if(document.fullscreenElement)document.exitFullscreen();else if(rp.requestFullscreen)rp.requestFullscreen();else if(player)player.requestFullscreen();}
   bPant.addEventListener('click',pantalla);
   rp.addEventListener('pointermove',despierta);
   rp.addEventListener('keydown',function(e){if(!player||e.target.type==='range'&&(e.key==='ArrowLeft'||e.key==='ArrowRight'))return;
     if(e.key===' '||e.key==='k'){e.preventDefault();alterna();}
-    else if(e.key==='ArrowRight'){player.getCurrentTime().then(function(t){player.setCurrentTime(Math.min(dur,t+10));});}
-    else if(e.key==='ArrowLeft'){player.getCurrentTime().then(function(t){player.setCurrentTime(Math.max(0,t-10));});}
+    else if(e.key==='ArrowRight'){player.getCurrentTime().then(function(t){salta(Math.min(dur,t+10));});}
+    else if(e.key==='ArrowLeft'){player.getCurrentTime().then(function(t){salta(Math.max(0,t-10));});}
     else if(e.key==='f'){pantalla();} else if(e.key==='m'){bMute.click();}
     despierta();});
   function cambia(guardaTiempo){
@@ -125,10 +129,10 @@ const en = lang === 'en';
       .catch(function(){rp.classList.add('error');rp.classList.remove('cargando');});
   }
   document.querySelectorAll('[data-fuente]').forEach(function(b){b.addEventListener('click',function(){
-    fuente=b.dataset.fuente;document.querySelectorAll('[data-fuente]').forEach(function(x){x.setAttribute('aria-pressed',x===b);});
+    fuente=b.dataset.fuente;avisa('fuente');document.querySelectorAll('[data-fuente]').forEach(function(x){x.setAttribute('aria-pressed',x===b);});
     cambia(false);});});
   document.querySelectorAll('[data-idioma]').forEach(function(b){b.addEventListener('click',function(){
-    if(b.dataset.idioma===idioma)return;idioma=b.dataset.idioma;marca();cambia(fuente==='documental');});});
+    if(b.dataset.idioma===idioma)return;idioma=b.dataset.idioma;marca();avisa('idioma');cambia(fuente==='documental');});});
 })();
 
 </script>

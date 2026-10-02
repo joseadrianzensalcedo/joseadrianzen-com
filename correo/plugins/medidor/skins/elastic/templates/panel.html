@@ -1,0 +1,38 @@
+<roundcube:include file="includes/layout.html" />
+<roundcube:include file="includes/menu.html" />
+
+<h1 class="voice"><roundcube:label name="medidor.titulo" /></h1>
+
+<div id="layout-content" class="selected no-navbar" role="main">
+	<div class="header">
+		<a class="button icon task-menu-button" href="#menu"><span class="inner"><roundcube:label name="menu" /></span></a>
+		<span class="header-title"><roundcube:label name="medidor.titulo" /></span>
+	</div>
+	<div id="medidor" class="medidor-panel scroller">
+		<nav class="med-pestanas" aria-label="Vistas">
+			<button type="button" data-vista="resumen" aria-pressed="true">Resumen</button>
+			<button type="button" data-vista="visitas">Visitas</button>
+			<button type="button" data-vista="documental">Documental</button>
+			<button type="button" data-vista="paginas">Páginas</button>
+			<button type="button" data-vista="fotos">Fotos</button>
+			<button type="button" data-vista="procedencia">Procedencia</button>
+			<button type="button" data-vista="enlaces">Enlaces con nombre</button>
+		</nav>
+		<div class="med-periodo">
+			<label>Periodo
+				<select id="med-dias">
+					<option value="1">Hoy y ayer</option>
+					<option value="7">7 días</option>
+					<option value="30" selected>30 días</option>
+					<option value="90">90 días</option>
+					<option value="365">Un año</option>
+					<option value="730">Todo (24 meses)</option>
+				</select>
+			</label>
+		</div>
+		<div id="med-cuerpo" aria-live="polite"></div>
+		<p class="med-pie">Lugar y red según <a href="https://db-ip.com" target="_blank" rel="noopener">IP Geolocation by DB-IP</a> (licencia CC BY 4.0). La ciudad sale de la red que usa la persona, no de su posición: puede fallar por decenas de kilómetros. La IP no se guarda.</p>
+	</div>
+</div>
+
+<roundcube:include file="includes/footer.html" />

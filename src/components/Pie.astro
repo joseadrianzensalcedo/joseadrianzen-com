@@ -12,6 +12,7 @@ const x = t(lang);
     {x.nav.map(([p, txt]) => <a href={ruta(p, lang)}>{txt}</a>)}
     {vias.map((v) => <a href={v.href} target={v.ext ? '_blank' : undefined} rel={v.ext ? 'noopener' : undefined}>{tr(v.t, lang)}</a>)}
     <a href={correoUrl}>{x.correoWeb}</a>
+    <a href={ruta('privacidad', lang)}>{tr({ es: 'Privacidad', en: 'Privacy' }, lang)}</a>
   </div>
   <div class="pie-base"><span>© 2026 Jose Adrianzen</span>{x.pieBase.map((s) => <span>{s}</span>)}</div>
 </footer>

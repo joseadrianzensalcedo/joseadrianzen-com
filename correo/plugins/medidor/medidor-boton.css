@@ -1,0 +1,3 @@
+/* El candado de la barra: sin texto a la vista, solo el ícono. El nombre queda para lectores de pantalla. */
+#taskmenu a.medidor:before{content:"\f023"}
+#taskmenu a.medidor .inner{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}

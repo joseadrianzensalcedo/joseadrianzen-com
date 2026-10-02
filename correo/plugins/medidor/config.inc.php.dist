@@ -1,0 +1,5 @@
+<?php
+// Quién ve el candado. Cualquier otro buzón no lo ve y no puede abrir el panel.
+$config['medidor_usuarios'] = ['yo@joseadrianzen.com'];
+// Carpeta del medidor (la que tiene lib/, datos/ y geo/). Por defecto, al lado de la carpeta de Roundcube.
+// $config['medidor_dir'] = '/home/USUARIO/domains/joseadrianzen.com/medidor';

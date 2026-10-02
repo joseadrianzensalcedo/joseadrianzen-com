@@ -1,0 +1,7 @@
+---
+import Vista from '../../vistas/Privacidad.astro';
+import { OTROS } from '../../data/idiomas.js';
+export const getStaticPaths = () => OTROS.map((lang) => ({ params: { lang } }));
+const { lang } = Astro.params;
+---
+<Vista lang={lang} />

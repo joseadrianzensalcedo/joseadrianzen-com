@@ -1,0 +1,26 @@
+---
+// Cómo se mide la web. Texto en español e inglés; los otros idiomas pasan por el traductor del sitio.
+import Base from '../layouts/Base.astro';
+import { tr } from '../data/textos.js';
+import { persona } from '../data/sitio.js';
+const { lang = 'es' } = Astro.props;
+const w = (es, en) => tr({ es, en }, lang);
+const P = [
+  [w('Quién mide', 'Who measures'), w(`Jose Adrianzen, dueño de esta web. Los datos se guardan en el mismo servidor de la web, contratado con Hostinger. No se venden ni se comparten con nadie.`, `Jose Adrianzen, owner of this site. The data is stored on the site's own server, hosted by Hostinger. It is not sold or shared with anyone.`)],
+  [w('Qué se anota', 'What is recorded'), w(`Qué páginas abres, cuánto rato las tienes a la vista, hasta dónde bajas, qué secciones y fotos ves, en qué enlaces haces clic y qué haces con el documental (cuándo lo pones, lo pausas, adelantas o terminas). También el tipo de aparato, el sistema, el navegador, el idioma, la zona horaria, el tamaño de pantalla y la web desde la que llegaste.`, `Which pages you open, how long they stay on screen, how far you scroll, which sections and photos you see, which links you click and what you do with the documentary (play, pause, skip, finish). Also the type of device, system, browser, language, time zone, screen size and the site you came from.`)],
+  [w('Tu dirección IP', 'Your IP address'), w(`Se usa un instante para saber el país, la región, la ciudad y la empresa que te da internet, con la base gratuita de DB-IP. Después se descarta: no se guarda.`, `It is used for an instant to look up the country, region, city and internet provider, with DB-IP's free database. Then it is discarded: it is not stored.`)],
+  [w('Si dices que sí', 'If you say yes'), w(`Tu navegador guarda un código al azar y la web te reconoce cuando vuelves. No sabe tu nombre.`, `Your browser keeps a random code and the site recognizes you when you return. It does not know your name.`)],
+  [w('Si dices que no', 'If you say no'), w(`La visita se cuenta igual, pero con un código que cambia cada día. Una visita de hoy no se puede unir con la de mañana.`, `The visit is still counted, but with a code that changes every day. Today's visit cannot be linked to tomorrow's.`)],
+  [w('Sin terceros', 'No third parties'), w(`No hay Google Analytics, ni píxeles de redes, ni cookies de publicidad. El documental se ve con Vimeo, que recibe la conexión del video con la opción de no rastreo activada.`, `There is no Google Analytics, no social media pixels and no advertising cookies. The documentary plays through Vimeo, which receives the video connection with its do not track option turned on.`)],
+  [w('Cuánto tiempo', 'How long'), w(`Los datos se borran a los 24 meses.`, `Data is deleted after 24 months.`)],
+  [w('Tus derechos', 'Your rights'), w(`Puedes pedir ver, corregir o borrar tus datos, o cambiar tu respuesta, escribiendo a ${persona.correo}. Esta medición sigue la Ley 29733 de protección de datos personales del Perú.`, `You can ask to see, correct or delete your data, or change your answer, by writing to ${persona.correo}. This measurement follows Peru's personal data protection law, Ley 29733.`)],
+];
+---
+<Base titulo={w('Cómo se mide esta web | Jose Adrianzen', 'How this site is measured | Jose Adrianzen')} descripcion={w('Qué anota el medidor de visitas de joseadrianzen.com y qué no.', 'What the joseadrianzen.com visit counter records and what it does not.')} lang={lang} camino="privacidad" clase="noche">
+  <section class="privacidad oscuro">
+    <p class="cod">{w('Privacidad', 'Privacy')}</p>
+    <h1>{w('Cómo se mide esta web', 'How this site is measured')}</h1>
+    {P.map(([h, p]) => <><h2>{h}</h2><p>{p}</p></>)}
+    <p><button type="button" class="cambiar-medidor" onclick="try{localStorage.removeItem('ja-ok');localStorage.removeItem('ja-p');localStorage.removeItem('ja-de')}catch(e){}document.getElementById('aviso-medidor').hidden=false">{w('Cambiar mi respuesta', 'Change my answer')}</button></p>
+  </section>
+</Base>
