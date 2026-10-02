@@ -29,7 +29,7 @@ const ld = { '@context': 'https://schema.org', '@type': 'Movie', name: 'ECO', da
 
   <section class="luz-grande oscuro">
     <p class="cod luz-cod" data-aparece><span>{x.claves}</span><span>{x.clavesSub}</span></p>
-    <div class="luz xl">{E.luz.map((n, k) => <figure><Image src={img(n)} alt="" widths={[260]} /><figcaption>0{k + 1}{k === 0 ? ` · ${x.claveAlta}` : k === 4 ? ` · ${x.claveBaja}` : ''}</figcaption></figure>)}</div>
+    <div class="luz xl">{E.luz.map((n, k) => <figure><Image src={img(n)} alt="" widths={[260]} /></figure>)}</div>
   </section>
 
   <section class="sinopsis oscuro grano">

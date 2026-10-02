@@ -23,7 +23,6 @@ const forma = (n) => { const m = fotos[`/src/assets/img/${n}.webp`].default; con
     {fotografia.map(([n, a, cat], i) => (
       <button type="button" class:list={['celda', forma(n)]} data-cat={cat} data-i={i} aria-label={tr(a, lang)}>
         <Foto n={n} alt={tr(a, lang)} cursor={x.cursor.ver} sizes="(max-width: 860px) 50vw, 25vw" />
-        <span class="num">{String(i + 1).padStart(2, '0')}A{i === 4 ? ' ▲' : ''}</span>
       </button>
     ))}
   </section>
@@ -41,7 +40,7 @@ const forma = (n) => { const m = fotos[`/src/assets/img/${n}.webp`].default; con
     let i = 0, origen = null;
     const visibles = () => celdas.filter((c) => !c.hidden);
     const mostrar = (k) => { const v = visibles(); i = (k + v.length) % v.length; const im = v[i].querySelector('img');
-      vImg.src = im.currentSrc || im.src; vImg.srcset = im.srcset; vImg.sizes = '100vw'; vImg.alt = im.alt; vPie.textContent = v[i].querySelector('.num').textContent + ' · ' + im.alt; };
+      vImg.src = im.currentSrc || im.src; vImg.srcset = im.srcset; vImg.sizes = '100vw'; vImg.alt = im.alt; vPie.textContent = im.alt; };
     const abrir = (c) => { origen = c; mostrar(visibles().indexOf(c)); visor.hidden = false; document.documentElement.classList.add('visor-abierto'); visor.querySelector('.v-cerrar').focus(); };
     const cerrar = () => { visor.hidden = true; document.documentElement.classList.remove('visor-abierto'); origen?.focus(); };
     celdas.forEach((c) => c.addEventListener('click', () => abrir(c)));

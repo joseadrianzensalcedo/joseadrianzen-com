@@ -77,7 +77,7 @@ const ld = { '@context': 'https://schema.org', '@type': 'WebSite', name: 'Jose A
     <Enc n="03" t={x.fotografia} d={x.hoja} />
     <div class="carril" data-cursor={x.cursor.arrastra}>
       <div class="hoja">
-        {HOJA.map(([n, c, a], i) => <figure class={c}><Image src={img(n)} alt={a} widths={[480, 800]} sizes="40vw" draggable="false" /><figcaption>{String(i + 1).padStart(2, '0')}A{i === 0 ? ' ▲' : ''}</figcaption></figure>)}
+        {HOJA.map(([n, c, a], i) => <figure class={c}><Image src={img(n)} alt={a} widths={[480, 800]} sizes="40vw" draggable="false" /></figure>)}
       </div>
     </div>
     <a class="lnk osc-l" href={ruta('fotografia', lang)} data-aparece>{x.verTodas}</a>
@@ -95,7 +95,7 @@ const ld = { '@context': 'https://schema.org', '@type': 'WebSite', name: 'Jose A
       </div>
       <Foto n="eco-madre" clase="eco-foto" alt={w('Una mujer mayor sentada en un sofá, en penumbra', 'An older woman seated on a sofa in half light')} cursor={x.cursor.ver} sizes="(max-width: 860px) 100vw, 60vw" />
     </div>
-    <div class="luz">{E.luz.map((n, k) => <figure><Image src={img(n)} alt="" widths={[260]} /><figcaption>0{k + 1}{k === 0 ? ` · ${x.claveAlta}` : k === 4 ? ` · ${x.claveBaja}` : ''}</figcaption></figure>)}</div>
+    <div class="luz">{E.luz.map((n, k) => <figure><Image src={img(n)} alt="" widths={[260]} /></figure>)}</div>
   </section>
 
   <section class="blog papel grano" id="blog">
