@@ -202,6 +202,35 @@ html.visor-abierto{overflow:hidden}
 .escribe .base{margin-top:40px}
 .no-encontrada .gigante{font-size:clamp(90px,18vw,260px);line-height:.88;margin:20px 0 30px}
 
+/* contacto: formulario */
+.mensaje{margin-top:clamp(48px,7vw,96px);display:flex;flex-direction:column;gap:14px;max-width:980px}
+.mensaje-t{font:400 clamp(34px,5vw,72px)/1 var(--disp);text-transform:uppercase;color:var(--papel);margin:0}
+.mensaje .cod{margin:0}
+.mensaje-filas{display:grid;grid-template-columns:1fr 1fr;gap:22px 28px;margin-top:14px}
+.campo{display:flex;flex-direction:column;gap:8px;min-width:0}
+.campo.ancho{grid-column:1/-1}
+.campo span,.acepto span{font:500 12px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--humo)}
+.campo i{font-style:normal;letter-spacing:.06em;text-transform:none;opacity:.8}
+.campo input,.campo textarea{font:400 clamp(18px,1.5vw,21px)/1.4 var(--lectura);color:var(--papel);background:transparent;border:0;border-bottom:1px solid #4a4741;border-radius:0;padding:10px 0;width:100%;box-sizing:border-box;outline:0;color-scheme:dark;-webkit-appearance:none;appearance:none}
+.campo textarea{resize:vertical;min-height:130px;border:1px solid #4a4741;padding:12px 14px}
+.campo input:focus,.campo textarea:focus{border-color:var(--ambar)}
+.campo input::placeholder{color:#6f6b64}
+.campo.mal input,.campo.mal textarea{border-color:#e07a5f}
+.campo.mal span{color:#e9a08c}
+.acepto{display:flex;gap:12px;align-items:flex-start;margin-top:8px;cursor:pointer}
+.acepto input{width:22px;height:22px;margin:0;flex:none;accent-color:var(--ambar)}
+.acepto span{text-transform:none;letter-spacing:.02em;font-size:13px;line-height:1.5}
+.acepto a{color:var(--ambar);text-decoration:underline;text-underline-offset:3px}
+.acepto.mal span{color:#e9a08c}
+.trampa{position:absolute!important;left:-9999px;width:1px;height:1px;overflow:hidden}
+.mensaje-enviar{align-self:flex-start;min-height:52px;font:400 clamp(28px,3.4vw,44px)/1 var(--disp);letter-spacing:.01em;color:var(--tinta);background:var(--ambar);border:0;padding:12px 28px 10px;cursor:pointer;margin-top:10px;text-transform:uppercase}
+.mensaje-enviar:hover{background:var(--papel)}
+.mensaje-enviar:disabled{opacity:.5;cursor:wait}
+.mensaje-estado{margin:0;min-height:1.5em;font:400 16px/1.5 var(--lectura);color:var(--humo)}
+.mensaje-estado[data-tipo="ok"]{color:var(--ambar)}
+.mensaje-estado[data-tipo="mal"]{color:#e9a08c}
+@media (max-width:700px){.mensaje-filas{grid-template-columns:1fr}.mensaje-enviar{align-self:stretch}}
+
 /* las máscaras de cada línea dejan aire arriba y abajo: las tildes y la Ñ nunca se cortan */
 .linea-mask{padding-block:.2em;margin-block:-.2em}
 

@@ -17,6 +17,21 @@ const desc = w('Escríbele a Jose Adrianzen sobre proyectos, festivales y prensa
     <div class="canales" data-cascada>
       {vias.slice(1).map((v) => <a class="canal" href={v.href} target="_blank" rel="noopener"><b>{tr(v.t, lang)}</b><span>{v.v}</span><em aria-hidden="true">↗</em></a>)}
     </div>
+    <form class="mensaje" id="escribeme" action="/escribe/" method="post" novalidate data-lang={lang}>
+      <h2 class="mensaje-t">{w('Déjame un mensaje', 'Leave me a message')}</h2>
+      <p class="cod">{w('Te respondo al correo o al teléfono que dejes.', 'I will reply to the email or phone you leave.')}</p>
+      <div class="mensaje-filas">
+        <label class="campo ancho"><span>{w('Nombre', 'Name')}</span><input name="nombre" autocomplete="name" required minlength="2" maxlength="120"></label>
+        <label class="campo"><span>{w('Correo', 'Email')}</span><input name="correo" type="email" autocomplete="email" inputmode="email" required maxlength="200"></label>
+        <label class="campo"><span>{w('Teléfono o WhatsApp', 'Phone or WhatsApp')} <i>{w('(opcional)', '(optional)')}</i></span><input name="telefono" type="tel" autocomplete="tel" inputmode="tel" maxlength="25" placeholder="+51"></label>
+        <label class="campo ancho"><span>{w('Mensaje', 'Message')}</span><textarea name="mensaje" rows="5" required minlength="10" maxlength="4000"></textarea></label>
+      </div>
+      <label class="trampa" aria-hidden="true">Web<input name="web" tabindex="-1" autocomplete="off"></label>
+      <input type="hidden" name="idioma" value={lang}>
+      <label class="acepto"><input type="checkbox" name="acepto" value="1" required><span>{w('Acepto que se usen estos datos solo para responderme.', 'I agree these details are used only to reply to me.')} <a href={lang === 'es' ? '/privacidad/' : `/${lang}/privacidad/`}>{w('Privacidad', 'Privacy')}</a></span></label>
+      <button type="submit" class="mensaje-enviar">{w('Enviar', 'Send')} <span aria-hidden="true">→</span></button>
+      <p class="mensaje-estado" role="status" aria-live="polite"></p>
+    </form>
     {google.citas && (
       <div class="citas">
         <button type="button" class="citas-abrir" aria-expanded="false" aria-controls="citas-marco">{w('Agenda una llamada conmigo', 'Book a call with me')} <span aria-hidden="true">→</span></button>
@@ -51,5 +66,30 @@ const desc = w('Escríbele a Jose Adrianzen sobre proyectos, festivales y prensa
       if (!m.firstChild) { const f = document.createElement('iframe'); f.src = m.dataset.src; f.title = 'Agenda'; f.loading = 'lazy'; m.appendChild(f); }
       m.hidden = !m.hidden; b.setAttribute('aria-expanded', String(!m.hidden));
     }));
+
+    // Formulario: se manda sin recargar. Sin JavaScript también funciona (el servidor vuelve a esta página).
+    const fm = document.getElementById('escribeme');
+    if (fm) {
+      const t0 = Date.now(), est = fm.querySelector('.mensaje-estado'), en = fm.dataset.lang !== 'es';
+      const txt = en ? { falta: 'Check the marked fields.', manda: 'Sending…', ok: 'Message sent. I will reply soon.', mal: 'It did not go through. Write to me at yo@joseadrianzen.com.' }
+                     : { falta: 'Revisa los campos marcados.', manda: 'Enviando…', ok: 'Mensaje enviado. Te respondo pronto.', mal: 'No se pudo enviar. Escríbeme a yo@joseadrianzen.com.' };
+      if (location.search.includes('enviado=1')) { est.textContent = txt.ok; est.dataset.tipo = 'ok'; }
+      fm.addEventListener('input', (e) => e.target.closest('.campo, .acepto')?.classList.remove('mal'));
+      fm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        let bien = true;
+        fm.querySelectorAll('input[required], textarea[required]').forEach((c) => { if (!c.checkValidity()) { c.closest('.campo, .acepto')?.classList.add('mal'); bien = false; } });
+        if (!bien) { est.textContent = txt.falta; est.dataset.tipo = 'mal'; fm.querySelector('.mal input, .mal textarea')?.focus(); return; }
+        const d = Object.fromEntries(new FormData(fm)); d.t = Date.now() - t0; d.pagina = location.pathname;
+        const b = fm.querySelector('button'); b.disabled = true; est.textContent = txt.manda; est.dataset.tipo = '';
+        try {
+          const r = await fetch('/escribe/', { method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' }, body: JSON.stringify(d) });
+          const j = await r.json().catch(() => ({}));
+          if (!r.ok || !j.ok) throw new Error(j.error || r.status);
+          fm.reset(); est.textContent = txt.ok; est.dataset.tipo = 'ok';
+        } catch (err) { est.textContent = txt.mal; est.dataset.tipo = 'mal'; }
+        b.disabled = false;
+      });
+    }
   </script>
 </Base>
