@@ -122,3 +122,9 @@ g-l,.letra-g{display:inline-block}
 /* La Ñ de AWAKENNING lleva la virgulilla muy arriba (casi una letra entera sobre la línea). En Safari y Chrome de Mac
    la máscara de cada línea la cortaba y salía SUENOS. La máscara del título tiene más aire arriba. */
 .titulo-pelicula .linea-mask{padding-top:.42em!important;margin-top:-.42em!important}
+/* Laureles del inicio (pedido de la diseñadora, 4 oct 2026): una sola fila, más chicos y más juntos.
+   Solo se fija el alto, el ancho sale solo, así ningún laurel se deforma. */
+.hero-peli .laureles,.hero-peli .laureles[data-cascada]{display:flex;flex-wrap:nowrap;grid-template-columns:none;gap:clamp(6px,.8vw,12px);align-items:center}
+.hero-peli .laureles{--lau:clamp(40px,4.2vw,64px)}.hero-peli .laurel img{height:var(--lau)!important;width:auto}
+@media (max-width:860px),(orientation:portrait) and (max-width:1100px){.hero-peli .laureles{--lau:40px;gap:6px}}
+@media (max-height:520px) and (orientation:landscape){.hero-peli .laureles{--lau:36px}}
