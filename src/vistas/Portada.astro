@@ -33,7 +33,7 @@ const ld = { '@context': 'https://schema.org', '@type': 'WebSite', name: 'Jose A
     <h1 class="visually-hidden">Jose Adrianzen, {tr(persona.rol, lang)}</h1>
     <div class="hero-marco">
       <div class="hero-izq">
-        <ul class="laureles" data-cascada>{premios.map((p) => <Laurel laurel={p.laurel} alt={`${tr(p.k, lang)}, ${p.v}, ${tr(p.d, lang)}`} alto={84} />)}</ul>
+        <ul class="laureles" data-cascada>{premios.map((p) => <Laurel laurel={p.laurel} alt={`${tr(p.k, lang)}, ${p.v}, ${tr(p.d, lang)}`} alto={140} carga="eager" />)}</ul>
         <h2 class="gigante claro titulo-pelicula" data-letras="gigante"><span>Entre polvo</span><span>y sueños</span></h2>
         <p class="peli-datos" data-aparece><span>{x.documental}</span><span>{D.duracion}</span><span>{D.formato}</span><span>{w('Perú', 'Peru')}, {D.anio}</span></p>
       </div>

@@ -877,11 +877,13 @@ addEventListener('pageshow', (e) => { if (e.persisted) { html.classList.remove('
   function ajustar() {
     // El título se parte en letras al animarse: se busca la primera línea cada vez.
     const linea = $('.hero-peli .titulo-pelicula span'); if (!linea) return;
-    const ims = [...fila.querySelectorAll('img')]; if (!ims.length || ims.some((i) => !i.naturalWidth)) return;
+    // La proporción sale del ancho y alto escritos en la etiqueta, así no hay que esperar a que la imagen baje.
+    const ims = [...fila.querySelectorAll('img')], pr = (i) => (+i.getAttribute('width') / +i.getAttribute('height')) || (i.naturalWidth / i.naturalHeight);
+    if (!ims.length || ims.some((i) => !(pr(i) > 0))) return;
     const r = document.createRange(); r.selectNodeContents(linea);
     const ancho = r.getBoundingClientRect().width; if (!ancho) return;
     const gap = parseFloat(getComputedStyle(fila).columnGap) || 0;
-    const prop = ims.reduce((s, i) => s + i.naturalWidth / i.naturalHeight, 0);
+    const prop = ims.reduce((s, i) => s + pr(i), 0);
     const alto = (ancho - gap * (ims.length - 1)) / prop;
     if (alto > 20 && alto < 200) fila.style.setProperty('--lau', alto.toFixed(1) + 'px');
   }

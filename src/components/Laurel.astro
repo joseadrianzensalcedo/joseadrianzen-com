@@ -3,7 +3,7 @@
 // Sin archivo original no se dibuja ningún laurel inventado.
 import { Image } from 'astro:assets';
 const laureles = import.meta.glob('/src/assets/laureles/*.webp', { eager: true });
-const { laurel, alt, alto = 120 } = Astro.props;
+const { laurel, alt, alto = 120, carga = 'lazy' } = Astro.props;
 const src = laureles[`/src/assets/laureles/${laurel}.webp`]?.default;
 ---
-{src && <li class="laurel"><Image src={src} alt={alt} height={alto * 2} widths={[Math.round(src.width * alto / src.height), Math.round(src.width * alto * 2 / src.height)]} sizes={`${Math.round(src.width * alto / src.height)}px`} style={`height:var(--lau,${alto}px)`} /></li>}
+{src && <li class="laurel"><Image src={src} alt={alt} loading={carga} height={alto * 2} widths={[Math.round(src.width * alto / src.height), Math.round(src.width * alto * 2 / src.height)]} sizes={`${Math.round(src.width * alto / src.height)}px`} style={`height:var(--lau,${alto}px)`} /></li>}
