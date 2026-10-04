@@ -618,19 +618,26 @@ if (!R && flota && filas.length) {
   const ocultar = () => { actual = null; gsap.to(vi, { v: 0, duration: 0.6, ease: 'power3.out', overwrite: 'auto', onUpdate: mascara }); gsap.to(flota, { opacity: 0, scale: 0.92, ...(FINO ? { filter: 'blur(6px)' } : {}), duration: 0.6, ease: 'power3.out', overwrite: 'auto' }); };
   const seguir = (x, y) => { fxq(x); fyq(y); frq(gsap.utils.clamp(-7, 7, (x - ux) * 0.6)); ux = x; };
   const limpiar = () => $$('.fila.presionada').forEach((x) => x.classList.remove('presionada'));
+  const soltar = () => { clearTimeout(reloj); clearTimeout(finScroll); esperaScroll = false; if (!presion) return; const a = presion; presion = null; ocultar(); limpiar(); a._sinClic = true; setTimeout(() => { a._sinClic = false; }, 400); };
+  /* Al empezar el scroll, iOS puede avisar con touchcancel aunque el dedo siga abajo: la imagen se queda hasta que el scroll se detiene. */
+  let esperaScroll = false, finScroll = 0;
+  const cancelado = () => { clearTimeout(reloj); if (!presion) return; esperaScroll = true; clearTimeout(finScroll); finScroll = setTimeout(soltar, 450); };
+  addEventListener('scroll', () => { if (!esperaScroll) return; clearTimeout(finScroll); finScroll = setTimeout(soltar, 450); }, { passive: true });
   filas.forEach((a) => {
     a.addEventListener('pointerenter', (e) => { if (e.pointerType !== 'touch') mostrar(a, e.clientX, e.clientY); });
     a.addEventListener('pointerleave', (e) => { if (e.pointerType === 'touch') return; if (!e.relatedTarget?.closest?.('.fila')) ocultar(); });
     a.addEventListener('pointermove', (e) => { if (e.pointerType !== 'touch') seguir(e.clientX, e.clientY); });
     a.addEventListener('touchstart', (e) => { const t = e.touches[0]; t0 = { x: t.clientX, y: t.clientY };
       clearTimeout(reloj); reloj = setTimeout(() => { presion = a; mostrar(a, dentro(t0.x), arriba(t0.y)); a.classList.add('presionada'); try { navigator.vibrate?.(8); } catch (er) {} }, TOQUE); }, { passive: true });
-    a.addEventListener('touchmove', (e) => { const t = e.touches[0];
-      if (!presion) { if (t0 && Math.hypot(t.clientX - t0.x, t.clientY - t0.y) > 8) clearTimeout(reloj); return; }
-      e.preventDefault(); seguir(dentro(t.clientX), arriba(t.clientY));
+    /* El dedo puede seguir deslizando la página con la imagen puesta: no se bloquea el scroll. La imagen sigue al dedo,
+       cambia según la fila que tenga debajo y se va cuando el dedo sale de la lista o se levanta. */
+    a.addEventListener('touchmove', (e) => { const t = e.touches[0]; if (!presion) return;
       const f = document.elementFromPoint(t.clientX, t.clientY)?.closest?.('.fila[data-img]');
-      if (f && f !== actual) { limpiar(); f.classList.add('presionada'); mostrar(f, dentro(t.clientX), arriba(t.clientY)); } }, { passive: false });
-    const soltar = (e) => { clearTimeout(reloj); if (!presion) return; if (e.cancelable) e.preventDefault(); presion = null; ocultar(); limpiar(); a._sinClic = true; setTimeout(() => { a._sinClic = false; }, 400); };
-    a.addEventListener('touchend', soltar); a.addEventListener('touchcancel', soltar);
+      if (!f) { if (actual) ocultar(); limpiar(); return; }
+      seguir(dentro(t.clientX), arriba(t.clientY));
+      if (f !== actual) { limpiar(); f.classList.add('presionada'); mostrar(f, dentro(t.clientX), arriba(t.clientY)); }
+      else if (!a.classList.contains('presionada') && !f.classList.contains('presionada')) f.classList.add('presionada'); }, { passive: true });
+    a.addEventListener('touchend', soltar); a.addEventListener('touchcancel', cancelado);
     a.addEventListener('contextmenu', (e) => { if (matchMedia('(pointer: coarse)').matches) e.preventDefault(); });
   });
   gsap.ticker.add(() => { if (actual && Math.abs(gsap.getProperty(flota, 'rotation')) > 0.05) frq(0); });
