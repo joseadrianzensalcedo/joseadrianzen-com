@@ -588,6 +588,11 @@ if (!R && flota && filas.length) {
   const ajustar = () => flota.classList.toggle('vert', flota.naturalHeight > flota.naturalWidth * 1.05);
   flota.addEventListener('load', ajustar);
   let ux = 0, actual = null, presion = null, reloj = 0, t0 = null;
+  /* Con el dedo la imagen sale casi al tocar (90 ms). Antes pedía una presión larga y quieta de 260 ms: en el iPhone, apenas el dedo
+     se movía un poco, la página empezaba a deslizarse y la imagen nunca aparecía. Un deslizar normal (más de 8 px) sigue siendo scroll. */
+  const TOQUE = 90;
+  /* Se bajan las imágenes de antemano: la primera vez la caja medía cero hasta que la foto llegaba y la imagen no se veía. */
+  filas.forEach((f) => { const i = new Image(); i.decoding = 'async'; i.src = f.dataset.img; });
   /* En el teléfono la miniatura sube bastante por encima del dedo (la mano tapa todo lo que está debajo)
      y no se sale por los costados. */
   const arriba = (y) => y - (flota.offsetHeight * 0.42 + 64);
@@ -608,9 +613,9 @@ if (!R && flota && filas.length) {
     a.addEventListener('pointerleave', (e) => { if (e.pointerType === 'touch') return; if (!e.relatedTarget?.closest?.('.fila')) ocultar(); });
     a.addEventListener('pointermove', (e) => { if (e.pointerType !== 'touch') seguir(e.clientX, e.clientY); });
     a.addEventListener('touchstart', (e) => { const t = e.touches[0]; t0 = { x: t.clientX, y: t.clientY };
-      clearTimeout(reloj); reloj = setTimeout(() => { presion = a; mostrar(a, dentro(t0.x), arriba(t0.y)); a.classList.add('presionada'); try { navigator.vibrate?.(8); } catch (er) {} }, 260); }, { passive: true });
+      clearTimeout(reloj); reloj = setTimeout(() => { presion = a; mostrar(a, dentro(t0.x), arriba(t0.y)); a.classList.add('presionada'); try { navigator.vibrate?.(8); } catch (er) {} }, TOQUE); }, { passive: true });
     a.addEventListener('touchmove', (e) => { const t = e.touches[0];
-      if (!presion) { if (t0 && Math.hypot(t.clientX - t0.x, t.clientY - t0.y) > 10) clearTimeout(reloj); return; }
+      if (!presion) { if (t0 && Math.hypot(t.clientX - t0.x, t.clientY - t0.y) > 8) clearTimeout(reloj); return; }
       e.preventDefault(); seguir(dentro(t.clientX), arriba(t.clientY));
       const f = document.elementFromPoint(t.clientX, t.clientY)?.closest?.('.fila[data-img]');
       if (f && f !== actual) { limpiar(); f.classList.add('presionada'); mostrar(f, dentro(t.clientX), arriba(t.clientY)); } }, { passive: false });
@@ -719,13 +724,18 @@ const PX = (() => {
   const MUESTRAS = FINO ? 6 : 5;
   const fs = granoGLSL({ muestras: MUESTRAS, cabecera: 'uniform sampler2D t;uniform vec4 caja;uniform vec3 cen;uniform float modo,alto,k;',
     // q viene en píxeles de pantalla con y hacia arriba. La textura de tono va en píxeles CSS con y hacia abajo.
-    tono: 'vec3 tono(vec2 q){vec2 c=vec2(q.x/k,alto-q.y/k);return texture2D(t,(c-caja.xy)/caja.zw).rgb;}',
+    /* Sobre negro, el tono se sube un poco antes de simular el grano: con tanta plata cubriendo casi todo, el grano real deja
+       muy pocos huecos claros y no se notaba. */
+    tono: 'vec3 tono(vec2 q){vec2 c=vec2(q.x/k,alto-q.y/k);vec3 r=texture2D(t,(c-caja.xy)/caja.zw).rgb;float l=dot(r,vec3(.2126,.7152,.0722));return r+.24*pow(1.-l,5.);}',
     // Círculo: denso al centro y se apaga de a poco hasta cero justo en el borde (curva (1 − r²)³), así no queda
     // contorno marcado y el grano se funde con el fondo. Bloque (al tocar un enlace): parejo en toda la caja.
     mascara: 'float mascara(vec2 P){vec2 c=vec2(P.x/k,alto-P.y/k);if(modo>.5){vec2 d=(c-caja.xy)/caja.zw;return (d.x<0.||d.y<0.||d.x>1.||d.y>1.)?0.:cen.z;}' +
       'vec2 d=c-cen.xy;float r=dot(d,d)/(' + (FINO ? 84 : 64) + '.*' + (FINO ? 84 : 64) + '.);if(r>=1.)return 0.;float s=1.-r;return cen.z*s*s*s;}',
     // El grano se pone encima de la página sin taparla: blanco donde aclara, negro donde oscurece. La letra sigue nítida.
-    salida: 'vec4 salida(float d,float a){float k=abs(d)*a;return d>0.?vec4(k,k,k,k):vec4(0.,0.,0.,k);}' });
+    /* Sobre fondo oscuro el grano real casi no se ve: quedan pocos huecos claros entre tanta plata. Por eso se
+       refuerza según qué tan oscuro es el fondo (cerca de 4 veces sobre negro, casi nada sobre claro). */
+    conBrillo: true,
+    salida: 'vec4 salida(float d,float a,float b){float g=1.+3.*pow(1.-b,3.);float k=min(1.,abs(d)*a*g);return d>0.?vec4(k,k,k,k):vec4(0.,0.,0.,k);}' });
   const sh = (tp, src) => { const x = gl.createShader(tp); gl.shaderSource(x, src); gl.compileShader(x); return x; };
   const pr = gl.createProgram(); gl.attachShader(pr, sh(gl.VERTEX_SHADER, PIX_VS)); gl.attachShader(pr, sh(gl.FRAGMENT_SHADER, fs)); gl.bindAttribLocation(pr, 0, 'p'); gl.linkProgram(pr);
   const par = gl.getExtension('KHR_parallel_shader_compile'); let listo = false;

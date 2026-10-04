@@ -98,7 +98,7 @@ export function pintarGrano(ctx, x0, y0, w, h, colorEn, pesoEn, cuadro, opciones
    mascara(P)  cuánto se ve el grano en el píxel P (de 0 a 1). Fuera de la máscara no se calcula nada.
    Uniformes: px (tamaño en píxeles), sem (semilla del cuadro), gm y gs (log normal), ger2 (E[r²]), grmax (radio máximo
    y lado de la celda), xi (los N desvíos del filtro de Gauss, iguales para todos los píxeles del cuadro, como en Newson). */
-export function granoGLSL({ muestras = 8, tono, mascara = 'float mascara(vec2 P){return 1.;}', salida, cabecera = '' }) {
+export function granoGLSL({ muestras = 8, tono, mascara = 'float mascara(vec2 P){return 1.;}', salida, cabecera = '', conBrillo = false }) {
   const M = muestras | 0;
   return 'precision highp float;varying vec2 u;uniform vec2 px;uniform float sem,gm,gs,ger2,grmax;uniform vec2 xi[' + M + '];' + cabecera + tono + mascara + salida +
     'float h(vec3 p){p=fract(p*.1031);p+=dot(p,p.zyx+31.32);return fract((p.x+p.y)*p.z);}' +
@@ -117,7 +117,7 @@ export function granoGLSL({ muestras = 8, tono, mascara = 'float mascara(vec2 P)
     'void main(){vec2 P=u*px;float a=mascara(P);if(a<.003){gl_FragColor=vec4(0.);return;}float o=0.;' +
     'for(int s=0;s<' + M + ';s++)o+=cubre(P+xi[s]);' +
     // d: cuánto más claro (positivo) o más oscuro (negativo) deja el grano a ese píxel.
-    'gl_FragColor=salida(1.-o/' + M + '.-brillo(tono(P)),a);}';
+    'float bt=brillo(tono(P));gl_FragColor=salida(1.-o/' + M + '.-bt,a' + (conBrillo ? ',bt' : '') + ');}';
 }
 
 /* Los números que el shader necesita para un tamaño de grano dado (escala = píxeles de pantalla por píxel CSS). */
