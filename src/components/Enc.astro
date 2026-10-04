@@ -1,5 +1,5 @@
 ---
-// Encabezado de sección como borde de película: número de cuadro, nombre y código.
-const { n, t, d = '', osc = false, id } = Astro.props;
+// Encabezado de sección: nombre y una nota corta. Sin numeración.
+const { t, d = '', osc = false, id } = Astro.props;
 ---
-<div class:list={['enc', { osc }]} data-aparece id={id}><b>{n}</b><span>{t}</span><i></i><em>{d}</em></div>
+<div class:list={['enc', { osc }]} data-aparece id={id}><span>{t}</span><i></i><em>{d}</em></div>

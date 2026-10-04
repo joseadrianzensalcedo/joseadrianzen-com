@@ -40,7 +40,7 @@ const ld = { '@context': 'https://schema.org', '@type': 'Movie', name: D.titulo,
   </section>
 
   <section class="sinopsis papel grano">
-    <Enc n="01" t={x.sinopsis} d="JA 35 · cuadro 01" />
+    <Enc t={x.sinopsis} />
     <div class="sin-caja">
       <div>
         <p class="entrada" data-lineas>“{tr(D.golpe, lang)}”</p>
@@ -51,19 +51,19 @@ const ld = { '@context': 'https://schema.org', '@type': 'Movie', name: D.titulo,
   </section>
 
   <section class="fotogramas oscuro grano">
-    <Enc n="02" t={w('Fotogramas', 'Frames')} d={w('de la película', 'from the film')} osc />
+    <Enc t={w('Fotogramas', 'Frames')} d={w('de la película', 'from the film')} osc />
     <Rotativo items={FOTOGRAMAS.map(([n, es, en]) => [n, w(es, en)])} />
   </section>
 
   <section class="creditos oscuro">
-    <Enc n="03" t={x.premios} d={w(`${premios.length} premios · ${selecciones.length} selecciones oficiales`, `${premios.length} awards · ${selecciones.length} official selections`)} osc />
+    <Enc t={x.premios} d={w(`${premios.length} premios · ${selecciones.length} selecciones oficiales`, `${premios.length} awards · ${selecciones.length} official selections`)} osc />
     <ul class="laureles laureles-grandes" data-cascada>{premios.map((p) => <Laurel laurel={p.laurel} alt={`${tr(p.k, lang)}, ${p.v}, ${tr(p.d, lang)}`} alto={130} />)}</ul>
     <ul class="laureles laureles-sel" data-cascada>{selecciones.filter((s) => s.laurel).map((s) => <Laurel laurel={s.laurel} alt={`${w('Selección oficial', 'Official selection')}, ${s.n}, ${tr(s.d, lang)}`} alto={96} />)}</ul>
     {selecciones.some((s) => !s.laurel) && <p class="sel-sin-laurel">{w('También en', 'Also at')} {selecciones.filter((s) => !s.laurel).map((s) => `${s.n} (${tr(s.d, lang)})`).join(' · ')}</p>}
   </section>
 
   <section class="rodaje oscuro grano">
-    <Enc n="04" t={x.rodaje} d={w('detrás de cámaras', 'behind the scenes')} osc />
+    <Enc t={x.rodaje} d={w('detrás de cámaras', 'behind the scenes')} osc />
     <Rotativo items={D.rodaje.map(([n, a]) => [n, tr(a, lang)])} />
   </section>
 

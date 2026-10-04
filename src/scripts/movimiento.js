@@ -515,16 +515,44 @@ if (franja && fbtn) {
   });
 }
 
-/* 10. Hoja de contactos que se arrastra con inercia y límites, y se inclina apenas con la velocidad del scroll. */
+/* 10. Hoja de fotos: corre sola, en bucle, de derecha a izquierda, para que las fotos se vayan descubriendo.
+       Con el dedo o el mouse se agarra y se lleva a donde se quiera. Al soltar sigue con la inercia y vuelve poco a poco
+       a su marcha. Con el mouse encima se detiene. Fuera de pantalla no gasta nada. Con movimiento reducido no corre sola.
+       Técnico: las fotos se repiten (copias ocultas a lectores de pantalla) hasta cubrir la pantalla y la posición se envuelve
+       sobre el ancho de un juego completo, así nunca hay un borde. El gesto es de pointer events con touch-action pan-y:
+       el scroll vertical de la página sigue funcionando sobre la hoja. */
 const hoja = $('.hoja'), carril = $('.carril');
 if (hoja && carril) {
-  Draggable.create(hoja, { type: 'x', bounds: carril, edgeResistance: 0.85, dragResistance: 0.05, zIndexBoost: false,
-    onPress() { gsap.to(hoja, { scale: 0.985, duration: 0.3, ease: ENTRA }); },
-    onRelease() { gsap.to(hoja, { scale: 1, duration: 0.5, ease: ENTRA });
-      const d = this.getDirection('velocity'), dx = (d === 'left' ? -1 : d === 'right' ? 1 : 0) * 220;
-      gsap.to(hoja, { x: Math.max(this.minX, Math.min(this.maxX, this.x + dx)), duration: 0.9, ease: SALE, onUpdate: this.update.bind(this) }); } });
-  if (!R && lenis) { const figs = $$('figure', hoja); let sk = 0;
-    gsap.ticker.add(() => { const tope = FINO ? 5 : 2.5, obj = gsap.utils.clamp(-tope, tope, -lenis.velocity * 0.18); sk += (obj - sk) * 0.1; if (Math.abs(sk) > 0.01 || obj) gsap.set(figs, { skewY: sk }); }); }
+  const originales = $$('figure', hoja);
+  const copiar = () => { $$('figure[data-copia]', hoja).forEach((f) => f.remove()); const w = (hoja.scrollWidth + 14) || 1, veces = Math.max(1, Math.ceil(innerWidth * 1.2 / w)); for (let v = 0; v < veces; v++) originales.forEach((f) => { const c = f.cloneNode(true); c.setAttribute('data-copia', ''); c.setAttribute('aria-hidden', 'true'); $$('img', c).forEach((i) => { i.alt = ''; i.removeAttribute('id'); }); hoja.appendChild(c); }); };
+  if (R) {
+    Draggable.create(hoja, { type: 'x', bounds: carril, edgeResistance: 0.85, dragResistance: 0.05, zIndexBoost: false });
+  } else {
+    copiar();
+    let ciclo = 1, x = 0, vel = 0, agarrada = false, encima = false, visible = true, id = null, ux = 0, ut = 0;
+    const medir = () => { const c = $('figure[data-copia]', hoja); ciclo = c ? c.offsetLeft - originales[0].offsetLeft : 1; };
+    medir(); addEventListener('load', medir); addEventListener('resize', () => { copiar(); medir(); todas = $$('figure', hoja); });
+    new IntersectionObserver((e) => { visible = e[0].isIntersecting; }, { rootMargin: '80px' }).observe(hoja);
+    const CRUCERO = -(FINO ? 46 : 38); // px por segundo, hacia la izquierda
+    hoja.addEventListener('pointerenter', (e) => { if (e.pointerType === 'mouse') encima = true; });
+    hoja.addEventListener('pointerleave', (e) => { if (e.pointerType === 'mouse') encima = false; });
+    hoja.addEventListener('pointerdown', (e) => { if (e.pointerType === 'mouse' && e.button !== 0) return; id = e.pointerId; agarrada = true; ux = e.clientX; ut = performance.now(); vel = 0; hoja.classList.add('agarrada'); try { hoja.setPointerCapture(id); } catch (er) {} });
+    hoja.addEventListener('pointermove', (e) => { if (!agarrada || e.pointerId !== id) return; const t = performance.now(), dx = e.clientX - ux, dt = Math.max(1, t - ut);
+      x += dx; vel += ((dx / dt) * 1000 - vel) * 0.35; ux = e.clientX; ut = t; });
+    const soltar = (e) => { if (e.pointerId !== id) return; agarrada = false; id = null; hoja.classList.remove('agarrada'); if (performance.now() - ut > 120) vel = 0; vel = gsap.utils.clamp(-2600, 2600, vel); };
+    hoja.addEventListener('pointerup', soltar); hoja.addEventListener('pointercancel', soltar); hoja.addEventListener('lostpointercapture', soltar);
+    let todas = $$('figure', hoja), sk = 0;
+    gsap.ticker.add((t, dt) => {
+      if (!visible) return;
+      const s = Math.min(dt, 50) / 1000;
+      if (!agarrada) { const meta = encima ? 0 : CRUCERO; vel += (meta - vel) * (1 - Math.exp(-s * (encima ? 5 : 1.6))); x += vel * s; }
+      x = gsap.utils.wrap(-ciclo, 0, x);
+      let skw = 0; if (lenis) { const tope = FINO ? 5 : 2.5; skw = gsap.utils.clamp(-tope, tope, -lenis.velocity * 0.18); }
+      sk += (skw - sk) * 0.1;
+      gsap.set(hoja, { x });
+      if (Math.abs(sk) > 0.01 || skw) gsap.set(todas, { skewY: sk });
+    });
+  }
 }
 
 /* 11. Botón principal magnético: sigue al cursor unos pocos píxeles. */

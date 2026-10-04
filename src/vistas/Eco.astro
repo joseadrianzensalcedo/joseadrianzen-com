@@ -33,7 +33,7 @@ const ld = { '@context': 'https://schema.org', '@type': 'Movie', name: 'ECO', da
   </section>
 
   <section class="sinopsis oscuro grano">
-    <Enc n="01" t={x.sinopsis} d="JA 35" osc />
+    <Enc t={x.sinopsis} osc />
     <div class="sin-caja">
       <div>
         <p class="entrada" data-lineas>“{tr(E.golpe, lang)}”</p>
@@ -45,14 +45,14 @@ const ld = { '@context': 'https://schema.org', '@type': 'Movie', name: 'ECO', da
   </section>
 
   <section class="reparto oscuro">
-    <Enc n="02" t={x.reparto} d={w('cuatro personajes', 'four characters')} osc />
+    <Enc t={x.reparto} d={w('cuatro personajes', 'four characters')} osc />
     <div class="rep">
       {E.reparto.map(([n, p, a]) => <div class="rep-item"><Foto n={n} clase="rep-foto" alt={`${tr(p, lang)}, ${a}`} cursor={tr(p, lang)} sizes="(max-width: 860px) 100vw, 25vw" /><p><b>{a}</b><span>{tr(p, lang)}</span></p></div>)}
     </div>
   </section>
 
   <section class="rodaje oscuro">
-    <Enc n="03" t={x.rodaje} d="6K" osc />
+    <Enc t={x.rodaje} osc />
     <div class="escalera eco-esc">
       {E.rodaje.slice(0, 5).map(([n, a], k) => <Foto n={n} clase={`e e${k % 3}`} alt={tr(a, lang)} cursor={x.cursor.ver} sizes="(max-width: 860px) 50vw, 20vw" />)}
     </div>

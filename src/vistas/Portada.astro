@@ -46,7 +46,7 @@ const ld = { '@context': 'https://schema.org', '@type': 'WebSite', name: 'Jose A
   </section>
 
   <section class="idea papel grano">
-    <Enc n="01" t={x.laIdea} d="JA 35 · cuadro 01" />
+    <Enc t={x.laIdea} />
     <div class="idea-caja">
       <h2 class="gigante" data-letras="gigante"><span>{tr(idea.lineas, lang).split('|')[0]}</span><span class="s2">{tr(idea.lineas, lang).split('|')[1]}</span><span class="s3">{tr(idea.lineas, lang).split('|')[2]}</span></h2>
       <div class="idea-der">
@@ -57,7 +57,7 @@ const ld = { '@context': 'https://schema.org', '@type': 'WebSite', name: 'Jose A
   </section>
 
   <section class="peli oscuro grano" id="peliculas">
-    <Enc n="02" t={x.peliculas} d="1 / 2" osc />
+    <Enc t={x.peliculas} osc />
     <div class="peli-caja">
       <a href={ruta(D.slug, lang)} class="peli-enlace" aria-label={D.titulo}><Foto n="doc-mineras" clase="peli-foto" movil={false} alt={w(D.fotogramas[1][1], D.fotogramas[1][2])} cursor={x.cursor.ver} sizes="(max-width: 860px) 100vw, 56vw" /></a>
       <div class="peli-txt">
@@ -74,7 +74,7 @@ const ld = { '@context': 'https://schema.org', '@type': 'WebSite', name: 'Jose A
   </section>
 
   <section class="fotos papel grano" id="fotografia">
-    <Enc n="03" t={x.fotografia} d={x.hoja} />
+    <Enc t={x.fotografia} />
     <div class="carril" data-cursor={x.cursor.arrastra}>
       <div class="hoja">
         {HOJA.map(([n, c, a], i) => <figure class={c}><Image src={img(n)} alt={a} widths={[480, 800]} sizes="40vw" draggable="false" /></figure>)}
@@ -84,7 +84,7 @@ const ld = { '@context': 'https://schema.org', '@type': 'WebSite', name: 'Jose A
   </section>
 
   <section class="eco oscuro grano">
-    <Enc n="02" t={x.peliculas} d="2 / 2" osc />
+    <Enc t={x.peliculas} osc />
     <div class="eco-caja">
       <div class="eco-txt">
         <h2 class="eco-t" data-letras="eco">ECO</h2>
@@ -99,8 +99,7 @@ const ld = { '@context': 'https://schema.org', '@type': 'WebSite', name: 'Jose A
   </section>
 
   <section class="blog papel grano" id="blog">
-    <Enc n="04" t={x.blog} d={x.unaPorSemana} />
-    <p class="pista">{x.pista}</p>
+    <Enc t={x.blog} />
     {arts.map((a, k) => (
       <a class="fila" href={ruta('blog/' + a.slug, 'es')} data-cursor={x.cursor.leer} data-img={img(a.imagen).src} hreflang="es">
         <b>0{k + 1}</b><span data-lineas>{a.titulo}</span><em>{a.tema}{a.estado !== 'publicado' ? ' · borrador' : ''}</em>

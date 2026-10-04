@@ -29,22 +29,22 @@ const ldPerfil = { '@context': 'https://schema.org', '@type': 'ProfilePage', mai
   </section>
 
   <section class="trayecto papel grano">
-    <Enc n="01" t={x.trayectoria} d={w('la tira de mi vida en cine', 'my life in film, frame by frame')} />
+    <Enc t={x.trayectoria} d={w('la tira de mi vida en cine', 'my life in film, frame by frame')} />
     <div class="tira-vida" data-cascada>{S.trayecto.map((e, k) => <div><b>{String(k + 1).padStart(2, '0')}</b><span>{tr(e, lang)}</span></div>)}</div>
   </section>
 
   <section class="muro oscuro grano">
-    <Enc n="02" t={w('En cámara y fuera de ella', 'On and off camera')} d="" osc />
+    <Enc t={w('En cámara y fuera de ella', 'On and off camera')} d="" osc />
     <div class="escalera">{S.muro.map(([n, a], k) => <Foto n={n} clase={`e e${k % 3}`} alt={tr(a, lang)} cursor={x.cursor.ver} sizes="(max-width: 860px) 50vw, 25vw" />)}</div>
   </section>
 
   <section class="dos-bloques papel grano">
     <div>
-      <Enc n="03" t={x.formacion} d="" />
+      <Enc t={x.formacion} d="" />
       <ul class="datos" data-cascada>{S.formacion.map((f) => <li>{tr(f, lang)}</li>)}</ul>
     </div>
     <div>
-      <Enc n="04" t={x.prensa} d="" />
+      <Enc t={x.prensa} d="" />
       {google.dossier
         ? <a class="descarga" href={google.dossier} target="_blank" rel="noopener">{x.dossier} <span>↗</span></a>
         : <p class="descarga" aria-disabled="true">{x.dossier} <span>{x.proximamente}</span></p>}
