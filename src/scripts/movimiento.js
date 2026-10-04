@@ -629,7 +629,7 @@ const PX = (() => {
   const cv = document.createElement('canvas'); cv.className = 'estela'; cv.setAttribute('aria-hidden', 'true'); document.body.appendChild(cv);
   const gl = R ? null : cv.getContext('webgl', { premultipliedAlpha: false, antialias: false, alpha: true });
   let W = 0, H = 0, K = 1;
-  const G = 6, memoria = new Map(); // rejilla de color: ver tonos()
+  const G = FINO ? 6 : 8, memoria = new Map(); // rejilla de color: ver tonos()
   const datos = new WeakMap();
   const rgb = (s) => { const m = String(s).match(/[\d.]+/g); if (!m || m.length < 3) return null; const a = m.length > 3 ? +m[3] : 1; return a < 0.1 ? null : [+m[0], +m[1], +m[2]]; };
   function deImagen(img, x, y) {
@@ -680,9 +680,10 @@ const PX = (() => {
   const fs = granoGLSL({ muestras: MUESTRAS, cabecera: 'uniform sampler2D t;uniform vec4 caja;uniform vec3 cen;uniform float modo,alto,k;',
     // q viene en píxeles de pantalla con y hacia arriba. La textura de tono va en píxeles CSS con y hacia abajo.
     tono: 'vec3 tono(vec2 q){vec2 c=vec2(q.x/k,alto-q.y/k);return texture2D(t,(c-caja.xy)/caja.zw).rgb;}',
-    // Círculo: denso al centro y suave al borde, en campana. Bloque (al tocar un enlace): parejo en toda la caja.
+    // Círculo: denso al centro y se apaga de a poco hasta cero justo en el borde (curva (1 − r²)³), así no queda
+    // contorno marcado y el grano se funde con el fondo. Bloque (al tocar un enlace): parejo en toda la caja.
     mascara: 'float mascara(vec2 P){vec2 c=vec2(P.x/k,alto-P.y/k);if(modo>.5){vec2 d=(c-caja.xy)/caja.zw;return (d.x<0.||d.y<0.||d.x>1.||d.y>1.)?0.:cen.z;}' +
-      'vec2 d=c-cen.xy;float r=dot(d,d)/(' + (FINO ? 70 : 54) + '.*' + (FINO ? 70 : 54) + '.);return r>1.?0.:cen.z*exp(-r*2.6);}',
+      'vec2 d=c-cen.xy;float r=dot(d,d)/(' + (FINO ? 84 : 64) + '.*' + (FINO ? 84 : 64) + '.);if(r>=1.)return 0.;float s=1.-r;return cen.z*s*s*s;}',
     // El grano se pone encima de la página sin taparla: blanco donde aclara, negro donde oscurece. La letra sigue nítida.
     salida: 'vec4 salida(float d,float a){return d>0.?vec4(1.,1.,1.,d*a):vec4(0.,0.,0.,-d*a);}' });
   const sh = (tp, src) => { const x = gl.createShader(tp); gl.shaderSource(x, src); gl.compileShader(x); return x; };
@@ -710,13 +711,18 @@ const PX = (() => {
 
   /* Rejilla de color. Cada celda de 6 px de la página (en coordenadas del documento, para que el scroll no la mueva)
      guarda su color medio segundo. */
-  function tonos(x0, y0, x1, y1, paso = G) {
+  /* Leer el color de la página es lo que más cuesta. Por cuadro se leen como mucho LEER celdas nuevas, el resto toma
+     por un momento el color que hay bajo el cursor y se completa en los cuadros siguientes. Así el círculo sale en el
+     mismo cuadro en que se mueve el dedo y no un rato después. */
+  const LEER = FINO ? 90 : 50;
+  function tonos(x0, y0, x1, y1, paso = G, cx, cy) {
     const sx = paso === G ? scrollX : 0, sy = paso === G ? scrollY : 0, ahora = performance.now();
+    let leidas = 0, base = null;
     const i0 = Math.floor((x0 + sx) / paso), j0 = Math.floor((y0 + sy) / paso), i1 = Math.ceil((x1 + sx) / paso), j1 = Math.ceil((y1 + sy) / paso);
     const w = i1 - i0, h = j1 - j0, d = new Uint8Array(w * h * 3);
     for (let j = 0; j < h; j++) for (let i = 0; i < w; i++) {
       const X = (i0 + i + 0.5) * paso - sx, Y = (j0 + j + 0.5) * paso - sy; let c;
-      if (paso === G) { const key = (i0 + i) + ',' + (j0 + j), m = memoria.get(key); if (m && ahora - m.t < 500) c = m.c; else { c = color(Math.min(W - 1, Math.max(0, X)), Math.min(H - 1, Math.max(0, Y))); memoria.set(key, { c, t: ahora }); } }
+      if (paso === G) { const key = (i0 + i) + ',' + (j0 + j), m = memoria.get(key); if (m && ahora - m.t < 1500) c = m.c; else if (leidas >= LEER && cx !== undefined) c = base || (base = color(cx, cy)); else { leidas++; c = color(Math.min(W - 1, Math.max(0, X)), Math.min(H - 1, Math.max(0, Y))); memoria.set(key, { c, t: ahora }); } }
       else c = color(Math.min(W - 1, Math.max(0, X)), Math.min(H - 1, Math.max(0, Y)));
       const o = (j * w + i) * 3; d[o] = c[0]; d[o + 1] = c[1]; d[o + 2] = c[2];
     }
@@ -735,7 +741,7 @@ const PX = (() => {
 
   /* El círculo. vis es cuánto se ve (0 a 1): sube rápido cuando el cursor se mueve y baja en un cuarto de segundo
      cuando se detiene. Se dibuja otra vez si el cursor se movió o si cambió el cuadro (24 por segundo). */
-  const RAD = FINO ? 70 : 54, TOPE = FINO ? 0.85 : 0.55;
+  const RAD = FINO ? 84 : 64, TOPE = FINO ? 0.85 : 0.55;
   const ojo = { x: 0, y: 0, vis: 0, meta: 0, ult: 0, px: -1, py: -1, cuadro: -1, dib: 0 };
   let vivo = false, bloque = null;
   function arrancar() { if (!vivo) { vivo = true; gsap.ticker.add(paso); } }
@@ -750,7 +756,7 @@ const PX = (() => {
     gl.clearColor(0, 0, 0, 0); gl.clear(gl.COLOR_BUFFER_BIT);
     if (ojo.vis > 0.003) {
       const x0 = ojo.x - RAD, y0 = ojo.y - RAD, x1 = ojo.x + RAD, y1 = ojo.y + RAD;
-      subir(tonos(x0 - G, y0 - G, x1 + G, y1 + G)); grano(cuadro, 1);
+      subir(tonos(x0 - G, y0 - G, x1 + G, y1 + G, G, Math.min(W - 1, Math.max(0, ojo.x)), Math.min(H - 1, Math.max(0, ojo.y)))); grano(cuadro, 1);
       gl.uniform1f(U.modo, 0); gl.uniform3f(U.cen, ojo.x, ojo.y, ojo.vis * TOPE); pintar(x0, y0, x1, y1);
     }
     if (bloque) {
@@ -791,7 +797,13 @@ const PX = (() => {
   // Con el dedo el círculo es más chico y más suave, para no estorbar al navegar.
   addEventListener('touchstart', (e) => { const t = e.touches[0]; mover(t.clientX, t.clientY, 0.6, false); }, { passive: true });
   addEventListener('touchmove', (e) => { const t = e.touches[0]; mover(t.clientX, t.clientY, 0.6, false); }, { passive: true });
-  addEventListener('touchend', soltarTodo, { passive: true }); addEventListener('touchcancel', soltarTodo, { passive: true });
+  /* Al soltar el dedo el círculo se borra en el acto. Si no, en iPhone y iPad la página sigue deslizándose y el círculo
+     se queda pintado donde estaba el dedo, que ya es otro lugar de la página. */
+  const borrar = () => { soltarTodo(); ojo.vis = 0; if (vivo) parar(); };
+  let dedo = false;
+  addEventListener('touchstart', () => { dedo = true; }, { passive: true, capture: true });
+  addEventListener('touchend', () => { dedo = false; borrar(); }, { passive: true }); addEventListener('touchcancel', () => { dedo = false; borrar(); }, { passive: true });
+  addEventListener('scroll', () => { if (!dedo && ojo.vis > 0 && matchMedia('(pointer: coarse)').matches) borrar(); }, { passive: true });
   document.documentElement.addEventListener('pointerleave', soltarTodo);
   return { pixelar };
 })();
