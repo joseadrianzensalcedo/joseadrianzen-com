@@ -3,15 +3,17 @@
 // Las pantallas retina piden el doble de píxeles que su ancho, por eso hacen falta los tamaños grandes.
 // Dirección de arte: si existe una versión "<nombre>-m" (recorte vertical pensado para el celular), el celular
 // recibe esa y no un recorte automático de la horizontal. Así baja menos peso y el encuadre lo decide una persona.
+// movil={false}: la caja es horizontal también en el celular, así que va la foto completa y no el recorte vertical
+// (el recorte vertical en una caja horizontal cortaba las caras, 4 oct 2026).
 // pix: entra en píxeles y se pixela bajo el cursor o el dedo. paralaje: se mueve más lento que la página.
 import { Image, getImage } from 'astro:assets';
 const fotos = import.meta.glob('/src/assets/img/*.{webp,jpg,png}', { eager: true });
-const { n, alt = '', clase = '', pix = true, paralaje = false, cursor, eager = false, sizes = '(max-width: 860px) 100vw, 50vw', pos, pie, filtro } = Astro.props;
+const { n, alt = '', clase = '', movil: usarMovil = true, pix = true, paralaje = false, cursor, eager = false, sizes = '(max-width: 860px) 100vw, 50vw', pos, pie, filtro } = Astro.props;
 const buscar = (nombre) => (Object.entries(fotos).find(([k]) => k.split('/').pop().replace(/\.\w+$/, '') === nombre) || [])[1]?.default;
 const meta = buscar(n);
 if (!meta) throw new Error('Falta la foto ' + n);
 const medidas = (m) => [...new Set([480, 800, 1200, 1800, 2400, 3200].filter((w) => w <= m.width).concat(m.width < 3200 ? [m.width] : []))];
-const movil = buscar(n + '-m');
+const movil = usarMovil ? buscar(n + '-m') : null;
 const fuenteMovil = movil ? await getImage({ src: movil, widths: medidas(movil), format: 'webp', quality: 84 }) : null;
 const estilo = pos ? `--pos:${pos}` : undefined;
 ---

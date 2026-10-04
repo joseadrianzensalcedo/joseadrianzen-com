@@ -59,7 +59,7 @@ const ld = { '@context': 'https://schema.org', '@type': 'WebSite', name: 'Jose A
   <section class="peli oscuro grano" id="peliculas">
     <Enc n="02" t={x.peliculas} d="1 / 2" osc />
     <div class="peli-caja">
-      <a href={ruta(D.slug, lang)} class="peli-enlace" aria-label={D.titulo}><Foto n="doc-mineras" clase="peli-foto" alt={w(D.fotogramas[1][1], D.fotogramas[1][2])} cursor={x.cursor.ver} sizes="(max-width: 860px) 100vw, 56vw" /></a>
+      <a href={ruta(D.slug, lang)} class="peli-enlace" aria-label={D.titulo}><Foto n="doc-mineras" clase="peli-foto" movil={false} alt={w(D.fotogramas[1][1], D.fotogramas[1][2])} cursor={x.cursor.ver} sizes="(max-width: 860px) 100vw, 56vw" /></a>
       <div class="peli-txt">
         <h2 class="titulo" data-letras="titulo">{D.titulo}</h2>
         <p class="cod" data-aparece>{w('Documental · Perú', 'Documentary · Peru')} · {D.anio} · {D.duracion} · {D.formato}</p>
@@ -93,7 +93,7 @@ const ld = { '@context': 'https://schema.org', '@type': 'WebSite', name: 'Jose A
         <p class="golpe" data-lineas>“{tr(E.golpe, lang)}”</p>
         <a class="lnk eco-l" href={ruta(E.slug, lang)} data-aparece>{x.conocerEco}</a>
       </div>
-      <Foto n="eco-madre" clase="eco-foto" alt={w('Una mujer mayor sentada en un sofá, en penumbra', 'An older woman seated on a sofa in half light')} cursor={x.cursor.ver} sizes="(max-width: 860px) 100vw, 60vw" />
+      <Foto n="eco-madre" clase="eco-foto" movil={false} alt={w('Una mujer mayor sentada en un sofá, en penumbra', 'An older woman seated on a sofa in half light')} cursor={x.cursor.ver} sizes="(max-width: 860px) 100vw, 60vw" />
     </div>
     <div class="luz">{E.luz.map((n, k) => <figure><Image src={img(n)} alt="" widths={[260]} /></figure>)}</div>
   </section>
