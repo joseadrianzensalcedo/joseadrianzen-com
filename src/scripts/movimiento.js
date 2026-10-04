@@ -587,6 +587,13 @@ if (!R && flota && filas.length) {
   /* Si la imagen es vertical (el afiche) se muestra entera, con su propia forma, nunca recortada. */
   const ajustar = () => flota.classList.toggle('vert', flota.naturalHeight > flota.naturalWidth * 1.05);
   flota.addEventListener('load', ajustar);
+  /* El borde esfumado se dibuja desde JS y no con una variable CSS animada dentro de la máscara: Safari no repinta la máscara
+     cuando cambia la variable y la imagen se quedaba casi transparente. */
+  const vi = { v: 0 };
+  const mascara = () => { if (flota.classList.contains('vert')) { flota.style.webkitMaskImage = 'none'; flota.style.maskImage = 'none'; return; }
+    const m = 'radial-gradient(closest-side,#000 ' + vi.v.toFixed(1) + '%,transparent ' + (vi.v + 38).toFixed(1) + '%)'; flota.style.webkitMaskImage = m; flota.style.maskImage = m; };
+  mascara();
+  flota.addEventListener('load', mascara);
   let ux = 0, actual = null, presion = null, reloj = 0, t0 = null;
   /* Con el dedo la imagen sale casi al tocar (90 ms). Antes pedía una presión larga y quieta de 260 ms: en el iPhone, apenas el dedo
      se movía un poco, la página empezaba a deslizarse y la imagen nunca aparecía. Un deslizar normal (más de 8 px) sigue siendo scroll. */
@@ -603,9 +610,9 @@ if (!R && flota && filas.length) {
     const primera = !actual;
     if (primera) { gsap.set(flota, { x, y }); flota.src = a.dataset.img; }
     else if (actual !== a) { flota.src = a.dataset.img; gsap.set(flota, { opacity: 0.35 }); }
-    actual = a; gsap.to(flota, { '--vi': 62, opacity: 1, scale: 1, filter: 'blur(0px)', duration: primera ? 0.9 : 0.5, ease: SALE, overwrite: 'auto' });
+    actual = a; gsap.to(vi, { v: 62, duration: primera ? 0.9 : 0.5, ease: SALE, overwrite: 'auto', onUpdate: mascara }); gsap.to(flota, { opacity: 1, scale: 1, filter: 'blur(0px)', duration: primera ? 0.9 : 0.5, ease: SALE, overwrite: 'auto' });
   };
-  const ocultar = () => { actual = null; gsap.to(flota, { '--vi': 0, opacity: 0, scale: 0.92, filter: 'blur(6px)', duration: 0.6, ease: 'power3.out', overwrite: 'auto' }); };
+  const ocultar = () => { actual = null; gsap.to(vi, { v: 0, duration: 0.6, ease: 'power3.out', overwrite: 'auto', onUpdate: mascara }); gsap.to(flota, { opacity: 0, scale: 0.92, filter: 'blur(6px)', duration: 0.6, ease: 'power3.out', overwrite: 'auto' }); };
   const seguir = (x, y) => { fxq(x); fyq(y); frq(gsap.utils.clamp(-7, 7, (x - ux) * 0.6)); ux = x; };
   const limpiar = () => $$('.fila.presionada').forEach((x) => x.classList.remove('presionada'));
   filas.forEach((a) => {
@@ -942,3 +949,20 @@ addEventListener('pageshow', (e) => { if (e.persisted) { html.classList.remove('
   fila.querySelectorAll('img').forEach((i) => i.complete || i.addEventListener('load', todo, { once: true }));
   addEventListener('load', todo); addEventListener('resize', todo); setTimeout(todo, 1800);
 })();
+
+/* Red de seguridad: si por cualquier motivo un título no llegó a revelarse (la división en líneas no corrió), a los 5 s queda visible. */
+setTimeout(() => { $$('[data-lineas],[data-letras]').forEach((el) => { if (getComputedStyle(el).visibility === 'hidden' && !el.children.length) el.style.visibility = 'visible'; }); }, 5000);
+
+/* 20. Modo de diagnóstico: solo si la dirección lleva ?depura. Muestra en una caja sobre la página los errores de JavaScript
+       y qué pasa con la imagen del blog al tocar. Sirve para ver en el teléfono lo que no se puede ver desde la computadora. */
+if (location.search.includes('depura')) {
+  const caja = document.createElement('pre'); caja.style.cssText = 'position:fixed;left:0;right:0;bottom:0;z-index:99999;margin:0;padding:8px;max-height:40vh;overflow:auto;background:#000c;color:#9f9;font:11px/1.35 monospace;white-space:pre-wrap;pointer-events:none';
+  document.body.appendChild(caja); const lineas = [];
+  const dec = (t) => { lineas.push(t); if (lineas.length > 14) lineas.shift(); caja.textContent = lineas.join('\n'); };
+  addEventListener('error', (e) => dec('ERROR ' + e.message + ' ' + (e.filename || '').split('/').pop() + ':' + e.lineno));
+  addEventListener('unhandledrejection', (e) => dec('PROMESA ' + (e.reason && e.reason.message || e.reason)));
+  const f = $('.flota'); dec('listo. flota=' + !!f + ' hoja=' + !!$('.hoja') + ' lineasSinDividir=' + $$('[data-lineas]').filter((x) => !x.children.length).length);
+  ['touchstart', 'touchend', 'touchcancel'].forEach((n) => addEventListener(n, (e) => { setTimeout(() => { const r = f ? f.getBoundingClientRect() : null, s = f ? getComputedStyle(f) : null;
+    dec(n + ' en ' + (e.target.closest?.('.fila') ? 'fila' : e.target.tagName) + (f ? ' | op ' + (+s.opacity).toFixed(2) + ' ' + (f.naturalWidth || 0) + 'px ' + (f.complete ? 'cargada' : 'sin cargar') + ' caja ' + Math.round(r.x) + ',' + Math.round(r.y) + ' ' + Math.round(r.width) + 'x' + Math.round(r.height) + ' mask ' + (s.webkitMaskImage || s.maskImage || '').slice(0, 30) : '')); }, 400); }, { passive: true, capture: true }));
+  setInterval(() => dec('lineas ocultas ' + $$('[data-lineas]').filter((x) => getComputedStyle(x).visibility === 'hidden').length), 4000);
+}
