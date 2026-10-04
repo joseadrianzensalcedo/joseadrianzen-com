@@ -581,15 +581,21 @@ const flota = $('.flota'), filas = $$('.fila[data-img]');
 if (!R && flota && filas.length) {
   const fxq = gsap.quickTo(flota, 'x', { duration: 0.75, ease: 'power3' }), fyq = gsap.quickTo(flota, 'y', { duration: 0.75, ease: 'power3' }),
     frq = gsap.quickTo(flota, 'rotate', { duration: 0.9, ease: 'power3' });
+  /* El centrado va con GSAP: la propiedad CSS translate la borra GSAP al animar y la imagen quedaba más abajo del cursor,
+     tapada por el aviso de cookies o fuera de la pantalla. */
+  gsap.set(flota, { xPercent: -50, yPercent: -58 });
   let ux = 0, actual = null, presion = null, reloj = 0, t0 = null;
   /* En el teléfono la miniatura sube bastante por encima del dedo (la mano tapa todo lo que está debajo)
      y no se sale por los costados. */
   const arriba = (y) => y - (flota.offsetHeight * 0.42 + 64);
   const dentro = (x) => { const m = flota.offsetWidth / 2 + 12; return Math.min(innerWidth - m, Math.max(m, x)); };
   const mostrar = (a, x, y) => {
-    if (!actual) { gsap.set(flota, { x, y }); flota.src = a.dataset.img; }
-    else if (actual !== a) gsap.to(flota, { opacity: 0.35, duration: 0.12, overwrite: 'auto', onComplete: () => { flota.src = a.dataset.img; gsap.to(flota, { opacity: 1, duration: 0.3 }); } });
-    actual = a; gsap.to(flota, { '--vi': 62, opacity: 1, scale: 1, filter: 'blur(0px)', duration: 0.9, ease: SALE, overwrite: 'auto' });
+    /* La imagen se cambia en el acto. Antes se esperaba a que terminara un fundido, pero la animación siguiente
+       cancelaba ese fundido y la imagen nueva nunca llegaba: quedaba pegada la del primer artículo. */
+    const primera = !actual;
+    if (primera) { gsap.set(flota, { x, y }); flota.src = a.dataset.img; }
+    else if (actual !== a) { flota.src = a.dataset.img; gsap.set(flota, { opacity: 0.35 }); }
+    actual = a; gsap.to(flota, { '--vi': 62, opacity: 1, scale: 1, filter: 'blur(0px)', duration: primera ? 0.9 : 0.5, ease: SALE, overwrite: 'auto' });
   };
   const ocultar = () => { actual = null; gsap.to(flota, { '--vi': 0, opacity: 0, scale: 0.92, filter: 'blur(6px)', duration: 0.6, ease: 'power3.out', overwrite: 'auto' }); };
   const seguir = (x, y) => { fxq(x); fyq(y); frq(gsap.utils.clamp(-7, 7, (x - ux) * 0.6)); ux = x; };
@@ -609,7 +615,7 @@ if (!R && flota && filas.length) {
     a.addEventListener('touchend', soltar); a.addEventListener('touchcancel', soltar);
     a.addEventListener('contextmenu', (e) => { if (matchMedia('(pointer: coarse)').matches) e.preventDefault(); });
   });
-  gsap.ticker.add(() => { if (actual) frq(0); });
+  gsap.ticker.add(() => { if (actual && Math.abs(gsap.getProperty(flota, 'rotation')) > 0.05) frq(0); });
 }
 
 /* 14. Cursor propio: punto y aro que lo sigue con retardo. Regla de la web: solo el círculo propio, sin flecha.

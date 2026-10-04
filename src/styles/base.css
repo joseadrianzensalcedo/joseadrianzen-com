@@ -181,7 +181,7 @@ body{background:var(--tinta)}
 
 /* blog */
 .fila{overflow:hidden}.fila span{transition:transform .45s cubic-bezier(.22,1,.36,1)}.fila:hover span{transform:translateX(12px)}
-.flota{position:fixed;left:0;top:0;width:min(380px,30vw);aspect-ratio:4/3;height:auto;object-fit:cover;pointer-events:none;z-index:50;--vi:0;opacity:0;translate:-50% -58%;filter:blur(6px);-webkit-mask-image:radial-gradient(closest-side,#000 calc(var(--vi)*1%),transparent calc(var(--vi)*1% + 38%));mask-image:radial-gradient(closest-side,#000 calc(var(--vi)*1%),transparent calc(var(--vi)*1% + 38%))}
+.flota{position:fixed;left:0;top:0;width:min(380px,30vw);aspect-ratio:4/3;height:auto;object-fit:cover;pointer-events:none;z-index:50;--vi:0;opacity:0;filter:blur(6px);-webkit-mask-image:radial-gradient(closest-side,#000 calc(var(--vi)*1%),transparent calc(var(--vi)*1% + 38%));mask-image:radial-gradient(closest-side,#000 calc(var(--vi)*1%),transparent calc(var(--vi)*1% + 38%))}
 
 /* cursor: el del sistema, con su flecha (pedido de Jose, 30/09/2026). Sin cursor propio. */
 .btn{will-change:transform}
