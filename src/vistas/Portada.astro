@@ -102,7 +102,7 @@ const ld = { '@context': 'https://schema.org', '@type': 'WebSite', name: 'Jose A
     <Enc t={x.blog} />
     {arts.map((a, k) => (
       <a class="fila" href={ruta('blog/' + a.slug, 'es')} data-cursor={x.cursor.leer} data-img={img(a.imagen).src} hreflang="es">
-        <b>0{k + 1}</b><span data-lineas>{a.titulo}</span><em>{a.tema}{a.estado !== 'publicado' ? ' · borrador' : ''}</em>
+        <span data-lineas>{a.titulo}</span><em>{a.tema}{a.estado !== 'publicado' ? ' · borrador' : ''}</em>
       </a>
     ))}
   </section>
