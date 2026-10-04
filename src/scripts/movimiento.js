@@ -627,7 +627,10 @@ if (barra && articulo) gsap.fromTo(barra, { scaleX: 0 }, { scaleX: 1, ease: 'non
        calcula el grano solo dentro del cuadrado del círculo. */
 const PX = (() => {
   const cv = document.createElement('canvas'); cv.className = 'estela'; cv.setAttribute('aria-hidden', 'true'); document.body.appendChild(cv);
-  const gl = R ? null : cv.getContext('webgl', { premultipliedAlpha: false, antialias: false, alpha: true });
+  /* La capa entrega el color ya multiplicado por su transparencia (premultipliedAlpha true, el modo por defecto).
+     Safari en iPhone y iPad no respeta bien el otro modo: pintaba de blanco pleno lo que debía verse apenas, y el
+     círculo salía como un disco blanco con borde duro (4 oct 2026, captura de Jose). */
+  const gl = R ? null : cv.getContext('webgl', { premultipliedAlpha: true, antialias: false, alpha: true });
   let W = 0, H = 0, K = 1;
   const G = FINO ? 6 : 8, memoria = new Map(); // rejilla de color: ver tonos()
   const datos = new WeakMap();
@@ -685,7 +688,7 @@ const PX = (() => {
     mascara: 'float mascara(vec2 P){vec2 c=vec2(P.x/k,alto-P.y/k);if(modo>.5){vec2 d=(c-caja.xy)/caja.zw;return (d.x<0.||d.y<0.||d.x>1.||d.y>1.)?0.:cen.z;}' +
       'vec2 d=c-cen.xy;float r=dot(d,d)/(' + (FINO ? 84 : 64) + '.*' + (FINO ? 84 : 64) + '.);if(r>=1.)return 0.;float s=1.-r;return cen.z*s*s*s;}',
     // El grano se pone encima de la página sin taparla: blanco donde aclara, negro donde oscurece. La letra sigue nítida.
-    salida: 'vec4 salida(float d,float a){return d>0.?vec4(1.,1.,1.,d*a):vec4(0.,0.,0.,-d*a);}' });
+    salida: 'vec4 salida(float d,float a){float k=abs(d)*a;return d>0.?vec4(k,k,k,k):vec4(0.,0.,0.,k);}' });
   const sh = (tp, src) => { const x = gl.createShader(tp); gl.shaderSource(x, src); gl.compileShader(x); return x; };
   const pr = gl.createProgram(); gl.attachShader(pr, sh(gl.VERTEX_SHADER, PIX_VS)); gl.attachShader(pr, sh(gl.FRAGMENT_SHADER, fs)); gl.bindAttribLocation(pr, 0, 'p'); gl.linkProgram(pr);
   const par = gl.getExtension('KHR_parallel_shader_compile'); let listo = false;
