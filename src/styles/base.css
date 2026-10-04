@@ -181,7 +181,9 @@ body{background:var(--tinta)}
 
 /* blog */
 .fila{overflow:hidden}.fila span{transition:transform .45s cubic-bezier(.22,1,.36,1)}.fila:hover span{transform:translateX(12px)}
-.flota{position:fixed;left:0;top:0;width:min(380px,30vw);aspect-ratio:4/3;height:auto;object-fit:cover;pointer-events:none;z-index:50;--vi:0;opacity:0;filter:blur(6px);-webkit-mask-image:radial-gradient(closest-side,#000 calc(var(--vi)*1%),transparent calc(var(--vi)*1% + 38%));mask-image:radial-gradient(closest-side,#000 calc(var(--vi)*1%),transparent calc(var(--vi)*1% + 38%))}
+.flota{position:fixed;left:0;top:0;width:min(380px,30vw);height:auto;object-fit:contain;pointer-events:none;z-index:50;--vi:0;opacity:0;filter:blur(6px);-webkit-mask-image:radial-gradient(closest-side,#000 calc(var(--vi)*1%),transparent calc(var(--vi)*1% + 38%));mask-image:radial-gradient(closest-side,#000 calc(var(--vi)*1%),transparent calc(var(--vi)*1% + 38%))}
+/* Imagen vertical (el afiche): entera y sin esfumar las esquinas, porque no se puede cortar. */
+.flota.vert{width:auto;height:min(58vh,480px);-webkit-mask-image:none;mask-image:none}
 
 /* cursor: el del sistema, con su flecha (pedido de Jose, 30/09/2026). Sin cursor propio. */
 .btn{will-change:transform}
@@ -260,7 +262,7 @@ html.menu-abierto .tc{opacity:0}
  .pista{display:block}
  .fila{-webkit-touch-callout:none;-webkit-user-select:none;user-select:none;transition:background .25s}
  .fila.presionada{background:var(--papel-2)}
- .flota{width:min(300px,66vw)}
+ .flota{width:min(300px,66vw)}.flota.vert{width:auto;height:min(44vh,360px)}
 }
 
 /* portada centrada en celular y en tablet vertical */

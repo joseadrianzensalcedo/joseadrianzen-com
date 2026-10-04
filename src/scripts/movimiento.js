@@ -584,6 +584,9 @@ if (!R && flota && filas.length) {
   /* El centrado va con GSAP: la propiedad CSS translate la borra GSAP al animar y la imagen quedaba más abajo del cursor,
      tapada por el aviso de cookies o fuera de la pantalla. */
   gsap.set(flota, { xPercent: -50, yPercent: -58 });
+  /* Si la imagen es vertical (el afiche) se muestra entera, con su propia forma, nunca recortada. */
+  const ajustar = () => flota.classList.toggle('vert', flota.naturalHeight > flota.naturalWidth * 1.05);
+  flota.addEventListener('load', ajustar);
   let ux = 0, actual = null, presion = null, reloj = 0, t0 = null;
   /* En el teléfono la miniatura sube bastante por encima del dedo (la mano tapa todo lo que está debajo)
      y no se sale por los costados. */
