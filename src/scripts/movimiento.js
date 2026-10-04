@@ -866,3 +866,27 @@ document.addEventListener('click', (e) => {
 
 addEventListener('load', () => ScrollTrigger.refresh());
 addEventListener('pageshow', (e) => { if (e.persisted) { html.classList.remove('menu-abierto'); if (capa) capa.hidden = true; } });
+
+/* 19. Laureles del inicio: la fila de los cuatro mide lo mismo que la primera línea del título ("ENTRE POLVO").
+       Peras y manzanas: se mide el ancho real de esas dos palabras y se calcula el alto de los laureles para que,
+       puestos uno al lado del otro con su separación, sumen ese ancho. Solo se cambia el alto, el ancho de cada laurel
+       sale de su propia proporción, así nunca se deforman. Si algo falla, queda el tamaño fijo del CSS. */
+(() => {
+  const fila = $('.hero-peli .laureles');
+  if (!fila || !$('.hero-peli .titulo-pelicula')) return;
+  function ajustar() {
+    // El título se parte en letras al animarse: se busca la primera línea cada vez.
+    const linea = $('.hero-peli .titulo-pelicula span'); if (!linea) return;
+    const ims = [...fila.querySelectorAll('img')]; if (!ims.length || ims.some((i) => !i.naturalWidth)) return;
+    const r = document.createRange(); r.selectNodeContents(linea);
+    const ancho = r.getBoundingClientRect().width; if (!ancho) return;
+    const gap = parseFloat(getComputedStyle(fila).columnGap) || 0;
+    const prop = ims.reduce((s, i) => s + i.naturalWidth / i.naturalHeight, 0);
+    const alto = (ancho - gap * (ims.length - 1)) / prop;
+    if (alto > 20 && alto < 200) fila.style.setProperty('--lau', alto.toFixed(1) + 'px');
+  }
+  const todo = () => requestAnimationFrame(ajustar);
+  (document.fonts?.ready || Promise.resolve()).then(todo);
+  fila.querySelectorAll('img').forEach((i) => i.complete || i.addEventListener('load', todo, { once: true }));
+  addEventListener('load', todo); addEventListener('resize', todo); setTimeout(todo, 1800);
+})();
