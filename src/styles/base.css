@@ -262,7 +262,7 @@ html.menu-abierto .tc{opacity:0}
  .pista{display:block}
  .fila{-webkit-touch-callout:none;-webkit-user-select:none;user-select:none;transition:background .25s}
  .fila.presionada{background:var(--papel-2)}
- .flota{width:min(300px,66vw)}.flota.vert{width:auto;height:min(44vh,360px)}
+ .flota{filter:none;-webkit-mask-image:none;mask-image:none;border-radius:3px;box-shadow:0 10px 30px #0006}.flota{width:min(300px,66vw)}.flota.vert{width:auto;height:min(44vh,360px)}
 }
 
 /* portada centrada en celular y en tablet vertical */

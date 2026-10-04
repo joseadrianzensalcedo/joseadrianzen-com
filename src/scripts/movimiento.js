@@ -253,6 +253,9 @@ if (!R) {
       else el.addEventListener('touchstart', () => { cambiar(true); clearTimeout(el._vuelta); el._vuelta = setTimeout(() => cambiar(false), 1400); }, { passive: true });
     });
     $$('[data-lineas]').forEach((el) => {
+      /* En pantallas táctiles el texto sale con un fundido simple. La división en líneas con máscara dejaba párrafos y títulos
+         invisibles en Safari del iPhone, así que ahí no se usa. */
+      if (!FINO) { gsap.fromTo(el, { autoAlpha: 0, y: 18 }, { autoAlpha: 1, y: 0, duration: 0.9, ease: SALE, scrollTrigger: { trigger: el, start: 'top 94%', once: true } }); return; }
       SplitText.create(el, { type: 'lines', mask: 'lines', linesClass: 'linea', autoSplit: true, aria: 'none', onSplit: (s) => {
         gsap.set(el, { visibility: 'visible' });
         return gsap.fromTo(s.lines, { yPercent: 105 }, { yPercent: 0, duration: 1.1, ease: SALE, stagger: 0.06, scrollTrigger: { trigger: el, start: 'top 90%', once: true } });
@@ -590,7 +593,7 @@ if (!R && flota && filas.length) {
   /* El borde esfumado se dibuja desde JS y no con una variable CSS animada dentro de la máscara: Safari no repinta la máscara
      cuando cambia la variable y la imagen se quedaba casi transparente. */
   const vi = { v: 0 };
-  const mascara = () => { if (flota.classList.contains('vert')) { flota.style.webkitMaskImage = 'none'; flota.style.maskImage = 'none'; return; }
+  const mascara = () => { if (!FINO) return; if (flota.classList.contains('vert')) { flota.style.webkitMaskImage = 'none'; flota.style.maskImage = 'none'; return; }
     const m = 'radial-gradient(closest-side,#000 ' + vi.v.toFixed(1) + '%,transparent ' + (vi.v + 38).toFixed(1) + '%)'; flota.style.webkitMaskImage = m; flota.style.maskImage = m; };
   mascara();
   flota.addEventListener('load', mascara);
@@ -610,9 +613,9 @@ if (!R && flota && filas.length) {
     const primera = !actual;
     if (primera) { gsap.set(flota, { x, y }); flota.src = a.dataset.img; }
     else if (actual !== a) { flota.src = a.dataset.img; gsap.set(flota, { opacity: 0.35 }); }
-    actual = a; gsap.to(vi, { v: 62, duration: primera ? 0.9 : 0.5, ease: SALE, overwrite: 'auto', onUpdate: mascara }); gsap.to(flota, { opacity: 1, scale: 1, filter: 'blur(0px)', duration: primera ? 0.9 : 0.5, ease: SALE, overwrite: 'auto' });
+    actual = a; gsap.to(vi, { v: 62, duration: primera ? 0.9 : 0.5, ease: SALE, overwrite: 'auto', onUpdate: mascara }); gsap.to(flota, { opacity: 1, scale: 1, ...(FINO ? { filter: 'blur(0px)' } : {}), duration: primera ? 0.9 : 0.5, ease: SALE, overwrite: 'auto' });
   };
-  const ocultar = () => { actual = null; gsap.to(vi, { v: 0, duration: 0.6, ease: 'power3.out', overwrite: 'auto', onUpdate: mascara }); gsap.to(flota, { opacity: 0, scale: 0.92, filter: 'blur(6px)', duration: 0.6, ease: 'power3.out', overwrite: 'auto' }); };
+  const ocultar = () => { actual = null; gsap.to(vi, { v: 0, duration: 0.6, ease: 'power3.out', overwrite: 'auto', onUpdate: mascara }); gsap.to(flota, { opacity: 0, scale: 0.92, ...(FINO ? { filter: 'blur(6px)' } : {}), duration: 0.6, ease: 'power3.out', overwrite: 'auto' }); };
   const seguir = (x, y) => { fxq(x); fyq(y); frq(gsap.utils.clamp(-7, 7, (x - ux) * 0.6)); ux = x; };
   const limpiar = () => $$('.fila.presionada').forEach((x) => x.classList.remove('presionada'));
   filas.forEach((a) => {
