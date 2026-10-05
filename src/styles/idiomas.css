@@ -8,14 +8,14 @@
 :root:lang(vi){--disp:'Oswald','Bebas Neue',sans-serif}
 
 /* Chino, japonés y coreano. */
-:root:lang(zh){--disp:'Bebas Neue','PingFang SC','Noto Sans SC','Noto Sans CJK SC','Microsoft YaHei',sans-serif;--lectura:'Newsreader','Songti SC','Noto Serif SC','Noto Serif CJK SC','SimSun',serif;--mono:'IBM Plex Mono','PingFang SC','Noto Sans CJK SC','Microsoft YaHei',monospace}
-:root:lang(ja){--disp:'Bebas Neue','Hiragino Sans','Hiragino Kaku Gothic ProN','Noto Sans JP','Noto Sans CJK JP','Yu Gothic',sans-serif;--lectura:'Newsreader','Hiragino Mincho ProN','Noto Serif JP','Noto Serif CJK JP','Yu Mincho',serif;--mono:'IBM Plex Mono','Hiragino Sans','Noto Sans CJK JP','Yu Gothic',monospace}
-:root:lang(ko){--disp:'Bebas Neue','Apple SD Gothic Neo','Noto Sans KR','Noto Sans CJK KR','Malgun Gothic',sans-serif;--lectura:'Newsreader','AppleMyungjo','Noto Serif KR','Noto Serif CJK KR','Batang',serif;--mono:'IBM Plex Mono','Apple SD Gothic Neo','Noto Sans CJK KR','Malgun Gothic',monospace}
+:root:lang(zh){--disp:'Bebas Neue','Eco zh','PingFang SC','Noto Sans SC','Noto Sans CJK SC','Microsoft YaHei',sans-serif;--lectura:'Newsreader','Songti SC','Noto Serif SC','Noto Serif CJK SC','SimSun',serif;--mono:'IBM Plex Mono','PingFang SC','Noto Sans CJK SC','Microsoft YaHei',monospace}
+:root:lang(ja){--disp:'Bebas Neue','Eco ja','Hiragino Sans','Hiragino Kaku Gothic ProN','Noto Sans JP','Noto Sans CJK JP','Yu Gothic',sans-serif;--lectura:'Newsreader','Hiragino Mincho ProN','Noto Serif JP','Noto Serif CJK JP','Yu Mincho',serif;--mono:'IBM Plex Mono','Hiragino Sans','Noto Sans CJK JP','Yu Gothic',monospace}
+:root:lang(ko){--disp:'Bebas Neue','Eco ko','Apple SD Gothic Neo','Noto Sans KR','Noto Sans CJK KR','Malgun Gothic',sans-serif;--lectura:'Newsreader','AppleMyungjo','Noto Serif KR','Noto Serif CJK KR','Batang',serif;--mono:'IBM Plex Mono','Apple SD Gothic Neo','Noto Sans CJK KR','Malgun Gothic',monospace}
 
 /* Árabe, hindi y tailandés: letras más altas y con signos arriba y abajo, necesitan más interlínea. */
-:root:lang(ar){--disp:'Bebas Neue','Noto Kufi Arabic','Geeza Pro','Segoe UI',sans-serif;--lectura:'Newsreader','Noto Naskh Arabic','Geeza Pro','Traditional Arabic','Times New Roman',serif;--mono:'IBM Plex Mono','Noto Kufi Arabic','Geeza Pro','Segoe UI',monospace}
-:root:lang(hi){--disp:'Bebas Neue','Kohinoor Devanagari','Noto Sans Devanagari','Nirmala UI',sans-serif;--lectura:'Newsreader','Noto Serif Devanagari','Kohinoor Devanagari','Nirmala UI',serif;--mono:'IBM Plex Mono','Kohinoor Devanagari','Noto Sans Devanagari','Nirmala UI',monospace}
-:root:lang(th){--disp:'Bebas Neue','Thonburi','Noto Sans Thai','Leelawadee UI',sans-serif;--lectura:'Newsreader','Noto Serif Thai','Thonburi','Leelawadee UI',serif;--mono:'IBM Plex Mono','Thonburi','Noto Sans Thai','Leelawadee UI',monospace}
+:root:lang(ar){--disp:'Bebas Neue','Eco ar','Noto Kufi Arabic','Geeza Pro','Segoe UI',sans-serif;--lectura:'Newsreader','Noto Naskh Arabic','Geeza Pro','Traditional Arabic','Times New Roman',serif;--mono:'IBM Plex Mono','Noto Kufi Arabic','Geeza Pro','Segoe UI',monospace}
+:root:lang(hi){--disp:'Bebas Neue','Eco hi','Kohinoor Devanagari','Noto Sans Devanagari','Nirmala UI',sans-serif;--lectura:'Newsreader','Noto Serif Devanagari','Kohinoor Devanagari','Nirmala UI',serif;--mono:'IBM Plex Mono','Kohinoor Devanagari','Noto Sans Devanagari','Nirmala UI',monospace}
+:root:lang(th){--disp:'Bebas Neue','Eco th','Thonburi','Noto Sans Thai','Leelawadee UI',sans-serif;--lectura:'Newsreader','Noto Serif Thai','Thonburi','Leelawadee UI',serif;--mono:'IBM Plex Mono','Thonburi','Noto Sans Thai','Leelawadee UI',monospace}
 :root:lang(ar) body,:root:lang(hi) body,:root:lang(th) body{line-height:1.75}
 :root:lang(ar) .linea-mask,:root:lang(hi) .linea-mask,:root:lang(th) .linea-mask{padding-block:.35em;margin-block:-.35em}
 
@@ -46,3 +46,8 @@
 .aviso-traduccion{margin:0;padding:8px var(--m);background:var(--tinta2,#1a1816);color:var(--humo);font:400 13px/1.45 var(--lectura);text-align:center;border-top:1px solid rgba(240,238,233,.12)}
 .gigante{max-width:100%;min-width:0}
 .nav-clara .sel-idioma summary{color:var(--humo-osc)}.nav-clara .sel-idioma summary:hover,.nav-clara .sel-idioma[open] summary{color:var(--ambar-osc)}
+
+/* Título de ECO traducido. Una sola línea (el motor lo achica hasta que entre) y, en alfabetos altos, más aire arriba y abajo para que no se corte. */
+.eco-titulo,.eco-t{white-space:nowrap;text-transform:uppercase}
+:root:lang(ar) :is(.eco-titulo,.eco-t),:root:lang(hi) :is(.eco-titulo,.eco-t),:root:lang(th) :is(.eco-titulo,.eco-t),
+:root:lang(zh) :is(.eco-titulo,.eco-t),:root:lang(ja) :is(.eco-titulo,.eco-t),:root:lang(ko) :is(.eco-titulo,.eco-t){line-height:1.2}

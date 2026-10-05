@@ -162,7 +162,7 @@ export const fotografia = [
   ['fot-louvre', { es: 'Pirámide del Museo del Louvre contra las nubes', en: 'The Louvre pyramid against the clouds' }, 'viajes'],
   ['jose-teatro', { es: 'Jose Adrianzen en escena durante una obra de teatro', en: 'Jose Adrianzen on stage during a play' }, 'retratos'],
   ['fot-muelle', { es: 'Muelle de madera sobre un mar turquesa', en: 'Wooden pier over a turquoise sea' }, 'viajes'],
-  ['eco-bts-luces', { es: 'Rodaje de ECO con luz azul y cálida', en: 'Shooting ECO with blue and warm light' }, 'rodajes'],
+  ['eco-bts-luces', { es: 'Rodaje de ECO con luz azul y cálida', en: 'Shooting Echo with blue and warm light' }, 'rodajes'],
   ['fot-barco', { es: 'Barco pesquero solitario sobre un mar naranja', en: 'A lone fishing boat on an orange sea' }, 'viajes'],
   ['jose-taxi', { es: 'Jose Adrianzen dentro de un taxi frente a un mural', en: 'Jose Adrianzen in a taxi in front of a mural' }, 'retratos'],
   ['bts-doc-7', { es: 'Niños del pueblo miran el monitor de la cámara', en: 'Village children look at the camera monitor' }, 'rodajes'],
@@ -181,7 +181,7 @@ export const sobreMi = {
       'Since I was a child, film and politics were my two great passions. At first I wanted to be president, so I studied law to understand the laws and how the State works. Life took me somewhere else. In film I found a more powerful way to make an impact and to tell the stories that deserve to be heard.',
       'Curiosity has taken me across almost all of Peru, much of South America and different corners of the world. Those journeys taught me to look at realities very different from mine and confirmed one thing, film is a tool for social change.',
       'I trained in filmmaking and acting. I also wanted to contribute to the industry from the management side (production, financing and distribution), so I am studying business engineering. In recent years I have worked with several NGOs, telling stories that tend to be forgotten.',
-      'I finished shooting the short film ECO, now on the festival circuit. But the project that has defined my path is Between Dust and Dreams, three years of my life to give a voice to Peru’s women miners and stand up for their struggle.',
+      'I finished shooting the short film Echo, now on the festival circuit. But the project that has defined my path is Between Dust and Dreams, three years of my life to give a voice to Peru’s women miners and stand up for their struggle.',
     ],
   },
   cita: {
@@ -192,7 +192,7 @@ export const sobreMi = {
     { es: 'Televisión y publicidad', en: 'Television and advertising' },
     { es: 'Videos institucionales y ONG', en: 'Institutional films and NGOs' },
     { es: 'Entre polvo y sueños', en: 'Between Dust and Dreams' },
-    { es: 'ECO', en: 'ECO' },
+    { es: 'ECO', en: 'Echo' },
   ],
   formacion: [
     { es: 'Dirección y Realización de Cine y TV, EPIC (IES Peruano de Cine y Creatividad)', en: 'Film and TV Directing, EPIC (Peruvian Institute of Film and Creativity)' },

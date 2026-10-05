@@ -144,3 +144,6 @@ g-l,.letra-g{display:inline-block}
 }
 .menu-capa{overflow-y:auto;justify-content:flex-start;-webkit-overflow-scrolling:touch}
 .menu-capa>:first-child{margin-top:auto}
+
+/* Cada palabra de un título gigante se queda entera: si no cabe, el motor achica la letra, nunca parte la palabra. */
+.pal-t{white-space:nowrap}

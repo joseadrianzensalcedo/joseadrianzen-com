@@ -1,0 +1,107 @@
+{
+ "pl": {
+  "fuente": true,
+  "palabras": {}
+ },
+ "ar": {
+  "fuente": true,
+  "palabras": {
+   "الغبار": "",
+   "بين": "",
+   "والأحلام": ""
+  }
+ },
+ "ay": {
+  "fuente": true,
+  "palabras": {}
+ },
+ "de": {
+  "fuente": false,
+  "palabras": {}
+ },
+ "en": {
+  "fuente": false,
+  "palabras": {}
+ },
+ "es": {
+  "fuente": false,
+  "palabras": {}
+ },
+ "fil": {
+  "fuente": false,
+  "palabras": {}
+ },
+ "fr": {
+  "fuente": false,
+  "palabras": {}
+ },
+ "hi": {
+  "fuente": true,
+  "palabras": {
+   "और": "",
+   "के": "",
+   "धूल": "",
+   "बीच": "",
+   "सपनों": ""
+  }
+ },
+ "id": {
+  "fuente": false,
+  "palabras": {}
+ },
+ "it": {
+  "fuente": false,
+  "palabras": {}
+ },
+ "ja": {
+  "fuente": true,
+  "palabras": {}
+ },
+ "ko": {
+  "fuente": true,
+  "palabras": {}
+ },
+ "nl": {
+  "fuente": false,
+  "palabras": {}
+ },
+ "pt": {
+  "fuente": false,
+  "palabras": {}
+ },
+ "qu": {
+  "fuente": true,
+  "palabras": {}
+ },
+ "ru": {
+  "fuente": true,
+  "palabras": {}
+ },
+ "sw": {
+  "fuente": false,
+  "palabras": {}
+ },
+ "th": {
+  "fuente": true,
+  "palabras": {
+   "กับความฝัน": "",
+   "ระหว่างฝุ่น": ""
+  }
+ },
+ "tr": {
+  "fuente": true,
+  "palabras": {}
+ },
+ "uk": {
+  "fuente": true,
+  "palabras": {}
+ },
+ "vi": {
+  "fuente": true,
+  "palabras": {}
+ },
+ "zh": {
+  "fuente": true,
+  "palabras": {}
+ }
+}

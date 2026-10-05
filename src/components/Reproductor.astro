@@ -8,7 +8,8 @@ const { lang = 'es' } = Astro.props;
 const w = (es, en) => tr({ es, en }, lang);
 const x = t(lang);
 const fotos = import.meta.glob('/src/assets/img/*.webp', { eager: true });
-const VIDEOS = D.videos, TITULO = D.titulo;
+import { docTexto } from '../data/titulos.js';
+const VIDEOS = D.videos, TITULO = docTexto(lang);
 const en = lang === 'en';
 ---
 <div class="rp" id="rp" data-cursor={w('Ver', 'Play')}>

@@ -10,6 +10,7 @@ import { Image } from 'astro:assets';
 import { t, tr } from '../data/textos.js';
 import { ruta, PROTOTIPO } from '../utils.js';
 import { documental as D, eco as E, premios, selecciones } from '../data/sitio.js';
+import { docTexto, docPintado, docDibujado, ecoTitulo, tituloOficial } from '../data/titulos.js';
 const { lang = 'es' } = Astro.props;
 const w = (es, en) => tr({ es, en }, lang);
 const x = t(lang), en = lang === 'en';
@@ -18,7 +19,7 @@ const fotos = import.meta.glob('/src/assets/img/*.webp', { eager: true });
 const FOTOGRAMAS = [...D.fotogramas, ['doc-lago', 'Mineras con casco rojo en la ladera, con una laguna al fondo', 'Women miners in red helmets on the slope, with a lagoon behind'], ['doc-cascos-verdes', 'Mineras con cascos celestes escuchan una charla', 'Women miners in light blue helmets listen to a talk'], ['doc-dron', 'Vista aérea de un pueblo minero entre nevados', 'Aerial view of a mining town among snowy peaks'], ['doc-ladera', 'Mineras trabajan en la ladera junto a un camión de carga', 'Women miners work on the slope next to a dump truck'], ['doc-cuarto-rojo', 'Una minera habla en su casa de paredes de totora', 'A woman miner speaks in her reed walled home']];
 const titulo = w(`${D.titulo} | Documental de Jose Adrianzen`, `${D.tituloEn} | Documentary by Jose Adrianzen`);
 const desc = tr({ es: 'Entre polvo y sueños, documental de Jose Adrianzen sobre mujeres mineras de Arequipa, Puno y Madre de Dios. Perú, 2025, 37 minutos. Míralo completo aquí.', en: 'Between Dust and Dreams, a documentary by Jose Adrianzen about women miners in Arequipa, Puno and Madre de Dios. Peru, 2025, 37 minutes. Watch it here.' }, lang);
-const ld = { '@context': 'https://schema.org', '@type': 'Movie', name: D.titulo, alternateName: D.tituloEn, dateCreated: D.anio, duration: 'PT37M2S', countryOfOrigin: 'PE', inLanguage: 'es',
+const ld = { '@context': 'https://schema.org', '@type': 'Movie', name: D.titulo, alternateName: [...new Set([D.tituloEn, docTexto(lang)])].filter((n) => n !== D.titulo), dateCreated: D.anio, duration: 'PT37M2S', countryOfOrigin: 'PE', inLanguage: 'es',
   director: { '@id': 'https://joseadrianzen.com/#jose' }, description: D.sinopsis.es.join(' '),
   productionCompany: [{ '@type': 'Organization', name: 'Solidaridad' }, { '@type': 'Organization', name: 'BÁLU' }],
   award: premios.map((p) => `${p.k.es}, ${p.v}`), trailer: { '@type': 'VideoObject', name: `${D.titulo}, tráiler`, embedUrl: 'https://player.vimeo.com/video/1056105326', thumbnailUrl: 'https://joseadrianzen.com/og.jpg' } };
@@ -27,7 +28,7 @@ const ld = { '@context': 'https://schema.org', '@type': 'Movie', name: D.titulo,
   <section class="hero alto oscuro">
     <Image class="fondo" src={fotos['/src/assets/img/doc-tunel.webp'].default} alt={w(D.fotogramas[0][1], D.fotogramas[0][2])} widths={[800, 1200]} sizes="100vw" loading="eager" fetchpriority="high" />
     <div class="velo"></div>
-    <div class="titulo-fijo"><div class="titulo-bloque"><h1 class="gigante claro titulo-pelicula" data-letras="gigante"><span>Entre polvo</span><span>y sueños</span></h1><p class="peli-datos" data-aparece><span>{x.documental}</span><span>{D.duracion}</span><span>{D.formato}</span><span>{w('Perú', 'Peru')}, {D.anio}</span></p></div>{D.titulosOficiales[lang] && <p class="cod" data-aparece lang={lang}>{D.titulosOficiales[lang]}</p>}</div>
+    <div class="titulo-fijo"><div class="titulo-bloque"><h1 class="gigante claro titulo-pelicula" data-letras="gigante" aria-label={docDibujado(lang) ? docTexto(lang) : undefined}>{docPintado(lang).map((l) => <span aria-hidden={docDibujado(lang) ? 'true' : undefined}>{l}</span>)}</h1><p class="peli-datos" data-aparece><span>{x.documental}</span><span>{D.duracion}</span><span>{D.formato}</span><span>{w('Perú', 'Peru')}, {D.anio}</span></p></div>{tituloOficial(lang) && tituloOficial(lang) !== docTexto(lang) && <p class="cod" data-aparece lang={lang}>{tituloOficial(lang)}</p>}</div>
     <div class="hero-pie">
       <div class="hero-acc"><p class="rol">{x.rolDoc}</p><a class="btn" href="#sala">{x.verPelicula}</a></div>
     </div>
@@ -70,8 +71,8 @@ const ld = { '@context': 'https://schema.org', '@type': 'Movie', name: D.titulo,
   <section class="siguiente oscuro">
     <p class="cod" data-aparece>{x.siguiente} ▶</p>
     <a class="sig-enlace" href={ruta(E.slug, lang)}>
-      <h2 class="gigante claro" data-letras="eco">ECO</h2>
-      <Foto n="eco-madre" clase="sig-foto" movil={false} alt="" cursor="ECO" sizes="(max-width: 860px) 60vw, 40vw" />
+      <h2 class="gigante claro" data-letras="eco">{ecoTitulo(lang)}</h2>
+      <Foto n="eco-madre" clase="sig-foto" movil={false} alt="" cursor={ecoTitulo(lang)} sizes="(max-width: 860px) 60vw, 40vw" />
     </a>
   </section>
 </Base>

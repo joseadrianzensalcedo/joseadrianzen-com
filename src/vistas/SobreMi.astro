@@ -10,7 +10,7 @@ const { lang = 'es' } = Astro.props;
 const w = (es, en) => tr({ es, en }, lang);
 const x = t(lang), en = lang === 'en';
 const titulo = w('Sobre mí | Jose Adrianzen, director de cine peruano', 'About | Jose Adrianzen, Peruvian film director');
-const desc = tr({ es: 'Jose Adrianzen, director y productor de cine peruano. Estudió cine en EPIC y dirigió el documental premiado Entre polvo y sueños y el corto ECO.', en: 'Jose Adrianzen, Peruvian film director and producer. He trained at EPIC and directed the award winning documentary Between Dust and Dreams and the short ECO.' }, lang);
+const desc = tr({ es: 'Jose Adrianzen, director y productor de cine peruano. Estudió cine en EPIC y dirigió el documental premiado Entre polvo y sueños y el corto ECO.', en: 'Jose Adrianzen, Peruvian film director and producer. He trained at EPIC and directed the award winning documentary Between Dust and Dreams and the short Echo.' }, lang);
 const ldPerfil = { '@context': 'https://schema.org', '@type': 'ProfilePage', mainEntity: { '@id': 'https://joseadrianzen.com/#jose' }, inLanguage: lang };
 ---
 <Base titulo={titulo} descripcion={desc} lang={lang} camino="sobre-mi" actual="sobre-mi" tipo="profile" jsonLd={ldPerfil} navClara>

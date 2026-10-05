@@ -169,7 +169,12 @@ function ponerGasto(c, poner, sinBorde) {
 /* El nombre de la película va siempre en su letra, AWAKENNING, en títulos y rótulos (no dentro de textos largos como la
    sinopsis o la biografía). Si el elemento es solo el nombre, toma la letra entero. Si el nombre está dentro de un rótulo,
    se envuelve esa parte. Pedido de Jose, 1 oct 2026. */
-const NOMBRES_PELI = /(Entre polvo y sueños|Between Dust and Dreams)/i, LARGO = 90;
+/* El nombre de la película en el idioma de la página, más las formas en español e inglés que quedan en textos sueltos. */
+const TIT = (() => { try { return JSON.parse(document.documentElement.dataset.titulo || '{}'); } catch (e) { return {}; } })();
+const FORMAS = [...new Set([TIT.real, 'Entre polvo y sueños', 'Between Dust and Dreams'].filter(Boolean))].sort((a, b) => b.length - a.length);
+const NOMBRES_PELI = new RegExp('(' + FORMAS.map((f) => f.replace(/[.*+?^${}()|[\]\\]/g, '\\$&').replace(/ /g, '\\s+')).join('|') + ')', 'i'), LARGO = 90;
+// En árabe, hindi y tailandés el nombre se dibuja por palabras enteras: el texto visible cambia y el real queda como etiqueta.
+const dibujar = (el, texto) => { if (TIT.dib && texto.replace(/\s+/g, ' ').toLowerCase() === (TIT.real || '').toLowerCase()) { el.setAttribute('aria-label', TIT.real); el.textContent = TIT.pintado; } else el.textContent = texto; };
 const textoCorto = (el) => { const b = el.closest('p,li,h1,h2,h3,h4,h5,h6,div,figcaption,blockquote') || el; return b.textContent.trim().length <= LARGO; };
 (() => {
   const w = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT), nodos = [];
@@ -177,9 +182,9 @@ const textoCorto = (el) => { const b = el.closest('p,li,h1,h2,h3,h4,h5,h6,div,fi
   nodos.forEach((n) => {
     const el = n.parentElement; if (!el || el.closest('script,style,title,.titulo-pelicula,[aria-hidden="true"],.nav,.menu-capa') || !textoCorto(el)) return;
     const solo = n.data.trim().replace(/\s+/g, ' ');
-    if (el.childNodes.length === 1 && NOMBRES_PELI.test(solo) && solo.replace(NOMBRES_PELI, '') === '') { el.classList.add('titulo-pelicula'); return; }
+    if (el.childNodes.length === 1 && NOMBRES_PELI.test(solo) && solo.replace(NOMBRES_PELI, '') === '') { el.classList.add('titulo-pelicula'); dibujar(el, solo); return; }
     const partes = n.data.split(NOMBRES_PELI), f = document.createDocumentFragment();
-    partes.forEach((t, i) => { if (!t) return; if (i % 2) { const sp = document.createElement('span'); sp.className = 'titulo-pelicula'; sp.textContent = t; f.appendChild(sp); } else f.appendChild(document.createTextNode(t)); });
+    partes.forEach((t, i) => { if (!t) return; if (i % 2) { const sp = document.createElement('span'); sp.className = 'titulo-pelicula'; dibujar(sp, t); f.appendChild(sp); } else f.appendChild(document.createTextNode(t)); });
     n.replaceWith(f);
   });
 })();
@@ -210,7 +215,7 @@ function anchoNatural(el) {
   return m;
 }
 function ajustarGigantes() {
-  $$('.gigante').forEach((el) => {
+  $$('.gigante, .eco-titulo, .eco-t').forEach((el) => {
     el.style.fontSize = '';
     for (let i = 0; i < 3; i++) {
       const sobra = anchoNatural(el) / el.clientWidth;
@@ -228,11 +233,12 @@ if (!R) {
   const listo = fuentesListas;
   listo.then(() => {
     /* En árabe, hindi y tailandés las letras se unen o llevan signos encima. Partirlas letra por letra las rompe,
-       así que ahí el título se arma palabra por palabra. */
+       así que ahí el título se arma palabra por palabra. En los demás idiomas se envuelven también las palabras: sin eso,
+       una palabra larga ("poussière", "Zwischen") se partía a media palabra en la línea de abajo. */
     const POR_PALABRA = /^(ar|hi|th)/.test(document.documentElement.lang);
     $$('[data-letras]').forEach((el) => {
       const E = ESTILOS[el.dataset.letras] || ESTILOS.titulo;
-      SplitText.create(el, { type: POR_PALABRA ? 'lines,words' : 'lines,chars', mask: 'lines', linesClass: 'linea', autoSplit: true, onSplit: (s) => {
+      SplitText.create(el, { type: 'lines,words' + (POR_PALABRA ? '' : ',chars'), mask: 'lines', linesClass: 'linea', wordsClass: 'pal-t', autoSplit: true, onSplit: (s) => {
         const partes = POR_PALABRA ? s.words : s.chars;
         gsap.set(el, { visibility: 'visible' }); el._partes = partes;
         const tl = gsap.timeline({ scrollTrigger: { trigger: el, start: 'top 88%', once: true } })

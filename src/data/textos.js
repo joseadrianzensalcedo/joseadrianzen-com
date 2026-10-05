@@ -31,7 +31,7 @@ const BASE = {
     nav: [['entre-polvo-y-suenos', 'Films'], ['fotografia', 'Photography'], ['sobre-mi', 'About'], ['blog', 'Blog'], ['contacto', 'Contact']],
     menu: 'Menu', cerrar: 'Close', saltar: 'Skip to content', saltarIntro: 'Skip intro', idioma: 'Language',
     pausa: '❚❚ Pause', seguir: '▶ Play', detener: '❚❚ Stop', mover: '▶ Move',
-    verDoc: '▶ Watch Between Dust and Dreams', verPelicula: '▶ Watch the film', conocerEco: 'About ECO',
+    verDoc: '▶ Watch Between Dust and Dreams', verPelicula: '▶ Watch the film', conocerEco: 'About Echo',
     peliculas: 'Films', fotografia: 'Photography', blog: 'Blog', laIdea: 'The idea', sobreMi: 'About', contacto: 'Contact',
     premios: 'Awards', selecciones: 'Official selections', sinopsis: 'Synopsis and credits', rodaje: 'On set', reparto: 'Cast',
     siguiente: 'Next film', sala: 'Screen', trailer: 'Trailer', documental: 'Documentary',

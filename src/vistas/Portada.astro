@@ -9,6 +9,7 @@ import { t, tr } from '../data/textos.js';
 import { ruta, PROTOTIPO } from '../utils.js';
 import { idea, documental as D, eco as E, premios, selecciones, persona } from '../data/sitio.js';
 import { visibles } from '../data/blog.js';
+import { docTexto, docPintado, docDibujado, ecoTitulo } from '../data/titulos.js';
 const { lang = 'es' } = Astro.props;
 const w = (es, en) => tr({ es, en }, lang);
 const x = t(lang);
@@ -18,7 +19,7 @@ const movil = await getImage({ src: (await import('../assets/img/doc-lago-m.webp
 const arts = visibles(PROTOTIPO).slice(0, 3);
 const HOJA = [['fot-puerto', 'an', w('Grúas del puerto del Callao bajo un cielo naranja', 'Cranes at the port of Callao under an orange sky')], ['jose-shipibo', 'md', w('Jose con amigos shipibo en la calle', 'Jose with Shipibo friends in the street')], ['fot-mar', 'an', w('Mar abierto al amanecer', 'Open sea at dawn')], ['fot-barcelona', 'ch', w('Fachadas con balcones en Barcelona', 'Facades with balconies in Barcelona')], ['fot-gaviota', 'md', w('Proa de un buque y una gaviota en el puerto', 'A ship’s bow and a seagull in the port')]];
 const titulo = w('Jose Adrianzen | Director de cine peruano', 'Jose Adrianzen | Peruvian film director');
-const desc = w('Jose Adrianzen, director y productor de cine peruano. Documental premiado Entre polvo y sueños y cortometraje ECO.', 'Jose Adrianzen, Peruvian film director and producer. Award winning documentary Between Dust and Dreams and the short film ECO.');
+const desc = w('Jose Adrianzen, director y productor de cine peruano. Documental premiado Entre polvo y sueños y cortometraje ECO.', 'Jose Adrianzen, Peruvian film director and producer. Award winning documentary Between Dust and Dreams and the short film Echo.');
 const ld = { '@context': 'https://schema.org', '@type': 'WebSite', name: 'Jose Adrianzen', url: 'https://joseadrianzen.com/', inLanguage: lang };
 ---
 <Base titulo={titulo} descripcion={desc} lang={lang} jsonLd={ld}>
@@ -34,7 +35,7 @@ const ld = { '@context': 'https://schema.org', '@type': 'WebSite', name: 'Jose A
     <div class="hero-marco">
       <div class="hero-izq">
         <ul class="laureles" data-cascada>{premios.map((p) => <Laurel laurel={p.laurel} alt={`${tr(p.k, lang)}, ${p.v}, ${tr(p.d, lang)}`} alto={140} carga="eager" />)}</ul>
-        <h2 class="gigante claro titulo-pelicula" data-letras="gigante"><span>Entre polvo</span><span>y sueños</span></h2>
+        <h2 class="gigante claro titulo-pelicula" data-letras="gigante" aria-label={docDibujado(lang) ? docTexto(lang) : undefined}>{docPintado(lang).map((l) => <span aria-hidden={docDibujado(lang) ? 'true' : undefined}>{l}</span>)}</h2>
         <p class="peli-datos" data-aparece><span>{x.documental}</span><span>{D.duracion}</span><span>{D.formato}</span><span>{w('Perú', 'Peru')}, {D.anio}</span></p>
       </div>
       <div class="hero-acc">
@@ -59,9 +60,9 @@ const ld = { '@context': 'https://schema.org', '@type': 'WebSite', name: 'Jose A
   <section class="peli oscuro grano" id="peliculas">
     <Enc t={x.peliculas} osc />
     <div class="peli-caja">
-      <a href={ruta(D.slug, lang)} class="peli-enlace" aria-label={D.titulo}><Foto n="doc-mineras" clase="peli-foto" movil={false} alt={w(D.fotogramas[1][1], D.fotogramas[1][2])} cursor={x.cursor.ver} sizes="(max-width: 860px) 100vw, 56vw" /></a>
+      <a href={ruta(D.slug, lang)} class="peli-enlace" aria-label={docTexto(lang)}><Foto n="doc-mineras" clase="peli-foto" movil={false} alt={w(D.fotogramas[1][1], D.fotogramas[1][2])} cursor={x.cursor.ver} sizes="(max-width: 860px) 100vw, 56vw" /></a>
       <div class="peli-txt">
-        <h2 class="titulo" data-letras="titulo">{D.titulo}</h2>
+        <h2 class="titulo" data-letras="titulo" aria-label={docDibujado(lang) ? docTexto(lang) : undefined}>{docDibujado(lang) ? <span aria-hidden="true">{docPintado(lang).join(' ')}</span> : docTexto(lang)}</h2>
         <p class="cod" data-aparece>{w('Documental · Perú', 'Documentary · Peru')} · {D.anio} · {D.duracion} · {D.formato}</p>
         <p class="golpe" data-lineas>“{tr(D.golpe, lang)}”</p>
         <p class="lect" data-lineas>{tr(D.sinopsis, lang)[0]}</p>
@@ -87,7 +88,7 @@ const ld = { '@context': 'https://schema.org', '@type': 'WebSite', name: 'Jose A
     <Enc t={x.peliculas} osc />
     <div class="eco-caja">
       <div class="eco-txt">
-        <h2 class="eco-t" data-letras="eco">ECO</h2>
+        <h2 class="eco-t" data-letras="eco">{ecoTitulo(lang)}</h2>
         <p class="sello" data-aparece>{tr(E.sello, lang)}</p>
         <p class="cod" data-aparece>{w('Cortometraje · thriller psicológico', 'Short film · psychological thriller')} · {E.duracion} · {E.formato}</p>
         <p class="golpe" data-lineas>“{tr(E.golpe, lang)}”</p>

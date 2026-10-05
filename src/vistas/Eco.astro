@@ -7,20 +7,21 @@ import { Image } from 'astro:assets';
 import { t, tr } from '../data/textos.js';
 import { ruta } from '../utils.js';
 import { eco as E, documental as D } from '../data/sitio.js';
+import { docTexto, docPintado, docDibujado, ecoTitulo } from '../data/titulos.js';
 const { lang = 'es' } = Astro.props;
 const w = (es, en) => tr({ es, en }, lang);
 const x = t(lang), en = lang === 'en';
 const fotos = import.meta.glob('/src/assets/img/*.webp', { eager: true });
 const img = (n) => fotos[`/src/assets/img/${n}.webp`].default;
-const titulo = w('ECO | Cortometraje de Jose Adrianzen', 'ECO | Short film by Jose Adrianzen');
-const ld = { '@context': 'https://schema.org', '@type': 'Movie', name: 'ECO', dateCreated: E.anio, duration: 'PT13M12S', countryOfOrigin: 'PE', genre: 'Thriller psicológico', director: { '@id': 'https://joseadrianzen.com/#jose' }, description: E.sinopsis.es };
+const titulo = w('ECO | Cortometraje de Jose Adrianzen', 'Echo | Short film by Jose Adrianzen');
+const ld = { '@context': 'https://schema.org', '@type': 'Movie', name: 'ECO', alternateName: ecoTitulo(lang), dateCreated: E.anio, duration: 'PT13M12S', countryOfOrigin: 'PE', genre: 'Thriller psicológico', director: { '@id': 'https://joseadrianzen.com/#jose' }, description: E.sinopsis.es };
 ---
-<Base titulo={titulo} descripcion={tr({ es: 'ECO, cortometraje de Jose Adrianzen. Thriller psicológico ambientado en los años ochenta. Perú, 2023, 13 minutos, rodado en 6K. Aún sin estrenar.', en: 'ECO, a short film by Jose Adrianzen. A psychological thriller set in the eighties. Peru, 2023, 13 minutes, shot in 6K. Not yet released.' }, lang)} lang={lang} camino={E.slug} actual="entre-polvo-y-suenos" jsonLd={ld} imagenOg="/og/eco.jpg" altOg="ECO" clase="noche">
+<Base titulo={titulo} descripcion={tr({ es: 'ECO, cortometraje de Jose Adrianzen. Thriller psicológico ambientado en los años ochenta. Perú, 2023, 13 minutos, rodado en 6K. Aún sin estrenar.', en: 'Echo, a short film by Jose Adrianzen. A psychological thriller set in the eighties. Peru, 2023, 13 minutes, shot in 6K. Not yet released.' }, lang)} lang={lang} camino={E.slug} actual="entre-polvo-y-suenos" jsonLd={ld} imagenOg="/og/eco.jpg" altOg="ECO" clase="noche">
   <section class="hero alto oscuro eco-cab">
-    <Image class="fondo" src={img('eco-silla')} alt={w('Fotograma de ECO', 'Frame from ECO')} widths={[800, 1200]} sizes="100vw" loading="eager" fetchpriority="high" />
+    <Image class="fondo" src={img('eco-silla')} alt={w('Fotograma de ECO', 'Frame from Echo')} widths={[800, 1200]} sizes="100vw" loading="eager" fetchpriority="high" />
     <div class="velo fuerte"></div>
     <div class="eco-hero">
-      <h1 class="eco-titulo" data-letras="eco">ECO</h1>
+      <h1 class="eco-titulo" data-letras="eco">{ecoTitulo(lang)}</h1>
       <p class="sello grande" data-aparece>{tr(E.sello, lang)}</p>
       <p class="cod" data-aparece>{x.rolEco} · {E.anio} · {E.duracion} · {E.formato}</p>
     </div>
@@ -61,7 +62,7 @@ const ld = { '@context': 'https://schema.org', '@type': 'Movie', name: 'ECO', da
   <section class="siguiente oscuro">
     <p class="cod" data-aparece>{x.siguiente} ▶</p>
     <a class="sig-enlace" href={ruta(D.slug, lang)}>
-      <h2 class="gigante claro sig-largo" data-letras="titulo">{D.titulo}</h2>
+      <h2 class="gigante claro sig-largo" data-letras="titulo" aria-label={docDibujado(lang) ? docTexto(lang) : undefined}>{docDibujado(lang) ? <span aria-hidden="true">{docPintado(lang).join(' ')}</span> : docTexto(lang)}</h2>
       <Foto n="doc-mineras" clase="sig-foto" movil={false} alt="" cursor={x.cursor.ver} sizes="(max-width: 860px) 60vw, 40vw" />
     </a>
   </section>

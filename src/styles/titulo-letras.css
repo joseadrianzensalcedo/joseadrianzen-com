@@ -1,0 +1,59 @@
+/* Generado por herramientas/titulos_exportar.py. No se edita a mano. Letras del título del documental por idioma. */
+@font-face{font-family:'Titulo ar';src:url('/fuentes/titulo/ar.woff2') format('woff2');font-display:swap}
+@font-face{font-family:'Titulo ar acero';src:url('/fuentes/titulo/ar-acero.woff2') format('woff2');font-display:swap}
+:root:lang(ar) .titulo-pelicula{font-family:'Awakenning','Titulo ar',var(--disp)!important}
+:root:lang(ar) .titulo-pelicula .acero{font-family:'Awakenning Steel','Titulo ar acero','Awakenning','Titulo ar',var(--disp)}
+@font-face{font-family:'Titulo ay';src:url('/fuentes/awakenning/titulo/ay.woff2') format('woff2');font-display:swap}
+@font-face{font-family:'Titulo ay acero';src:url('/fuentes/awakenning/titulo/ay-acero.woff2') format('woff2');font-display:swap}
+:root:lang(ay) .titulo-pelicula{font-family:'Awakenning','Titulo ay',var(--disp)!important}
+:root:lang(ay) .titulo-pelicula .acero{font-family:'Awakenning Steel','Titulo ay acero','Awakenning','Titulo ay',var(--disp)}
+@font-face{font-family:'Titulo hi';src:url('/fuentes/titulo/hi.woff2') format('woff2');font-display:swap}
+@font-face{font-family:'Titulo hi acero';src:url('/fuentes/titulo/hi-acero.woff2') format('woff2');font-display:swap}
+:root:lang(hi) .titulo-pelicula{font-family:'Awakenning','Titulo hi',var(--disp)!important}
+:root:lang(hi) .titulo-pelicula .acero{font-family:'Awakenning Steel','Titulo hi acero','Awakenning','Titulo hi',var(--disp)}
+@font-face{font-family:'Titulo ja';src:url('/fuentes/titulo/ja.woff2') format('woff2');font-display:swap}
+@font-face{font-family:'Titulo ja acero';src:url('/fuentes/titulo/ja-acero.woff2') format('woff2');font-display:swap}
+:root:lang(ja) .titulo-pelicula{font-family:'Awakenning','Titulo ja',var(--disp)!important}
+:root:lang(ja) .titulo-pelicula .acero{font-family:'Awakenning Steel','Titulo ja acero','Awakenning','Titulo ja',var(--disp)}
+@font-face{font-family:'Titulo ko';src:url('/fuentes/titulo/ko.woff2') format('woff2');font-display:swap}
+@font-face{font-family:'Titulo ko acero';src:url('/fuentes/titulo/ko-acero.woff2') format('woff2');font-display:swap}
+:root:lang(ko) .titulo-pelicula{font-family:'Awakenning','Titulo ko',var(--disp)!important}
+:root:lang(ko) .titulo-pelicula .acero{font-family:'Awakenning Steel','Titulo ko acero','Awakenning','Titulo ko',var(--disp)}
+@font-face{font-family:'Titulo pl';src:url('/fuentes/awakenning/titulo/pl.woff2') format('woff2');font-display:swap}
+@font-face{font-family:'Titulo pl acero';src:url('/fuentes/awakenning/titulo/pl-acero.woff2') format('woff2');font-display:swap}
+:root:lang(pl) .titulo-pelicula{font-family:'Awakenning','Titulo pl',var(--disp)!important}
+:root:lang(pl) .titulo-pelicula .acero{font-family:'Awakenning Steel','Titulo pl acero','Awakenning','Titulo pl',var(--disp)}
+@font-face{font-family:'Titulo qu';src:url('/fuentes/awakenning/titulo/qu.woff2') format('woff2');font-display:swap}
+@font-face{font-family:'Titulo qu acero';src:url('/fuentes/awakenning/titulo/qu-acero.woff2') format('woff2');font-display:swap}
+:root:lang(qu) .titulo-pelicula{font-family:'Awakenning','Titulo qu',var(--disp)!important}
+:root:lang(qu) .titulo-pelicula .acero{font-family:'Awakenning Steel','Titulo qu acero','Awakenning','Titulo qu',var(--disp)}
+@font-face{font-family:'Titulo ru';src:url('/fuentes/awakenning/titulo/ru.woff2') format('woff2');font-display:swap}
+@font-face{font-family:'Titulo ru acero';src:url('/fuentes/awakenning/titulo/ru-acero.woff2') format('woff2');font-display:swap}
+:root:lang(ru) .titulo-pelicula{font-family:'Awakenning','Titulo ru',var(--disp)!important}
+:root:lang(ru) .titulo-pelicula .acero{font-family:'Awakenning Steel','Titulo ru acero','Awakenning','Titulo ru',var(--disp)}
+@font-face{font-family:'Titulo th';src:url('/fuentes/titulo/th.woff2') format('woff2');font-display:swap}
+@font-face{font-family:'Titulo th acero';src:url('/fuentes/titulo/th-acero.woff2') format('woff2');font-display:swap}
+:root:lang(th) .titulo-pelicula{font-family:'Awakenning','Titulo th',var(--disp)!important}
+:root:lang(th) .titulo-pelicula .acero{font-family:'Awakenning Steel','Titulo th acero','Awakenning','Titulo th',var(--disp)}
+@font-face{font-family:'Titulo tr';src:url('/fuentes/awakenning/titulo/tr.woff2') format('woff2');font-display:swap}
+@font-face{font-family:'Titulo tr acero';src:url('/fuentes/awakenning/titulo/tr-acero.woff2') format('woff2');font-display:swap}
+:root:lang(tr) .titulo-pelicula{font-family:'Awakenning','Titulo tr',var(--disp)!important}
+:root:lang(tr) .titulo-pelicula .acero{font-family:'Awakenning Steel','Titulo tr acero','Awakenning','Titulo tr',var(--disp)}
+@font-face{font-family:'Titulo uk';src:url('/fuentes/awakenning/titulo/uk.woff2') format('woff2');font-display:swap}
+@font-face{font-family:'Titulo uk acero';src:url('/fuentes/awakenning/titulo/uk-acero.woff2') format('woff2');font-display:swap}
+:root:lang(uk) .titulo-pelicula{font-family:'Awakenning','Titulo uk',var(--disp)!important}
+:root:lang(uk) .titulo-pelicula .acero{font-family:'Awakenning Steel','Titulo uk acero','Awakenning','Titulo uk',var(--disp)}
+@font-face{font-family:'Titulo vi';src:url('/fuentes/awakenning/titulo/vi.woff2') format('woff2');font-display:swap}
+@font-face{font-family:'Titulo vi acero';src:url('/fuentes/awakenning/titulo/vi-acero.woff2') format('woff2');font-display:swap}
+:root:lang(vi) .titulo-pelicula{font-family:'Awakenning','Titulo vi',var(--disp)!important}
+:root:lang(vi) .titulo-pelicula .acero{font-family:'Awakenning Steel','Titulo vi acero','Awakenning','Titulo vi',var(--disp)}
+@font-face{font-family:'Titulo zh';src:url('/fuentes/titulo/zh.woff2') format('woff2');font-display:swap}
+@font-face{font-family:'Titulo zh acero';src:url('/fuentes/titulo/zh-acero.woff2') format('woff2');font-display:swap}
+:root:lang(zh) .titulo-pelicula{font-family:'Awakenning','Titulo zh',var(--disp)!important}
+:root:lang(zh) .titulo-pelicula .acero{font-family:'Awakenning Steel','Titulo zh acero','Awakenning','Titulo zh',var(--disp)}
+@font-face{font-family:'Eco ar';src:url('/fuentes/titulo/eco-ar.woff2') format('woff2');font-display:swap}
+@font-face{font-family:'Eco hi';src:url('/fuentes/titulo/eco-hi.woff2') format('woff2');font-display:swap}
+@font-face{font-family:'Eco th';src:url('/fuentes/titulo/eco-th.woff2') format('woff2');font-display:swap}
+@font-face{font-family:'Eco zh';src:url('/fuentes/titulo/eco-zh.woff2') format('woff2');font-display:swap}
+@font-face{font-family:'Eco ja';src:url('/fuentes/titulo/eco-ja.woff2') format('woff2');font-display:swap}
+@font-face{font-family:'Eco ko';src:url('/fuentes/titulo/eco-ko.woff2') format('woff2');font-display:swap}
