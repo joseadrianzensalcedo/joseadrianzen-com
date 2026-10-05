@@ -62,7 +62,7 @@ const ld = { '@context': 'https://schema.org', '@type': 'Movie', name: 'ECO', al
   <section class="siguiente oscuro">
     <p class="cod" data-aparece>{x.siguiente} ▶</p>
     <a class="sig-enlace" href={ruta(D.slug, lang)}>
-      <h2 class="gigante claro sig-largo" data-letras="titulo" aria-label={docDibujado(lang) ? docTexto(lang) : undefined}>{docDibujado(lang) ? <span aria-hidden="true">{docPintado(lang).join(' ')}</span> : docTexto(lang)}</h2>
+      <h2 class={docDibujado(lang) ? 'gigante claro sig-largo titulo-pelicula' : 'gigante claro sig-largo'} data-letras="titulo" aria-label={docDibujado(lang) ? docTexto(lang) : undefined}>{docDibujado(lang) ? <span aria-hidden="true">{docPintado(lang).join(' ')}</span> : docTexto(lang)}</h2>
       <Foto n="doc-mineras" clase="sig-foto" movil={false} alt="" cursor={x.cursor.ver} sizes="(max-width: 860px) 60vw, 40vw" />
     </a>
   </section>

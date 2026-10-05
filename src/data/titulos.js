@@ -22,4 +22,5 @@ export const docPintado = (lang) => {
 };
 export const docDibujado = (lang) => !!palabras(lang);
 // Para el motor de movimiento: el texto real y su versión dibujada, para envolver el nombre cuando aparece dentro de un rótulo.
-export const docParaMovimiento = (lang) => JSON.stringify({ real: docTexto(lang), pintado: docPintado(lang).join(' '), dib: docDibujado(lang) });
+// mapa: de cada letra dibujada a su palabra real, para volver al texto si el navegador no puede cargar la letra del título.
+export const docParaMovimiento = (lang) => JSON.stringify({ real: docTexto(lang), pintado: docPintado(lang).join(' '), dib: docDibujado(lang), mapa: Object.fromEntries(Object.entries(palabras(lang) || {}).map(([r, u]) => [u, r])) });

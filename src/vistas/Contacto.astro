@@ -40,27 +40,9 @@ const desc = w('Escríbele a Jose Adrianzen sobre proyectos, festivales y prensa
         <a class="citas-fuera" href={google.citas.replace('?gv=true', '')} target="_blank" rel="noopener">{w('Abrir la agenda en otra pestaña', 'Open the booking page in a new tab')} ↗</a>
       </div>
     )}
-    {google.disponibilidad && (
-      <div class="dispo">
-        <p class="cod">{w('Mi disponibilidad esta semana', 'My availability this week')}</p>
-        <p class="dispo-nota">{w('Los bloques son horas ocupadas. El resto está libre. La hora se muestra en la tuya.', 'Blocks are busy hours. The rest is free. Times are shown in your time zone.')}</p>
-        <div class="dispo-marco" data-cal={google.disponibilidad} data-lang={lang === 'es' ? 'es' : lang}></div>
-      </div>
-    )}
     <p class="cod base" data-aparece>{tr(persona.base, lang)}</p>
   </section>
   <script>
-    // El calendario se pide recién cuando está cerca de la pantalla, en la zona horaria de quien mira.
-    document.querySelectorAll('.dispo-marco').forEach((m) => {
-      const poner = () => {
-        if (m.firstChild) return;
-        let zona = 'America/Lima'; try { zona = Intl.DateTimeFormat().resolvedOptions().timeZone || zona; } catch (e) {}
-        const p = new URLSearchParams({ src: m.dataset.cal, ctz: zona, mode: 'WEEK', showTitle: '0', showPrint: '0', showTabs: '0', showCalendars: '0', showTz: '1', wkst: '2', hl: m.dataset.lang });
-        const f = document.createElement('iframe'); f.src = 'https://calendar.google.com/calendar/embed?' + p; f.title = 'Disponibilidad'; f.loading = 'lazy'; f.referrerPolicy = 'no-referrer';
-        m.appendChild(f);
-      };
-      if ('IntersectionObserver' in window) { const io = new IntersectionObserver((es) => { if (es.some((e) => e.isIntersecting)) { poner(); io.disconnect(); } }, { rootMargin: '400px' }); io.observe(m); } else poner();
-    });
     document.querySelectorAll('.citas-abrir').forEach((b) => b.addEventListener('click', () => {
       const m = document.getElementById('citas-marco');
       if (!m.firstChild) { const f = document.createElement('iframe'); f.src = m.dataset.src; f.title = 'Agenda'; f.loading = 'lazy'; m.appendChild(f); }

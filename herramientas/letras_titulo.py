@@ -162,6 +162,7 @@ def construir(lang, modo, log=print):
     fb.setupHorizontalHeader(ascent=750, descent=-250)
     nombre = f'Titulo {lang}' + (' acero' if modo == 'acero' else '')
     fb.setupNameTable({'familyName': nombre, 'styleName': 'Regular'})
+    import fuentes_nombres; fuentes_nombres.completar(fb.font, nombre)  # Safari rechaza la letra sin nombre completo ni PostScript
     fb.setupOS2(sTypoAscender=750, sTypoDescender=-250, usWinAscent=1100, usWinDescent=400); fb.setupPost()
     return fb.font, info
 

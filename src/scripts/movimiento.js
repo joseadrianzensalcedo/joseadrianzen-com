@@ -152,7 +152,7 @@ function filtroBorde(fs) {
   // un filtro por tamaño de letra (redondeado), porque el filtro trabaja en píxeles y no en em
   const t = Math.max(12, Math.round(fs / 8) * 8); if (bordes.has(t)) return bordes.get(t);
   const id = 'borde-' + t, f = document.createElementNS('http://www.w3.org/2000/svg', 'filter');
-  f.setAttribute('id', id); f.setAttribute('x', '-5%'); f.setAttribute('y', '-5%'); f.setAttribute('width', '110%'); f.setAttribute('height', '110%');
+  f.setAttribute('id', id); f.setAttribute('x', '-25%'); f.setAttribute('y', '-40%'); f.setAttribute('width', '150%'); f.setAttribute('height', '180%');
   f.innerHTML = '<feTurbulence type="fractalNoise" baseFrequency="' + (1 / (0.035 * t)).toFixed(4) + '" numOctaves="2" seed="' + (t % 97) + '" result="r"/>' +
     '<feDisplacementMap in="SourceGraphic" in2="r" scale="' + (0.012 * t).toFixed(2) + '" xChannelSelector="R" yChannelSelector="G"/>';
   svgBordes.appendChild(f); const url = 'url(#' + id + ')'; bordes.set(t, url); return url;
@@ -175,6 +175,17 @@ const FORMAS = [...new Set([TIT.real, 'Entre polvo y sueños', 'Between Dust and
 const NOMBRES_PELI = new RegExp('(' + FORMAS.map((f) => f.replace(/[.*+?^${}()|[\]\\]/g, '\\$&').replace(/ /g, '\\s+')).join('|') + ')', 'i'), LARGO = 90;
 // En árabe, hindi y tailandés el nombre se dibuja por palabras enteras: el texto visible cambia y el real queda como etiqueta.
 const dibujar = (el, texto) => { if (TIT.dib && texto.replace(/\s+/g, ' ').toLowerCase() === (TIT.real || '').toLowerCase()) { el.setAttribute('aria-label', TIT.real); el.textContent = TIT.pintado; } else el.textContent = texto; };
+// Si el navegador no logra cargar la letra del título (en árabe, hindi y tailandés cada palabra es un carácter propio y sin la letra
+// salen cuadros), se vuelve al texto real con la letra normal. Pasó en Safari del iPhone (5 oct 2026).
+const volverAlTexto = () => {
+  document.documentElement.classList.add('titulo-sin-letra');
+  const w = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+  for (let n = w.nextNode(); n; n = w.nextNode()) if (/[\uE000-\uF8FF]/.test(n.data)) n.data = n.data.replace(/[\uE000-\uF8FF]/g, (c) => TIT.mapa?.[c] || c);
+  if (typeof ajustarGigantes === 'function') ajustarGigantes();
+};
+const letraTitulo = (TIT.dib && document.fonts?.load)
+  ? document.fonts.load('100px "Titulo ' + document.documentElement.lang.slice(0, 2) + '"', TIT.pintado).then((f) => { if (!f.length) volverAlTexto(); }).catch(volverAlTexto)
+  : Promise.resolve();
 const textoCorto = (el) => { const b = el.closest('p,li,h1,h2,h3,h4,h5,h6,div,figcaption,blockquote') || el; return b.textContent.trim().length <= LARGO; };
 (() => {
   const w = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT), nodos = [];
@@ -188,9 +199,24 @@ const textoCorto = (el) => { const b = el.closest('p,li,h1,h2,h3,h4,h5,h6,div,fi
     n.replaceWith(f);
   });
 })();
+/* En el teléfono el efecto no puede ser el mismo que con el mouse: un dedo tapa muchas letras a la vez y casi siempre está
+   moviendo la página. Reglas (pedido de Jose, 5 oct 2026, "los efectos son exagerados"): solo se activa si el dedo se queda
+   quieto 140 ms (si se mueve más de 8 px es scroll y no pasa nada), toca solo la mitad de las letras y dura 0,8 s. */
+const toque = (el, cambiar) => {
+  let x0 = 0, y0 = 0;
+  el.addEventListener('touchstart', (e) => {
+    const p = e.touches[0]; x0 = p.clientX; y0 = p.clientY; clearTimeout(el._espera);
+    el._espera = setTimeout(() => { cambiar(true); clearTimeout(el._vuelta); el._vuelta = setTimeout(() => cambiar(false), 800); }, 140);
+  }, { passive: true });
+  el.addEventListener('touchmove', (e) => { const p = e.touches[0]; if (Math.hypot(p.clientX - x0, p.clientY - y0) > 8) clearTimeout(el._espera); }, { passive: true });
+  el.addEventListener('touchend', () => clearTimeout(el._espera), { passive: true });
+  el.addEventListener('touchcancel', () => clearTimeout(el._espera), { passive: true });
+};
+const alcanza = (poner) => !poner || FINO || Math.random() < 0.5;
 function gastar(el, poner) {
   if (!el._partes) return; (el._relojes || []).forEach(clearTimeout);
   el._relojes = el._partes.map((c, i) => setTimeout(() => {
+    if (!alcanza(poner)) return;
     // Las letras del nombre de la película no se gastan con el filtro: cambian a AWAKENNING STEEL, como en la portada.
     if (c.closest('.titulo-pelicula')) { c.classList.toggle('acero', poner); return; }
     ponerGasto(c, poner);
@@ -230,7 +256,7 @@ document.fonts?.addEventListener?.('loadingdone', ajustarGigantes);
 let tAjuste, anchoPrevio = innerWidth;
 addEventListener('resize', () => { if (innerWidth === anchoPrevio) return; anchoPrevio = innerWidth; clearTimeout(tAjuste); tAjuste = setTimeout(ajustarGigantes, 150); });
 if (!R) {
-  const listo = fuentesListas;
+  const listo = Promise.all([fuentesListas, letraTitulo]);
   listo.then(() => {
     /* En árabe, hindi y tailandés las letras se unen o llevan signos encima. Partirlas letra por letra las rompe,
        así que ahí el título se arma palabra por palabra. En los demás idiomas se envuelven también las palabras: sin eso,
@@ -238,7 +264,7 @@ if (!R) {
     const POR_PALABRA = /^(ar|hi|th)/.test(document.documentElement.lang);
     $$('[data-letras]').forEach((el) => {
       const E = ESTILOS[el.dataset.letras] || ESTILOS.titulo;
-      SplitText.create(el, { type: 'lines,words' + (POR_PALABRA ? '' : ',chars'), mask: 'lines', linesClass: 'linea', wordsClass: 'pal-t', autoSplit: true, onSplit: (s) => {
+      SplitText.create(el, { type: 'lines,words' + (POR_PALABRA ? '' : ',chars'), mask: 'lines', linesClass: 'linea', wordsClass: 'pal-t', charsClass: 'car', autoSplit: true, onSplit: (s) => {
         const partes = POR_PALABRA ? s.words : s.chars;
         gsap.set(el, { visibility: 'visible' }); el._partes = partes;
         const tl = gsap.timeline({ scrollTrigger: { trigger: el, start: 'top 88%', once: true } })
@@ -253,10 +279,10 @@ if (!R) {
       const cambiar = (poner) => {
         if (!pelicula) return gastar(el, poner);
         if (!el._partes) return; (el._relojes || []).forEach(clearTimeout);
-        el._relojes = el._partes.map((c) => setTimeout(() => c.classList.toggle('acero', poner), gsap.utils.random(0, 320)));
+        el._relojes = el._partes.map((c) => setTimeout(() => { if (alcanza(poner)) c.classList.toggle('acero', poner); }, gsap.utils.random(0, 320)));
       };
       if (FINO) { el.addEventListener('pointerenter', () => cambiar(true)); el.addEventListener('pointerleave', () => cambiar(false)); }
-      else el.addEventListener('touchstart', () => { cambiar(true); clearTimeout(el._vuelta); el._vuelta = setTimeout(() => cambiar(false), 1400); }, { passive: true });
+      else toque(el, cambiar);
     });
     $$('[data-lineas]').forEach((el) => {
       /* En pantallas táctiles el texto sale con un fundido simple. La división en líneas con máscara dejaba párrafos y títulos
@@ -317,7 +343,7 @@ if (!R) {
         partir(); gastar(t, poner);
       };
       if (FINO) { t.addEventListener('pointerenter', () => cambiar(true)); t.addEventListener('pointerleave', () => cambiar(false)); }
-      else t.addEventListener('touchstart', () => { cambiar(true); clearTimeout(t._vuelta); t._vuelta = setTimeout(() => cambiar(false), 1400); }, { passive: true });
+      else toque(t, cambiar);
     });
   });
 }

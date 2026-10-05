@@ -220,8 +220,8 @@ export const correoUrl = 'https://joseadrianzen.com/correo/';
           Página de reservas o "Insertar en el sitio web", la que termina en ?gv=true).
    dossier, fotosAlta: enlaces de Google Drive compartidos como "Cualquier persona con el enlace". */
 export const google = {
-  // Tu calendario personal publicado en modo "solo libre/ocupado": la web muestra los bloques ocupados, sin títulos.
-  disponibilidad: 'joseadrianzensalcedo@gmail.com',
+  // Sin calendario público: Jose pidió el 5 oct 2026 que el público no vea sus horas ocupadas. No volver a poner un calendario aquí.
+  disponibilidad: null,
   citas: null,
   dossier: null,
   fotosAlta: null,

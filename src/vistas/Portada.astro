@@ -62,7 +62,7 @@ const ld = { '@context': 'https://schema.org', '@type': 'WebSite', name: 'Jose A
     <div class="peli-caja">
       <a href={ruta(D.slug, lang)} class="peli-enlace" aria-label={docTexto(lang)}><Foto n="doc-mineras" clase="peli-foto" movil={false} alt={w(D.fotogramas[1][1], D.fotogramas[1][2])} cursor={x.cursor.ver} sizes="(max-width: 860px) 100vw, 56vw" /></a>
       <div class="peli-txt">
-        <h2 class="titulo" data-letras="titulo" aria-label={docDibujado(lang) ? docTexto(lang) : undefined}>{docDibujado(lang) ? <span aria-hidden="true">{docPintado(lang).join(' ')}</span> : docTexto(lang)}</h2>
+        <h2 class={docDibujado(lang) ? 'titulo titulo-pelicula' : 'titulo'} data-letras="titulo" aria-label={docDibujado(lang) ? docTexto(lang) : undefined}>{docDibujado(lang) ? <span aria-hidden="true">{docPintado(lang).join(' ')}</span> : docTexto(lang)}</h2>
         <p class="cod" data-aparece>{w('Documental · Perú', 'Documentary · Peru')} · {D.anio} · {D.duracion} · {D.formato}</p>
         <p class="golpe" data-lineas>“{tr(D.golpe, lang)}”</p>
         <p class="lect" data-lineas>{tr(D.sinopsis, lang)[0]}</p>

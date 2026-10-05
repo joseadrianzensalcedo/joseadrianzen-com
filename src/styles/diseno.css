@@ -98,11 +98,6 @@ g-l,.letra-g{display:inline-block}
 .citas-marco iframe{display:block;width:100%;height:min(720px,80vh);border:0}
 .citas-fuera{font:500 12px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--ambar)}
 /* Disponibilidad: el calendario personal en modo libre/ocupado. Marco claro sobre la página oscura, como un monitor. */
-.dispo{margin-top:clamp(28px,5vw,56px);display:flex;flex-direction:column;gap:8px}
-.dispo .cod{margin:0}
-.dispo-nota{margin:0;font:400 15px/1.5 var(--lectura);color:var(--humo);max-width:62ch}
-.dispo-marco{width:100%;background:#fff;border:1px solid color-mix(in oklab,var(--papel) 18%,transparent)}
-.dispo-marco iframe{display:block;width:100%;height:min(620px,78vh);border:0}
 
 /* Auditoría 2 oct 2026. En celulares y tabletas de pie, y en el celular echado, la portada crece con su contenido:
    los laureles ya no se meten debajo del nombre, del menú ni del botón de pausa. */
@@ -147,3 +142,10 @@ g-l,.letra-g{display:inline-block}
 
 /* Cada palabra de un título gigante se queda entera: si no cabe, el motor achica la letra, nunca parte la palabra. */
 .pal-t{white-space:nowrap}
+/* Efectos que se cortaban (reporte de Jose, 5 oct 2026). La máscara del desgaste solo cubría la caja de la letra, y lo que
+   sobresale (tonos del tailandés, vocales del hindi, puntos del árabe, tildes del vietnamita) quedaba recortado.
+   Ahora la caja crece sin mover nada (el margen negativo compensa) y la máscara de línea deja más aire en esos idiomas. */
+.car.gastada,.letra-g.gastada,g-l.gastada,.pal-t.gastada{padding:.4em .15em;margin:-.4em -.15em}
+:root:lang(th) .linea-mask,:root:lang(hi) .linea-mask,:root:lang(ar) .linea-mask,:root:lang(vi) .linea-mask{padding-block:.5em;margin-block:-.5em}
+/* Si la letra del título no carga, el texto real vuelve en orden de lectura (ver movimiento.js, volverAlTexto) */
+html.titulo-sin-letra[dir="rtl"] .titulo-pelicula,html.titulo-sin-letra[dir="rtl"] .titulo-pelicula span{direction:rtl}
