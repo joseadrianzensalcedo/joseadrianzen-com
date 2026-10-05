@@ -593,7 +593,7 @@ if (!R && flota && filas.length) {
   /* El borde esfumado se dibuja desde JS y no con una variable CSS animada dentro de la máscara: Safari no repinta la máscara
      cuando cambia la variable y la imagen se quedaba casi transparente. */
   const vi = { v: 0 };
-  const mascara = () => { if (!FINO) return; if (flota.classList.contains('vert')) { flota.style.webkitMaskImage = 'none'; flota.style.maskImage = 'none'; return; }
+  const mascara = () => { if (!FINO) return; if (flota.classList.contains('vert')) { flota.style.webkitMaskImage = ''; flota.style.maskImage = ''; return; }
     const m = 'radial-gradient(closest-side,#000 ' + vi.v.toFixed(1) + '%,transparent ' + (vi.v + 38).toFixed(1) + '%)'; flota.style.webkitMaskImage = m; flota.style.maskImage = m; };
   mascara();
   flota.addEventListener('load', mascara);
