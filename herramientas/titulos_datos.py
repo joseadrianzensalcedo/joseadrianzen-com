@@ -3,7 +3,7 @@ Estado de cada traducción: 'oficial' solo si la película ya circuló con ese t
 (Claude, 4 oct 2026) aprobada por Jose el 4 oct 2026, pendiente de revisión por un hablante nativo.
 Las líneas se separan con | (el título gigante de la portada va en dos líneas)."""
 DOC = {
- 'es': 'Entre polvo|y sueños', 'en': 'Between Dust|and Dreams', 'pt': 'Entre pó|e sonhos', 'fr': 'Entre poussière|et rêves',
+ 'es': 'Entre polvo|y sueños', 'en': 'Dust|and Dreams', 'pt': 'Entre pó|e sonhos', 'fr': 'Entre poussière|et rêves',
  'it': 'Tra polvere|e sogni', 'de': 'Zwischen Staub|und Träumen', 'nl': 'Tussen stof|en dromen', 'pl': 'Między kurzem|a marzeniami',
  'ru': 'Между пылью|и мечтами', 'uk': 'Між пилом|і мріями', 'tr': 'Toz ve Düşler|Arasında', 'ar': 'بين الغبار|والأحلام',
  'hi': 'धूल और सपनों|के बीच', 'sw': 'Kati ya vumbi|na ndoto', 'qu': "Ñut'upa musqoykunapa|chawpinpi", 'ay': "Laq'a ukat|samkanaka taypina",

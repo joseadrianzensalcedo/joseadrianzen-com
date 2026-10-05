@@ -48,9 +48,9 @@ export const selecciones = [
 export const documental = {
   slug: 'entre-polvo-y-suenos',
   titulo: 'Entre polvo y sueños',
-  tituloEn: 'Between Dust and Dreams',
+  tituloEn: 'Dust and Dreams',
   // Títulos que existen de verdad: inglés (nota de Solidaridad) y turco (título del tráiler en Vimeo). Los demás idiomas muestran el título original.
-  titulosOficiales: { en: 'Between Dust and Dreams', tr: 'Toz ve Düşler Arasında' },
+  titulosOficiales: { en: 'Dust and Dreams', tr: 'Toz ve Düşler Arasında' },
   anio: '2025',
   duracion: '37:02',
   formato: '2K',
@@ -62,7 +62,7 @@ export const documental = {
     ],
     en: [
       'In Arequipa, María Reyes is a pallaquera, sifting for ore in the rock others have already discarded. In Puno, Julia Pomalique faces the barriers of a culture that cannot picture a woman in the mine. In Madre de Dios, Vilma Contreras defied the stereotypes and is still standing.',
-      'Between Dust and Dreams follows three women in Peru’s artisanal and small scale mining, an issue now on the public agenda that rarely listens to them. Three years of shooting in tunnels and on the plains so their voice can travel far.',
+      'Dust and Dreams follows three women in Peru’s artisanal and small scale mining, an issue now on the public agenda that rarely listens to them. Three years of shooting in tunnels and on the plains so their voice can travel far.',
     ],
   },
   ficha: [
@@ -158,7 +158,7 @@ export const fotografia = [
   ['fot-barcelona', { es: 'Fachadas con balcones en Barcelona', en: 'Facades with balconies in Barcelona' }, 'viajes'],
   ['jose-shipibo', { es: 'Jose Adrianzen junto a músicos shipibo, en blanco y negro', en: 'Jose Adrianzen with Shipibo musicians, black and white' }, 'retratos'],
   ['fot-gaviota', { es: 'Proa de un buque, una gaviota y un remolcador en el puerto', en: 'A ship’s bow, a seagull and a tugboat in the port' }, 'viajes'],
-  ['bts-doc-1', { es: 'Rodaje de Entre polvo y sueños en la pampa', en: 'Shooting Between Dust and Dreams on the plains' }, 'rodajes'],
+  ['bts-doc-1', { es: 'Rodaje de Entre polvo y sueños en la pampa', en: 'Shooting Dust and Dreams on the plains' }, 'rodajes'],
   ['fot-louvre', { es: 'Pirámide del Museo del Louvre contra las nubes', en: 'The Louvre pyramid against the clouds' }, 'viajes'],
   ['jose-teatro', { es: 'Jose Adrianzen en escena durante una obra de teatro', en: 'Jose Adrianzen on stage during a play' }, 'retratos'],
   ['fot-muelle', { es: 'Muelle de madera sobre un mar turquesa', en: 'Wooden pier over a turquoise sea' }, 'viajes'],
@@ -181,7 +181,7 @@ export const sobreMi = {
       'Since I was a child, film and politics were my two great passions. At first I wanted to be president, so I studied law to understand the laws and how the State works. Life took me somewhere else. In film I found a more powerful way to make an impact and to tell the stories that deserve to be heard.',
       'Curiosity has taken me across almost all of Peru, much of South America and different corners of the world. Those journeys taught me to look at realities very different from mine and confirmed one thing, film is a tool for social change.',
       'I trained in filmmaking and acting. I also wanted to contribute to the industry from the management side (production, financing and distribution), so I am studying business engineering. In recent years I have worked with several NGOs, telling stories that tend to be forgotten.',
-      'I finished shooting the short film Echo, now on the festival circuit. But the project that has defined my path is Between Dust and Dreams, three years of my life to give a voice to Peru’s women miners and stand up for their struggle.',
+      'I finished shooting the short film Echo, now on the festival circuit. But the project that has defined my path is Dust and Dreams, three years of my life to give a voice to Peru’s women miners and stand up for their struggle.',
     ],
   },
   cita: {
@@ -191,7 +191,7 @@ export const sobreMi = {
   trayecto: [
     { es: 'Televisión y publicidad', en: 'Television and advertising' },
     { es: 'Videos institucionales y ONG', en: 'Institutional films and NGOs' },
-    { es: 'Entre polvo y sueños', en: 'Between Dust and Dreams' },
+    { es: 'Entre polvo y sueños', en: 'Dust and Dreams' },
     { es: 'ECO', en: 'Echo' },
   ],
   formacion: [

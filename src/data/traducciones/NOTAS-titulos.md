@@ -6,7 +6,7 @@ La fuente única de los textos es `herramientas/titulos_datos.py`. Las letras de
 
 ## Qué es oficial y qué es propuesta
 
-Son oficiales, porque la película ya circuló con ese título, el turco "Toz ve Düşler Arasında" (título del tráiler en Vimeo) y el inglés "Between Dust and Dreams" (nota de Solidaridad). Vimeo muestra además "Dust and Dreams" en inglés. Jose todavía no eligió entre los dos y el sitio usa el de Solidaridad. Las fechas de consulta de estas dos fuentes no quedaron anotadas en esta sesión, así que hay que volver a verificarlas antes de citarlas en un documento.
+Son oficiales, porque la película ya circuló con ese título, el turco "Toz ve Düşler Arasında" (título del tráiler en Vimeo) y el inglés "Dust and Dreams" (Vimeo). Jose eligió "Dust and Dreams" el 5 oct 2026, y "Between Dust and Dreams" (nota de Solidaridad) queda descartado. Las fechas de consulta de las fuentes del turco y del inglés no quedaron anotadas, así que hay que volver a verificarlas antes de citarlas en un documento.
 
 Todos los demás idiomas son propuesta de Claude, aprobada por Jose el 4 oct 2026, sin fuente externa (traducción directa de las palabras). En todos falta la revisión de un hablante nativo.
 

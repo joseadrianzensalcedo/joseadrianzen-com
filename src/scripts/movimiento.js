@@ -171,7 +171,7 @@ function ponerGasto(c, poner, sinBorde) {
    se envuelve esa parte. Pedido de Jose, 1 oct 2026. */
 /* El nombre de la película en el idioma de la página, más las formas en español e inglés que quedan en textos sueltos. */
 const TIT = (() => { try { return JSON.parse(document.documentElement.dataset.titulo || '{}'); } catch (e) { return {}; } })();
-const FORMAS = [...new Set([TIT.real, 'Entre polvo y sueños', 'Between Dust and Dreams'].filter(Boolean))].sort((a, b) => b.length - a.length);
+const FORMAS = [...new Set([TIT.real, 'Entre polvo y sueños', 'Between Dust and Dreams', 'Dust and Dreams'].filter(Boolean))].sort((a, b) => b.length - a.length);
 const NOMBRES_PELI = new RegExp('(' + FORMAS.map((f) => f.replace(/[.*+?^${}()|[\]\\]/g, '\\$&').replace(/ /g, '\\s+')).join('|') + ')', 'i'), LARGO = 90;
 // En árabe, hindi y tailandés el nombre se dibuja por palabras enteras: el texto visible cambia y el real queda como etiqueta.
 const dibujar = (el, texto) => { if (TIT.dib && texto.replace(/\s+/g, ' ').toLowerCase() === (TIT.real || '').toLowerCase()) { el.setAttribute('aria-label', TIT.real); el.textContent = TIT.pintado; } else el.textContent = texto; };
