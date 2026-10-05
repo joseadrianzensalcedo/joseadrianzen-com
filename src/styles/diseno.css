@@ -128,3 +128,19 @@ g-l,.letra-g{display:inline-block}
 .hero-peli .laureles{--lau:clamp(40px,4.2vw,64px)}.hero-peli .laurel img{height:var(--lau)!important;width:auto}
 @media (max-width:860px),(orientation:portrait) and (max-width:1100px){.hero-peli .laureles{--lau:40px;gap:6px}}
 @media (max-height:520px) and (orientation:landscape){.hero-peli .laureles{--lau:36px}}
+
+/* Auditoría 5 oct 2026. En el teléfono la barra de arriba (nombre y menú) siempre lleva fondo, para que ningún texto ni imagen
+   se vea montado debajo del nombre. Al abrir el menú el nombre desaparece, y la lista del menú puede deslizarse si no cabe,
+   en vez de subirse debajo de la barra. */
+:root{--barra:76px}
+@media (max-width:860px){
+ .nav{background:rgba(12,11,10,.94);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
+ html.menu-abierto .nav{background:rgba(12,11,10,.98)}
+ html.menu-abierto .nav-logo{opacity:0;visibility:hidden;pointer-events:none}
+ .nav-logo{transition:opacity .25s,visibility .25s}
+ .hero.hero-peli{padding-top:calc(var(--barra) + env(safe-area-inset-top,0px) + 72px)}
+ .pausa{top:calc(var(--barra) + env(safe-area-inset-top,0px) + 12px)!important}
+ .titulo-fijo{top:calc(var(--barra) + env(safe-area-inset-top,0px) + 68px)}
+}
+.menu-capa{overflow-y:auto;justify-content:flex-start;-webkit-overflow-scrolling:touch}
+.menu-capa>:first-child{margin-top:auto}

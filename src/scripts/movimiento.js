@@ -194,7 +194,7 @@ function gastar(el, poner) {
 const ESTILOS = {
   gigante: { desde: { yPercent: 115, rotate: 7, transformOrigin: '0% 100%' }, hasta: { yPercent: 0, rotate: 0, duration: 1.5, ease: SALE }, esc: 0.03, pasos: true },
   titulo: { desde: { yPercent: () => gsap.utils.random(-60, 60) }, hasta: { yPercent: 0, duration: 1.3, ease: SALE }, esc: 0.035, pasos: true },
-  eco: { desde: { scale: 2.4, opacity: 0, filter: 'blur(14px)', transformOrigin: '50% 60%' }, hasta: { scale: 1, opacity: 1, filter: 'blur(0px)', duration: 1.6, ease: SALE }, esc: 0.16, pasos: false },
+  eco: { desde: { scale: 1.1, opacity: 0, filter: 'blur(10px)', transformOrigin: '50% 60%' }, hasta: { scale: 1, opacity: 1, filter: 'blur(0px)', duration: 1.6, ease: SALE }, esc: 0.16, pasos: false },
 };
 /* Títulos gigantes que no caben. En español "adentro" entra justo, pero en ruso o polaco la palabra más larga
    puede tener el doble de letras. Si el título es más ancho que su caja, se achica lo necesario y nada más. */
