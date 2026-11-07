@@ -5,10 +5,10 @@
 // recibe esa y no un recorte automático de la horizontal. Así baja menos peso y el encuadre lo decide una persona.
 // movil={false}: la caja es horizontal también en el celular, así que va la foto completa y no el recorte vertical
 // (el recorte vertical en una caja horizontal cortaba las caras, 4 oct 2026).
-// pix: entra en píxeles y se pixela bajo el cursor o el dedo. paralaje: se mueve más lento que la página.
+// revelar: entrada suave de la foto. paralaje: se mueve más lento que la página.
 import { Image, getImage } from 'astro:assets';
 const fotos = import.meta.glob('/src/assets/img/*.{webp,jpg,png}', { eager: true });
-const { n, alt = '', clase = '', movil: usarMovil = true, pix = true, paralaje = false, cursor, eager = false, sizes = '(max-width: 860px) 100vw, 50vw', pos, pie, filtro } = Astro.props;
+const { n, alt = '', clase = '', movil: usarMovil = true, revelar = true, paralaje = false, cursor, eager = false, sizes = '(max-width: 860px) 100vw, 50vw', pos, pie, filtro } = Astro.props;
 const buscar = (nombre) => (Object.entries(fotos).find(([k]) => k.split('/').pop().replace(/\.\w+$/, '') === nombre) || [])[1]?.default;
 const meta = buscar(n);
 if (!meta) throw new Error('Falta la foto ' + n);
@@ -17,7 +17,7 @@ const movil = usarMovil ? buscar(n + '-m') : null;
 const fuenteMovil = movil ? await getImage({ src: movil, widths: medidas(movil), format: 'webp', quality: 84 }) : null;
 const estilo = pos ? `--pos:${pos}` : undefined;
 ---
-<figure class:list={['foto', clase, { 'con-movil': movil }]} data-pix={pix ? '' : undefined} data-paralaje={paralaje ? '' : undefined} data-cursor={cursor} data-filtro={filtro}>
+<figure class:list={['foto', clase, { 'con-movil': movil }]} data-revela-foto={revelar ? '' : undefined} data-paralaje={paralaje ? '' : undefined} data-cursor={cursor} data-filtro={filtro}>
   <span class:list={['encuadre', { 'con-paralaje': paralaje }]} style={estilo}>
     {fuenteMovil ? (
       <picture>

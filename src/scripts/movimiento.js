@@ -1,8 +1,7 @@
 /* Motor de movimiento de joseadrianzen.com. Un solo archivo para todas las páginas: cada parte revisa si su elemento existe.
 
-   HILO CONDUCTOR. Una sola idea: todo se revela como una imagen que termina de cargar.
-   Lo que entra pasa de ruido a nitidez (fotos de píxeles gruesos a nítidas, letras que llegan en desorden y se asientan,
-   caracteres que se descifran, foco que se ajusta). Lo que tocas se vuelve píxel por un instante.
+   HILO CONDUCTOR. Entradas suaves de fotos, letras que llegan en desorden y se asientan,
+   caracteres que se descifran y foco que se ajusta. Las fotos conservan su textura original.
    Curvas de la casa: expo.out para entrar, power3 para responder (medidas en Hervé Baillargeon). Duraciones 0,9 s, 1,3 s y 1,6 s.
 
    Marcas en el HTML que este archivo entiende:
@@ -11,7 +10,7 @@
    data-aparece                      rótulo que aparece corrido
    data-cascada                      sus hijos suben en cascada
    data-descifra                     texto que se descifra como contador
-   data-pix                          figura con foto que entra en píxeles y se pixela bajo el cursor o el dedo
+   data-revela-foto                  figura con foto que entra con un encuadre suave
    data-cursor="Ver"                 lo que dice el cursor al pasar
    data-armar                        logo con letras que se arma al cargar */
 import gsap from 'gsap';
@@ -19,7 +18,6 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { SplitText } from 'gsap/SplitText';
 import { Draggable } from 'gsap/Draggable';
 import Lenis from 'lenis';
-import { granoGLSL, uniformesGrano } from './grano.js';
 
 window.__mov = true;
 gsap.registerPlugin(ScrollTrigger, SplitText, Draggable);
@@ -348,173 +346,13 @@ if (!R) {
   });
 }
 
-/* 8. Fotos con grano. Peras y manzanas: la foto entra cubierta de grano grueso de película antigua y se limpia en 1,3 s,
-      como una copia que se revela. Después, por donde pasa el mouse, el dedo o el lápiz, el grano vuelve y se va solo.
-      El grano es una simulación de la película de verdad (ver grano.js): granitos de plata redondos, de tamaños
-      distintos, repartidos al azar según lo oscuro de cada punto de la foto. Por eso en lo claro salen granos oscuros
-      sueltos, en lo oscuro salen huecos claros, y en los tonos medios hay más grano.
-      Técnico: un contexto WebGL por foto, creado solo cuando la foto está cerca de la pantalla y liberado al alejarse
-      (los navegadores permiten pocos contextos a la vez). La simulación es pesada, así que no se calcula en cada cuadro:
-      se calculan 4 versiones del grano de la foto (3 en el teléfono), por partes, sin trabar la página, y se guardan en la
-      tarjeta gráfica. Al mostrar se pasa de una a otra 24 veces por segundo, como el grano que cambia en cada fotograma.
-      28 puntos de estela con caída gaussiana deciden dónde se ve. Sin WebGL, la foto se abre como un obturador. */
-const PIX_VS = 'attribute vec2 p;varying vec2 u;void main(){u=p*.5+.5;gl_Position=vec4(p,0,1);}';
-const NP = 28, VERSIONES = FINO ? 4 : 3, FOTO_GL = 'uniform sampler2D t;uniform vec2 cov,op;';
-const fotoGLSL = 'vec3 foto(vec2 q){vec2 c=(q-.5)*cov+op;c.y=1.-c.y;return texture2D(t,c).rgb;}';
-// La versión guardada lleva la diferencia del grano en el canal rojo: 0,5 es sin cambio.
-const PIX_GRANO = granoGLSL({ muestras: FINO ? 8 : 6, cabecera: FOTO_GL + fotoGLSL, tono: 'vec3 tono(vec2 q){return foto(q/px);}', salida: 'vec4 salida(float d,float a){return vec4(.5+.5*d,0.,0.,1.);}' });
-const PIX_FS = 'precision highp float;varying vec2 u;uniform sampler2D g;uniform vec2 px;uniform vec3 pt[' + NP + '];uniform float fz,ue,hay,tope;' + FOTO_GL + fotoGLSL +
-  'float est(vec2 q){float k=0.;float asp=px.x/px.y;for(int i=0;i<' + NP + ';i++){vec2 d=(q-pt[i].xy)*vec2(asp,1.);k+=pt[i].z*exp(-dot(d,d)/.010);}return k;}' +
-  'void main(){vec3 col=foto(u);' +
-  // Sin estela (ue casi 0) no se recorren los 28 puntos: la foto entra solo con el nivel fz.
-  'float k=fz;if(ue>.01)k=max(est(u),fz);' +
-  'if(k>.01&&hay>.5)col=clamp(col+(texture2D(g,u).r*2.-1.)*min(k,1.)*tope,0.,1.);' +
-  'gl_FragColor=vec4(col,1.);}';
-
-function crearPix(fig) {
-  const img = $('img', fig); let cv = $('canvas.pix', fig);
-  if (!cv) { cv = document.createElement('canvas'); cv.className = 'pix'; cv.setAttribute('aria-hidden', 'true'); ($('.encuadre', fig) || fig).appendChild(cv); }
-  const gl = cv.getContext('webgl', { premultipliedAlpha: false, antialias: false }); if (!gl) return null;
-  const sh = (tp, src) => { const x = gl.createShader(tp); gl.shaderSource(x, src); gl.compileShader(x); return x; };
-  const programa = (fs) => { const pr = gl.createProgram(); gl.attachShader(pr, sh(gl.VERTEX_SHADER, PIX_VS)); gl.attachShader(pr, sh(gl.FRAGMENT_SHADER, fs)); gl.bindAttribLocation(pr, 0, 'p'); gl.linkProgram(pr); return pr; };
-  const pr = programa(PIX_FS), prG = programa(PIX_GRANO);
-  /* Peras y manzanas: armar el efecto toma un momento. El navegador lo arma por detrás (KHR_parallel_shader_compile)
-     y la foto lo usa recién cuando está listo, sin congelar la página. */
-  const par = gl.getExtension('KHR_parallel_shader_compile');
-  let enlazado = false, fallo = false, alEnlazar = null;
-  const terminar = () => {
-    if (!gl.getProgramParameter(pr, gl.LINK_STATUS) || !gl.getProgramParameter(prG, gl.LINK_STATUS)) { fallo = true; return; }
-    enlazado = true; preparar(); alEnlazar && alEnlazar();
-  };
-  const esperar = () => { if (gl.isContextLost()) return; if (gl.getProgramParameter(pr, par.COMPLETION_STATUS_KHR) && gl.getProgramParameter(prG, par.COMPLETION_STATUS_KHR)) terminar(); else requestAnimationFrame(esperar); };
-  let U = {}, UG = {}, tx, escala = 1;
-  const capas = []; let listas = 0, gen = null;
-  function preparar() {
-    const bf = gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER, bf); gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 1, -1, -1, 1, 1, 1]), gl.STATIC_DRAW);
-    gl.enableVertexAttribArray(0); gl.vertexAttribPointer(0, 2, gl.FLOAT, false, 0, 0);
-    tx = gl.createTexture(); gl.activeTexture(gl.TEXTURE0); gl.bindTexture(gl.TEXTURE_2D, tx); filtros(gl.LINEAR);
-    const L = (q, n) => gl.getUniformLocation(q, n);
-    ['px', 'cov', 'op', 'pt', 'fz', 'ue', 'hay', 'tope', 't', 'g'].forEach((n) => { U[n] = L(pr, n); });
-    ['px', 'cov', 'op', 't', 'sem', 'gm', 'gs', 'ger2', 'grmax', 'xi'].forEach((n) => { UG[n] = L(prG, n); });
-    gl.useProgram(prG); gl.uniform1i(UG.t, 0);
-    gl.useProgram(pr); gl.uniform1i(U.t, 0); gl.uniform1i(U.g, 1); gl.uniform1f(U.tope, FINO ? 0.8 : 0.6);
-    if (img.complete && img.naturalWidth) cargar(); else img.addEventListener('load', cargar, { once: true });
-  }
-  function filtros(f) {
-    [gl.TEXTURE_MIN_FILTER, gl.TEXTURE_MAG_FILTER].forEach((q) => gl.texParameteri(gl.TEXTURE_2D, q, f));
-    [gl.TEXTURE_WRAP_S, gl.TEXTURE_WRAP_T].forEach((q) => gl.texParameteri(gl.TEXTURE_2D, q, gl.CLAMP_TO_EDGE));
-  }
-  /* Las versiones del grano se calculan por franjas de unos 90 mil píxeles por cuadro de pantalla: así nunca se traba. */
-  function generar() {
-    gen = null; if (gl.isContextLost() || listas >= VERSIONES) return;
-    const c = capas[listas], W = cv.width, H = cv.height, alto = Math.max(8, Math.floor(90000 / W));
-    gl.useProgram(prG); gl.bindFramebuffer(gl.FRAMEBUFFER, c.fb); gl.viewport(0, 0, W, H); gl.enable(gl.SCISSOR_TEST);
-    if (c.y === 0) { const q = uniformesGrano(escala, listas * 7 + 3, { muestras: FINO ? 8 : 6 });
-      gl.uniform1f(UG.sem, q.sem); gl.uniform1f(UG.gm, q.gm); gl.uniform1f(UG.gs, q.gs); gl.uniform1f(UG.ger2, q.ger2); gl.uniform1f(UG.grmax, q.grmax); gl.uniform2fv(UG.xi, q.xi); }
-    gl.scissor(0, c.y, W, alto); gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4); c.y += alto;
-    gl.disable(gl.SCISSOR_TEST); gl.bindFramebuffer(gl.FRAMEBUFFER, null); gl.viewport(0, 0, W, H); gl.useProgram(pr);
-    if (c.y >= H) { listas++; if (listas === 1) { gl.uniform1f(U.hay, 1); alPrimera && alPrimera(); alPrimera = null; } }
-    if (listas < VERSIONES) gen = requestAnimationFrame(generar);
-  }
-  let alPrimera = null;
-  const pts = new Float32Array(NP * 3); let cab = 0, cargada = false, activo = false;
-  const m = { x: 0.5, y: 0.5, sx: 0.5, sy: 0.5, dentro: false };
-  const medir = () => {
-    const w = cv.clientWidth, h = cv.clientHeight; escala = Math.min(devicePixelRatio || 1, 1.5); if (!w || !h) return;
-    const W = Math.round(w * escala), H = Math.round(h * escala); if (W === cv.width && H === cv.height && capas.length) return;
-    cv.width = W; cv.height = H; gl.viewport(0, 0, W, H);
-    const ai = img.naturalWidth / img.naturalHeight, ac = w / h, sw = ac > ai ? 1 : ac / ai, shh = ac > ai ? ai / ac : 1;
-    const op = (getComputedStyle(img).objectPosition || '50% 50%').split(' ').map((v) => parseFloat(v) / 100);
-    const ox = isNaN(op[0]) ? 0.5 : op[0], oy = isNaN(op[1]) ? 0.5 : op[1];
-    for (const q of [[pr, U], [prG, UG]]) { gl.useProgram(q[0]); gl.uniform2f(q[1].px, W, H); gl.uniform2f(q[1].cov, sw, shh); gl.uniform2f(q[1].op, ox * (1 - sw) + sw / 2, oy * (1 - shh) + shh / 2); }
-    gl.useProgram(pr);
-    // Las versiones del grano se rehacen al tamaño nuevo.
-    if (gen) cancelAnimationFrame(gen); listas = 0; gl.uniform1f(U.hay, 0);
-    for (const c of capas) { gl.deleteFramebuffer(c.fb); gl.deleteTexture(c.tx); } capas.length = 0;
-    gl.activeTexture(gl.TEXTURE1);
-    for (let i = 0; i < VERSIONES; i++) {
-      const t = gl.createTexture(); gl.bindTexture(gl.TEXTURE_2D, t); gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, W, H, 0, gl.RGBA, gl.UNSIGNED_BYTE, null); filtros(gl.NEAREST);
-      const fb = gl.createFramebuffer(); gl.bindFramebuffer(gl.FRAMEBUFFER, fb); gl.framebufferTexture2D(gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT0, gl.TEXTURE_2D, t, 0);
-      capas.push({ tx: t, fb, y: 0 });
-    }
-    gl.bindFramebuffer(gl.FRAMEBUFFER, null); gl.activeTexture(gl.TEXTURE0);
-    gen = requestAnimationFrame(generar);
-  };
-  const dibujar = () => {
-    let e = 0; for (let i = 2; i < pts.length; i += 3) e += pts[i];
-    if (listas) { gl.activeTexture(gl.TEXTURE1); gl.bindTexture(gl.TEXTURE_2D, capas[Math.floor(performance.now() / (1000 / 24)) % listas].tx); gl.activeTexture(gl.TEXTURE0); }
-    gl.uniform1f(U.ue, e); gl.uniform3fv(U.pt, pts); gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
-  };
-  const cargar = () => { gl.activeTexture(gl.TEXTURE0); gl.bindTexture(gl.TEXTURE_2D, tx); gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, img); cargada = true; gl.useProgram(pr); medir(); };
-  if (par) requestAnimationFrame(esperar); else terminar();
-  if (fallo) return null;
-  const alRedimensionar = () => cargada && medir(); addEventListener('resize', alRedimensionar);
-  function paso() {
-    const dx = m.x - m.sx, dy = m.y - m.sy; m.sx += dx * 0.35; m.sy += dy * 0.35;
-    const vel = Math.min(1, Math.hypot(dx, dy) * 9);
-    if (m.dentro && vel > 0.03) { pts[cab * 3] = m.sx; pts[cab * 3 + 1] = m.sy; pts[cab * 3 + 2] = (0.25 + vel * 0.75) * (FINO ? 1 : 0.4); cab = (cab + 1) % NP; }
-    let vida = 0; for (let i = 0; i < NP; i++) { pts[i * 3 + 2] *= 0.93; vida += pts[i * 3 + 2]; }
-    dibujar();
-    if (!m.dentro && vida < 0.02) { activo = false; gsap.ticker.remove(paso); gsap.to(cv, { opacity: 0, duration: 0.2 }); }
-  }
-  return {
-    // Lista cuando está armada, la foto cargada y la primera versión del grano calculada.
-    listo: () => enlazado && cargada && listas > 0,
-    cuandoListo(f) {
-      const tras = () => (listas > 0 ? f() : (alPrimera = f));
-      const conFoto = () => (cargada ? tras() : img.addEventListener('load', () => requestAnimationFrame(tras), { once: true }));
-      if (enlazado) conFoto(); else alEnlazar = conFoto;
-    },
-    fz(v) { if (!cargada) return; gl.uniform1f(U.fz, v); dibujar(); cv.style.opacity = v > 0 ? 1 : 0; },
-    punto(x, y, golpe) {
-      if (!cargada) return; const r = cv.getBoundingClientRect(); m.x = (x - r.left) / r.width; m.y = 1 - (y - r.top) / r.height;
-      if (!m.dentro) { m.sx = m.x; m.sy = m.y; } m.dentro = true;
-      if (golpe) { pts[cab * 3] = m.x; pts[cab * 3 + 1] = m.y; pts[cab * 3 + 2] = 1.6; cab = (cab + 1) % NP; }
-      if (!activo) { activo = true; dibujar(); gsap.ticker.add(paso); gsap.to(cv, { opacity: 1, duration: 0.25 }); }
-    },
-    fuera() { m.dentro = false; },
-    liberar() { gsap.ticker.remove(paso); if (gen) cancelAnimationFrame(gen); removeEventListener('resize', alRedimensionar); gl.getExtension('WEBGL_lose_context')?.loseContext(); cv.remove(); },
-  };
-}
-const figuras = $$('[data-pix]');
-const cola = []; let colaActiva = false;
-function encolar(f) {
-  if (f._pix || f._enCola) return; f._enCola = true; cola.push(f);
-  if (!colaActiva) { colaActiva = true; requestAnimationFrame(atender); }
-}
-function atender() {
-  const f = cola.shift();
-  if (f) { f._enCola = false; if (!f._pix) f._pix = crearPix(f); }
-  if (cola.length) setTimeout(() => requestAnimationFrame(atender), 60); else colaActiva = false;
-}
-if (!R && figuras.length) {
-  const vistas = new IntersectionObserver((es) => es.forEach((e) => {
-    const f = e.target;
-    if (e.isIntersecting && !f._pix) encolar(f);
-    else if (!e.isIntersecting && f._pix && f._revelada) { f._pix.liberar(); f._pix = null; }
-  }), { rootMargin: '300px 0px' });
-  figuras.forEach((f) => {
-    vistas.observe(f);
+/* 8. Fotos: entrada de encuadre y paralaje, sin capas de textura animada. */
+if (!R) {
+  $$('[data-revela-foto]').forEach((f) => {
     const enc = $('.encuadre', f) || $('img', f);
     ScrollTrigger.create({ trigger: f, start: 'top 88%', once: true, onEnter: () => {
       gsap.fromTo(enc, { scale: 1.2 }, { scale: 1, duration: 2.2, ease: SALE });
-      const pixelada = (p) => {
-        const n = { v: 1 }; p.fz(1); gsap.set(f, { clipPath: 'inset(0% 0% 0% 0%)' });
-        gsap.to(n, { v: 0, duration: 1.3, ease: 'power2.in', onUpdate: () => p.fz(n.v), onComplete: () => { p.fz(0); f._revelada = true; } });
-      };
-      const obturador = () => gsap.fromTo(f, { clipPath: 'inset(100% 0% 0% 0%)' }, { clipPath: 'inset(0% 0% 0% 0%)', duration: 1.6, ease: 'expo.inOut', onComplete: () => { f._revelada = true; } });
-      if (!f._pix) { encolar(f); }
-      const p = f._pix;
-      if (p && p.listo()) pixelada(p);
-      else {
-        // Si el efecto no está listo, se espera un poco (máximo 0,7 s). Si no llega, la foto entra como obturador.
-        gsap.set(f, { clipPath: 'inset(100% 0% 0% 0%)' });
-        let hecho = false;
-        const plan = setTimeout(() => { if (!hecho) { hecho = true; obturador(); } }, 700);
-        const intentar = () => { const q = f._pix; if (!q) return requestAnimationFrame(() => !hecho && intentar());
-          q.cuandoListo(() => { if (hecho) return; hecho = true; clearTimeout(plan); pixelada(q); }); };
-        intentar();
-      }
+      gsap.fromTo(f, { clipPath: 'inset(100% 0% 0% 0%)' }, { clipPath: 'inset(0% 0% 0% 0%)', duration: 1.6, ease: 'expo.inOut' });
     } });
   });
   $$('[data-paralaje]').forEach((f) => gsap.to($('.encuadre', f) || $('img', f), { yPercent: 6, ease: 'none', scrollTrigger: { trigger: f, start: 'top bottom', end: 'bottom top', scrub: 1 } }));
@@ -708,205 +546,6 @@ if (tc) ScrollTrigger.create({ start: 0, end: 'max', onUpdate: (s) => {
 const barra = $('.barra-lectura i'), articulo = $('.post-cuerpo');
 if (barra && articulo) gsap.fromTo(barra, { scaleX: 0 }, { scaleX: 1, ease: 'none', transformOrigin: '0 50%', scrollTrigger: { trigger: articulo, start: 'top 60%', end: 'bottom 70%', scrub: true } });
 
-/* 17. Grano en toda la página. Donde está el mouse, el dedo o el lápiz, la página se vuelve un círculo de grano de
-       película antigua, igual que sobre las fotos, y se apaga en cuanto el cursor se queda quieto o se va. No deja estela.
-       Es la misma simulación de las fotos (grano.js): se lee el color real de lo que hay debajo (la foto, la letra, el logo
-       o el fondo) y con eso se reparten los granos de plata. Sobre negro salen huecos claros, sobre blanco granos oscuros,
-       y el dibujo del grano cambia 24 veces por segundo.
-       Técnico: una sola capa WebGL fija sobre la página. El color de debajo se lee en una rejilla de 6 px alrededor del
-       cursor (con memoria de medio segundo para no volver a leer lo mismo) y se sube como una textura chica. El shader
-       calcula el grano solo dentro del cuadrado del círculo. */
-const PX = (() => {
-  const cv = document.createElement('canvas'); cv.className = 'estela'; cv.setAttribute('aria-hidden', 'true'); document.body.appendChild(cv);
-  /* La capa entrega el color ya multiplicado por su transparencia (premultipliedAlpha true, el modo por defecto).
-     Safari en iPhone y iPad no respeta bien el otro modo: pintaba de blanco pleno lo que debía verse apenas, y el
-     círculo salía como un disco blanco con borde duro (4 oct 2026, captura de Jose). */
-  const gl = R ? null : cv.getContext('webgl', { premultipliedAlpha: true, antialias: false, alpha: true });
-  let W = 0, H = 0, K = 1;
-  const G = FINO ? 6 : 8, memoria = new Map(); // rejilla de color: ver tonos()
-  const datos = new WeakMap();
-  const rgb = (s) => { const m = String(s).match(/[\d.]+/g); if (!m || m.length < 3) return null; const a = m.length > 3 ? +m[3] : 1; return a < 0.1 ? null : [+m[0], +m[1], +m[2]]; };
-  function deImagen(img, x, y) {
-    if (!img) return null; let d = datos.get(img);
-    if (!d) { if (!img.complete || !img.naturalWidth) return null; const w = Math.min(320, img.naturalWidth), h = Math.round(w * img.naturalHeight / img.naturalWidth);
-      const c = document.createElement('canvas'); c.width = w; c.height = h; const g = c.getContext('2d', { willReadFrequently: true }); g.drawImage(img, 0, 0, w, h);
-      try { d = { w, h, px: g.getImageData(0, 0, w, h).data }; } catch (e) { d = { err: 1 }; } datos.set(img, d); }
-    if (d.err) return null;
-    const r = img.getBoundingClientRect(), ai = img.naturalWidth / img.naturalHeight, ar = r.width / r.height;
-    const op = (getComputedStyle(img).objectPosition || '50% 50%').split(' ').map((v) => parseFloat(v) / 100);
-    const sw = ar > ai ? 1 : ar / ai, sh = ar > ai ? ai / ar : 1;
-    const u = (isNaN(op[0]) ? 0.5 : op[0]) * (1 - sw) + Math.min(1, Math.max(0, (x - r.left) / r.width)) * sw;
-    const v = (isNaN(op[1]) ? 0.5 : op[1]) * (1 - sh) + Math.min(1, Math.max(0, (y - r.top) / r.height)) * sh;
-    const i = (Math.min(d.h - 1, Math.floor(v * d.h)) * d.w + Math.min(d.w - 1, Math.floor(u * d.w))) * 4;
-    return [d.px[i], d.px[i + 1], d.px[i + 2]];
-  }
-  const fondoDe = (el) => { while (el && el.nodeType === 1) { const c = rgb(getComputedStyle(el).backgroundColor); if (c) return c; el = el.parentElement; } return [12, 11, 10]; };
-  function letra(x, y) {
-    let n, o;
-    if (document.caretRangeFromPoint) { const rg = document.caretRangeFromPoint(x, y); if (!rg) return null; n = rg.startContainer; o = rg.startOffset; }
-    else if (document.caretPositionFromPoint) { const cp = document.caretPositionFromPoint(x, y); if (!cp) return null; n = cp.offsetNode; o = cp.offset; }
-    if (!n || n.nodeType !== 3) return null;
-    const r2 = document.createRange();
-    for (let k = o - 1; k <= o; k++) { if (k < 0 || k >= n.length || !n.data[k].trim()) continue; r2.setStart(n, k); r2.setEnd(n, k + 1);
-      const b = r2.getBoundingClientRect(); if (x >= b.left && x <= b.right && y >= b.top && y <= b.bottom) {
-        /* Una letra no llena su caja: en texto chico la tinta tapa cerca de un tercio, en los títulos grandes más.
-           Se mezcla el color de la letra con el fondo en esa proporción, así el grano no dibuja bloques. */
-        const e = n.parentElement, cs = getComputedStyle(e), t = rgb(cs.color); if (!t) return null;
-        const f = fondoDe(e), k = parseFloat(cs.fontSize) > 40 ? 0.7 : 0.4;
-        return [f[0] + (t[0] - f[0]) * k, f[1] + (t[1] - f[1]) * k, f[2] + (t[2] - f[2]) * k]; } }
-    return null;
-  }
-  const heroImg = hero && $('.fondo', hero);
-  function color(x, y) {
-    const el = document.elementFromPoint(x, y); if (!el) return [12, 11, 10];
-    if (el.tagName === 'IMG') return deImagen(el, x, y) || fondoDe(el);
-    const trazo = el.closest?.('path, rect'); if (trazo) { const f = rgb(getComputedStyle(trazo).fill); if (f) return f; }
-    const t = letra(x, y); if (t) return t;
-    if (heroImg && el.closest?.('.hero') && !el.closest('.btn, .pausa, .nav')) {
-      const c = deImagen(heroImg, x, y);
-      if (c) { const r = hero.getBoundingClientRect(), p = (y - r.top) / r.height, a = p < 0.24 ? 0.55 * (1 - p / 0.24) : p > 0.48 ? 0.88 * (p - 0.48) / 0.52 : 0;
-        return [c[0] * (1 - a) + 12 * a, c[1] * (1 - a) + 11 * a, c[2] * (1 - a) + 10 * a]; }
-    }
-    return fondoDe(el);
-  }
-  if (!gl) return { pixelar: (el, f) => f() };
-  const MUESTRAS = FINO ? 6 : 5;
-  const fs = granoGLSL({ muestras: MUESTRAS, cabecera: 'uniform sampler2D t;uniform vec4 caja;uniform vec3 cen;uniform float modo,alto,k;',
-    // q viene en píxeles de pantalla con y hacia arriba. La textura de tono va en píxeles CSS con y hacia abajo.
-    /* Sobre negro, el tono se sube un poco antes de simular el grano: con tanta plata cubriendo casi todo, el grano real deja
-       muy pocos huecos claros y no se notaba. */
-    tono: 'vec3 tono(vec2 q){vec2 c=vec2(q.x/k,alto-q.y/k);vec3 r=texture2D(t,(c-caja.xy)/caja.zw).rgb;float l=dot(r,vec3(.2126,.7152,.0722));return r+.24*pow(1.-l,5.);}',
-    // Círculo: denso al centro y se apaga de a poco hasta cero justo en el borde (curva (1 − r²)³), así no queda
-    // contorno marcado y el grano se funde con el fondo. Bloque (al tocar un enlace): parejo en toda la caja.
-    mascara: 'float mascara(vec2 P){vec2 c=vec2(P.x/k,alto-P.y/k);if(modo>.5){vec2 d=(c-caja.xy)/caja.zw;return (d.x<0.||d.y<0.||d.x>1.||d.y>1.)?0.:cen.z;}' +
-      'vec2 d=c-cen.xy;float r=dot(d,d)/(' + (FINO ? 84 : 64) + '.*' + (FINO ? 84 : 64) + '.);if(r>=1.)return 0.;float s=1.-r;return cen.z*s*s*s;}',
-    // El grano se pone encima de la página sin taparla: blanco donde aclara, negro donde oscurece. La letra sigue nítida.
-    /* Sobre fondo oscuro el grano real casi no se ve: quedan pocos huecos claros entre tanta plata. Por eso se
-       refuerza según qué tan oscuro es el fondo (cerca de 4 veces sobre negro, casi nada sobre claro). */
-    conBrillo: true,
-    salida: 'vec4 salida(float d,float a,float b){float g=1.+3.*pow(1.-b,3.);float k=min(1.,abs(d)*a*g);return d>0.?vec4(k,k,k,k):vec4(0.,0.,0.,k);}' });
-  const sh = (tp, src) => { const x = gl.createShader(tp); gl.shaderSource(x, src); gl.compileShader(x); return x; };
-  const pr = gl.createProgram(); gl.attachShader(pr, sh(gl.VERTEX_SHADER, PIX_VS)); gl.attachShader(pr, sh(gl.FRAGMENT_SHADER, fs)); gl.bindAttribLocation(pr, 0, 'p'); gl.linkProgram(pr);
-  const par = gl.getExtension('KHR_parallel_shader_compile'); let listo = false;
-  const U = {};
-  const armar = () => {
-    if (!gl.getProgramParameter(pr, gl.LINK_STATUS)) return;
-    gl.useProgram(pr);
-    const bf = gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER, bf); gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 1, -1, -1, 1, 1, 1]), gl.STATIC_DRAW);
-    gl.enableVertexAttribArray(0); gl.vertexAttribPointer(0, 2, gl.FLOAT, false, 0, 0);
-    const tx = gl.createTexture(); gl.bindTexture(gl.TEXTURE_2D, tx);
-    [gl.TEXTURE_MIN_FILTER, gl.TEXTURE_MAG_FILTER].forEach((q) => gl.texParameteri(gl.TEXTURE_2D, q, gl.LINEAR));
-    [gl.TEXTURE_WRAP_S, gl.TEXTURE_WRAP_T].forEach((q) => gl.texParameteri(gl.TEXTURE_2D, q, gl.CLAMP_TO_EDGE));
-    ['px', 'sem', 'gm', 'gs', 'ger2', 'grmax', 'xi', 'caja', 'cen', 'modo', 'alto', 'k', 't'].forEach((n) => { U[n] = gl.getUniformLocation(pr, n); });
-    gl.uniform1i(U.t, 0); gl.pixelStorei(gl.UNPACK_ALIGNMENT, 1); listo = true; medir();
-  };
-  const esperar = () => { if (gl.getProgramParameter(pr, par.COMPLETION_STATUS_KHR)) armar(); else requestAnimationFrame(esperar); };
-  function medir() {
-    K = Math.min(devicePixelRatio || 1, FINO ? 2 : 1.5); W = innerWidth; H = innerHeight; cv.width = Math.round(W * K); cv.height = Math.round(H * K);
-    memoria.clear(); if (!listo) return; gl.viewport(0, 0, cv.width, cv.height); gl.uniform2f(U.px, cv.width, cv.height); gl.uniform1f(U.alto, H); gl.uniform1f(U.k, K);
-  }
-  medir(); addEventListener('resize', medir);
-  if (par) requestAnimationFrame(esperar); else armar();
-
-  /* Rejilla de color. Cada celda de 6 px de la página (en coordenadas del documento, para que el scroll no la mueva)
-     guarda su color medio segundo. */
-  /* Leer el color de la página es lo que más cuesta. Por cuadro se leen como mucho LEER celdas nuevas, el resto toma
-     por un momento el color que hay bajo el cursor y se completa en los cuadros siguientes. Así el círculo sale en el
-     mismo cuadro en que se mueve el dedo y no un rato después. */
-  const LEER = FINO ? 90 : 50;
-  function tonos(x0, y0, x1, y1, paso = G, cx, cy) {
-    const sx = paso === G ? scrollX : 0, sy = paso === G ? scrollY : 0, ahora = performance.now();
-    let leidas = 0, base = null;
-    const i0 = Math.floor((x0 + sx) / paso), j0 = Math.floor((y0 + sy) / paso), i1 = Math.ceil((x1 + sx) / paso), j1 = Math.ceil((y1 + sy) / paso);
-    const w = i1 - i0, h = j1 - j0, d = new Uint8Array(w * h * 3);
-    for (let j = 0; j < h; j++) for (let i = 0; i < w; i++) {
-      const X = (i0 + i + 0.5) * paso - sx, Y = (j0 + j + 0.5) * paso - sy; let c;
-      if (paso === G) { const key = (i0 + i) + ',' + (j0 + j), m = memoria.get(key); if (m && ahora - m.t < 1500) c = m.c; else if (leidas >= LEER && cx !== undefined) c = base || (base = color(cx, cy)); else { leidas++; c = color(Math.min(W - 1, Math.max(0, X)), Math.min(H - 1, Math.max(0, Y))); memoria.set(key, { c, t: ahora }); } }
-      else c = color(Math.min(W - 1, Math.max(0, X)), Math.min(H - 1, Math.max(0, Y)));
-      const o = (j * w + i) * 3; d[o] = c[0]; d[o + 1] = c[1]; d[o + 2] = c[2];
-    }
-    if (memoria.size > 6000) memoria.clear();
-    return { d, w, h, x: i0 * paso - sx, y: j0 * paso - sy, paso };
-  }
-  function subir(T) { gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGB, T.w, T.h, 0, gl.RGB, gl.UNSIGNED_BYTE, T.d); gl.uniform4f(U.caja, T.x, T.y, T.w * T.paso, T.h * T.paso); }
-  function grano(cuadro, tam) {
-    const q = uniformesGrano(K * tam, cuadro, { muestras: MUESTRAS });
-    gl.uniform1f(U.sem, q.sem); gl.uniform1f(U.gm, q.gm); gl.uniform1f(U.gs, q.gs); gl.uniform1f(U.ger2, q.ger2); gl.uniform1f(U.grmax, q.grmax); gl.uniform2fv(U.xi, q.xi);
-  }
-  function pintar(x0, y0, x1, y1) { // solo el cuadrado que hace falta, en píxeles de la capa (y hacia arriba)
-    const a = Math.max(0, Math.floor(x0 * K)), b = Math.max(0, Math.floor((H - y1) * K)), c = Math.min(cv.width, Math.ceil(x1 * K)), d = Math.min(cv.height, Math.ceil((H - y0) * K));
-    if (c <= a || d <= b) return; gl.enable(gl.SCISSOR_TEST); gl.scissor(a, b, c - a, d - b); gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4); gl.disable(gl.SCISSOR_TEST);
-  }
-
-  /* El círculo. vis es cuánto se ve (0 a 1): sube rápido cuando el cursor se mueve y baja en un cuarto de segundo
-     cuando se detiene. Se dibuja otra vez si el cursor se movió o si cambió el cuadro (24 por segundo). */
-  const RAD = FINO ? 84 : 64, TOPE = FINO ? 0.85 : 0.55;
-  const ojo = { x: 0, y: 0, vis: 0, meta: 0, ult: 0, px: -1, py: -1, cuadro: -1, dib: 0 };
-  let vivo = false, bloque = null;
-  function arrancar() { if (!vivo) { vivo = true; gsap.ticker.add(paso); } }
-  function paso(t, dt) {
-    const f = Math.min(3, dt / 16.7), cuadro = Math.floor(t * 24);
-    if (performance.now() - ojo.ult > 70) ojo.meta = 0;
-    ojo.vis = ojo.meta > ojo.vis ? ojo.vis + (ojo.meta - ojo.vis) * Math.min(1, 0.5 * f) : Math.max(ojo.meta, ojo.vis - 0.07 * f);
-    if (!listo) return;
-    if (ojo.vis <= 0.003 && !bloque) { parar(); return; }
-    const cambio = Math.abs(ojo.x - ojo.px) + Math.abs(ojo.y - ojo.py) > 0.5 || cuadro !== ojo.cuadro || bloque || Math.abs(ojo.vis - ojo.dib) > 0.06;
-    if (!cambio) return;
-    gl.clearColor(0, 0, 0, 0); gl.clear(gl.COLOR_BUFFER_BIT);
-    if (ojo.vis > 0.003) {
-      const x0 = ojo.x - RAD, y0 = ojo.y - RAD, x1 = ojo.x + RAD, y1 = ojo.y + RAD;
-      subir(tonos(x0 - G, y0 - G, x1 + G, y1 + G, G, Math.min(W - 1, Math.max(0, ojo.x)), Math.min(H - 1, Math.max(0, ojo.y)))); grano(cuadro, 1);
-      gl.uniform1f(U.modo, 0); gl.uniform3f(U.cen, ojo.x, ojo.y, ojo.vis * TOPE); pintar(x0, y0, x1, y1);
-    }
-    if (bloque) {
-      if (bloque.a <= 0) bloque = null;
-      else { subir(bloque.T); grano(cuadro, bloque.tam); gl.uniform1f(U.modo, 1); gl.uniform3f(U.cen, 0, 0, bloque.a); pintar(bloque.T.x, bloque.T.y, bloque.T.x + bloque.T.w * bloque.T.paso, bloque.T.y + bloque.T.h * bloque.T.paso); }
-    }
-    ojo.px = ojo.x; ojo.py = ojo.y; ojo.cuadro = cuadro; ojo.dib = ojo.vis;
-  }
-  function parar() { vivo = false; gsap.ticker.remove(paso); gl.clearColor(0, 0, 0, 0); gl.clear(gl.COLOR_BUFFER_BIT); }
-  function trazo(x, y, f) { ojo.x = x; ojo.y = y; ojo.meta = Math.max(ojo.meta * 0.6, f); ojo.ult = performance.now(); arrancar(); }
-
-  /* Al tocar un enlace, lo que tocaste se deshace en grano: primero fino, después más grueso, y recién ahí se va. */
-  function pixelar(el, alTerminar) {
-    const r = el.getBoundingClientRect(), x0 = Math.max(0, r.left), y0 = Math.max(0, r.top), x1 = Math.min(W, r.right), y1 = Math.min(H, r.bottom);
-    if (!listo || x1 - x0 < 2 || y1 - y0 < 2) { alTerminar(); return; }
-    const paso = Math.max(4, Math.min(10, Math.sqrt((x1 - x0) * (y1 - y0) / 1600)));
-    bloque = { a: 1, tam: 1, T: tonos(x0, y0, x1, y1, paso) }; arrancar();
-    const B = bloque;
-    gsap.timeline({ onComplete: () => gsap.to(B, { a: 0, duration: 0.18, ease: 'power2.out' }) })
-      .add(() => { B.tam = 1.8; }, 0.07).add(() => { B.tam = 3; }, 0.15).add(alTerminar, 0.24);
-  }
-
-  let figAct = null;
-  const figEn = (x, y) => figuras.find((f) => { if (!f._pix?.punto) return false; const r = f.getBoundingClientRect(); return x >= r.left && x <= r.right && y >= r.top && y <= r.bottom; }) || null;
-  /* Sobre la barra de arriba y los controles del video el grano estorba: ahí no se dibuja. */
-  const ZONA_QUIETA = '.nav,.menu-capa,.sel-idioma,.rp,.rp-opciones,.pausa,button,input';
-  const apagar = () => { ojo.meta = 0; };
-  function mover(x, y, f, golpe) { const en = document.elementFromPoint(x, y);
-    if (en?.closest?.(ZONA_QUIETA)) { apagar(); if (figAct) { figAct._pix?.fuera(); figAct = null; } return; }
-    const fg = figEn(x, y);
-    if (fg !== figAct) { figAct?._pix?.fuera(); figAct = fg; }
-    if (fg) { apagar(); fg._pix.punto(x, y, golpe); return; } trazo(x, y, f); }
-  const soltarTodo = () => { figAct?._pix?.fuera(); figAct = null; apagar(); };
-  addEventListener('pointermove', (e) => { if (e.pointerType === 'touch') return;
-    const v = Math.min(1, Math.hypot(e.movementX || 0, e.movementY || 0) / 18);
-    if (!figEn(e.clientX, e.clientY) && v < 0.08) { if (figAct) { figAct._pix?.fuera(); figAct = null; } return; }
-    mover(e.clientX, e.clientY, 0.35 + v * 0.65, false); }, { passive: true });
-  // Con el dedo el círculo es más chico y más suave, para no estorbar al navegar.
-  addEventListener('touchstart', (e) => { const t = e.touches[0]; mover(t.clientX, t.clientY, 0.6, false); }, { passive: true });
-  addEventListener('touchmove', (e) => { const t = e.touches[0]; mover(t.clientX, t.clientY, 0.6, false); }, { passive: true });
-  /* Al soltar el dedo el círculo se borra en el acto. Si no, en iPhone y iPad la página sigue deslizándose y el círculo
-     se queda pintado donde estaba el dedo, que ya es otro lugar de la página. */
-  const borrar = () => { soltarTodo(); ojo.vis = 0; if (vivo) parar(); };
-  let dedo = false;
-  addEventListener('touchstart', () => { dedo = true; }, { passive: true, capture: true });
-  addEventListener('touchend', () => { dedo = false; borrar(); }, { passive: true }); addEventListener('touchcancel', () => { dedo = false; borrar(); }, { passive: true });
-  addEventListener('scroll', () => { if (!dedo && ojo.vis > 0 && matchMedia('(pointer: coarse)').matches) borrar(); }, { passive: true });
-  document.documentElement.addEventListener('pointerleave', soltarTodo);
-  return { pixelar };
-})();
-
 /* 18. Menú a pantalla completa. Baja como cortina y los nombres suben uno por uno. Se cierra con el botón, con Escape
        o al elegir una sección. El foco queda dentro mientras está abierto. */
 const bMenu = $('.menu'), capa = $('.menu-capa');
@@ -941,8 +580,7 @@ if (bMenu && capa) {
   });
 }
 
-/* 19. Al tocar algo que lleva a otro lado, ese elemento se deshace en grano un cuarto de segundo y recién ahí se va al destino.
-       Dentro de la misma página el viaje es con scroll suave. Los enlaces externos, de correo o con descarga no se tocan. */
+/* 19. Navegación directa; dentro de la misma página se conserva el scroll suave. */
 document.addEventListener('click', (e) => {
   const a = e.target.closest?.('a[href]');
   if (!a || e.defaultPrevented || e.metaKey || e.ctrlKey || e.shiftKey || e.button > 0 || a.target === '_blank' || a.hasAttribute('download')) return;
@@ -952,15 +590,13 @@ document.addEventListener('click', (e) => {
   if (!correo && /^https?:/i.test(href) && a.host !== location.host) return;
   e.preventDefault();
   const enMenu = !!a.closest('.menu-capa'), mismaPagina = a.pathname === location.pathname && a.hash;
-  PX.pixelar(a.closest('.fila') || a, () => {
-    if (correo) { location.href = href; return; }
-    if (enMenu && mismaPagina) menu(false);
-    if (mismaPagina) {
-      const ir = () => { if (lenis) lenis.scrollTo(a.hash, { offset: -60, duration: 1.4 }); else document.querySelector(a.hash)?.scrollIntoView({ behavior: R ? 'auto' : 'smooth' }); };
-      enMenu ? setTimeout(ir, 650) : ir();
-    } else if (a.href !== location.href) location.href = a.href;
-    else if (enMenu) menu(false);
-  });
+  if (correo) { location.href = href; return; }
+  if (enMenu && mismaPagina) menu(false);
+  if (mismaPagina) {
+    const ir = () => { if (lenis) lenis.scrollTo(a.hash, { offset: -60, duration: 1.4 }); else document.querySelector(a.hash)?.scrollIntoView({ behavior: R ? 'auto' : 'smooth' }); };
+    enMenu ? setTimeout(ir, 650) : ir();
+  } else if (a.href !== location.href) location.href = a.href;
+  else if (enMenu) menu(false);
 });
 
 addEventListener('load', () => ScrollTrigger.refresh());

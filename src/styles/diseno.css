@@ -3,7 +3,7 @@
    (premios, título, una línea y sus datos). Abajo a la derecha la sinopsis y el botón. */
 .nav:not(.solido){padding-top:var(--m)}
 .nav-logo{display:flex;flex-direction:column;gap:7px;text-decoration:none}
-.nav-rol{font:500 9.5px var(--mono);letter-spacing:.42em;text-transform:uppercase;color:var(--papel);opacity:.85;white-space:nowrap}
+.nav-rol{font:500 9.5px var(--mono);letter-spacing:.42em;text-transform:uppercase;color:inherit;opacity:.85;white-space:nowrap}
 .nav.solido .nav-rol{display:none}
 .pausa{top:calc(var(--m) + 74px);right:var(--m)}
 .hero-pie{bottom:var(--m);left:var(--m);right:var(--m)}

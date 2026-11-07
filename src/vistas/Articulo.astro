@@ -8,6 +8,7 @@ const w = (es, en) => tr({ es, en }, lang);
 const x = t(lang);
 const url = 'https://joseadrianzen.com' + ruta('blog/' + art.slug, 'es');
 const ld = { '@context': 'https://schema.org', '@type': 'BlogPosting', headline: art.titulo, description: art.descripcion, datePublished: art.fecha, dateModified: art.modificado ?? art.fecha, inLanguage: 'es',
+  image: `https://joseadrianzen.com/og/${art.slug}.jpg`,
   mainEntityOfPage: url, author: { '@id': 'https://joseadrianzen.com/#jose' }, publisher: { '@id': 'https://joseadrianzen.com/#jose' } };
 ---
 <Base titulo={`${art.titulo} | Jose Adrianzen`} descripcion={art.descripcion} lang={lang} camino={'blog/' + art.slug} actual="blog" tipo="article" jsonLd={ld} navClara imagenOg={`/og/${art.slug}.jpg`} altOg={art.alt} soloEs>
