@@ -17,7 +17,7 @@ const P = [
 ];
 ---
 <Base titulo={w('Cómo se mide esta web | Jose Adrianzen', 'How this site is measured | Jose Adrianzen')} descripcion={w('Qué anota el medidor de visitas de joseadrianzen.com y qué no.', 'What the joseadrianzen.com visit counter records and what it does not.')} lang={lang} camino="privacidad" clase="noche">
-  <section class="privacidad oscuro">
+  <section class="privacidad oscuro grano">
     <p class="cod">{w('Privacidad', 'Privacy')}</p>
     <h1>{w('Cómo se mide esta web', 'How this site is measured')}</h1>
     {P.map(([h, p]) => <><h2>{h}</h2><p>{p}</p></>)}
