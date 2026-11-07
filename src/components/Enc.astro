@@ -1,5 +1,5 @@
 ---
 // Encabezado de sección: nombre y una nota corta. Sin numeración.
-const { t, d = '', osc = false, id } = Astro.props;
+const { t, d = '', osc = false, documental = false, id } = Astro.props;
 ---
-<div class:list={['enc', { osc }]} data-aparece id={id}><span>{t}</span><i></i><em>{d}</em></div>
+<div class:list={['enc', { osc }]} data-aparece id={id}><span class:list={{ 'titulo-documental': documental }}>{t}</span><i></i><em>{d}</em></div>

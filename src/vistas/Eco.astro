@@ -25,7 +25,6 @@ const ld = { '@context': 'https://schema.org', '@type': 'Movie', name: 'ECO', al
       <p class="sello grande" data-aparece>{tr(E.sello, lang)}</p>
       <p class="cod" data-aparece>{x.rolEco} · {E.anio} · {E.duracion} · {E.formato}</p>
     </div>
-    <button class="pausa" type="button" aria-pressed="false">{x.pausa}</button>
   </section>
 
   <section class="luz-grande oscuro">
@@ -62,7 +61,7 @@ const ld = { '@context': 'https://schema.org', '@type': 'Movie', name: 'ECO', al
   <section class="siguiente oscuro">
     <p class="cod" data-aparece>{x.siguiente} ▶</p>
     <a class="sig-enlace" href={ruta(D.slug, lang)}>
-      <h2 class={docDibujado(lang) ? 'gigante claro sig-largo titulo-pelicula' : 'gigante claro sig-largo'} data-letras="titulo" aria-label={docDibujado(lang) ? docTexto(lang) : undefined}>{docDibujado(lang) ? <span aria-hidden="true">{docPintado(lang).join(' ')}</span> : docTexto(lang)}</h2>
+      <h2 class="gigante claro sig-largo titulo-pelicula" data-letras="titulo" aria-label={docTexto(lang)}>{docDibujado(lang) ? <span aria-hidden="true">{docPintado(lang).join(' ')}</span> : docTexto(lang)}</h2>
       <Foto n="doc-mineras" clase="sig-foto" movil={false} alt="" cursor={x.cursor.ver} sizes="(max-width: 860px) 60vw, 40vw" />
     </a>
   </section>

@@ -74,7 +74,7 @@ if (!R) $$('.nav-logo svg, [data-armar]').forEach((svg) => {
 /* 4. Cabecera. En la portada, la primera visita de la sesión tiene la entrada tipo Hervé (medida cuadro a cuadro):
       el nombre se arma sobre negro, se abre una rendija vertical en 1 s, pausa de 0,15 s y se abre en horizontal en 1 s. */
 const hero = $('.hero'), fondo = hero && $('.fondo', hero), logoArmar = $$('[data-armar]');
-const acc = $$('.hero-acc, .pausa');
+const acc = $$('.hero-acc');
 if (!R && hero && html.classList.contains('intro') && logoArmar[0]) {
   if (lenis) lenis.stop();
   const c = {}; ['arriba', 'abajo', 'izq', 'der'].forEach((k) => { const d = document.createElement('div'); d.className = 'cortina ' + k; hero.appendChild(d); c[k] = d; });
@@ -108,17 +108,8 @@ if (!R && hero && fondo) {
   gsap.to('.hero-pie', { yPercent: -18, opacity: 0.15, ease: 'none', scrollTrigger: { trigger: hero, start: '35% top', end: 'bottom top', scrub: 0.8 } });
 }
 
-/* 6. El plano de cabecera respira (luego será el corte en bucle). Pausa visible, WCAG 2.2.2. */
-const pausa = $('.pausa');
-const respira = R || !fondo ? null : gsap.to(fondo, { xPercent: -1.2, duration: 16, ease: 'sine.inOut', yoyo: true, repeat: -1, delay: 3 });
+/* La franja de festivales conserva su propio control de movimiento. */
 let franjaQuieta = () => {};
-if (pausa) {
-  if (!respira) pausa.hidden = true;
-  pausa.addEventListener('click', () => {
-    const p = respira.paused(); respira.paused(!p); franjaQuieta(!p);
-    pausa.textContent = p ? T.pausa : T.seguir; pausa.setAttribute('aria-pressed', String(!p));
-  });
-}
 
 /* 7. Textos. Cada línea sube desde detrás de su máscara, así nada se pisa. Los títulos entran letra por letra en desorden,
       con parpadeo en pasos.
@@ -216,7 +207,7 @@ function gastar(el, poner) {
   el._relojes = el._partes.map((c, i) => setTimeout(() => {
     if (!alcanza(poner)) return;
     // Las letras del nombre de la película no se gastan con el filtro: cambian a AWAKENNING STEEL, como en la portada.
-    if (c.closest('.titulo-pelicula')) { c.classList.toggle('acero', poner); return; }
+    if (c.closest('.titulo-pelicula,.titulo-documental')) { c.classList.toggle('acero', poner); return; }
     ponerGasto(c, poner);
   }, gsap.utils.random(0, 320)));
 }
@@ -227,7 +218,27 @@ const ESTILOS = {
 };
 /* Títulos gigantes que no caben. En español "adentro" entra justo, pero en ruso o polaco la palabra más larga
    puede tener el doble de letras. Si el título es más ancho que su caja, se achica lo necesario y nada más. */
+// Se mide una copia sin animación: las letras en movimiento no alteran el tamaño de premios ni títulos.
+function medirLineasTitulo(el) {
+  if (!el?.dataset.lineasTitulo) return null;
+  const lineas = JSON.parse(el.dataset.lineasTitulo), cs = getComputedStyle(el);
+  const muestra = document.createElement('span');
+  muestra.setAttribute('aria-hidden', 'true');
+  Object.assign(muestra.style, {
+    position: 'fixed', visibility: 'hidden', pointerEvents: 'none', whiteSpace: 'pre',
+    width: 'max-content', maxWidth: 'none', left: '0', top: '0',
+    fontFamily: cs.fontFamily, fontSize: cs.fontSize, fontWeight: cs.fontWeight,
+    fontStyle: cs.fontStyle, fontStretch: cs.fontStretch, letterSpacing: cs.letterSpacing,
+    textTransform: cs.textTransform, direction: cs.direction,
+  });
+  document.body.appendChild(muestra);
+  const anchos = lineas.map((linea) => { muestra.textContent = linea; return muestra.getBoundingClientRect().width; });
+  muestra.remove();
+  return anchos;
+}
 function anchoNatural(el) {
+  const lineasTitulo = medirLineasTitulo(el);
+  if (lineasTitulo) return Math.max(...lineasTitulo);
   // Mide las letras mismas (cada nodo de texto), no las cajas que las envuelven, así sirve antes y después de partirlas.
   const caja = el.getBoundingClientRect(), rtl = getComputedStyle(el).direction === 'rtl'; let m = 0;
   const w = document.createTreeWalker(el, NodeFilter.SHOW_TEXT); const r = document.createRange();
@@ -239,6 +250,8 @@ function anchoNatural(el) {
   return m;
 }
 function ajustarGigantes() {
+  const bloquePeli = $('.hero-izq');
+  bloquePeli?.style.removeProperty('--ancho-titulo');
   $$('.gigante, .eco-titulo, .eco-t').forEach((el) => {
     el.style.fontSize = '';
     for (let i = 0; i < 3; i++) {
@@ -247,6 +260,9 @@ function ajustarGigantes() {
       el.style.fontSize = (parseFloat(getComputedStyle(el).fontSize) / sobra) * 0.98 + 'px';
     }
   });
+  const tituloPeli = bloquePeli && $('[data-lineas-titulo]', bloquePeli);
+  const primeraLinea = medirLineasTitulo(tituloPeli)?.[0];
+  if (primeraLinea > 0) bloquePeli.style.setProperty('--ancho-titulo', Math.min(primeraLinea, tituloPeli.clientWidth) + 'px');
 }
 const fuentesListas = document.fonts?.ready ?? Promise.resolve();
 fuentesListas.then(ajustarGigantes);
@@ -262,7 +278,7 @@ if (!R) {
     const POR_PALABRA = /^(ar|hi|th)/.test(document.documentElement.lang);
     $$('[data-letras]').forEach((el) => {
       const E = ESTILOS[el.dataset.letras] || ESTILOS.titulo;
-      SplitText.create(el, { type: 'lines,words' + (POR_PALABRA ? '' : ',chars'), mask: 'lines', linesClass: 'linea', wordsClass: 'pal-t', charsClass: 'car', autoSplit: true, onSplit: (s) => {
+      SplitText.create(el, { type: 'lines,words' + (POR_PALABRA ? '' : ',chars'), mask: 'lines', linesClass: 'linea', wordsClass: 'pal-t', charsClass: 'car', aria: el.hasAttribute('aria-label') ? 'none' : 'auto', autoSplit: true, onSplit: (s) => {
         const partes = POR_PALABRA ? s.words : s.chars;
         gsap.set(el, { visibility: 'visible' }); el._partes = partes;
         const tl = gsap.timeline({ scrollTrigger: { trigger: el, start: 'top 88%', once: true } })
@@ -273,7 +289,7 @@ if (!R) {
       /* Título de la película: con el cursor encima, las letras pasan de AWAKENNING a AWAKENNING STEEL una por una, en
          desorden y en un tercio de segundo, y vuelven igual al salir. Las dos letras miden lo mismo, así nada se mueve.
          Los demás títulos se gastan con el filtro de arriba, con el mismo ritmo. */
-      const pelicula = el.classList.contains('titulo-pelicula');
+      const pelicula = el.matches('.titulo-pelicula,.titulo-documental');
       const cambiar = (poner) => {
         if (!pelicula) return gastar(el, poner);
         if (!el._partes) return; (el._relojes || []).forEach(clearTimeout);
@@ -294,7 +310,7 @@ if (!R) {
     ScrollTrigger.refresh();
   });
   $$('[data-aparece]').forEach((el) => gsap.fromTo(el, { autoAlpha: 0, x: -12 }, { autoAlpha: 1, x: 0, duration: 1.1, ease: ENTRA, scrollTrigger: { trigger: el, start: 'top 94%', once: true } }));
-  $$('[data-cascada]').forEach((el) => gsap.fromTo(el.children, { y: 40, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 1.2, ease: SALE, stagger: 0.1, scrollTrigger: { trigger: el, start: 'top 90%', once: true } }));
+  $$('[data-cascada]').forEach((el) => gsap.fromTo(el.children, { y: el.matches('.hero-peli .laureles') ? 16 : 40, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 1.2, ease: SALE, stagger: 0.1, scrollTrigger: { trigger: el, start: 'top 90%', once: true } }));
 
   /* Premios que se descifran letra por letra, como un contador que busca su valor. */
   const SIG = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
@@ -315,7 +331,7 @@ if (!R) {
      mayúsculas) y por ser cortos. No se tocan la barra de arriba, el menú, los botones ni el logo, cuyas letras van
      siempre completas. Las letras se separan recién la primera vez que pasas encima. */
   fuentesListas.then(() => {
-    const FUERA = '.nav,.menu-capa,button,input,select,textarea,label,[data-armar],.rp,.reproductor,.pausa,[data-letras],script,style';
+    const FUERA = '.nav,.menu-capa,button,input,select,textarea,label,[data-armar],.rp,.reproductor,[data-letras],script,style';
     const vistos = new Set();
     const directo = (el) => [...el.childNodes].some((n) => n.nodeType === 3 && n.data.trim());
     $$('main *, footer *').forEach((el) => {
@@ -601,32 +617,6 @@ document.addEventListener('click', (e) => {
 
 addEventListener('load', () => ScrollTrigger.refresh());
 addEventListener('pageshow', (e) => { if (e.persisted) { html.classList.remove('menu-abierto'); if (capa) capa.hidden = true; } });
-
-/* 19. Laureles del inicio: la fila de los cuatro mide lo mismo que la primera línea del título ("ENTRE POLVO").
-       Peras y manzanas: se mide el ancho real de esas dos palabras y se calcula el alto de los laureles para que,
-       puestos uno al lado del otro con su separación, sumen ese ancho. Solo se cambia el alto, el ancho de cada laurel
-       sale de su propia proporción, así nunca se deforman. Si algo falla, queda el tamaño fijo del CSS. */
-(() => {
-  const fila = $('.hero-peli .laureles');
-  if (!fila || !$('.hero-peli .titulo-pelicula')) return;
-  function ajustar() {
-    // El título se parte en letras al animarse: se busca la primera línea cada vez.
-    const linea = $('.hero-peli .titulo-pelicula span'); if (!linea) return;
-    // La proporción sale del ancho y alto escritos en la etiqueta, así no hay que esperar a que la imagen baje.
-    const ims = [...fila.querySelectorAll('img')], pr = (i) => (+i.getAttribute('width') / +i.getAttribute('height')) || (i.naturalWidth / i.naturalHeight);
-    if (!ims.length || ims.some((i) => !(pr(i) > 0))) return;
-    const r = document.createRange(); r.selectNodeContents(linea);
-    const ancho = r.getBoundingClientRect().width; if (!ancho) return;
-    const gap = parseFloat(getComputedStyle(fila).columnGap) || 0;
-    const prop = ims.reduce((s, i) => s + pr(i), 0);
-    const alto = (ancho - gap * (ims.length - 1)) / prop;
-    if (alto > 20 && alto < 200) fila.style.setProperty('--lau', alto.toFixed(1) + 'px');
-  }
-  const todo = () => requestAnimationFrame(ajustar);
-  (document.fonts?.ready || Promise.resolve()).then(todo);
-  fila.querySelectorAll('img').forEach((i) => i.complete || i.addEventListener('load', todo, { once: true }));
-  addEventListener('load', todo); addEventListener('resize', todo); setTimeout(todo, 1800);
-})();
 
 /* Red de seguridad: si por cualquier motivo un título no llegó a revelarse (la división en líneas no corrió), a los 5 s queda visible. */
 setTimeout(() => { $$('[data-lineas],[data-letras]').forEach((el) => { if (getComputedStyle(el).visibility === 'hidden' && !el.children.length) el.style.visibility = 'visible'; }); }, 5000);

@@ -41,7 +41,6 @@ img{display:block;width:100%;height:100%;object-fit:cover}a{color:inherit;text-d
 .papel .rol{color:var(--ambar-osc)}
 .btn{display:inline-block;margin-top:20px;background:var(--ambar);color:var(--tinta);padding:17px 24px;font:600 13px var(--mono);letter-spacing:.14em;text-transform:uppercase;transition:background .2s}
 .btn:hover{background:var(--papel)}
-.pausa{position:absolute;right:var(--m);top:110px;background:none;border:1px solid rgba(240,238,233,.5);color:var(--papel);padding:8px 12px;font:500 11px var(--mono);letter-spacing:.14em;text-transform:uppercase}
 
 /* encabezado de sección */
 .enc{display:flex;align-items:center;gap:18px;margin:0 var(--m) 56px;border-top:1.5px solid currentColor;padding-top:14px;font:500 12px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase}
@@ -106,7 +105,7 @@ img{display:block;width:100%;height:100%;object-fit:cover}a{color:inherit;text-d
  :root{--m:16px}
  .nav{padding:16px}.nav-logo svg{height:26px}.nav nav{display:none}.menu{display:block}
  .hero{height:760px;min-height:0}.hero .fondo{object-position:30% 50%}
- .hero-pie{flex-direction:column;align-items:flex-start;bottom:36px;gap:20px}.hero-logo svg{width:100%}.hero-acc{text-align:left}.pausa{top:72px}
+ .hero-pie{flex-direction:column;align-items:flex-start;bottom:36px;gap:20px}.hero-logo svg{width:100%}.hero-acc{text-align:left}
  .enc{margin-bottom:34px}.enc b{font-size:26px}
  .idea{padding:80px 0}.idea-caja{min-height:0}.gigante{font-size:96px}.gigante .s2{padding-left:50px}.gigante .s3{padding-left:20px}
  .idea-foto{position:relative;right:auto;top:auto;width:74%;height:340px;margin:28px 0 0 auto}.idea-txt{position:relative;right:auto;top:auto;width:auto;margin-top:22px;font-size:18px}
@@ -141,7 +140,6 @@ body{background:var(--tinta)}
 .cortina.izq{top:0;bottom:0;left:0;width:46.5%;right:auto}.cortina.der{top:0;bottom:0;right:0;width:46.5%;left:auto}
 .saltar{position:absolute;left:50%;bottom:16px;transform:translateX(-50%);z-index:12;background:none;border:0;color:var(--humo);font:500 11px var(--mono);letter-spacing:.16em;text-transform:uppercase}
 .mascara{display:block;overflow:hidden}
-.pausa{z-index:4}
 
 /* la idea, ahora en grilla: texto y foto nunca se pisan */
 .idea{padding:clamp(80px,10vw,140px) 0}
@@ -161,7 +159,7 @@ body{background:var(--tinta)}
 .franja{white-space:nowrap}
 .franja p{display:inline-block;will-change:transform;padding-left:0}
 .franja-ctl{display:flex;justify-content:flex-end;padding:14px var(--m) 0}
-.franja-ctl button,.pausa{background:none;border:1px solid #3a3733;color:var(--humo);padding:7px 11px;font:500 10.5px var(--mono);letter-spacing:.14em;text-transform:uppercase}
+.franja-ctl button{background:none;border:1px solid #3a3733;color:var(--humo);padding:7px 11px;font:500 10.5px var(--mono);letter-spacing:.14em;text-transform:uppercase}
 
 /* fotos: carril que corre solo y se puede agarrar */
 .fotos{overflow:hidden}
@@ -195,12 +193,12 @@ body{background:var(--tinta)}
  .eco-caja{grid-template-columns:1fr}.eco-foto{margin-top:30px}
  .hero-pie{flex-direction:column;align-items:flex-start;gap:20px}.hero-logo svg{width:100%}.hero-acc{text-align:left}
 }
-@media (max-width:700px){.nav{padding:14px 16px}.gigante .s2{padding-left:.5em}.gigante .s3{padding-left:.2em}.pausa{top:72px}}
+@media (max-width:700px){.nav{padding:14px 16px}.gigante .s2{padding-left:.5em}.gigante .s3{padding-left:.2em}}
 @media (prefers-reduced-motion:reduce){.nav{transition:none}}
 
 /* sin destello: lo que se va a animar arranca escondido desde el CSS, antes del primer pintado */
 .hero-pie{z-index:4}.peli-foto{overflow:hidden}
-html.mov :is([data-letras],[data-lineas],[data-aparece],[data-cascada]>*,.luz figure,.nav,.hero-acc,.pausa,.tc){visibility:hidden}
+html.mov :is([data-letras],[data-lineas],[data-aparece],[data-cascada]>*,.luz figure,.nav,.hero-acc,.tc){visibility:hidden}
 html.mov [data-revela-foto]{clip-path:inset(100% 0 0 0)}
 html.mov [data-armar]{visibility:hidden}
 html.intro .hero::after{content:"";position:absolute;inset:0;background:var(--tinta);z-index:3}
@@ -240,7 +238,7 @@ html.menu-abierto .tc{opacity:0}
 .menu{min-height:44px;min-width:76px}
 
 @media (hover:none),(pointer:coarse){
- .franja-ctl button,.pausa{min-height:44px}
+ .franja-ctl button{min-height:44px}
  .lnk{display:inline-block;padding-block:12px}
 }
 @media (max-width:700px){
