@@ -10,7 +10,7 @@ import { Image } from 'astro:assets';
 import { t, tr } from '../data/textos.js';
 import { ruta, PROTOTIPO } from '../utils.js';
 import { documental as D, eco as E, premios, selecciones } from '../data/sitio.js';
-import { docTexto, docPintado, docDibujado, ecoTitulo, tituloOficial } from '../data/titulos.js';
+import { docTexto, docPintado, ecoTitulo, tituloOficial } from '../data/titulos.js';
 const { lang = 'es' } = Astro.props;
 const w = (es, en) => tr({ es, en }, lang);
 const x = t(lang), en = lang === 'en';
@@ -25,14 +25,13 @@ const ld = { '@context': 'https://schema.org', '@type': 'Movie', name: D.titulo,
   award: premios.map((p) => `${p.k.es}, ${p.v}`), trailer: { '@type': 'VideoObject', name: `${D.titulo}, tráiler`, embedUrl: 'https://player.vimeo.com/video/1056105326', thumbnailUrl: 'https://joseadrianzen.com/og.jpg' } };
 ---
 <Base titulo={titulo} descripcion={desc} lang={lang} camino={D.slug} actual={D.slug} tipo="video.movie" jsonLd={ld} imagenOg="/og/entre-polvo-y-suenos.jpg" altOg={D.titulo}>
-  <section class="hero alto oscuro">
+  <section class="hero alto oscuro hero-doc">
     <Image class="fondo" src={fotos['/src/assets/img/doc-tunel.webp'].default} alt={w(D.fotogramas[0][1], D.fotogramas[0][2])} widths={[800, 1200]} sizes="100vw" loading="eager" fetchpriority="high" />
     <div class="velo"></div>
-    <div class="titulo-fijo"><div class="titulo-bloque"><h1 class="gigante claro titulo-pelicula" data-letras="gigante" aria-label={docDibujado(lang) ? docTexto(lang) : undefined}>{docPintado(lang).map((l) => <span aria-hidden={docDibujado(lang) ? 'true' : undefined}>{l}</span>)}</h1><p class="peli-datos" data-aparece><span>{x.documental}</span><span>{D.duracion}</span><span>{D.formato}</span><span>{w('Perú', 'Peru')}, {D.anio}</span></p></div>{tituloOficial(lang) && tituloOficial(lang) !== docTexto(lang) && <p class="cod" data-aparece lang={lang}>{tituloOficial(lang)}</p>}</div>
+    <div class="titulo-fijo"><div class="titulo-bloque"><h1 class="gigante claro titulo-pelicula" data-letras="gigante" data-lineas-titulo={JSON.stringify(docPintado(lang))} aria-label={docTexto(lang)}>{docPintado(lang).map((l) => <span aria-hidden="true">{l}</span>)}</h1><p class="peli-datos" data-aparece><span>{x.documental}</span><span>{D.duracion}</span><span>{D.formato}</span><span>{w('Perú', 'Peru')}, {D.anio}</span></p></div>{tituloOficial(lang) && tituloOficial(lang) !== docTexto(lang) && <p class="cod" data-aparece lang={lang}>{tituloOficial(lang)}</p>}</div>
     <div class="hero-pie">
       <div class="hero-acc"><p class="rol">{x.rolDoc}</p><a class="btn" href="#sala">{x.verPelicula}</a></div>
     </div>
-    <button class="pausa" type="button" aria-pressed="false">{x.pausa}</button>
   </section>
 
   <section class="sala oscuro" id="sala">
@@ -41,7 +40,7 @@ const ld = { '@context': 'https://schema.org', '@type': 'Movie', name: D.titulo,
   </section>
 
   <section class="sinopsis papel grano">
-    <Enc t={x.sinopsis} />
+    <Enc t={x.sinopsis} documental />
     <div class="sin-caja">
       <div>
         <p class="entrada" data-lineas>“{tr(D.golpe, lang)}”</p>
@@ -52,19 +51,19 @@ const ld = { '@context': 'https://schema.org', '@type': 'Movie', name: D.titulo,
   </section>
 
   <section class="fotogramas oscuro grano">
-    <Enc t={w('Fotogramas', 'Frames')} d={w('de la película', 'from the film')} osc />
+    <Enc t={w('Fotogramas', 'Frames')} d={w('de la película', 'from the film')} osc documental />
     <Rotativo items={FOTOGRAMAS.map(([n, es, en]) => [n, w(es, en)])} />
   </section>
 
   <section class="creditos oscuro">
-    <Enc t={x.premios} d={w(`${premios.length} premios · ${selecciones.length} selecciones oficiales`, `${premios.length} awards · ${selecciones.length} official selections`)} osc />
+    <Enc t={x.premios} d={w(`${premios.length} premios · ${selecciones.length} selecciones oficiales`, `${premios.length} awards · ${selecciones.length} official selections`)} osc documental />
     <ul class="laureles laureles-grandes" data-cascada>{premios.map((p) => <Laurel laurel={p.laurel} alt={`${tr(p.k, lang)}, ${p.v}, ${tr(p.d, lang)}`} alto={130} />)}</ul>
     <ul class="laureles laureles-sel" data-cascada>{selecciones.filter((s) => s.laurel).map((s) => <Laurel laurel={s.laurel} alt={`${w('Selección oficial', 'Official selection')}, ${s.n}, ${tr(s.d, lang)}`} alto={96} />)}</ul>
     {selecciones.some((s) => !s.laurel) && <p class="sel-sin-laurel">{w('También en', 'Also at')} {selecciones.filter((s) => !s.laurel).map((s) => `${s.n} (${tr(s.d, lang)})`).join(' · ')}</p>}
   </section>
 
   <section class="rodaje oscuro grano">
-    <Enc t={x.rodaje} d={w('detrás de cámaras', 'behind the scenes')} osc />
+    <Enc t={x.rodaje} d={w('detrás de cámaras', 'behind the scenes')} osc documental />
     <Rotativo items={D.rodaje.map(([n, a]) => [n, tr(a, lang)])} />
   </section>
 

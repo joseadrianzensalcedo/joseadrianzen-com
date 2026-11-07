@@ -35,21 +35,20 @@ const ld = { '@context': 'https://schema.org', '@type': 'WebSite', name: 'Jose A
     <div class="hero-marco">
       <div class="hero-izq">
         <ul class="laureles" data-cascada>{premios.map((p) => <Laurel laurel={p.laurel} alt={`${tr(p.k, lang)}, ${p.v}, ${tr(p.d, lang)}`} alto={140} carga="eager" />)}</ul>
-        <h2 class="gigante claro titulo-pelicula" data-letras="gigante" aria-label={docDibujado(lang) ? docTexto(lang) : undefined}>{docPintado(lang).map((l) => <span aria-hidden={docDibujado(lang) ? 'true' : undefined}>{l}</span>)}</h2>
+        <h2 class="gigante claro titulo-pelicula" data-letras="gigante" data-lineas-titulo={JSON.stringify(docPintado(lang))} aria-label={docTexto(lang)}>{docPintado(lang).map((l) => <span aria-hidden="true">{l}</span>)}</h2>
         <p class="peli-datos" data-aparece><span>{x.documental}</span><span>{D.duracion}</span><span>{D.formato}</span><span>{w('Perú', 'Peru')}, {D.anio}</span></p>
       </div>
       <div class="hero-acc">
         <p class="hero-sinopsis">{tr(D.sinopsis, lang)[0]}</p>
-        <a class="btn" href={ruta(D.slug, lang) + '#sala'}>{w('▶ Ver documental', '▶ Watch the documentary')}</a>
+        <a class="btn" href={ruta(D.slug, lang) + '#sala'}>{w('Ver documental', 'Watch the documentary')}</a>
       </div>
     </div>
-    <button class="pausa" type="button" aria-pressed="false">{x.pausa}</button>
   </section>
 
   <section class="idea papel grano">
-    <Enc t={x.laIdea} />
+    <Enc t={x.laIdea} documental />
     <div class="idea-caja">
-      <h2 class="gigante" data-letras="gigante"><span>{tr(idea.lineas, lang).split('|')[0]}</span><span class="s2">{tr(idea.lineas, lang).split('|')[1]}</span><span class="s3">{tr(idea.lineas, lang).split('|')[2]}</span></h2>
+      <h2 class="gigante titulo-documental" data-letras="gigante" aria-label={tr(idea.lineas, lang).split('|').join(' ')}><span aria-hidden="true">{tr(idea.lineas, lang).split('|')[0]}</span><span class="s2" aria-hidden="true">{tr(idea.lineas, lang).split('|')[1]}</span><span class="s3" aria-hidden="true">{tr(idea.lineas, lang).split('|')[2]}</span></h2>
       <div class="idea-der">
         <Foto n="doc-casco" clase="idea-foto" alt={w('Una minera con casco amarillo mira a cámara', 'A woman miner in a yellow helmet looks into the camera')} paralaje cursor={x.cursor.ver} sizes="(max-width: 860px) 80vw, 40vw" />
         <p class="idea-txt" data-lineas>{tr(idea.texto, lang)}</p>
@@ -58,11 +57,11 @@ const ld = { '@context': 'https://schema.org', '@type': 'WebSite', name: 'Jose A
   </section>
 
   <section class="peli oscuro grano" id="peliculas">
-    <Enc t={x.peliculas} osc />
+    <Enc t={x.peliculas} osc documental />
     <div class="peli-caja">
       <a href={ruta(D.slug, lang)} class="peli-enlace" aria-label={docTexto(lang)}><Foto n="doc-mineras" clase="peli-foto" movil={false} alt={w(D.fotogramas[1][1], D.fotogramas[1][2])} cursor={x.cursor.ver} sizes="(max-width: 860px) 100vw, 56vw" /></a>
       <div class="peli-txt">
-        <h2 class={docDibujado(lang) ? 'titulo titulo-pelicula' : 'titulo'} data-letras="titulo" aria-label={docDibujado(lang) ? docTexto(lang) : undefined}>{docDibujado(lang) ? <span aria-hidden="true">{docPintado(lang).join(' ')}</span> : docTexto(lang)}</h2>
+        <h2 class="titulo titulo-pelicula" data-letras="titulo" aria-label={docTexto(lang)}>{docDibujado(lang) ? <span aria-hidden="true">{docPintado(lang).join(' ')}</span> : docTexto(lang)}</h2>
         <p class="cod" data-aparece>{w('Documental · Perú', 'Documentary · Peru')} · {D.anio} · {D.duracion} · {D.formato}</p>
         <p class="golpe" data-lineas>“{tr(D.golpe, lang)}”</p>
         <p class="lect" data-lineas>{tr(D.sinopsis, lang)[0]}</p>
