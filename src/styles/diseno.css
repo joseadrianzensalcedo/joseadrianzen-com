@@ -1,7 +1,6 @@
 /* Ajustes de la diseñadora, 1 oct 2026. Peras y manzanas: el mismo margen (--m) en los cuatro lados, y cada cosa en su lugar.
    Arriba a la izquierda el nombre como logo con el oficio debajo. Arriba a la derecha el menú. Abajo a la izquierda la película
    (premios, título, una línea y sus datos). Abajo a la derecha la sinopsis y el botón. */
-.nav:not(.solido){padding-top:var(--m)}
 .nav-logo{display:flex;flex-direction:column;gap:7px;text-decoration:none}
 .nav-rol{font:500 9.5px var(--mono);letter-spacing:.42em;text-transform:uppercase;color:inherit;opacity:.85;white-space:nowrap}
 .nav.solido .nav-rol{display:none}
@@ -141,8 +140,6 @@ g-l,.letra-g{display:inline-block}
    en vez de subirse debajo de la barra. */
 :root{--barra:76px}
 @media (max-width:860px){
- .nav{background:rgba(12,11,10,.94);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
- html.menu-abierto .nav{background:rgba(12,11,10,.98)}
  html.menu-abierto .nav-logo{opacity:0;visibility:hidden;pointer-events:none}
  .nav-logo{transition:opacity .25s,visibility .25s}
 }

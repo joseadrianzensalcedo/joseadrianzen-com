@@ -39,11 +39,11 @@ if (!R) {
   gsap.ticker.lagSmoothing(0);
 }
 
-/* 2. Menú superior: se esconde al bajar, vuelve al subir y toma fondo al dejar la cabecera. */
+/* 2. Menú superior: se esconde al bajar y vuelve al subir. */
 const nav = $('.nav');
 ScrollTrigger.create({ start: 0, end: 'max', onUpdate: (s) => {
   const y = s.scroll(), lim = Math.min(innerHeight * 0.8, 500);
-  nav.classList.toggle('solido', y > lim);
+  nav.classList.toggle('solido', y > 24);
   nav.classList.toggle('oculto', s.direction === 1 && y > lim && !html.classList.contains('menu-abierto'));
 } });
 

@@ -67,6 +67,7 @@ const textosMov = { menu: x.menu, cerrar: x.cerrar, pausa: x.pausa, seguir: x.se
   <script type="application/json" id="textos-mov" set:html={JSON.stringify(textosMov)} />
 </head>
 <body class:list={[{ 'nav-clara': navClara }]}>
+  <div class="hilos-marco" aria-hidden="true"></div>
   <a class="saltar-contenido" href="#contenido">{x.saltar}</a>
   <Nav lang={lang} actual={actual} camino={camino} caminoOtros={caminoOtros} corto={navCorto} />
   <MenuCapa lang={lang} actual={actual} camino={camino} caminoOtros={caminoOtros} />

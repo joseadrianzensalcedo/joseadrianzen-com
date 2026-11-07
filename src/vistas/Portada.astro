@@ -26,11 +26,13 @@ const ld = { '@context': 'https://schema.org', '@type': 'WebSite', name: 'Jose A
   <!-- Portada ordenada por la diseñadora (1 oct 2026): arriba el nombre como logo, en el centro la película con sus premios,
        abajo a la izquierda el título con sus datos y a la derecha la sinopsis con el botón. Todo con la letra de la web. -->
   <section class="hero hero-peli oscuro">
-    <picture>
-      <source media="(max-width: 860px)" srcset={movil.srcSet.attribute} sizes="100vw" type="image/webp" />
-      <Image class="fondo" src={img('doc-lago')} alt={w('Mineras con casco rojo buscan mineral en la ladera, con una laguna andina al fondo', 'Women miners in red helmets search for ore on the slope, with an Andean lagoon behind')} widths={[800, 1200, 1800, 2048]} sizes="100vw" quality={88} loading="eager" fetchpriority="high" />
-    </picture>
-    <div class="velo velo-peli"></div>
+    <div class="hero-imagen">
+      <picture>
+        <source media="(max-width: 860px)" srcset={movil.srcSet.attribute} sizes="100vw" type="image/webp" />
+        <Image class="fondo" src={img('doc-lago')} alt={w('Mineras con casco rojo buscan mineral en la ladera, con una laguna andina al fondo', 'Women miners in red helmets search for ore on the slope, with an Andean lagoon behind')} widths={[800, 1200, 1800, 2048]} sizes="100vw" quality={88} loading="eager" fetchpriority="high" />
+      </picture>
+      <div class="velo velo-peli"></div>
+    </div>
     <h1 class="visually-hidden">Jose Adrianzen, {tr(persona.rol, lang)}</h1>
     <div class="hero-marco">
       <div class="hero-izq">

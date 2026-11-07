@@ -1,7 +1,9 @@
 import { createThreads } from './threads-hannah.js';
 
 const conPuntero = matchMedia('(hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) and (forced-colors: none)');
-const superficies = [...document.querySelectorAll('.grano')];
+const marco = document.querySelector('.hilos-marco');
+const paneles = [...document.querySelectorAll('.grano.papel, .menu-capa.grano')];
+const superficies = [marco, ...paneles];
 const origen = document.createElement('canvas');
 const capas = new Map();
 const estado = { width: 0, height: 0, time: 0, pointer: { x: 0, y: 0 }, presence: 0 };
@@ -19,6 +21,7 @@ function mostrarFondoEstatico() {
     lienzo.remove();
   }
   capas.clear();
+  alDesplazar();
 }
 
 function crearCapa(seccion) {
@@ -38,11 +41,6 @@ function dibujar(ahora) {
   fotograma = 0;
   if (!conPuntero.matches || document.hidden || motor === null) return;
 
-  const visibles = superficies.filter(seccion => {
-    const rect = seccion.getBoundingClientRect();
-    return rect.bottom > 0 && rect.top < innerHeight;
-  });
-  if (!visibles.length) return;
   if (ahora - ultimo < 32) {
     solicitarDibujo();
     return;
@@ -71,20 +69,26 @@ function dibujar(ahora) {
   estado.presence += (objetivo.presencia - estado.presence) * .28;
   motor.render(estado);
 
-  for (const seccion of visibles) {
+  // Todas las capas recortan el mismo fotograma. Las secciones largas solo
+  // reservan memoria para su franja visible.
+  const visibles = superficies.map(seccion => [seccion, seccion.getBoundingClientRect()]);
+  for (const [seccion, rect] of visibles) {
+    const arriba = Math.max(0, rect.top);
+    const abajo = Math.min(alto, rect.bottom);
+    const altoVisible = abajo - arriba;
+    if (!rect.width || altoVisible <= 0) continue;
+
     const capa = capas.get(seccion) ?? crearCapa(seccion);
     if (!capa) continue;
     const { lienzo, contexto, color } = capa;
-    const rect = lienzo.getBoundingClientRect();
-    if (!rect.width || !rect.height || rect.bottom <= 0 || rect.top >= alto) continue;
-    const escalaCapa = Math.min(escala, 1600 / Math.max(rect.width, rect.height));
-    const anchoCapa = Math.round(rect.width * escalaCapa);
-    const altoCapa = Math.round(rect.height * escalaCapa);
-    if (!anchoCapa || !altoCapa) continue;
+    const anchoCapa = Math.max(1, Math.round(rect.width * escala));
+    const altoCapa = Math.max(1, Math.round(altoVisible * escala));
+    lienzo.style.top = `${arriba - rect.top}px`;
+    lienzo.style.height = `${altoVisible}px`;
     if (lienzo.width !== anchoCapa) lienzo.width = anchoCapa;
     if (lienzo.height !== altoCapa) lienzo.height = altoCapa;
     contexto.clearRect(0, 0, anchoCapa, altoCapa);
-    contexto.drawImage(origen, -rect.left * escalaCapa, -rect.top * escalaCapa, ancho * escalaCapa, alto * escalaCapa);
+    contexto.drawImage(origen, -rect.left * escala, -arriba * escala, ancho * escala, alto * escala);
     contexto.globalCompositeOperation = 'source-in';
     contexto.fillStyle = color;
     contexto.fillRect(0, 0, anchoCapa, altoCapa);
@@ -105,7 +109,24 @@ function solicitarDibujo() {
   }
 }
 
-if (superficies.length) {
+// El SVG repite un ciclo completo de los mismos trazos. Se alinea respecto
+// al documento para que también continúe entre paneles en modo estático.
+function alinearPaneles() {
+  for (const panel of paneles) {
+    const desplazamiento = panel.matches('.menu-capa') ? 0 : scrollY;
+    const inicio = panel.getBoundingClientRect().top + desplazamiento;
+    panel.style.setProperty('--hilo-fase', `${-inicio}px`);
+  }
+}
+
+function alDesplazar() {
+  if (!marco.hasAttribute('data-hilos')) {
+    marco.style.setProperty('--hilo-fase', `${-scrollY}px`);
+  }
+  solicitarDibujo();
+}
+
+if (marco) {
   const retirarPuntero = () => {
     if (!objetivo.presencia) return;
     objetivo.presencia = 0;
@@ -114,10 +135,6 @@ if (superficies.length) {
 
   window.addEventListener('pointermove', evento => {
     if (!conPuntero.matches || evento.pointerType === 'touch') return;
-    if (!evento.target.closest?.('.grano')) {
-      retirarPuntero();
-      return;
-    }
     objetivo.x = evento.clientX;
     objetivo.y = evento.clientY;
     if (!objetivo.presencia && estado.presence < .01) {
@@ -130,8 +147,13 @@ if (superficies.length) {
 
   document.documentElement.addEventListener('pointerleave', retirarPuntero);
   window.addEventListener('blur', retirarPuntero);
-  window.addEventListener('scroll', solicitarDibujo, { passive: true });
-  window.addEventListener('resize', solicitarDibujo, { passive: true });
+  window.addEventListener('scroll', alDesplazar, { passive: true });
+  const observarPaneles = new ResizeObserver(() => {
+    alinearPaneles();
+    alDesplazar();
+  });
+  for (const superficie of superficies) observarPaneles.observe(superficie);
+  observarPaneles.observe(document.querySelector('main'));
   document.addEventListener('visibilitychange', solicitarDibujo);
   conPuntero.addEventListener('change', () => {
     if (conPuntero.matches) solicitarDibujo();
