@@ -529,27 +529,6 @@ if (!R && flota && filas.length) {
   gsap.ticker.add(() => { if (actual && Math.abs(gsap.getProperty(flota, 'rotation')) > 0.05) frq(0); });
 }
 
-/* 14. Cursor propio: punto y aro que lo sigue con retardo. Regla de la web: solo el círculo propio, sin flecha.
-       Crece sobre enlaces y fotos y dice qué hace cada cosa. */
-if (FINO && !R) {
-  html.classList.add('con-cursor');
-  const cur = $('.cursor'), aro = $('.aro', cur), pun = $('.punto', cur), etq = $('b', cur);
-  const q = (el, p, d, e) => gsap.quickTo(el, p, { duration: d, ease: e });
-  const ax = q(aro, 'x', 0.55, 'power3'), ay = q(aro, 'y', 0.55, 'power3'), px = q(pun, 'x', 0.08), py = q(pun, 'y', 0.08), bx = q(etq, 'x', 0.55, 'power3'), by = q(etq, 'y', 0.55, 'power3');
-  gsap.set([aro, pun, etq], { xPercent: -50, yPercent: -50, x: -100, y: -100 });
-  addEventListener('pointermove', (e) => { ax(e.clientX); ay(e.clientY); px(e.clientX); py(e.clientY); bx(e.clientX); by(e.clientY); gsap.to(cur, { opacity: 1, duration: 0.3, overwrite: 'auto' }); });
-  document.addEventListener('pointerleave', () => gsap.to(cur, { opacity: 0, duration: 0.3 }));
-  addEventListener('pointerdown', () => gsap.to(aro, { scale: '-=0.25', duration: 0.2, ease: ENTRA }));
-  addEventListener('pointerup', () => gsap.to(aro, { scale: aro._s || 1, duration: 0.5, ease: 'elastic.out(1,0.5)' }));
-  const estado = (s, txt) => { aro._s = s; gsap.to(aro, { scale: s, duration: 0.6, ease: SALE, overwrite: 'auto' });
-    gsap.to(pun, { scale: txt ? 0 : 1, duration: 0.3, overwrite: 'auto' }); if (txt) etq.textContent = txt; gsap.to(etq, { opacity: txt ? 1 : 0, duration: 0.3, overwrite: 'auto' });
-    aro.classList.toggle('lleno', !!txt); };
-  document.addEventListener('pointerover', (e) => {
-    const c = e.target.closest?.('[data-cursor]'); if (c) { estado(2.2, c.dataset.cursor); return; }
-    if (e.target.closest?.('a, button, [role=button], input, label')) estado(1.7); else estado(1);
-  });
-}
-
 /* 15. Código de tiempo de película abajo a la izquierda: el avance de la página leído sobre los 37:02 de Entre polvo y sueños a 24 cuadros. Es un guiño, no un dato. */
 const tc = $('.tc span');
 if (hero) { html.classList.add('en-cabecera'); ScrollTrigger.create({ trigger: hero, start: 'top top', end: 'bottom 40%', onToggle: (st) => html.classList.toggle('en-cabecera', st.isActive), onRefresh: (st) => html.classList.toggle('en-cabecera', st.isActive || scrollY < 10) }); }

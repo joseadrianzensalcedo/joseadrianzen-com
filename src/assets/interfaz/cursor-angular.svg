@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+  <!-- Geometría del cursor de Hannah Lab. Colores y halo de joseadrianzen.com. -->
+  <g><path d="M4 3.5 5.4 24l5.4-5.5 4.7 9.3 3.8-1.8-4.7-9.2 8.8-.8Z" fill="none" stroke="#f0eee9" stroke-width="4.25" stroke-linejoin="round"/><path d="M7.2 9.5 7.8 17.2" fill="none" stroke="#f0eee9" stroke-width="4.25" stroke-linecap="round"/></g>
+  <g><path d="M4 3.5 5.4 24l5.4-5.5 4.7 9.3 3.8-1.8-4.7-9.2 8.8-.8Z" fill="#f0eee9" stroke="#0c0b0a" stroke-width="1.65" stroke-linejoin="round"/><path d="M7.2 9.5 7.8 17.2" fill="none" stroke="#855621" stroke-width="1.65" stroke-linecap="round"/></g>
+</svg>

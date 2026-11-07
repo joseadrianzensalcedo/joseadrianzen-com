@@ -1,5 +1,5 @@
 ---
-// Plantilla común de todas las páginas: cabecera, menú, pie, cursor, estela de píxeles y motor de movimiento.
+// Plantilla común de todas las páginas: cabecera, menú, pie e interacciones compartidas.
 import Nav from '../components/Nav.astro';
 import MenuCapa from '../components/MenuCapa.astro';
 import Pie from '../components/Pie.astro';
@@ -14,6 +14,7 @@ import '../styles/paginas.css';
 import '../styles/idiomas.css';
 import '../styles/diseno.css';
 import '../styles/titulo-letras.css';
+import '../styles/interfaz.css';
 
 const { titulo, descripcion, lang = 'es', camino = '', actual = '', navClara = false, intro = false, imagenOg = '/og.jpg', altOg = null, tipo = 'website', jsonLd = [], clase = '', soloEs = false, navCorto = false, sinIndice = false } = Astro.props;
 // Los artículos del blog existen solo en español: en los otros idiomas el selector lleva a la lista del blog.
@@ -76,13 +77,13 @@ const textosMov = { menu: x.menu, cerrar: x.cerrar, pausa: x.pausa, seguir: x.se
   </main>
   <Pie lang={lang} />
   <img class="flota" alt="" aria-hidden="true">
-  <div class="cursor" aria-hidden="true"><span class="aro"></span><span class="punto"></span><b></b></div>
   <div class="tc" aria-hidden="true"><i>TC</i><span>00:00:00:00</span></div>
   <div id="aviso-medidor" class="aviso-medidor" role="region" aria-label={w('Aviso de medición', 'Measurement notice')} hidden>
     <p>{w('Esta web cuenta sus visitas y lo que se ve en ella, sin Google ni otras empresas. ¿Te reconocemos cuando vuelvas?', 'This site counts its visits and what people watch on it, with no Google or other companies involved. Shall we recognize you when you come back?')} <a href={ruta('privacidad', lang)}>{w('Cómo se mide', 'How it works')}</a></p>
     <div><button type="button" data-ok="1">{w('Sí', 'Yes')}</button><button type="button" data-ok="0">{w('No', 'No')}</button></div>
   </div>
   <script>import '../scripts/movimiento.js';</script>
+  <script>import '../scripts/hilos.js';</script>
   <script>import '../scripts/medidor.js';</script>
 </body>
 </html>

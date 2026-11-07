@@ -55,7 +55,7 @@ const ld = { '@context': 'https://schema.org', '@type': 'Movie', name: D.titulo,
     <Rotativo items={FOTOGRAMAS.map(([n, es, en]) => [n, w(es, en)])} />
   </section>
 
-  <section class="creditos oscuro">
+  <section class="creditos oscuro grano">
     <Enc t={x.premios} d={w(`${premios.length} premios · ${selecciones.length} selecciones oficiales`, `${premios.length} awards · ${selecciones.length} official selections`)} osc documental />
     <ul class="laureles laureles-grandes" data-cascada>{premios.map((p) => <Laurel laurel={p.laurel} alt={`${tr(p.k, lang)}, ${p.v}, ${tr(p.d, lang)}`} alto={130} />)}</ul>
     <ul class="laureles laureles-sel" data-cascada>{selecciones.filter((s) => s.laurel).map((s) => <Laurel laurel={s.laurel} alt={`${w('Selección oficial', 'Official selection')}, ${s.n}, ${tr(s.d, lang)}`} alto={96} />)}</ul>
