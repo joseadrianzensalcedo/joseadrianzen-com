@@ -5,6 +5,28 @@
 
 export const articulos = [
   {
+    "slug": "que-lugar-le-damos-a-la-ia-en-el-arte",
+    "estado": "publicado",
+    "titulo": "Qué lugar le damos a la IA en el arte",
+    "tema": "IA como herramienta",
+    "fecha": "2026-11-07",
+    "descripcion": "Lo que cambió al conocer mejor la IA y el lugar que puede tener en el proceso creativo, con estudios sobre creatividad, trabajo y consentimiento.",
+    "imagen": "storyboard-con-ia",
+    "alt": "Una ilustradora de perfil dibuja una viñeta incompleta sobre una mesa pantalla de acabado mate. La interfaz propone otros encuadres del storyboard.",
+    "pie": "Una ilustradora y sus herramientas en un futuro cercano. Imagen generada con IA.",
+    "cuerpo": [
+      "Al principio pensaba que la inteligencia artificial no debía usarse para hacer arte. Por mi trabajo empecé a conocerla mejor, y eso me hizo cambiar de opinión. Ahora la veo como una herramienta que puedo incorporar a mi proceso creativo, sobre todo para probar ideas que antes habría dejado de lado por falta de tiempo o presupuesto.",
+      "Pienso, por ejemplo, en una escena donde alguien espera una llamada. Antes de rodar, podría pedirle a un generador de imágenes que me muestre ese cuarto iluminado por una ventana, por un foco en el techo o apenas por la luz que entra de la calle. Quizá la ventana dé la imagen más bonita. Pero si quiero que la espera resulte incómoda, puede servirme más ese foco que hace que el cuarto se vea vacío y un poco triste. Tener esas pruebas a la mano me ayudaría a conversar con quien va a iluminar la escena. Podríamos discutir sobre algo que ambos estamos viendo.",
+      "El cuidado que tendría es con lo fácil que resulta encariñarse con la primera imagen que sale bien. Hay un experimento de Anil Doshi y Oliver Hauser que me hace pensar en eso. Pidieron a personas reclutadas en línea que escribieran cuentos de ocho frases. Algunas podían pedir ideas a una IA antes de empezar. En promedio, a los lectores les parecieron más entretenidos los cuentos de quienes tenían esa ayuda. Pero esos relatos también se parecían más entre sí. La herramienta les había dado por dónde empezar y, al mismo tiempo, había acercado sus historias.",
+      "En las imágenes encontraron algo parecido. Eric Zhou y Dokyun Lee estudiaron a usuarios de una plataforma de arte digital que empezaron a trabajar con IA. Publicaron más y consiguieron más favoritos por vista. Al comparar las obras, los investigadores encontraron que, en promedio, se parecían más a otras por su contenido y su estilo visual. También aparecieron imágenes que exploraban temas cada vez menos comunes. El estudio midió las reacciones dentro de esa plataforma y comparó las imágenes con un programa. A mí me deja pensando en cuánto depende el resultado de las ideas que llevamos y de lo que elegimos entre todo lo que aparece en pantalla.",
+      "Por eso prefiero llegar a la herramienta con algo propio, aunque sea un dibujo feo o unas líneas en un cuaderno. Volviendo al cuarto, saber qué siente la persona que espera la llamada me ayudaría a elegir la luz. Si empiezo pidiendo una imagen cinematográfica y me conformo con la primera que me gusta, puede que termine cambiando la escena para que encaje en esa imagen.",
+      "También entiendo que a un artista le cueste entusiasmarse cuando lo están presionando para usar IA. Cuando Jiang, Taylor y Agnew encuestaron a profesionales de las artes visuales, algunos contaron que esa presión venía de sus clientes o jefes. Otros reportaron menos oportunidades de trabajo. Son las experiencias de un grupo reclutado en comunidades y redes profesionales. Leerlas obliga a pensar en las condiciones en las que cada uno trabaja. Ahorrar tiempo podría darte espacio para ensayar otra idea. Pero si el cliente responde pidiéndote todo para mañana, ese ahorro se vuelve una nueva exigencia.",
+      "Y queda la pregunta de qué trabajo ajeno hizo posible esa herramienta. En un estudio que Kyi y sus colegas publicaron en 2025, profesionales del arte, el diseño, la escritura y la programación dijeron que querían saber si sus obras se usarían para entrenar modelos y bajo qué condiciones podían dar permiso. Tenían distintas posturas sobre el crédito y el pago. Esa conversación también debería ocurrir en nuestros proyectos. Si quisiera trabajar con la voz de un actor o generar una imagen con su rostro, empezaría por hablar con él y acordar qué uso acepta.",
+      "Me interesa usar la IA en esa parte del trabajo donde todavía puedo equivocarme, cambiar de idea y volver a empezar. Haría las pruebas del cuarto, las miraría con el equipo y después iría a ver qué pasa con la luz en el lugar donde vamos a rodar. Tal vez terminemos eligiendo algo que apareció en la pantalla. O tal vez encontremos otra cosa al abrir una puerta."
+    ],
+    "firma": "Jose Adrianzen"
+  },
+  {
     // Publicado en el sitio anterior el 28 set 2026 (copiado tal cual del sitio en vivo el 1 oct 2026 para no perderlo en el rediseño).
     slug: 'como-financiar-un-documental',
     estado: 'publicado',

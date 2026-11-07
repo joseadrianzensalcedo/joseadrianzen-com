@@ -26,9 +26,9 @@
 
 /* Selector en la barra de arriba. Sin JavaScript, con details y summary. */
 .sel-idioma{position:relative}
-.sel-idioma summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:6px;padding:6px 0;color:var(--humo);transition:color .2s}
+.sel-idioma summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:6px;padding:6px 0;color:var(--nav-secundario,var(--humo));transition:color .2s}
 .sel-idioma summary::-webkit-details-marker{display:none}
-.sel-idioma summary:hover,.sel-idioma[open] summary{color:var(--ambar)}
+.sel-idioma summary:hover,.sel-idioma[open] summary{color:var(--nav-acento,var(--ambar))}
 .sel-idioma summary i{font-style:normal;font-size:9px;transition:transform .25s}
 .sel-idioma[open] summary i{transform:rotate(180deg)}
 .sel-idioma ul{position:absolute;top:calc(100% + 12px);inset-inline-end:0;z-index:30;list-style:none;margin:0;padding:8px;width:min(340px,86vw);max-height:min(70vh,560px);overflow-y:auto;display:grid;grid-template-columns:1fr 1fr;gap:2px;background:var(--tinta);border:1px solid var(--linea,#34322e);box-shadow:0 18px 50px rgba(0,0,0,.45)}
@@ -45,7 +45,6 @@
 /* Aviso de traducción automática, arriba de todo, discreto. */
 .aviso-traduccion{margin:0;padding:8px var(--m);background:var(--tinta2,#1a1816);color:var(--humo);font:400 13px/1.45 var(--lectura);text-align:center;border-top:1px solid rgba(240,238,233,.12)}
 .gigante{max-width:100%;min-width:0}
-.nav-clara .sel-idioma summary{color:var(--humo-osc)}.nav-clara .sel-idioma summary:hover,.nav-clara .sel-idioma[open] summary{color:var(--ambar-osc)}
 
 /* Título de ECO traducido. Una sola línea (el motor lo achica hasta que entre) y, en alfabetos altos, más aire arriba y abajo para que no se corte. */
 .eco-titulo,.eco-t{white-space:nowrap;text-transform:uppercase}

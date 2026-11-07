@@ -25,10 +25,10 @@ img{display:block;width:100%;height:100%;object-fit:cover}a{color:inherit;text-d
 :root{--m:48px}
 
 /* nav */
-.nav{position:absolute;top:0;left:50%;transform:translateX(-50%);width:100%;max-width:1440px;z-index:10;display:flex;align-items:center;justify-content:space-between;padding:26px var(--m);color:var(--papel)}
+.nav{--nav-acento:var(--ambar);--nav-secundario:var(--humo);position:absolute;top:0;left:50%;transform:translateX(-50%);width:100%;max-width:1440px;z-index:10;display:flex;align-items:center;justify-content:space-between;padding:26px var(--m);color:var(--papel)}
 .nav-logo svg{height:40px;width:auto;display:block}
 .nav nav{display:flex;gap:30px;align-items:center;font:500 12px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase}
-.nav nav a:hover{color:var(--ambar)}.idi{color:var(--humo)}
+.nav nav > a:hover{color:var(--nav-acento)}.idi{color:var(--humo)}
 .menu{display:none;background:none;border:1px solid var(--papel);color:var(--papel);padding:8px 12px;font:500 11px var(--mono);letter-spacing:.14em;text-transform:uppercase}
 
 /* portada */
@@ -38,6 +38,7 @@ img{display:block;width:100%;height:100%;object-fit:cover}a{color:inherit;text-d
 .hero-pie{position:absolute;left:var(--m);right:var(--m);bottom:64px;display:flex;justify-content:space-between;align-items:flex-end;gap:40px}
 .hero-logo svg{width:min(900px,62vw);display:block;color:var(--papel)}
 .hero-acc{text-align:right}.rol{font:500 13px var(--mono);letter-spacing:.18em;text-transform:uppercase;color:var(--ambar)}
+.papel .rol{color:var(--ambar-osc)}
 .btn{display:inline-block;margin-top:20px;background:var(--ambar);color:var(--tinta);padding:17px 24px;font:600 13px var(--mono);letter-spacing:.14em;text-transform:uppercase;transition:background .2s}
 .btn:hover{background:var(--papel)}
 .pausa{position:absolute;right:var(--m);top:110px;background:none;border:1px solid rgba(240,238,233,.5);color:var(--papel);padding:8px 12px;font:500 11px var(--mono);letter-spacing:.14em;text-transform:uppercase}
@@ -118,7 +119,7 @@ img{display:block;width:100%;height:100%;object-fit:cover}a{color:inherit;text-d
  .blog{padding:80px 0}.fila{grid-template-columns:1fr;padding:22px 16px}.fila span{font-size:24px}.fila em{text-align:left}
  .pie{padding:60px 16px 30px}.pie-mapa{flex-wrap:wrap;gap:16px 24px;margin:40px 0}.pie-base{flex-direction:column;gap:8px}
 }
-.nav nav a{position:relative}.nav nav a::after{content:"";position:absolute;left:0;right:0;bottom:-6px;height:1.5px;background:var(--ambar);transform:scaleX(0);transform-origin:left;transition:transform .4s cubic-bezier(.22,1,.36,1)}.nav nav a:hover::after,.nav nav a[aria-current]::after{transform:scaleX(1)}
+.nav nav > a{position:relative}.nav nav > a::after{content:"";position:absolute;left:0;right:0;bottom:-6px;height:1.5px;background:var(--nav-acento);transform:scaleX(0);transform-origin:left;transition:transform .4s cubic-bezier(.22,1,.36,1)}.nav nav > a:hover::after,.nav nav > a[aria-current]::after{transform:scaleX(1)}
 html.lenis,html.lenis body{height:auto}.lenis:not(.lenis-autoToggle).lenis-stopped{overflow:clip}.lenis.lenis-smooth [data-lenis-prevent]{overscroll-behavior:contain}.lenis.lenis-smooth iframe{pointer-events:none}.lenis.lenis-autoToggle{transition-property:overflow;transition-duration:1ms;transition-behavior:allow-discrete}
 
 
@@ -200,13 +201,13 @@ body{background:var(--tinta)}
 /* sin destello: lo que se va a animar arranca escondido desde el CSS, antes del primer pintado */
 .hero-pie{z-index:4}.peli-foto{overflow:hidden}
 html.mov :is([data-letras],[data-lineas],[data-aparece],[data-cascada]>*,.luz figure,.nav,.hero-acc,.pausa,.tc){visibility:hidden}
-html.mov [data-pix]{clip-path:inset(100% 0 0 0)}
+html.mov [data-revela-foto]{clip-path:inset(100% 0 0 0)}
 html.mov [data-armar]{visibility:hidden}
 html.intro .hero::after{content:"";position:absolute;inset:0;background:var(--tinta);z-index:3}
 
 /* luz que cruza las letras */
 .papel{--luz:var(--ambar)}.oscuro{--luz:#fff3dc}.eco{--luz:var(--ambar)}
-/* lienzo del rastro de píxeles: copia la caja de la foto */
+/* Referencia para el encuadre de cada foto. */
 .peli-foto,.eco-foto{position:relative}
 
 
@@ -253,8 +254,6 @@ html.menu-abierto .tc{opacity:0}
 .menu-capa[hidden]{display:none}
 @media (orientation:portrait){.hero{height:100svh;max-height:none}}
 
-/* estela de píxeles en toda la página, con el color real de lo que hay debajo */
-.estela{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:90}
 .hero-logo .mascara{overflow:visible}
 /* blog con el dedo: presión larga */
 .pista{display:none;font:500 10.5px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--humo-osc);padding:0 var(--m) 18px;margin:0}
@@ -274,12 +273,11 @@ html.menu-abierto .tc{opacity:0}
  .hero-acc{text-align:center;display:flex;flex-direction:column;align-items:center}
 }
 
-/* fotos: encuadre que se mueve (paralaje y acercamiento) con su lienzo de píxeles adentro */
+/* Fotos: encuadre que se mueve con paralaje y acercamiento. */
 .foto{position:relative;overflow:hidden;margin:0}
 .foto .encuadre{position:absolute;inset:0;display:block}
 .foto .encuadre.con-paralaje{inset:-8% 0}
-.foto .encuadre img,.foto .encuadre canvas.pix{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
-.foto canvas.pix{pointer-events:none;opacity:0}
+.foto .encuadre img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
 .foto figcaption{position:absolute;left:0;bottom:-26px}
 /* Encuadre de cada foto: el punto que se mantiene al recortar. En el celular, si la foto tiene su versión vertical, va centrada. */
 .foto .encuadre img{object-position:var(--pos,50% 50%)}
