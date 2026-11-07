@@ -7,7 +7,7 @@ const { lang = 'es', actual = '', camino = '', caminoOtros = camino } = Astro.pr
 const w = (es, en) => tr({ es, en }, lang);
 const x = t(lang);
 ---
-<div class="menu-capa" id="menu" role="dialog" aria-modal="true" aria-label={x.menu} hidden>
+<div class="menu-capa grano oscuro" id="menu" role="dialog" aria-modal="true" aria-label={x.menu} hidden>
   <nav aria-label={x.menu}>
     {x.nav.map(([p, txt], i) => <a href={ruta(p, lang)} aria-current={actual === p ? 'page' : undefined}><span class="mascara"><span>{txt}</span></span></a>)}
   </nav>

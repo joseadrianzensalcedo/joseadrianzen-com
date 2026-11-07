@@ -214,6 +214,7 @@ export function createThreads(canvas) {
   gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
   gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
   gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+  const hilos = 80;
   let segments = 0;
   return {
     type: 'webgl2-threads',
@@ -250,9 +251,9 @@ export function createThreads(canvas) {
       gl.uniform2f(uniforms.uResolution, w, h);
       gl.uniform2f(uniforms.uFrame, Math.abs(w * cos) + Math.abs(h * sin), Math.abs(w * sin) + Math.abs(h * cos));
       gl.uniform1f(uniforms.uAmplitude, 1.9);
-      gl.uniform1f(uniforms.uDistance, 0.48);
+      gl.uniform1f(uniforms.uDistance, 0.78);
       gl.uniform2f(uniforms.uMouse, 0.5 + (state.pointer.x / state.width - 0.5) * state.presence * 0.18, 0.5 + (0.5 - state.pointer.y / state.height) * state.presence * 0.18);
-      gl.uniform1f(uniforms.uCount, 64);
+      gl.uniform1f(uniforms.uCount, hilos);
       gl.uniform1f(uniforms.uThickness, 0.43);
       gl.uniform1f(uniforms.uSoftness, 0.75);
       gl.uniform1f(uniforms.uWaves, 1.0);
@@ -265,7 +266,7 @@ export function createThreads(canvas) {
       gl.uniform3f(uniforms.uColor, 0, 0, 0);
       gl.uniform3f(uniforms.uAccent, 0, 0, 0);
       gl.bindVertexArray(lineVao);
-      gl.drawArraysInstanced(gl.TRIANGLE_STRIP, 0, (segments + 1) * 2, 64);
+      gl.drawArraysInstanced(gl.TRIANGLE_STRIP, 0, (segments + 1) * 2, hilos);
       gl.bindFramebuffer(gl.FRAMEBUFFER, null);
       gl.viewport(0, 0, w, h);
       gl.disable(gl.BLEND);

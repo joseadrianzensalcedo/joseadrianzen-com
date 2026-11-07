@@ -1,66 +1,79 @@
-/* La geometría estática de Threads procede de Hannah Lab. */
-.grano {
-  --hilo-color: #855621;
-  --hilo-intensidad: .38;
-  --hilo-velo: linear-gradient(#000 50%, transparent);
+/* Los paneles oscuros dejan ver un fondo común que llega hasta los bordes. */
+body {
+  isolation: isolate;
 }
-.grano.papel {
-  --humo-osc: #5f5951;
-  --ambar-osc: #7d501e;
+main > .oscuro,
+body > footer.oscuro {
+  background-color: transparent;
 }
-.grano.oscuro {
+.hilos-marco {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+}
+.hilos-marco,
+.menu-capa.grano {
   --hilo-color: var(--ambar);
   --hilo-intensidad: .55;
 }
-.grano::after,
-.grano > .hilos-lienzo {
+.grano.papel {
+  --hilo-color: #855621;
+  --hilo-intensidad: .38;
+}
+.grano.papel,
+.nav-clara .nav {
+  --humo-osc: #5f5951;
+  --ambar-osc: #7d501e;
+}
+.hilos-marco::after,
+.grano.papel::after,
+.menu-capa.grano::after,
+:is(.hilos-marco, .grano) > .hilos-lienzo {
   position: absolute;
   inset: 0 0 auto;
   width: 100%;
-  height: min(100%, max(580px, 90svh));
+  height: 100%;
   z-index: 0;
   pointer-events: none;
 }
-.grano::after {
+.hilos-marco::after,
+.grano.papel::after,
+.menu-capa.grano::after {
   content: "";
   background-color: var(--hilo-color);
-  mask-image: url('../assets/interfaz/hilos.svg'), var(--hilo-velo);
-  mask-size: cover, 100% 100%;
-  mask-position: center, center;
-  mask-repeat: no-repeat;
+  mask-image: url('../assets/interfaz/hilos.svg'), var(--hilo-velo, linear-gradient(#000, #000));
+  mask-size: max(100vw, 860px) auto, 100% 100%;
+  mask-position: center var(--hilo-fase, 0px), center;
+  mask-repeat: repeat-y, no-repeat;
   mask-composite: intersect;
 }
-.grano > .hilos-lienzo {
+:is(.hilos-marco, .grano) > .hilos-lienzo {
   max-width: none;
   margin: 0;
-  mask-image: var(--hilo-velo);
+  mask-image: var(--hilo-velo, none);
   opacity: var(--hilo-intensidad);
 }
-.privacidad.grano {
-  --hilo-intensidad: .28;
-  --hilo-velo: linear-gradient(#000 14%, transparent 72%);
-}
-.grano[data-hilos]::after {
+:is(.hilos-marco, .grano)[data-hilos]::after {
   visibility: hidden;
 }
 .grano.papel :focus-visible {
   outline-color: var(--ambar-osc);
 }
+.hero-imagen {
+  --marco-foto: clamp(8px, 1vw, 16px);
+  position: absolute;
+  inset: 0 var(--marco-foto) var(--marco-foto);
+  overflow: hidden;
+}
 @media (min-width: 900px) {
   .post.grano {
-    --hilo-velo: linear-gradient(90deg, #000, #0003 25%, #0002 75%, #000);
-  }
-  .post.grano::after,
-  .post.grano > .hilos-lienzo {
-    height: min(100%, 950px);
+    --hilo-velo: linear-gradient(90deg, #000, #000a 27%, #000a 73%, #000);
   }
 }
 @media (max-width: 600px) {
   .grano.papel {
-    --hilo-intensidad: .26;
-  }
-  .grano::after {
-    opacity: .65;
+    --hilo-intensidad: .30;
   }
 }
 
@@ -86,7 +99,9 @@
 }
 
 @media (forced-colors: active) {
-  .grano::after,
+  .hilos-marco,
+  .grano.papel::after,
+  .menu-capa.grano::after,
   .grano > .hilos-lienzo {
     display: none;
   }

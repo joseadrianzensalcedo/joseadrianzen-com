@@ -26,8 +26,10 @@ const ld = { '@context': 'https://schema.org', '@type': 'Movie', name: D.titulo,
 ---
 <Base titulo={titulo} descripcion={desc} lang={lang} camino={D.slug} actual={D.slug} tipo="video.movie" jsonLd={ld} imagenOg="/og/entre-polvo-y-suenos.jpg" altOg={D.titulo}>
   <section class="hero alto oscuro hero-doc">
-    <Image class="fondo" src={fotos['/src/assets/img/doc-tunel.webp'].default} alt={w(D.fotogramas[0][1], D.fotogramas[0][2])} widths={[800, 1200]} sizes="100vw" loading="eager" fetchpriority="high" />
-    <div class="velo"></div>
+    <div class="hero-imagen">
+      <Image class="fondo" src={fotos['/src/assets/img/doc-tunel.webp'].default} alt={w(D.fotogramas[0][1], D.fotogramas[0][2])} widths={[800, 1200]} sizes="100vw" loading="eager" fetchpriority="high" />
+      <div class="velo"></div>
+    </div>
     <div class="titulo-fijo"><div class="titulo-bloque"><h1 class="gigante claro titulo-pelicula" data-letras="gigante" data-lineas-titulo={JSON.stringify(docPintado(lang))} aria-label={docTexto(lang)}>{docPintado(lang).map((l) => <span aria-hidden="true">{l}</span>)}</h1><p class="peli-datos" data-aparece><span>{x.documental}</span><span>{D.duracion}</span><span>{D.formato}</span><span>{w('Perú', 'Peru')}, {D.anio}</span></p></div>{tituloOficial(lang) && tituloOficial(lang) !== docTexto(lang) && <p class="cod" data-aparece lang={lang}>{tituloOficial(lang)}</p>}</div>
     <div class="hero-pie">
       <div class="hero-acc"><p class="rol">{x.rolDoc}</p><a class="btn" href="#sala">{x.verPelicula}</a></div>
